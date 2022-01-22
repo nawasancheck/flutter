@@ -30,11 +30,12 @@ dependencies:
   eva_icons_flutter: ^3.0.2
   custom_navigation_bar: ^0.8.2
   flutter_screenutil: ^5.0.3
-  url_launcher: ^6.0.17
   firebase_core: ^1.11.0
   cloud_firestore: ^3.1.6
   provider: ^6.0.2
   firebase_auth: ^3.3.5
+  flutter_signin_button: ^2.0.0
+  url_launcher: ^6.0.18
 
 dev_dependencies:
   flutter_test:

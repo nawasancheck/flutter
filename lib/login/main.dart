@@ -1,12 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/login/HomePage1.dart';
-import 'package:flutter_app/login/SignInPage.dart';
-import 'package:flutter_app/login/authentication_service.dart';
+import 'package:flutter_app/login/SignUpPage.dart';
 import 'package:provider/provider.dart';
-
-
-import 'package:firebase_core/firebase_core.dart'; // 파이어 베이스 연동
+import 'package:firebase_core/firebase_core.dart';
+import 'HomePage1.dart';
+import 'SignInPage.dart';
+import 'authentication_service.dart'; // 파이어 베이스 연동
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
