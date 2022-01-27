@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/login/SignUpPage.dart';
+import 'package:flutter_app/login/google/google_login.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'HomePage1.dart';
@@ -38,6 +39,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
+
 // 인증 여부에 따라 홈페이지나 로그인 페이지를 반환하기 위함
 class AuthenticationWrapper extends StatelessWidget {
   const AuthenticationWrapper({Key? key}) : super(key: key);
@@ -45,7 +47,7 @@ class AuthenticationWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final firebaseUser = context.watch<User?>();
-    
+
     if(firebaseUser != null) {
       return HomePage1();
     }

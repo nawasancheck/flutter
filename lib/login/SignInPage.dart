@@ -1,15 +1,36 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
 import 'authentication_service.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 
 class SignInPage extends StatelessWidget {
+
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+
+
 
   String userName = '';
   String userEmail = '';
   String userPassword = '';
+
+  Future<String> loginGoogle() async{
+    FirebaseAuth auth = FirebaseAuth.instance;
+    GoogleSignIn googleSignIn = GoogleSignIn();
+
+    GoogleSignInAccount? account = await googleSignIn.signIn();
+    GoogleSignInAuthentication authentication = await account!.authentication;
+
+    // final AuthCredential credential = GoogleAuthProvider.getCredential (
+    //   accessToken: authentication.accessToken,
+    //   idToken: authentication.idToken,
+    // );
+
+    return '';
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,7 +68,9 @@ class SignInPage extends StatelessWidget {
           ),
           SignInButton(
             Buttons.Google,
-            onPressed: () {},
+            onPressed: () {
+              loginGoogle();
+            },
           ),
           Text("or"),
           SignInButton(
