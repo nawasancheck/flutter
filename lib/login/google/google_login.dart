@@ -22,6 +22,17 @@ class LoginWidget extends StatelessWidget {
     return await FirebaseAuth.instance.signInWithCredential(credential);
   }
 
+  // Future<UserCredential> signInWithFacebook() async {
+  //   // Trigger the sign-in flow
+  //   final LoginResult loginResult = await FacebookAuth.instance.login();
+  //
+  //   // Create a credential from the access token
+  //   final OAuthCredential facebookAuthCredential = FacebookAuthProvider.credential(loginResult.accessToken.token);
+  //
+  //   // Once signed in, return the UserCredential
+  //   return FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +45,11 @@ class LoginWidget extends StatelessWidget {
             FlatButton(
                 color: Colors.grey.withOpacity(0.3),
                 onPressed: signInWithGoogle,
-                child: Text("google login"))
+                child: Text("google login")),
+            // FlatButton(
+            //     color: Colors.grey.withOpacity(0.3),
+            //     onPressed: signInWithFacebook,
+            //     child: Text("Facebook login"))
           ],
         ),
       ),
