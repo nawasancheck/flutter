@@ -1,9 +1,21 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/login/google/google_login_home.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-class LoginWidget extends StatelessWidget {
+class LoginWidget extends StatefulWidget {
   const LoginWidget({Key? key}) : super(key: key);
+
+  @override
+  State<LoginWidget> createState() => _LoginWidgetState();
+}
+
+class _LoginWidgetState extends State<LoginWidget> {
+
+  String _email = '';
+  String _password = '';
+
+  final auth = FirebaseAuth.instance;
 
   Future<UserCredential> signInWithGoogle() async {
     // Trigger the authentication flow
@@ -23,16 +35,6 @@ class LoginWidget extends StatelessWidget {
   }
 
   // Future<UserCredential> signInWithFacebook() async {
-  //   // Trigger the sign-in flow
-  //   final LoginResult loginResult = await FacebookAuth.instance.login();
-  //
-  //   // Create a credential from the access token
-  //   final OAuthCredential facebookAuthCredential = FacebookAuthProvider.credential(loginResult.accessToken.token);
-  //
-  //   // Once signed in, return the UserCredential
-  //   return FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,6 +48,35 @@ class LoginWidget extends StatelessWidget {
                 color: Colors.grey.withOpacity(0.3),
                 onPressed: signInWithGoogle,
                 child: Text("google login")),
+
+            TextField(
+              onChanged: (value) {
+                setState(() {
+                  _email = value.trim();
+                });
+              },
+            ),
+            TextField(
+              onChanged: (value) {
+                setState(() {
+                  _password = value.trim();
+                });
+              },
+            ),
+            RaisedButton(
+              child: Text("이메일 로그인"),
+                onPressed: () {
+              auth.signInWithEmailAndPassword(email: _email, password: _password);
+              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Home()));
+            }
+            ),
+            RaisedButton(
+              child: Text("이메일 회원가입"),
+              onPressed: () {
+                auth.createUserWithEmailAndPassword(email: _email, password: _password);
+                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Home()));
+              }
+            )
             // FlatButton(
             //     color: Colors.grey.withOpacity(0.3),
             //     onPressed: signInWithFacebook,
