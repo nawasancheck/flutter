@@ -35,7 +35,6 @@ class _LoginWidgetState extends State<LoginWidget> {
   }
 
   // Future<UserCredential> signInWithFacebook() async {
-<<<<<<< HEAD
   //   // Trigger the sign-in flow
   //   final LoginResult loginResult = await FacebookAuth.instance.login();
   //
@@ -46,8 +45,6 @@ class _LoginWidgetState extends State<LoginWidget> {
   //   return FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
   // }
 
-=======
->>>>>>> 086262d3c8084fb1c17c767f62a7ab7c6729e578
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,9 +58,6 @@ class _LoginWidgetState extends State<LoginWidget> {
                 color: Colors.grey.withOpacity(0.3),
                 onPressed: signInWithGoogle,
                 child: Text("google login")),
-<<<<<<< HEAD
-=======
-
             TextField(
               onChanged: (value) {
                 setState(() {
@@ -92,7 +86,6 @@ class _LoginWidgetState extends State<LoginWidget> {
                 Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Home()));
               }
             )
->>>>>>> 086262d3c8084fb1c17c767f62a7ab7c6729e578
             // FlatButton(
             //     color: Colors.grey.withOpacity(0.3),
             //     onPressed: signInWithFacebook,
