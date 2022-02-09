@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/login/google/google_login_home.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginWidget extends StatefulWidget {
@@ -34,16 +35,16 @@ class _LoginWidgetState extends State<LoginWidget> {
     return await FirebaseAuth.instance.signInWithCredential(credential);
   }
 
-  // Future<UserCredential> signInWithFacebook() async {
-  //   // Trigger the sign-in flow
-  //   final LoginResult loginResult = await FacebookAuth.instance.login();
-  //
-  //   // Create a credential from the access token
-  //   final OAuthCredential facebookAuthCredential = FacebookAuthProvider.credential(loginResult.accessToken.token);
-  //
-  //   // Once signed in, return the UserCredential
-  //   return FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
-  // }
+  Future<UserCredential> signInWithFacebook() async {
+    // Trigger the sign-in flow
+    final LoginResult loginResult = await FacebookAuth.instance.login();
+
+    // Create a credential from the access token
+    final OAuthCredential facebookAuthCredential = FacebookAuthProvider.credential(loginResult.accessToken!.token);
+
+    // Once signed in, return the UserCredential
+    return FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -85,11 +86,11 @@ class _LoginWidgetState extends State<LoginWidget> {
                 auth.createUserWithEmailAndPassword(email: _email, password: _password);
                 Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Home()));
               }
-            )
-            // FlatButton(
-            //     color: Colors.grey.withOpacity(0.3),
-            //     onPressed: signInWithFacebook,
-            //     child: Text("Facebook login"))
+            ),
+            FlatButton(
+                color: Colors.grey.withOpacity(0.3),
+                onPressed: signInWithFacebook,
+                child: Text("Facebook login"))
           ],
         ),
       ),
