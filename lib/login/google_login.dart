@@ -53,71 +53,71 @@ class _LoginWidgetState extends State<LoginWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Google Login"),
-      ),
-      body: Center(
-        child: Column(
-          children: [
-            FlatButton(
-                color: Colors.grey.withOpacity(0.3),
-                onPressed: signInWithGoogle,
-                child: Text("google login")),
-            FlatButton(
-                color: Colors.grey.withOpacity(0.3),
-                onPressed: signInWithFacebook,
-                child: Text("Facebook login")),
-            TextField(
-              onChanged: (value) {
-                setState(() {
-                  _userEmail = value.trim();
-                });
-              },
-            ),
-            TextField(
-              onChanged: (value) {
-                setState(() {
-                  _userPassword = value.trim();
-                });
-              },
-            ),
-            TextField(
-              onChanged: (value) {
-                setState(() {
-                  _userName = value.trim();
-                });
-              },
-            ),
-            RaisedButton(
-                child: Text("이메일 로그인"),
-                onPressed: () {
-                  auth.signInWithEmailAndPassword(
-                      email: _userEmail, password: _userPassword);
-                  Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (context) => Home()));
-                }),
-            RaisedButton(
-                child: Text("이메일 회원가입"),
-                onPressed: () async {
-                  final newUser = await auth.createUserWithEmailAndPassword(
-                      email: _userEmail, password: _userPassword);
+      resizeToAvoidBottomInset : false,
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            children: [
+              FlatButton(
+                  color: Colors.grey.withOpacity(0.3),
+                  onPressed: signInWithGoogle,
+                  child: Text("google login")),
+              FlatButton(
+                  color: Colors.grey.withOpacity(0.3),
+                  onPressed: signInWithFacebook,
+                  child: Text("Facebook login")),
+              TextField(
+                onChanged: (value) {
+                  setState(() {
+                    _userEmail = value.trim();
+                  });
+                },
+              ),
+              TextField(
+                onChanged: (value) {
+                  setState(() {
+                    _userPassword = value.trim();
+                  });
+                },
+              ),
+              TextField(
+                onChanged: (value) {
+                  setState(() {
+                    _userName = value.trim();
+                  });
+                },
+              ),
+              RaisedButton(
+                  child: Text("이메일 로그인"),
+                  onPressed: () {
+                    auth.signInWithEmailAndPassword(
+                        email: _userEmail, password: _userPassword);
+                    Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(builder: (context) => Home()));
+                  }),
+              RaisedButton(
+                  child: Text("이메일 회원가입"),
+                  onPressed: () async {
+                    final newUser = await auth.createUserWithEmailAndPassword(
+                        email: _userEmail, password: _userPassword);
 
-                  // doc(newUser.user!.uid)는 식별자 역할을 한다.
-                  await FirebaseFirestore.instance
-                      .collection('user')
-                      .doc(newUser.user!.uid)
-                      .set({'userName': _userName, 'email': _userEmail});
+                    // doc(newUser.user!.uid)는 식별자 역할을 한다.
+                    await FirebaseFirestore.instance
+                        .collection('user')
+                        .doc(newUser.user!.uid)
+                        .set({'userName': _userName, 'email': _userEmail});
 
-                  await newUser.user!.updateProfile(displayName: _userName);
-                  await newUser.user!.reload();
-                  print(_userName);
-                  print(newUser.user!.displayName);
+                    await newUser.user!.updateProfile(displayName: _userName);
+                    await newUser.user!.reload();
+                    print(_userName);
+                    print(newUser.user!.displayName);
 
-                  Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (context) => Home()));
+                    Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(builder: (context) => Home()));
 
-                }),
-          ],
+                  }),
+            ],
+          ),
         ),
       ),
     );

@@ -16,7 +16,7 @@ class Home extends StatelessWidget {
       ),
       body: StreamBuilder(
         stream: FirebaseAuth.instance.authStateChanges(),
-        builder: (BuildContext context, AsyncSnapshot<User?> snapshot) {
+        builder: (BuildContext context, snapshot) {
           if(!snapshot.hasData) {
             return LoginWidget();
           }
