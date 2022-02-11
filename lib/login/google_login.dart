@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-
+import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'google_login_home.dart';
 
 class LoginWidget extends StatefulWidget {
@@ -58,14 +58,14 @@ class _LoginWidgetState extends State<LoginWidget> {
         child: Center(
           child: Column(
             children: [
-              FlatButton(
-                  color: Colors.grey.withOpacity(0.3),
-                  onPressed: signInWithGoogle,
-                  child: Text("google login")),
-              FlatButton(
-                  color: Colors.grey.withOpacity(0.3),
-                  onPressed: signInWithFacebook,
-                  child: Text("Facebook login")),
+              SignInButton(
+                Buttons.Google,
+                onPressed: signInWithGoogle,
+              ),
+              SignInButton(
+                Buttons.Facebook,
+                onPressed: signInWithFacebook,
+              ),
               TextField(
                 onChanged: (value) {
                   setState(() {
