@@ -11,7 +11,6 @@ class ManagerChatListPage extends StatefulWidget {
 }
 
 class _ChatListPageState extends State<ManagerChatListPage> {
-
   int num = 0;
   final user = FirebaseAuth.instance.currentUser;
 
@@ -20,14 +19,18 @@ class _ChatListPageState extends State<ManagerChatListPage> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-            icon: Icon(Icons.arrow_back, color: Colors.black),
-            onPressed: () async => {await FirebaseAuth.instance.signOut()},
-          ),
-        title: Text(user!.uid + "Manager Chat Page" ),
+          icon: Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () async => {await FirebaseAuth.instance.signOut()},
+        ),
+        title: Text(user!.uid + "Manager Chat Page"),
       ),
       body: Container(
         child: StreamBuilder(
-          stream: FirebaseFirestore.instance.collection('chat_test').doc(user!.uid).collection('chat_user_num').snapshots(),
+          stream: FirebaseFirestore.instance
+              .collection('chat_test')
+              .doc(user!.uid)
+              .collection('chat_user_num')
+              .snapshots(),
           builder: (context,
               AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
@@ -35,22 +38,22 @@ class _ChatListPageState extends State<ManagerChatListPage> {
                 child: CircularProgressIndicator(),
               );
             } else {
-
               num = snapshot.data!.docs.length;
               print(num);
-              print(snapshot.data!.docs[0]['user']);
+              print(snapshot.data?.docs[0]['user']);
 
               return ListView.builder(
                 padding: EdgeInsets.all(10.0),
                 itemBuilder: (context, index) => TextButton(
-                    onPressed: () {Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => ChatScreen(
-                                snapshot.data!.docs[index]['user'])));
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ChatScreen(
+                                  snapshot.data!.docs[index]['user'],
+                                  snapshot.data!.docs[index]['userName'])));
                     },
-                    child: Text('s')),
-
+                    child: Text(snapshot.data!.docs[index]['userName'])),
                 itemCount: num,
               );
             }
@@ -60,4 +63,3 @@ class _ChatListPageState extends State<ManagerChatListPage> {
     );
   }
 }
-

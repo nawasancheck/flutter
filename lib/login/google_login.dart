@@ -88,7 +88,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                 },
               ),
               RaisedButton(
-                  child: Text("이메일 로그인2"),
+                  child: Text("이메일 로그인"),
                   onPressed: () {
                     auth.signInWithEmailAndPassword(
                         email: _userEmail, password: _userPassword);
@@ -105,7 +105,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                     await FirebaseFirestore.instance
                         .collection('user')
                         .doc(newUser.user!.uid)
-                        .set({'userName': _userName, 'email': _userEmail, 'hashCode': hashCode});
+                        .set({'userName': _userName, 'email': _userEmail, 'role': 'client', 'userId': newUser.user!.uid});
 
                     await newUser.user!.updateProfile(displayName: _userName);
                     await newUser.user!.reload();

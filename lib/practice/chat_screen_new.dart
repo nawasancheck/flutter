@@ -1,16 +1,14 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_app/practice/message.dart';
 import 'package:flutter_app/practice/new_message.dart';
 
 class ChatScreen extends StatefulWidget {
-
   final String hostName;
+  final String hostNickName;
 
-  const ChatScreen(this.hostName,{Key? key})
+  const ChatScreen(this.hostName, this.hostNickName, {Key? key})
       : super(key: key);
-
 
   @override
   _ChatScreenState createState() => _ChatScreenState();
@@ -40,12 +38,11 @@ class _ChatScreenState extends State<ChatScreen> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("widget.chatName"),
+        title: Text(widget.hostNickName),
         actions: [
           IconButton(
             icon: Icon(
@@ -63,34 +60,10 @@ class _ChatScreenState extends State<ChatScreen> {
         child: Column(
           children: [
             Expanded(child: Messages(widget.hostName)),
-            NewMessage(widget.hostName),
+            NewMessage(widget.hostName, widget.hostNickName),
           ],
         ),
       ),
     );
   }
 }
-//   void userUIDCorrent() {
-//     final currentUser = FirebaseAuth.instance.currentUser;
-//
-//     StreamBuilder(
-//         stream: FirebaseFirestore.instance.collection("chats").snapshots(),
-//     builder: (context,
-//     AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
-//       if(snapshot.connectionState == ConnectionState.waiting) {
-//         return Center(
-//           child: CircularProgressIndicator(),
-//         );
-//       }
-//       else if(!snapshot.hasData) {
-//         return Test();
-//       }
-//
-//
-//     });
-//   }
-//
-//
-//
-// class Test {
-// }

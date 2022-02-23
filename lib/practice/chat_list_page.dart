@@ -18,8 +18,8 @@ class _ChatListPageState extends State<ChatListPage> {
       ),
       body: Container(
         child: StreamBuilder(
-          // stream: FirebaseFirestore.instance.collection('user').doc('nQXwYp7BXnN4McLLw7nXKCEfWE52').collection('chat_user').snapshots(),
-          stream: FirebaseFirestore.instance.collection('user')
+          stream: FirebaseFirestore.instance
+              .collection('user')
               .where('role', isEqualTo: 'manager')
               .snapshots(),
           builder: (context,
@@ -37,9 +37,10 @@ class _ChatListPageState extends State<ChatListPage> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => ChatScreen(
-                                  snapshot.data!.docs[index]['userId'])));
+                                  snapshot.data!.docs[index]['userId'],
+                                  snapshot.data!.docs[index]['userName'])));
                     },
-                    child: Text(snapshot.data!.docs[index]['userId'])),
+                    child: Text(snapshot.data!.docs[index]['userName'])),
                 itemCount: snapshot.data!.docs.length,
               );
             }
