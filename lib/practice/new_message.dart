@@ -7,7 +7,10 @@ import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
 class NewMessage extends StatefulWidget {
-  const NewMessage({Key? key}) : super(key: key);
+
+  final String hostName;
+
+  const NewMessage(this.hostName, {Key? key}) : super(key: key);
 
   @override
   _NewMessageState createState() => _NewMessageState();
@@ -17,25 +20,45 @@ class _NewMessageState extends State<NewMessage> {
   final _controller = TextEditingController();
   var _userEnterMessage = '';
 
-  void _sendMessage() {
 
+  void _sendMessage() {
     final currentUser = FirebaseAuth.instance.currentUser;
 
-    FirebaseFirestore.instance.collection("chat").add({
+    createList();
+
+    FirebaseFirestore.instance.collection("chat_test").doc(currentUser!.uid).collection(widget.hostName).add({
       'text' : _userEnterMessage,
       'time' : Timestamp.now(),
-      'userID' : currentUser!.uid,
+      'sendID' : currentUser.uid,
+      'receiverID' : widget.hostName,
+    }).then((_) => print('Success1')).catchError((error) => print('Failed: $error'));
+
+    FirebaseFirestore.instance.collection("chat_test").doc(widget.hostName).collection(currentUser.uid).add({
+      'text' : _userEnterMessage,
+      'time' : Timestamp.now(),
+      'sendID' : currentUser.uid,
+      'receiverID' : widget.hostName,
     });
-    FirebaseFirestore.instance
-        .collection('user')
-        .doc(currentUser.uid)
-        .collection('chat_user')
-        .add({
-      'username': currentUser.displayName,
-      'userId': currentUser.uid
-    });
-    print(currentUser.uid);
+
+
     _controller.clear();
+  }
+
+  void createList() {
+    final currentUser = FirebaseAuth.instance.currentUser;
+
+    FirebaseFirestore.instance.collection("chat_test").doc(currentUser!.uid).collection(widget.hostName).get()
+        .then((docsSnapshot) => {if(docsSnapshot.size==0)
+          print('size = 0')
+        else {
+        FirebaseFirestore.instance.collection("chat_test").doc(currentUser.uid).collection('chat_user_num').doc(widget.hostName).set({
+        'user': widget.hostName
+    }),
+        FirebaseFirestore.instance.collection("chat_test").doc(widget.hostName).collection('chat_user_num').doc(currentUser.uid).set({
+          'user': currentUser.uid
+        })
+      }});
+
   }
 
   void _sendImage(String text, String type) {
@@ -60,6 +83,7 @@ class _NewMessageState extends State<NewMessage> {
       uploadFile(path);
     }
   }
+
 
   Future uploadFile(String path) async {
     String fileName = DateTime.now().microsecondsSinceEpoch.toString();

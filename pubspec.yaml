@@ -38,6 +38,8 @@ dependencies:
   url_launcher: ^6.0.18
   google_sign_in: ^5.2.3
   flutter_facebook_auth: ^4.0.1
+  image_picker: ^0.8.4+8
+  firebase_storage: ^10.2.7
 
 dev_dependencies:
   flutter_test:
