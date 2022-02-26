@@ -20,7 +20,7 @@ class Home extends StatelessWidget {
             return LoginWidget();
           }
           else {
-            return ChatListPage();
+            return ManagerChatListPage();
           }
         },
       )

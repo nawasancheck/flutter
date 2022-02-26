@@ -15,6 +15,7 @@ class LoginWidget extends StatefulWidget {
 
 class _LoginWidgetState extends State<LoginWidget> {
   String _userEmail = '';
+  String _resetUserEmail = '';
   String _userPassword = '';
   String _userName = '';
 
@@ -87,6 +88,13 @@ class _LoginWidgetState extends State<LoginWidget> {
                   });
                 },
               ),
+              TextField(
+                onChanged: (value) {
+                  setState(() {
+                    _resetUserEmail = value.trim();
+                  });
+                },
+              ),
               RaisedButton(
                   child: Text("이메일 로그인"),
                   onPressed: () {
@@ -116,6 +124,13 @@ class _LoginWidgetState extends State<LoginWidget> {
                         MaterialPageRoute(builder: (context) => Home()));
 
                   }),
+              RaisedButton(
+                  child: Text("비밀번호 재설정"),
+                  onPressed: () async {
+                    await auth.setLanguageCode("ko");
+                    auth.sendPasswordResetEmail(email: _resetUserEmail);
+                    })
+                  ,
             ],
           ),
         ),
