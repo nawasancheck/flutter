@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart';
@@ -27,7 +27,7 @@ class _LocationDataState extends State<LocationData> {
     print(position);
 
     Response response = await get(
-        Uri.parse("https://naveropenapi.apigw.ntruss.com/map-reversegeocode/v2/gc?request=coordsToaddr&coords=129.1133567,35.2982640&sourcecrs=epsg:4326&output=json"),
+        Uri.parse("https://naveropenapi.apigw.ntruss.com/map-reversegeocode/v2/gc?request=coordsToaddr&coords=-122.0840352,37.4220094&sourcecrs=epsg:4326&output=json"),
         headers: headerss);
 
     String jsonData = response.body;
@@ -42,23 +42,35 @@ class _LocationDataState extends State<LocationData> {
   }
 
   void getLocation() async{
-    LocationPermission permission = await Geolocator.requestPermission();
-    Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-    print('hello');
-    print(position);
+    try {
+      LocationPermission permission = await Geolocator.requestPermission();
+      Position position = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.high);
+      print(position);
+    }
+    catch (e){
+      print('error');
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: RaisedButton(
-          onPressed: () {
-            fetchData();
-          },
-          child: Text('Get my location'),
+      body: Row(
+        children: [
+          RaisedButton(
+            onPressed: () {
+              fetchData();
+            },
+            child: Text('Get my location')),
+
+          RaisedButton(
+            onPressed: () async{
+              await FirebaseAuth.instance.signOut();
+            },
+            child: Text('logout')),
+        ]
         ),
-      ),
-    );
+      );
   }
 }
