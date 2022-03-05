@@ -40,6 +40,10 @@ dependencies:
   flutter_facebook_auth: ^4.0.1
   image_picker: ^0.8.4+8
   firebase_storage: ^10.2.7
+  in_app_purchase: ^3.0.0
+  geolocator: ^8.2.0
+  naver_map_plugin: ^0.9.6
+  http: ^0.13.4
 
 dev_dependencies:
   flutter_test:
