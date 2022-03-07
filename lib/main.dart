@@ -1,38 +1,39 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_app/screens/managerList.dart';
-import 'package:flutter_app/screens/homePage.dart';
-import 'package:flutter_app/screens/howToUse.dart';
-import 'package:flutter_app/dummy/dummy1.dart'; //                    나중에 지워도 됨 dummy
-import 'package:flutter_app/screens/customerReview.dart';
-import 'package:flutter_app/manager/manager_list_detail.dart';
-import 'package:flutter_app/manager/manager_info.dart';
-
-import 'package:url_launcher/url_launcher.dart'; //                   Url 연결 페키지
 import 'package:eva_icons_flutter/eva_icons_flutter.dart'; //         Icon 디자인 패키지
-import 'package:custom_navigation_bar/custom_navigation_bar.dart'; // Navigation bar 디자인 패키지
-import 'package:flutter_screenutil/flutter_screenutil.dart'; //       적응형 화면 비율 유지 패키지
-
-import 'package:firebase_core/firebase_core.dart'; // 파이어 베이스 연동
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_app/screens/auth/sign_In.dart';
+import 'package:flutter_app/screens/chatting/chat_list.dart';
+import 'package:flutter_app/screens/wish_list/wish_list.dart';
+import 'package:flutter_app/screens/my_profile/profile.dart';
+import 'package:flutter_app/screens/reservation/schedule.dart';
+import 'package:flutter_app/screens/manager/manager_list.dart';
+import 'package:flutter_app/screens/auth/sign_up.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
-  Firebase.initializeApp();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    //                                                                ScreenUtilInit: 적응형 화면 비율 유지
     return ScreenUtilInit(
-        designSize: Size(360, 690),
+        designSize: Size(428, 926),
         minTextAdapt: true,
         builder: () => MaterialApp(
-              //                                                      builder까지 필수 선언
+              initialRoute: '/',
+              routes: {
+                '/': (context) => const SignIn(),
+                '/signup': (context) => const SignUp(),
+                '/home': (context) => HomePage(),
+                '/chat' : (context) => Chat(),
+              },
               title: '동행',
-              theme: ThemeData(primaryColor: Color(0xff51A7CA)), //   메인 컬러 하늘색?
+              theme: ThemeData(primaryColor: Color(0xff0082af)),
               debugShowCheckedModeBanner: false,
-              home: HomePage(),
             ));
   }
 }
@@ -42,89 +43,67 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-//                                                                    NavigationBar에 페이지 연결
 class _HomePageState extends State<HomePage> {
-  var _index = 0;
-  var _pages = [
-    Home(),
-    ListPage(),
-    HowToUse(),
-    Case(),
-    Board(),
-  ];
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      //                                                              AppBar
-      appBar: AppBar(
-        elevation: 30,
-        centerTitle: true,
-        title: Text(
-          'Nawa',
-          style: TextStyle(
-              color: Colors.white,
-              fontSize: 30,
-              fontWeight: FontWeight.bold,
-              fontFamily: 'Cafe'),
-        ),
-      ),
-
-      body: _pages[
-          _index], //                                                 Body: NavigationBar를 통해 화면이 표현되는곳
-      bottomNavigationBar: CustomNavigationBar(
-        onTap: (index) {
-          setState(() {
-            _index = index;
-          });
-        },
-        currentIndex: _index,
-        iconSize: 20.0,
-        elevation: 30,
-        backgroundColor: Color(0xff51A7CA),
-        selectedColor: Color(0xff040307),
-        strokeColor: Color(0xff51A7CA),
-        unSelectedColor: Colors.white,
-        //borderRadius: Radius.circular(40.0),                        NavigationBar 곡률 없애는게 나을듯
-        items: <CustomNavigationBarItem>[
-          //                                                          NavigationBar 항목 5개
-          CustomNavigationBarItem(
-            title: Text('홈',
-                style: TextStyle(
-                  color: Colors.black,
-                )),
-            icon: Icon(EvaIcons.home),
+    return CupertinoTabScaffold(                            // CupertinoTapScaffold : ios 디자인
+      tabBar: CupertinoTabBar(                              // BottomNavigationBar
+        activeColor: Color(0xff0082af),
+        inactiveColor: Colors.black,
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home_outlined),
+            label: "홈"
           ),
-          CustomNavigationBarItem(
-            title: Text('매니저 찾기',
-                style: TextStyle(
-                  color: Colors.black,
-                )),
-            icon: Icon(EvaIcons.people),
+          BottomNavigationBarItem(
+            icon: Icon(EvaIcons.heartOutline),
+              label: "찜"
           ),
-          CustomNavigationBarItem(
-            title: Text('이용방법',
-                style: TextStyle(
-                  color: Colors.black,
-                )),
-            icon: Icon(EvaIcons.questionMark),
+          BottomNavigationBarItem(
+            icon: Icon(EvaIcons.messageSquareOutline),
+              label: "메세지"
           ),
-          CustomNavigationBarItem(
-            title: Text('이용사례',
-                style: TextStyle(
-                  color: Colors.black,
-                )),
-            icon: Icon(EvaIcons.smilingFace),
+          BottomNavigationBarItem(
+            icon: Icon(EvaIcons.clockOutline),
+              label: "나의예약"
           ),
-          CustomNavigationBarItem(
-            title: Text('게시판',
-                style: TextStyle(
-                  color: Colors.black,
-                )),
-            icon: Icon(EvaIcons.settings),
+          BottomNavigationBarItem(
+            icon: Icon(EvaIcons.personOutline),
+              label: "내프로필"
           ),
         ],
       ),
+      tabBuilder: (context, index) {
+        switch (index) {
+          case 0:
+            return CupertinoTabView(builder: (context) {
+              return CupertinoPageScaffold(child: ListPage());
+            });
+            break;
+          case 1:
+            return CupertinoTabView(builder: (context) {
+              return CupertinoPageScaffold(child: WishList());
+            });
+            break;
+          case 2:
+            return CupertinoTabView(builder: (context) {
+              return CupertinoPageScaffold(child: Chat());
+            });
+            break;
+          case 3:
+            return CupertinoTabView(builder: (context) {
+              return CupertinoPageScaffold(child: Schedule());
+            });
+            break;
+          case 4:
+            return CupertinoTabView(builder: (context) {
+              return CupertinoPageScaffold(child: Profile());
+            });
+            break;
+          default:
+            return const CupertinoTabView();
+        }
+      },
     );
   }
 }
