@@ -26,7 +26,7 @@ class _WishListState extends State<WishList> {
             itemExtent: 180,
             itemCount: wishCounter.num,
             itemBuilder: (context, index) {
-                Walker walker = walkerlist[resultSet.toList()[index]];
+                Manager manager = Manager.managerList[resultSet.toList()[index]];
                 return Card(
 //          color: Colors.yellow,
 //
@@ -35,7 +35,7 @@ class _WishListState extends State<WishList> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => WalkerDetailPage(walker, '', '')));
+                                    builder: (context) => ManagerDetailPage(manager, '', '')));
                         },
                         child: Container(
 //              color: Colors.green,
@@ -45,7 +45,7 @@ class _WishListState extends State<WishList> {
                                     Container(
                                         decoration: ShapeDecoration(
                                             image: DecorationImage(
-                                                image: AssetImage(walker.imageUrl),
+                                                image: AssetImage(manager.imageUrl),
                                                 fit: BoxFit.cover),
                                             shape: RoundedRectangleBorder(
                                                 borderRadius:
@@ -72,7 +72,7 @@ class _WishListState extends State<WishList> {
                                                 Row(
                                                     children: [
                                                         Text(
-                                                            " " + walker.title,
+                                                            " " + manager.title,
                                                             style: TextStyle(
                                                                 fontSize: 25.sp,
                                                                 fontWeight: FontWeight.bold),
@@ -100,7 +100,7 @@ class _WishListState extends State<WishList> {
                                                                                         size: 20.sp,
                                                                                     ),
                                                                                     Text(
-                                                                                        walker.star
+                                                                                        manager.star
                                                                                             .toStringAsFixed(1),
                                                                                         style: TextStyle(
                                                                                             fontSize: 20.sp,
@@ -117,11 +117,11 @@ class _WishListState extends State<WishList> {
                                                 ),
                                                 Row(
                                                     children: [
-                                                        Text("  " + walker.area.toString() + "  -",
+                                                        Text("  " + manager.area.toString() + "  -",
                                                             style: TextStyle(
                                                                 fontSize: 15.sp,
                                                                 color: Color(0xff6b6b6b))),
-                                                        Text(" " + walker.year.toString() + "대",
+                                                        Text(" " + manager.year.toString() + "대",
                                                             style: TextStyle(
                                                                 fontSize: 15.sp,
                                                                 color: Color(0xff6b6b6b))),
@@ -129,7 +129,7 @@ class _WishListState extends State<WishList> {
                                                 ),
                                                 Row(
                                                     children: [
-                                                        Text("  " + "관심분야 -" + walker.like,
+                                                        Text("  " + "관심분야 -" + manager.like,
                                                             style: TextStyle(
                                                                 fontSize: 15.sp,
                                                                 fontWeight: FontWeight.bold,
@@ -140,7 +140,7 @@ class _WishListState extends State<WishList> {
                                                     children: [
                                                         Text(
                                                             "  " +
-                                                                walker.description.substring(0, 20) +
+                                                                manager.description.substring(0, 20) +
                                                                 ".....",
                                                             style: TextStyle(
                                                                 fontSize: 15.sp,
@@ -152,7 +152,7 @@ class _WishListState extends State<WishList> {
                                                         Text(
                                                             "  " +
                                                                 "60분 " +
-                                                                walker.price1.toString() +
+                                                                manager.price1.toString() +
                                                                 " P",
                                                             style: TextStyle(
                                                                 fontSize: 20.sp,
@@ -174,21 +174,21 @@ class _WishListState extends State<WishList> {
                                                                 mainAxisAlignment: MainAxisAlignment.end,
                                                                 children: [
                                                                     Text(
-                                                                        walker.isPressed
-                                                                            ? "${walker.heart + 1}"
-                                                                            : "${walker.heart}",
+                                                                        manager.isPressed
+                                                                            ? "${manager.heart + 1}"
+                                                                            : "${manager.heart}",
                                                                         style: TextStyle(
                                                                             color: Color(0xff878787)),
                                                                     ),
                                                                     IconButton(
                                                                         iconSize: 25.sp,
-                                                                        icon: walker.isPressed
+                                                                        icon: manager.isPressed
                                                                             ? Icon(EvaIcons.heart)
                                                                             : Icon(
                                                                             EvaIcons.heartOutline,
                                                                             color: Color(0xff878787),
                                                                         ),
-                                                                        color: walker.isPressed
+                                                                        color: manager.isPressed
                                                                             ? Colors.red[500]
                                                                             : Colors.red[500],
                                                                         onPressed: () {},

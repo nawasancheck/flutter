@@ -74,7 +74,7 @@ class _ChatState extends State<Chat> {
                                   itemExtent: 90.sp,
                                   itemCount: num,
                                   itemBuilder: (context, index) {
-                                    Walker walker = walkerlist[index];
+                                    Manager walker = Manager.managerList[index];
                                     return Card(
                                       child: InkWell(
                                         //     splashColor: Colors.yellow,

@@ -13,10 +13,8 @@ class WishCounter{
     num++;
   }
 }
-
-var resultSet = <int>{};
-
 WishCounter wishCounter = WishCounter();
+var resultSet = <int>{};
 
 class ListPage extends StatefulWidget {
   const ListPage({Key? key}) : super(key: key);
@@ -97,9 +95,9 @@ class _ListPageState extends State<ListPage> {
             tooltip: 'Search people',
             onPressed: () => showSearch(
               context: context,
-              delegate: SearchPage<Walker>(
+              delegate: SearchPage<Manager>(
                 onQueryUpdate: (s) => print(s),
-                items: walkerlist,
+                items: Manager.managerList,
                 searchLabel: 'Search people',
                 suggestion: Center(
                   child: Text('Filter people by name, surname or age'),
@@ -120,7 +118,7 @@ class _ListPageState extends State<ListPage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => WalkerDetailPage(walkerlist, '', '')));
+                              builder: (context) => ManagerDetailPage(walkerlist, '', '')));
                     },
                     child: Container(
                       //              color: Colors.green,
@@ -300,11 +298,6 @@ class _ListPageState extends State<ListPage> {
                             height: ScreenUtil().setHeight(130),
                           ),
 
-                          /*   Container(
-                            width: ScreenUtil().setWidth(50),
-                            height: ScreenUtil().setHeight(100),
-                  //          color: Colors.blue,
-                              child: Icon(Icons.arrow_forward_ios_rounded)), //화살표*/
                         ],
                       ),
                       //      사진
@@ -348,7 +341,7 @@ class _ListPageState extends State<ListPage> {
                 // itemCount: walkerlist.length,
                 itemCount: docs.length,
                 itemBuilder: (context, index) {
-                  Walker walker = walkerlist[index];
+                  Manager manager = Manager.managerList[index];
                   var isPressed = docs[index]['managerProfile']['isPressedList']['${_user!.uid}'];
                   if(docs[index]['managerProfile']['isPressedList']['${_user!.uid}'] == null) {
                     isPressed = false;
@@ -362,7 +355,7 @@ class _ListPageState extends State<ListPage> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => WalkerDetailPage(walker, docs[index]['userId'],  docs[index]['userName'])));
+                                builder: (context) => ManagerDetailPage(manager, docs[index]['userId'],  docs[index]['userName'])));
                       },
                       child: Container(
                         //              color: Colors.green,
@@ -426,7 +419,7 @@ class _ListPageState extends State<ListPage> {
                                                       color: Colors.yellow,
                                                       size: 20.sp,
                                                     ),
-                                                    Text(walker.star.toStringAsFixed(1),
+                                                    Text(manager.star.toStringAsFixed(1),
                                                       style: TextStyle(
                                                           fontSize: 20.sp,
                                                           color:
