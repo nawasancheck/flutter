@@ -342,8 +342,8 @@ class _ListPageState extends State<ListPage> {
                 itemCount: docs.length,
                 itemBuilder: (context, index) {
                   Manager manager = Manager.managerList[index];
-                  var isPressed = docs[index]['managerProfile']['isPressedList']['${_user!.uid}'];
-                  if(docs[index]['managerProfile']['isPressedList']['${_user!.uid}'] == null) {
+                  var isPressed = docs[index]['profile']['isPressedList']['${_user!.uid}'];
+                  if(docs[index]['profile']['isPressedList']['${_user!.uid}'] == null) {
                     isPressed = false;
                   }
 
@@ -355,7 +355,7 @@ class _ListPageState extends State<ListPage> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => ManagerDetailPage(manager, docs[index]['userId'],  docs[index]['userName'])));
+                                builder: (context) => ManagerDetailPage(manager, docs[index]['userUID'], docs[index]['profile']['title'])));
                       },
                       child: Container(
                         //              color: Colors.green,
@@ -365,7 +365,7 @@ class _ListPageState extends State<ListPage> {
                             Container(
                               decoration: ShapeDecoration(
                                   image: DecorationImage(
-                                      image: AssetImage(docs[index]['managerProfile']['imageUrl']),
+                                      image: AssetImage(docs[index]['profile']['imageUrl']),
                                       fit: BoxFit.cover),
                                   shape: RoundedRectangleBorder(
                                       borderRadius:
@@ -392,7 +392,7 @@ class _ListPageState extends State<ListPage> {
                                   Row(
                                     children: [
                                       Text(
-                                        " " + docs[index]['managerProfile']['title'],
+                                        " " + docs[index]['profile']['title'],
                                         style: TextStyle(
                                             fontSize: 25.sp,
                                             fontWeight: FontWeight.bold),
@@ -436,11 +436,11 @@ class _ListPageState extends State<ListPage> {
                                   ),
                                   Row(
                                     children: [
-                                      Text(" ${docs[index]['managerProfile']['area']} - ",
+                                      Text(" ${docs[index]['profile']['area']} - ",
                                           style: TextStyle(
                                               fontSize: 15.sp,
                                               color: Color(0xff6b6b6b))),
-                                      Text(" ${docs[index]['managerProfile']['year']}대",
+                                      Text(" ${docs[index]['profile']['year']}대",
                                           style: TextStyle(
                                               fontSize: 15.sp,
                                               color: Color(0xff6b6b6b))),
@@ -448,7 +448,7 @@ class _ListPageState extends State<ListPage> {
                                   ),
                                   Row(
                                     children: [
-                                      Text(" " + items[2]+ " 관심분야 - ${docs[index]['managerProfile']['like']}",
+                                      Text(" " + items[2]+ " 관심분야 - ${docs[index]['profile']['like']}",
                                           style: TextStyle(
                                               fontSize: 15.sp,
                                               fontWeight: FontWeight.bold,
@@ -458,7 +458,7 @@ class _ListPageState extends State<ListPage> {
                                   Row(
                                     children: [
                                       Text(
-                                          " ${docs[index]['managerProfile']['description'].substring(0, 23)}...",
+                                          " ${docs[index]['profile']['description'].substring(0, 23)}...",
                                           style: TextStyle(
                                               fontSize: 15.sp,
                                               color: Color(0xff878787))),
@@ -468,7 +468,7 @@ class _ListPageState extends State<ListPage> {
                                     children: [
                                       Text(
                                           "  " +
-                                              "60분 ${docs[index]['managerProfile']['price1']} P",
+                                              "60분 ${docs[index]['profile']['price1']} P",
                                           style: TextStyle(
                                               fontSize: 20.sp,
                                               fontWeight: FontWeight.bold)),
@@ -490,7 +490,7 @@ class _ListPageState extends State<ListPage> {
                                           MainAxisAlignment.end,
                                           children: [
                                             Text(
-                                              '${docs[index]['managerProfile']['heart']}',
+                                              '${docs[index]['profile']['heart']}',
                                               style: TextStyle(
                                                   color: Color(0xff878787)),
                                             ),
@@ -506,18 +506,18 @@ class _ListPageState extends State<ListPage> {
                                                 isPressed ?
                                                 FirebaseFirestore.instance
                                                     .collection('user')
-                                                    .doc(docs[index]['userId'])
+                                                    .doc(docs[index]['userUID'])
                                                     .update({
-                                                  'managerProfile.heart' : docs[index]['managerProfile']['heart'] - 1,
-                                                  'managerProfile.isPressedList.${_user!.uid}' : false
+                                                  'profile.heart' : docs[index]['profile']['heart'] - 1,
+                                                  'profile.isPressedList.${_user!.uid}' : false
                                                 })
                                                 :
                                                 FirebaseFirestore.instance
                                                     .collection('user')
-                                                    .doc(docs[index]['userId'])
+                                                    .doc(docs[index]['userUID'])
                                                     .update({
-                                                  'managerProfile.heart' : docs[index]['managerProfile']['heart'] + 1,
-                                                  'managerProfile.isPressedList.${_user!.uid}' : true
+                                                  'profile.heart' : docs[index]['profile']['heart'] + 1,
+                                                  'profile.isPressedList.${_user!.uid}' : true
                                                 });
                                               },
                                             ),
@@ -535,12 +535,6 @@ class _ListPageState extends State<ListPage> {
                               width: ScreenUtil().setWidth(5),
                               height: ScreenUtil().setHeight(130),
                             ),
-
-                            /*   Container(
-                                  width: ScreenUtil().setWidth(50),
-                                  height: ScreenUtil().setHeight(100),
-                        //          color: Colors.blue,
-                                    child: Icon(Icons.arrow_forward_ios_rounded)), //화살표*/
                           ],
                         ),
                         //      사진

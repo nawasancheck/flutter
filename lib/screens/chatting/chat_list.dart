@@ -6,14 +6,14 @@ import 'package:flutter_app/manager/manager_info.dart';
 import 'package:flutter_app/screens/chatting/in_chat_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class Chat extends StatefulWidget {
-  const Chat({Key? key}) : super(key: key);
+class ChatList extends StatefulWidget {
+  const ChatList({Key? key}) : super(key: key);
 
   @override
   _ChatState createState() => _ChatState();
 }
 
-class _ChatState extends State<Chat> {
+class _ChatState extends State<ChatList> {
   int num = 0;
   final _user = FirebaseAuth.instance.currentUser;
 
@@ -48,7 +48,7 @@ class _ChatState extends State<Chat> {
                   child: Card(
                       child: StreamBuilder(
                           stream: FirebaseFirestore.instance
-                              .collection('chat_test')
+                              .collection('chat')
                               .doc(_user!.uid)
                               .collection('chat_user_num')
                               .snapshots(),
@@ -66,7 +66,7 @@ class _ChatState extends State<Chat> {
                               if (num == 0) {
                                 num = 0;
                               } else {
-                                num = snapshot.data!.docs.length - 1;
+                                num = snapshot.data!.docs.length;
                               }
 
                               return ListView.builder(
@@ -85,12 +85,7 @@ class _ChatState extends State<Chat> {
                                                   rootNavigator: true)
                                               .push(MaterialPageRoute(
                                                   builder: (_) =>
-                                                      ChatScreen('${snapshot.data?.docs[0]['user']}', '${snapshot.data?.docs[0]['userName']}')));
-                                          // 기존 네비푸시
-                                          //
-                                          //Navigator.push(
-                                          //    context,
-                                          //    MaterialPageRoute(builder: (context) => InChat(walker)));
+                                                      ChatScreen('${snapshot.data?.docs[index]['userUID']}', '${snapshot.data?.docs[index]['userName']}')));
                                         },
 
                                         child: Container(
