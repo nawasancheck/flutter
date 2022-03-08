@@ -6,8 +6,9 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 
 class InChat extends StatelessWidget {
 
-  final Walker walker;
-  InChat(this.walker);
+  final Manager manager;
+
+  InChat(this.manager);
 
   void callEmoji() {
     print('Emoji Icon Pressed...');
@@ -99,7 +100,7 @@ class InChat extends StatelessWidget {
                       height: ScreenUtil().setHeight(65),
                         decoration: BoxDecoration(
                             image: DecorationImage(
-                                image: AssetImage(walker.imageUrl),
+                                image: AssetImage(manager.imageUrl),
                                 fit: BoxFit.cover,
                             scale: 51),
                             shape: BoxShape.circle,
@@ -121,14 +122,14 @@ class InChat extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Text(walker.title,
+                            Text(manager.title,
                             style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.bold, color: Color(0xff374856)),),
                           ],
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Text(walker.area,
+                            Text(manager.area,
                               style: TextStyle(fontSize: 15.sp,color: Color(0xff8fa2ae)),),
                           ],
                         )

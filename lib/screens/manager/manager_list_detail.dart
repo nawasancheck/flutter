@@ -6,13 +6,13 @@ import 'package:carousel_slider/carousel_slider.dart';
 
 // *Manager_list_detail Page: 매니저 리스트에서 해당 매니저 클릭시 나오는 상세 페이지*
 
-class WalkerDetailPage extends StatelessWidget {
+class ManagerDetailPage extends StatelessWidget {
 
-  final Walker walker;
+  final Manager manager;
   final String opponentUid;
   final String opponentNickName;
 
-  WalkerDetailPage(this.walker, this.opponentUid, this.opponentNickName);
+  ManagerDetailPage(this.manager, this.opponentUid, this.opponentNickName);
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class WalkerDetailPage extends StatelessWidget {
             height: ScreenUtil().setHeight(240),
             decoration:
                 BoxDecoration(border: Border.all(color: Colors.white)),
-            child: Image.asset(walker.imageUrl)),//
+            child: Image.asset(manager.imageUrl)),//
         
         Container(
           height: ScreenUtil().setHeight(10),
@@ -50,14 +50,14 @@ class WalkerDetailPage extends StatelessWidget {
           child: Column(
             children: [
               Text(
-                walker.name,
+                manager.name,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     fontSize: 20.sp,
                     fontWeight: FontWeight.bold),
               ),
               Text(
-                walker.year.toString()+"대\n"+walker.area.toString(),
+                manager.year.toString()+"대\n"+manager.area.toString(),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     fontSize: 16.sp,
@@ -103,7 +103,7 @@ class WalkerDetailPage extends StatelessWidget {
                   height: ScreenUtil().setHeight(20),
                 ),
                 Text(
-                  walker
+                  manager
                       .description, //                                인사말, 자기소개 description
                   textAlign: TextAlign.justify,
                   style: TextStyle(fontSize: 16.sp),
@@ -286,7 +286,7 @@ class WalkerDetailPage extends StatelessWidget {
                   children: [
 
                     Text(
-                      walker.distance1.toString(), //                   거리
+                      manager.distance1.toString(), //                   거리
                       textAlign: TextAlign.justify,
                       style: TextStyle(fontSize: 15.sp),
                     ),
@@ -303,7 +303,7 @@ class WalkerDetailPage extends StatelessWidget {
                     ),
 
                     Text(
-                      walker.price1.toString(), //                      30분 단위 금액
+                      manager.price1.toString(), //                      30분 단위 금액
                       textAlign: TextAlign.justify,
                       style: TextStyle(fontSize: 15.sp),
                     ),
@@ -321,7 +321,7 @@ class WalkerDetailPage extends StatelessWidget {
                   children: [
 
                     Text(
-                      walker.distance2.toString(), //                   거리
+                      manager.distance2.toString(), //                   거리
                       textAlign: TextAlign.justify,
                       style: TextStyle(fontSize: 15.sp),
                     ),
@@ -338,7 +338,7 @@ class WalkerDetailPage extends StatelessWidget {
                     ),
 
                     Text(
-                      walker.price2.toString(),
+                      manager.price2.toString(),
                       textAlign: TextAlign.justify,
                       style: TextStyle(fontSize: 15.sp),
                     ),
