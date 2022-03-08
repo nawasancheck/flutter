@@ -32,7 +32,7 @@ class _NewMessageState extends State<NewMessage> {
         .collection(widget.opponentUID)
         .add({
           'text': _userEnterMessage,
-          'time': Timestamp.now(),
+          'time': Timestamp.now().toDate(),
           'sendUID': currentUser.uid,
           'receiverUID': widget.opponentUID,
         })
@@ -45,7 +45,7 @@ class _NewMessageState extends State<NewMessage> {
         .collection(currentUser.uid)
         .add({
       'text': _userEnterMessage,
-      'time': Timestamp.now(),
+      'time': Timestamp.now().toDate(),
       'sendUID': currentUser.uid,
       'receiverUID': widget.opponentUID,
     });
