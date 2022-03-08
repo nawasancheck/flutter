@@ -308,7 +308,7 @@ class _SignUpState extends State<SignUp> {
                     await FirebaseFirestore.instance
                         .collection('user')
                         .doc(newUser.user!.uid)
-                        .set({'userName': _userName, 'email': _userEmail, 'role': 'client', 'userId': newUser.user!.uid});
+                        .set({'userName': _userName, 'email': _userEmail, 'role': 'client', 'userUID': newUser.user!.uid});
 
                     await newUser.user!.updateProfile(displayName: _userName);
                     await newUser.user!.reload();

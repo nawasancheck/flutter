@@ -27,27 +27,27 @@ class _NewMessageState extends State<NewMessage> {
     createList();
 
     FirebaseFirestore.instance
-        .collection("chat_test")
+        .collection("chat")
         .doc(currentUser!.uid)
         .collection(widget.opponentUID)
         .add({
           'text': _userEnterMessage,
           'time': Timestamp.now(),
-          'sendID': currentUser.uid,
-          'receiverID': widget.opponentUID,
+          'sendUID': currentUser.uid,
+          'receiverUID': widget.opponentUID,
         })
         .then((_) => print('Success1'))
         .catchError((error) => print('Failed: $error'));
 
     FirebaseFirestore.instance
-        .collection("chat_test")
+        .collection("chat")
         .doc(widget.opponentUID)
         .collection(currentUser.uid)
         .add({
       'text': _userEnterMessage,
       'time': Timestamp.now(),
-      'sendID': currentUser.uid,
-      'receiverID': widget.opponentUID,
+      'sendUID': currentUser.uid,
+      'receiverUID': widget.opponentUID,
     });
 
     _controller.clear();
@@ -57,7 +57,7 @@ class _NewMessageState extends State<NewMessage> {
     final currentUser = FirebaseAuth.instance.currentUser;
 
     FirebaseFirestore.instance
-        .collection("chat_test")
+        .collection("chat")
         .doc(currentUser!.uid)
         .collection(widget.opponentUID)
         .get()
@@ -67,21 +67,21 @@ class _NewMessageState extends State<NewMessage> {
               else
                 {
                   FirebaseFirestore.instance
-                      .collection("chat_test")
+                      .collection("chat")
                       .doc(currentUser.uid)
                       .collection('chat_user_num')
                       .doc(widget.opponentUID)
                       .set({
-                    'user': widget.opponentUID,
+                    'userUID': widget.opponentUID,
                     'userName': widget.opponentName,
                   }),
                   FirebaseFirestore.instance
-                      .collection("chat_test")
+                      .collection("chat")
                       .doc(widget.opponentUID)
                       .collection('chat_user_num')
                       .doc(currentUser.uid)
                       .set({
-                    'user': currentUser.uid,
+                    'userUID': currentUser.uid,
                     'userName': currentUser.displayName
                   })
                 }

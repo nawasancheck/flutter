@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
                 '/': (context) => const SignIn(),
                 '/signup': (context) => const SignUp(),
                 '/home': (context) => HomePage(),
-                '/chat' : (context) => Chat(),
+                '/chat' : (context) => ChatList(),
               },
               title: '동행',
               theme: ThemeData(primaryColor: Color(0xff0082af)),
@@ -87,7 +87,7 @@ class _HomePageState extends State<HomePage> {
             break;
           case 2:
             return CupertinoTabView(builder: (context) {
-              return CupertinoPageScaffold(child: Chat());
+              return CupertinoPageScaffold(child: ChatList());
             });
             break;
           case 3:

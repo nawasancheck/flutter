@@ -48,40 +48,6 @@ class Manager {
   
   static List<Manager> managerList = [
     Manager(
-        title: '연신내보안관',
-        name: '이상준',
-        like: '컴퓨터, 개발, 청소년 상담',
-        description:
-        '안녕하세요. 저는 2019년부터 학교 밖 청소년 센터에서 학생들을 가르쳤습니다. 학생들에게 고민 상담도 많이 해주고 조언도 많이 해주다 보니 공감과 경청을 배웠습니다. 대학교에서는 컴퓨터과학을 전공해서 개발에 대한 지식을 쌓아서 개발 관련 이야기도 좋아합니다. 저와 함께 산책하면 후회 없는 경험을 드리겠습니다!',
-        year: 20,
-        area: '서울 은평구',
-        distance1: 2,
-        distance2: 4,
-        price1: 10000,
-        price2: 40000,
-        reviewCount: 10,
-        heart: randomHeart(),
-        star: randomStar(),
-        isPressed: false,
-        imageUrl: 'assets/sangjune.png'),
-    Manager(
-        title: '호기심공감왕',
-        name: '김현호',
-        like: '디자인, 운동',
-        description:
-        '안녕하세요. 저는 다양한 분야에 관심이 많은 활동가 김현호라고 합니다! 성격 자체가 주변 모든 것에 관심이 많고 사람을 좋아해서 예전부터 주변 사람들의 고민을 많이 들어주고 또 그만큼 공감과 호응도 잘합니다. 설령 관심 분야가 다르다 하더라도 주의 깊게 경청하며 재밌는 얘기에는 재밌는 리액션과 진지할 때는 또 진지하게 고민을 들어주며 때로 해결책이 필요할 때에도 이에 맞춰 같이 고민을 나누고 상담해줄 수 있습니다! 때로는 당연한 해결책보다는 진실 된 공감과 이해가 더 필요할 때가 있는 만큼 여러분의 시간과 고민을 소중하게 다뤄주는 동반자가 되고 싶습니다:)',
-        year: 20,
-        area: '서울 성동구',
-        distance1: 2,
-        distance2: 4,
-        price1: 10000,
-        price2: 60000,
-        reviewCount: 10,
-        heart: randomHeart(),
-        star: randomStar(),
-        isPressed: false,
-        imageUrl: 'assets/hyunho.png'),
-    Manager(
         title: '영화광',
         name: '백원재',
         like: '영화, 여행',
