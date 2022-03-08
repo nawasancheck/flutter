@@ -47,14 +47,9 @@ class _ChatState extends State<ChatList> {
               Flexible(
                   child: Card(
                       child: StreamBuilder(
-                          stream: FirebaseFirestore.instance
-                              .collection('chat')
-                              .doc(_user!.uid)
-                              .collection('chat_user_num')
-                              .snapshots(),
+                          stream: FirebaseFirestore.instance.collection('chat').doc(_user!.uid).collection('chat_user_num').snapshots(),
                           builder: (context,
-                              AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
-                                  snapshot) {
+                              AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
                             if (snapshot.connectionState ==
                                 ConnectionState.waiting) {
                               return Center(
@@ -74,7 +69,7 @@ class _ChatState extends State<ChatList> {
                                   itemExtent: 90.sp,
                                   itemCount: num,
                                   itemBuilder: (context, index) {
-                                    Manager walker = Manager.managerList[index];
+
                                     return Card(
                                       child: InkWell(
                                         //     splashColor: Colors.yellow,
@@ -84,103 +79,117 @@ class _ChatState extends State<ChatList> {
                                           Navigator.of(context,
                                                   rootNavigator: true)
                                               .push(MaterialPageRoute(
-                                                  builder: (_) =>
-                                                      ChatScreen('${snapshot.data?.docs[index]['userUID']}', '${snapshot.data?.docs[index]['userName']}')));
+                                                  builder: (_) => ChatScreen(
+                                                      '${snapshot.data?.docs[index]['userUID']}',
+                                                      '${snapshot.data?.docs[index]['userName']}')));
                                         },
 
-                                        child: Container(
-                                            //        color: Colors.green,
-                                            child: (Row(
-                                          children: [
-                                            Container(
-                                                height:
-                                                    ScreenUtil().setHeight(70),
-                                                width:
-                                                    ScreenUtil().setWidth(70),
-                                                decoration: BoxDecoration(
-                                                    image: DecorationImage(
-                                                        image: AssetImage(
-                                                            walker.imageUrl),
-                                                        fit: BoxFit.cover,
-                                                        scale: 57),
-                                                    shape: BoxShape.circle)),
-                                            Container(
-                                              //                 color: Colors.purple,
-                                              width: ScreenUtil().setWidth(10),
-                                            ),
-                                            Container(
-                                                //               color: Colors.blue,
-                                                height:
-                                                    ScreenUtil().setHeight(100),
-                                                width:
-                                                    ScreenUtil().setWidth(240),
-                                                child: Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Row(
+                                        child: StreamBuilder(
+                                            stream: FirebaseFirestore.instance.collection("user").doc(snapshot.data?.docs[index]['userUID']).snapshots(),
+                                            builder: (BuildContext context,
+                                                AsyncSnapshot<DocumentSnapshot<Map<String,dynamic>>> snapshot2) {
+                                              if (snapshot2.connectionState == ConnectionState.waiting) {
+                                                return Center(
+                                                  child:
+                                                      CircularProgressIndicator(),
+                                                );
+                                              }
+                                              var docs = snapshot2.data?.data();
+                                              return Row(
+                                                children: [
+                                                  Container(
+                                                      height: ScreenUtil().setHeight(70),
+                                                      width: ScreenUtil().setWidth(70),
+                                                      decoration: BoxDecoration(
+                                                          image: DecorationImage(
+                                                              image: AssetImage(docs?['profile']['imageUrl']),
+                                                              fit: BoxFit.cover,
+                                                              scale: 57),
+                                                          shape: BoxShape.circle)),
+                                                  Container(
+                                                    //                 color: Colors.purple,
+                                                    width: ScreenUtil().setWidth(10),
+                                                  ),
+                                                  Container(
+                                                      //               color: Colors.blue,
+                                                      height: ScreenUtil().setHeight(100),
+                                                      width: ScreenUtil().setWidth(240),
+                                                      child: Column(
                                                           mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .start,
+                                                              MainAxisAlignment.center,
                                                           children: [
-                                                            Text(walker.title,
-                                                                style: TextStyle(
-                                                                    fontSize:
-                                                                        20.sp,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .bold,
-                                                                    color: Color(
-                                                                        0xff222b31))),
-                                                            Text(
-                                                                "  " +
-                                                                    walker.area,
-                                                                style: TextStyle(
-                                                                    fontSize:
-                                                                        13.sp,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .bold,
-                                                                    color: Color(
-                                                                        0xff8fa2ae)))
-                                                          ]),
-                                                      Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            Text(
-                                                              "채팅 내용~~~~~~~~~~~",
-                                                              style: TextStyle(
-                                                                  color: Color(
-                                                                      0xffa090c4)),
-                                                            ),
-                                                          ])
-                                                    ])),
-                                            Flexible(
-                                                fit: FlexFit.tight,
-                                                child: Container(
-                                                  //               color: Colors.red,
-                                                  height: ScreenUtil()
-                                                      .setHeight(100),
-                                                  width:
-                                                      ScreenUtil().setWidth(40),
-                                                )),
-                                            Container(
-                                              //           color: Colors.yellow,
-                                              height:
-                                                  ScreenUtil().setHeight(100),
-                                              width: ScreenUtil().setWidth(38),
-                                              child: Text(
-                                                "23:33",
-                                                style: TextStyle(
-                                                    fontSize: 13.sp,
-                                                    color: Color(0xff7898186)),
-                                              ),
-                                            )
-                                          ],
-                                        ))),
+                                                            Row(
+                                                                mainAxisAlignment: MainAxisAlignment.start,
+                                                                children: [
+                                                                  Text(docs?['profile']['title'],
+                                                                      style: TextStyle(
+                                                                          fontSize: 20.sp,
+                                                                          fontWeight: FontWeight.bold,
+                                                                          color: Color(0xff222b31))),
+                                                                  Text("  " + docs?['profile']['area'],
+                                                                      style: TextStyle(
+                                                                          fontSize: 13.sp,
+                                                                          fontWeight: FontWeight.bold,
+                                                                          color: Color(0xff8fa2ae)))
+                                                                ]),
+                                                            Row(
+                                                                mainAxisAlignment: MainAxisAlignment.start,
+                                                                children: [
+                                                                  StreamBuilder(
+                                                                      stream: FirebaseFirestore.instance.collection("chat").doc(_user!.uid).collection(snapshot.data?.docs[index]['userUID']).orderBy('time', descending: true).snapshots(),
+                                                                      builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot3) {
+
+                                                                        if (snapshot3.connectionState == ConnectionState.waiting) {
+                                                                          return Center(
+                                                                            child: CircularProgressIndicator(),
+                                                                          );
+                                                                        }
+
+                                                                        return Text(
+                                                                          '${snapshot3.data?.docs[0]['text']}',
+                                                                          style: TextStyle(
+                                                                              color: Color(
+                                                                                  0xffa090c4)),
+                                                                        );
+                                                                      }),
+                                                                ])
+                                                          ])),
+                                                  Flexible(
+                                                      fit: FlexFit.tight,
+                                                      child: Container(
+                                                        //               color: Colors.red,
+                                                        height: ScreenUtil()
+                                                            .setHeight(100),
+                                                        width: ScreenUtil()
+                                                            .setWidth(40),
+                                                      )),
+                                                  Container(
+                                                    //           color: Colors.yellow,
+                                                    height: ScreenUtil()
+                                                        .setHeight(100),
+                                                    width: ScreenUtil()
+                                                        .setWidth(38),
+                                                    child: StreamBuilder(
+                                                        stream: FirebaseFirestore.instance.collection("chat").doc(_user!.uid).collection(snapshot.data?.docs[index]['userUID']).orderBy('time', descending: true).snapshots(),
+                                                        builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot4) {
+
+                                                          if (snapshot4.connectionState == ConnectionState.waiting) {
+                                                            return Center(
+                                                              child: CircularProgressIndicator(),
+                                                            );
+                                                          }
+
+                                                        return Text(
+                                                            '${snapshot4.data?.docs[0]['time']}',
+                                                            style: TextStyle(
+                                                              fontSize: 13.sp,
+                                                              color: Color(0xff7898186)));
+                                                        })
+                                                    ,
+                                                  )
+                                                ],
+                                              );
+                                            }),
                                       ),
                                     );
                                   });
