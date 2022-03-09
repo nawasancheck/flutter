@@ -1,11 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/manager/manager_info.dart';
 import 'package:flutter_app/screens/chatting/in_chat_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-
-// *Manager_list_detail Page: 매니저 리스트에서 해당 매니저 클릭시 나오는 상세 페이지*
 
 class ManagerDetailPage extends StatelessWidget {
   final String opponentUID;
