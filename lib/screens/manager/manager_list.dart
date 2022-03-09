@@ -118,7 +118,7 @@ class _ListPageState extends State<ListPage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => ManagerDetailPage(walkerlist, '', '')));
+                              builder: (context) => ManagerDetailPage('', '')));
                     },
                     child: Container(
                       //              color: Colors.green,
@@ -333,12 +333,14 @@ class _ListPageState extends State<ListPage> {
             }
 
             final docs = snapshot.data!.docs;
+            if(docs.length == 0) {
+              return Text('null');
+            }
 
             return
               ListView.builder(
                 shrinkWrap: true,
                 itemExtent: 180.sp,
-                // itemCount: walkerlist.length,
                 itemCount: docs.length,
                 itemBuilder: (context, index) {
                   Manager manager = Manager.managerList[index];
@@ -355,7 +357,7 @@ class _ListPageState extends State<ListPage> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => ManagerDetailPage(manager, docs[index]['userUID'], docs[index]['profile']['title'])));
+                                builder: (context) => ManagerDetailPage(docs[index]['userUID'], docs[index]['profile']['title'])));
                       },
                       child: Container(
                         //              color: Colors.green,

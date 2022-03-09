@@ -35,7 +35,7 @@ class _WishListState extends State<WishList> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => ManagerDetailPage(manager, '', '')));
+                                    builder: (context) => ManagerDetailPage('', '')));
                         },
                         child: Container(
 //              color: Colors.green,
