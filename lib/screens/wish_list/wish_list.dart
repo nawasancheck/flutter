@@ -43,7 +43,6 @@ class _WishListState extends State<WishList> {
               }
 
               Map wishMap = snapshot.data!.data()?['wishList'];
-              print(wishMap.keys.toList());
               List wishList = wishMap.keys.toList();
               List wishValueList = wishMap.values.toList();
 

@@ -1,4 +1,5 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
@@ -8,6 +9,7 @@ class Profile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _user = FirebaseAuth.instance.currentUser;
     return Scaffold(
       backgroundColor: Color(0xffffffff),
       appBar: AppBar(
@@ -33,13 +35,13 @@ class Profile extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("슬기",
+                Text('${_user!.displayName}',
                     style: TextStyle(
                         fontSize: 23.sp,
                         color: Colors.black,
                         fontWeight: FontWeight.bold)),
                 Container(height: ScreenUtil().setHeight(5)),
-                Text("hskk1120@naver.com",
+                Text("${_user.email}",
                     style: TextStyle(
                       fontSize: 17.sp,
                       color: Colors.grey,
