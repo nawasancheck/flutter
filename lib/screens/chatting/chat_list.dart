@@ -93,7 +93,7 @@ class _ChatState extends State<ChatList> {
                                                       CircularProgressIndicator(),
                                                 );
                                               }
-                                              var docs = snapshot2.data?.data();
+                                              var docs = snapshot2.data!.data();
                                               return Row(
                                                 children: [
                                                   Container(
