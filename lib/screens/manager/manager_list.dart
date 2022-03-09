@@ -2,10 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/manager/manager_info.dart';
 import 'package:flutter_app/screens/manager/manager_list_detail.dart';
+import 'package:flutter_app/screens/manager/search_manager.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:search_page/search_page.dart';
 
 class WishCounter{
   int num=0;
@@ -24,8 +23,7 @@ class ListPage extends StatefulWidget {
 
 class _ListPageState extends State<ListPage> {
 
-  String dropdownvalue = '강동구';
-
+  String dropDownValue = '강동구';
   final _user = FirebaseAuth.instance.currentUser;
 
   var items = [
@@ -74,7 +72,7 @@ class _ListPageState extends State<ListPage> {
               child: DropdownButton(
                 // initial Value
                 //
-                  value: dropdownvalue,
+                  value: dropDownValue,
                   icon: const Icon(
                     Icons.more_vert,
                     color: Color(0xff909090),
@@ -84,231 +82,15 @@ class _ListPageState extends State<ListPage> {
                   }).toList(),
                   onChanged: (String? newValue) {
                     setState(() {
-                      dropdownvalue = newValue!;
+                      dropDownValue = newValue!;
                     });
                   }),
             ),
           ],
         ),
         actions: [
-          IconButton(
-            tooltip: 'Search people',
-            onPressed: () => showSearch(
-              context: context,
-              delegate: SearchPage<Manager>(
-                onQueryUpdate: (s) => print(s),
-                items: Manager.managerList,
-                searchLabel: 'Search people',
-                suggestion: Center(
-                  child: Text('Filter people by name, surname or age'),
-                ),
-                failure: Center(
-                  child: Text('No person found :('),
-                ),
-                filter: (walker) => [
-                  walker.title,
-                  walker.like,
-                  walker.year.toString(),
-                ],
-                builder: (walkerlist) => Card(
-                  //          color: Colors.yellow,
-                  //
-                  child: InkWell(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ManagerDetailPage('', '')));
-                    },
-                    child: Container(
-                      //              color: Colors.green,
-                      //
-                      child: Row(
-                        children: [
-                          Container(
-                            decoration: ShapeDecoration(
-                                image: DecorationImage(
-                                    image: AssetImage(walkerlist.imageUrl),
-                                    fit: BoxFit.cover),
-                                shape: RoundedRectangleBorder(
-                                    borderRadius:
-                                    BorderRadiusDirectional.circular(15))),
-                            height: ScreenUtil().setHeight(126),
-                            width: ScreenUtil().setWidth(132),
-                          ), //      사진
+          SearchManager(),
 
-                          Container(
-                            //                   color: Colors.yellow,
-                            //
-                            width: ScreenUtil().setWidth(10),
-                            height: ScreenUtil().setHeight(130),
-                          ),
-
-                          Container(
-                            width: ScreenUtil().setWidth(270),
-                            height: ScreenUtil().setHeight(162),
-                            //              color: Colors.orange,
-                            //
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Row(
-                                  children: [
-                                    Text(
-                                      " " + walkerlist.title,
-                                      style: TextStyle(
-                                          fontSize: 25.sp,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    Flexible(
-                                      fit: FlexFit.tight,
-                                      child: Container(
-                                        //                        color: Colors.green,
-                                        //
-                                        width: ScreenUtil().setWidth(130),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                          MainAxisAlignment.end,
-                                          children: [
-                                            Container(
-                                              //                            color: Colors.brown,
-                                              //
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                MainAxisAlignment.end,
-                                                children: [
-                                                  Icon(
-                                                    Icons.star,
-                                                    color: Colors.yellow,
-                                                    size: 20.sp,
-                                                  ),
-                                                  Text(
-                                                    "8.8",
-                                                    style: TextStyle(
-                                                        fontSize: 20.sp,
-                                                        color:
-                                                        Color(0xff352641)),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Text("  " + walkerlist.area.toString() + "  -",
-                                        style: TextStyle(
-                                            fontSize: 15.sp,
-                                            color: Color(0xff6b6b6b))),
-                                    Text(" " + walkerlist.year.toString() + "대",
-                                        style: TextStyle(
-                                            fontSize: 15.sp,
-                                            color: Color(0xff6b6b6b))),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Text("  " + "관심분야 -" + walkerlist.like,
-                                        style: TextStyle(
-                                            fontSize: 15.sp,
-                                            fontWeight: FontWeight.bold,
-                                            color: Color(0xff737373))),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Text(
-                                        "  " +
-                                            walkerlist.description
-                                                .substring(0, 20) +
-                                            ".....",
-                                        style: TextStyle(
-                                            fontSize: 15.sp,
-                                            color: Color(0xff878787))),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Text(
-                                        "  " +
-                                            "60분 " +
-                                            walkerlist.price1.toString() +
-                                            " P",
-                                        style: TextStyle(
-                                            fontSize: 20.sp,
-                                            fontWeight: FontWeight.bold)),
-                                    Flexible(
-                                      fit: FlexFit.tight,
-                                      child: Container(
-                                        //                       color: Colors.green,
-                                        width: ScreenUtil().setWidth(63),
-                                        height: ScreenUtil().setHeight(30),
-                                      ),
-                                    ),
-                                    Container(
-                                      //                      color: Colors.brown,
-                                      //
-                                      width: ScreenUtil().setWidth(85),
-                                      height: ScreenUtil().setHeight(50),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.end,
-                                        children: [
-                                          Text(
-                                            walkerlist.isPressed
-                                                ? "${walkerlist.heart+1}"
-                                                : "${walkerlist.heart}",
-                                            style: TextStyle(
-                                                color: Color(0xff878787)),
-                                          ),
-                                          IconButton(
-                                            iconSize: 25.sp,
-                                            icon: walkerlist.isPressed
-                                                ? Icon(EvaIcons.heart)
-                                                : Icon(
-                                              EvaIcons.heartOutline,
-                                              color: Color(0xff878787),
-                                            ),
-                                            color: walkerlist.isPressed
-                                                ? Colors.red[500]
-                                                : Colors.red[500],
-                                            onPressed: () {
-                                              setState(() {
-                                                walkerlist.isPressed = !walkerlist.isPressed;
-                                                wishCounter.count();
-                                              });
-                                            },
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                )
-                              ],
-                            ),
-                          ), //                  매니저 프로필 title
-
-                          Container(
-                            //           color: Colors.red,
-                            width: ScreenUtil().setWidth(5),
-                            height: ScreenUtil().setHeight(130),
-                          ),
-
-                        ],
-                      ),
-                      //      사진
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            icon: Icon(Icons.search,color: Colors.black,),
-
-          ),
           IconButton(
             icon: Icon(
               EvaIcons.bellOutline,
@@ -343,7 +125,7 @@ class _ListPageState extends State<ListPage> {
                 itemExtent: 180.sp,
                 itemCount: docs.length,
                 itemBuilder: (context, index) {
-                  Manager manager = Manager.managerList[index];
+
                   var isPressed = docs[index]['profile']['isPressedList']['${_user!.uid}'];
                   if(docs[index]['profile']['isPressedList']['${_user!.uid}'] == null) {
                     isPressed = false;
@@ -410,8 +192,6 @@ class _ListPageState extends State<ListPage> {
                                             MainAxisAlignment.end,
                                             children: [
                                               Container(
-                                                //                            color: Colors.brown,
-                                                //
                                                 child: Row(
                                                   mainAxisAlignment:
                                                   MainAxisAlignment.end,
@@ -421,7 +201,7 @@ class _ListPageState extends State<ListPage> {
                                                       color: Colors.yellow,
                                                       size: 20.sp,
                                                     ),
-                                                    Text(manager.star.toStringAsFixed(1),
+                                                    Text(docs[index]['profile']['star'].toStringAsFixed(1),
                                                       style: TextStyle(
                                                           fontSize: 20.sp,
                                                           color:
@@ -469,8 +249,7 @@ class _ListPageState extends State<ListPage> {
                                   Row(
                                     children: [
                                       Text(
-                                          "  " +
-                                              "60분 ${docs[index]['profile']['price1']} P",
+                                          " 60분 ${docs[index]['profile']['price1']} P",
                                           style: TextStyle(
                                               fontSize: 20.sp,
                                               fontWeight: FontWeight.bold)),
@@ -521,6 +300,19 @@ class _ListPageState extends State<ListPage> {
                                                   'profile.heart' : docs[index]['profile']['heart'] + 1,
                                                   'profile.isPressedList.${_user!.uid}' : true
                                                 });
+                                                isPressed ?
+                                                FirebaseFirestore.instance
+                                                    .collection('user')
+                                                    .doc(_user!.uid)
+                                                    .update({
+                                                'wishList.${docs[index]['userUID']}' : FieldValue.delete()
+                                                    })
+                                                    :
+                                                FirebaseFirestore.instance
+                                                    .collection('user')
+                                                    .doc(_user!.uid)
+                                                    .update({
+                                                'wishList.${docs[index]['userUID']}' : docs[index]['userName']});
                                               },
                                             ),
                                           ],
@@ -530,7 +322,7 @@ class _ListPageState extends State<ListPage> {
                                   )
                                 ],
                               ),
-                            ), //                  매니저 프로필 title
+                            ),
 
                             Container(
                               //           color: Colors.red,
