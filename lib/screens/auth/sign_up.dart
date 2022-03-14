@@ -22,7 +22,7 @@ class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        resizeToAvoidBottomInset : false,
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           backgroundColor: Colors.white,
           leading: IconButton(
@@ -80,15 +80,16 @@ class _SignUpState extends State<SignUp> {
               width: ScreenUtil().setWidth(327),
               height: ScreenUtil().setHeight(48),
               child: TextField(
-                  decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: '이름을 입력해주세요',
-              ),
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: '이름을 입력해주세요',
+                ),
                 onChanged: (value) {
                   setState(() {
                     _userName = value.trim();
                   });
-                },),
+                },
+              ),
             ),
             Container(
               //            color: Colors.green,
@@ -118,15 +119,16 @@ class _SignUpState extends State<SignUp> {
               width: ScreenUtil().setWidth(327),
               height: ScreenUtil().setHeight(48),
               child: TextField(
-                  decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: '이메일을 입력해주세요',
-              ),
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: '이메일을 입력해주세요',
+                ),
                 onChanged: (value) {
                   setState(() {
                     _userEmail = value.trim();
                   });
-                },),
+                },
+              ),
             ),
             Container(
               //           color: Colors.green,
@@ -173,15 +175,16 @@ class _SignUpState extends State<SignUp> {
               width: ScreenUtil().setWidth(327),
               height: ScreenUtil().setHeight(48),
               child: TextField(
-                  decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: '비밀번호 확인',
-              ),
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: '비밀번호 확인',
+                ),
                 onChanged: (value) {
                   setState(() {
                     _userPassword = value.trim();
                   });
-                },),
+                },
+              ),
             ),
             Container(
               //          color: Colors.green,
@@ -202,8 +205,7 @@ class _SignUpState extends State<SignUp> {
                     //
                     child: Text(
                       "성별",
-                      style: TextStyle(
-                          fontSize: 23.sp, fontWeight: FontWeight.bold),
+                      style: TextStyle(fontSize: 23.sp, fontWeight: FontWeight.bold),
                     ),
                   ),
                   Container(
@@ -277,8 +279,7 @@ class _SignUpState extends State<SignUp> {
                       Container(
                           child: Text(
                         "지역",
-                        style: TextStyle(
-                            fontSize: 23.sp, fontWeight: FontWeight.bold),
+                        style: TextStyle(fontSize: 23.sp, fontWeight: FontWeight.bold),
                       )),
                       Container(
                         color: Colors.blue,
@@ -300,21 +301,22 @@ class _SignUpState extends State<SignUp> {
                 height: ScreenUtil().setHeight(56),
                 child: MaterialButton(
                   color: Color(0xff74BABC),
-                  onPressed: () async{
+                  onPressed: () async {
                     final newUser = await _auth.createUserWithEmailAndPassword(
                         email: _userEmail, password: _userPassword);
 
                     // doc(newUser.user!.uid)는 식별자 역할을 한다.
-                    await FirebaseFirestore.instance
-                        .collection('user')
-                        .doc(newUser.user!.uid)
-                        .set({'userName': _userName, 'email': _userEmail, 'role': 'client', 'userUID': newUser.user!.uid});
+                    await FirebaseFirestore.instance.collection('user').doc(newUser.user!.uid).set({
+                      'userName': _userName,
+                      'email': _userEmail,
+                      'role': 'client',
+                      'userUID': newUser.user!.uid
+                    });
 
                     await newUser.user!.updateProfile(displayName: _userName);
                     await newUser.user!.reload();
 
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => SignIn()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => SignIn()));
                   },
                   child: Text(
                     "회원가입",
