@@ -244,7 +244,7 @@ class _SignInState extends State<SignIn> {
                   onPressed: () async {
                     try {
                       final loginUser = await _auth.signInWithEmailAndPassword(email: _userEmail, password: _userPassword);
-                      if (loginUser.user != null) Navigator.pushNamed(context, '/home');
+                      FirebaseAuth.instance.setPersistence(Persistence.NONE);
                     } catch (e) {
                       // 스냅바 구현 해야 함.
                     }
