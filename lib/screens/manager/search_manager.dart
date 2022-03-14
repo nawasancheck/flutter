@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:search_page/search_page.dart';
 
 import '../../manager/manager_info.dart';
-import 'manager_list.dart';
 import 'manager_list_detail.dart';
 
 class SearchManager extends StatefulWidget {
@@ -206,7 +205,6 @@ class _SearchManagerState extends State<SearchManager> {
                                         onPressed: () {
                                           setState(() {
                                             walkerlist.isPressed = !walkerlist.isPressed;
-                                            wishCounter.count();
                                           });
                                         },
                                       ),

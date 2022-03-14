@@ -20,14 +20,11 @@ class ManagerDetailPage extends StatelessWidget {
         body: StreamBuilder(
             stream: FirebaseFirestore.instance.collection('user').doc(opponentUID).snapshots(),
             builder: (context, AsyncSnapshot<DocumentSnapshot<Map<String, dynamic>>> snapshot) {
-
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(
-                    child: CircularProgressIndicator());
+                return Center(child: CircularProgressIndicator());
               }
 
               var docs = snapshot.data!.data();
-
               if (docs == null) {
                 return Text('null');
               }
@@ -36,18 +33,14 @@ class ManagerDetailPage extends StatelessWidget {
                 Container(
                   height: ScreenUtil().setHeight(10),
                 ),
-
                 Container(
                     width: ScreenUtil().setWidth(360),
                     height: ScreenUtil().setHeight(240),
-                    decoration:
-                        BoxDecoration(border: Border.all(color: Colors.white)),
+                    decoration: BoxDecoration(border: Border.all(color: Colors.white)),
                     child: Image.asset(docs['profile']['imageUrl'])),
-
                 Container(
                   height: ScreenUtil().setHeight(10),
                 ),
-
                 Container(
                   width: ScreenUtil().setWidth(0),
                   height: ScreenUtil().setHeight(90),
@@ -56,30 +49,25 @@ class ManagerDetailPage extends StatelessWidget {
                       Text(
                         docs['profile']['title'],
                         textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 20.sp, fontWeight: FontWeight.bold),
+                        style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
                       ),
                       Text(
                         "${docs['profile']['year']}대\n ${docs['profile']['area']}",
                         textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 16.sp, fontWeight: FontWeight.bold),
+                        style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
                       ),
                     ],
                   ),
                 ),
-
                 Divider(
                   height: 40.0,
                   color: Colors.grey[850],
                   indent: 20,
                   endIndent: 20,
                 ),
-
                 Padding(
                   padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
                   child: Container(
-                    //         color: Colors.green,
                     child: Column(
                       children: [
                         Row(
@@ -91,11 +79,9 @@ class ManagerDetailPage extends StatelessWidget {
                               height: 20,
                             ),
                             Text(' ABOUT ME',
-                                //                                       "ABOUT ME"
                                 style: TextStyle(
                                   fontSize: 20.sp,
                                   fontWeight: FontWeight.bold,
-                                  // color: Colors.blueAccent
                                 )),
                           ],
                         ),
@@ -104,7 +90,6 @@ class ManagerDetailPage extends StatelessWidget {
                         ),
                         Text(
                           docs['profile']['description'],
-                          //                                인사말, 자기소개 description
                           textAlign: TextAlign.justify,
                           style: TextStyle(fontSize: 16.sp),
                         ),
@@ -112,18 +97,15 @@ class ManagerDetailPage extends StatelessWidget {
                     ),
                   ),
                 ),
-
                 Divider(
                   height: 40.0,
                   color: Colors.grey[850],
                   indent: 20,
                   endIndent: 20,
                 ),
-
                 Padding(
                   padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
                   child: Container(
-                    //          color: Colors.blue,
                     height: ScreenUtil().setHeight(361),
                     child: Column(
                       children: [
@@ -143,11 +125,9 @@ class ManagerDetailPage extends StatelessWidget {
                           ],
                         ),
                         Container(
-                          //            color: Colors.green,
                           height: ScreenUtil().setHeight(20),
                         ),
                         Text(' 석촌 호수',
-                            //                                       "ABOUT ME"
                             style: TextStyle(
                               fontSize: 15.sp,
                               fontWeight: FontWeight.bold,
@@ -156,14 +136,11 @@ class ManagerDetailPage extends StatelessWidget {
                           height: ScreenUtil().setHeight(18),
                         ),
                         Container(
-                          // color: Colors.black,
                           height: ScreenUtil().setHeight(250),
                           decoration: BoxDecoration(
                             border: Border.all(color: Colors.grey, width: 1),
                             borderRadius: BorderRadius.circular(8),
-                            image: DecorationImage(
-                                image: AssetImage('assets/course.png'),
-                                fit: BoxFit.cover),
+                            image: DecorationImage(image: AssetImage('assets/course.png'), fit: BoxFit.cover),
                             boxShadow: [
                               BoxShadow(
                                 color: Colors.grey,
@@ -174,7 +151,6 @@ class ManagerDetailPage extends StatelessWidget {
                           ),
                         ),
                         Container(
-                          //              color: Colors.green,
                           height: ScreenUtil().setHeight(10),
                         ),
                       ],
@@ -192,7 +168,6 @@ class ManagerDetailPage extends StatelessWidget {
                       return Builder(
                         builder: (BuildContext context) {
                           return Container(
-                            // color: Colors.black,
                             width: MediaQuery.of(context).size.width,
                             margin: EdgeInsets.symmetric(horizontal: 10.0),
                             height: ScreenUtil().setHeight(200),
@@ -218,9 +193,7 @@ class ManagerDetailPage extends StatelessWidget {
                     }).toList(),
                   ),
                 ),
-
                 Container(
-                  //             color: Colors.black,
                   height: ScreenUtil().setHeight(10),
                 ),
                 Container(
@@ -237,18 +210,15 @@ class ManagerDetailPage extends StatelessWidget {
                     ],
                   ),
                 ),
-
                 Divider(
                   height: 40.0,
                   color: Colors.grey[850],
                   indent: 20,
                   endIndent: 20,
                 ),
-
                 Padding(
                   padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
                   child: Container(
-                    //          color:Colors.red,
                     child: Column(
                       children: [
                         Row(
@@ -261,8 +231,7 @@ class ManagerDetailPage extends StatelessWidget {
                             ),
                             Text(
                               ' WALKING OPTION',
-                              style: TextStyle(
-                                  fontSize: 20.sp, fontWeight: FontWeight.bold),
+                              style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
                             ),
                           ],
                         ),
@@ -274,36 +243,29 @@ class ManagerDetailPage extends StatelessWidget {
                           children: [
                             Text(
                               docs['profile']['distance1'].toString(),
-                              //                   거리
                               textAlign: TextAlign.justify,
                               style: TextStyle(fontSize: 15.sp),
                             ),
                             Text(
                               'km,  30분',
-                              //                                   "km", "30분" 단위
                               textAlign: TextAlign.justify,
                               style: TextStyle(fontSize: 15.sp),
                             ),
                             Container(
-                              //                  color: Colors.white,
                               width: ScreenUtil().setWidth(160),
                             ),
                             Text(
                               docs['profile']['price1'].toString(),
-                              //                      30분 단위 금액
                               textAlign: TextAlign.justify,
                               style: TextStyle(fontSize: 15.sp),
                             ),
                             Text(
                               '원',
-                              //                                          "원"
                               textAlign: TextAlign.justify,
                               style: TextStyle(fontSize: 15.sp),
                             ),
                           ],
                         ),
-
-                        //                                                      Row: 거리, 60분 단위, 금액
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -339,7 +301,6 @@ class ManagerDetailPage extends StatelessWidget {
                     ),
                   ),
                 ),
-
                 Padding(
                   padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
                   child: Container(
@@ -351,13 +312,10 @@ class ManagerDetailPage extends StatelessWidget {
                           minWidth: 70.0,
                           color: Color(0xff51A7CA),
                           onPressed: () => {
-                                Navigator.of(context, rootNavigator: true).push(
-                                    MaterialPageRoute(
-                                        builder: (context) => ChatScreen(
-                                            opponentUID, opponentName)))
+                                Navigator.of(context, rootNavigator: true)
+                                    .push(MaterialPageRoute(builder: (context) => ChatScreen(opponentUID, opponentName)))
                               },
-                          child: new Text("채팅하기",
-                              style: TextStyle(fontSize: 16.sp)))),
+                          child: new Text("채팅하기", style: TextStyle(fontSize: 16.sp)))),
                 ),
               ]);
             }));
