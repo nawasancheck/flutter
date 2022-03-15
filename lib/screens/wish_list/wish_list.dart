@@ -88,8 +88,7 @@ class _WishListState extends State<WishList> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => ManagerDetailPage(
-                                          wishList[index],
-                                          wishValueList[index])));
+                                          wishList[index])));
                             },
                             child: Container(
                                 //     color: Colors.yellow,
