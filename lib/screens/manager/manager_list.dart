@@ -56,8 +56,8 @@ class _ListPageState extends State<ListPage> {
                 //   color: Colors.yellow,
                 //
                 child: DropdownButton(
-                  // initial Value
-                  //
+                    // initial Value
+                    //
                     value: dropDownValue,
                     icon: const Icon(
                       Icons.more_vert,
@@ -102,7 +102,7 @@ class _ListPageState extends State<ListPage> {
                     .snapshots(),
                 builder: (context,
                     AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
-                    snapshot) {
+                        snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(child: CircularProgressIndicator());
                   }
@@ -117,8 +117,10 @@ class _ListPageState extends State<ListPage> {
                       itemExtent: 162.sp,
                       itemCount: docs.length,
                       itemBuilder: (context, index) {
-                        List isPressedList = docs[index]['profile']['isPressedList'];
-                        bool isPressed = isPressedList.contains('${_user!.uid}');
+                        List isPressedList =
+                            docs[index]['profile']['isPressedList'];
+                        bool isPressed =
+                            isPressedList.contains('${_user!.uid}');
 
                         return Card(
                           //          color: Colors.yellow,
@@ -141,12 +143,12 @@ class _ListPageState extends State<ListPage> {
                                     decoration: ShapeDecoration(
                                         image: DecorationImage(
                                             image: AssetImage(docs[index]
-                                            ['profile']['imageUrl']),
+                                                ['profile']['imageUrl']),
                                             fit: BoxFit.cover),
                                         shape: RoundedRectangleBorder(
                                             borderRadius:
-                                            BorderRadiusDirectional
-                                                .circular(15))),
+                                                BorderRadiusDirectional
+                                                    .circular(15))),
                                     height: ScreenUtil().setHeight(126.h),
                                     width: ScreenUtil().setWidth(132.w),
                                   ), //      사진
@@ -167,7 +169,7 @@ class _ListPageState extends State<ListPage> {
                                       //
                                       child: Column(
                                         mainAxisAlignment:
-                                        MainAxisAlignment.start,
+                                            MainAxisAlignment.start,
                                         children: [
                                           Container(
                                             //              color: Colors.lightBlueAccent,
@@ -175,12 +177,12 @@ class _ListPageState extends State<ListPage> {
                                           ),
                                           Row(
                                             mainAxisAlignment:
-                                            MainAxisAlignment.start,
+                                                MainAxisAlignment.start,
                                             children: [
                                               Text(
                                                 " " +
                                                     docs[index]['profile']
-                                                    ['title'],
+                                                        ['title'],
                                                 style: TextStyle(
                                                     fontSize: 20.sp,
                                                     fontWeight: FontWeight.bold,
@@ -198,28 +200,28 @@ class _ListPageState extends State<ListPage> {
                                                 //                                     color: Colors.green,
                                                 //
                                                 width:
-                                                ScreenUtil().setWidth(43.w),
+                                                    ScreenUtil().setWidth(43.w),
                                                 child: Row(
                                                   mainAxisAlignment:
-                                                  MainAxisAlignment.end,
+                                                      MainAxisAlignment.end,
                                                   children: [
                                                     Container(
                                                       child: Row(
                                                         mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .end,
+                                                            MainAxisAlignment
+                                                                .end,
                                                         children: [
                                                           Icon(
                                                             Icons.star,
                                                             color:
-                                                            Colors.yellow,
+                                                                Colors.yellow,
                                                             size: 15.sp,
                                                           ),
                                                           Text(
                                                             docs[index]['profile']
-                                                            ['star']
+                                                                    ['star']
                                                                 .toStringAsFixed(
-                                                                1),
+                                                                    1),
                                                             style: TextStyle(
                                                                 fontSize: 15.sp,
                                                                 color: Color(
@@ -241,19 +243,19 @@ class _ListPageState extends State<ListPage> {
                                                   style: TextStyle(
                                                       fontSize: 10.sp,
                                                       color:
-                                                      Color(0xff6b6b6b))),
+                                                          Color(0xff6b6b6b))),
                                               Text(
                                                   " ${docs[index]['profile']['year']}대",
                                                   style: TextStyle(
                                                       fontSize: 10.sp,
                                                       color:
-                                                      Color(0xff6b6b6b))),
+                                                          Color(0xff6b6b6b))),
                                             ],
                                           ),
                                           Container(
                                             //             color: Colors.lightBlueAccent,
                                             height:
-                                            ScreenUtil().setHeight(18.h),
+                                                ScreenUtil().setHeight(18.h),
                                           ),
                                           Row(
                                             children: [
@@ -263,9 +265,9 @@ class _ListPageState extends State<ListPage> {
                                                   style: TextStyle(
                                                       fontSize: 13.sp,
                                                       fontWeight:
-                                                      FontWeight.bold,
+                                                          FontWeight.bold,
                                                       color:
-                                                      Color(0xff737373))),
+                                                          Color(0xff737373))),
                                             ],
                                           ),
                                           Row(
@@ -276,13 +278,13 @@ class _ListPageState extends State<ListPage> {
                                                   style: TextStyle(
                                                       fontSize: 11.sp,
                                                       color:
-                                                      Color(0xff878787))),
+                                                          Color(0xff878787))),
                                             ],
                                           ),
                                           Container(
                                             //            color: Colors.lightBlueAccent,
                                             height:
-                                            ScreenUtil().setHeight(10.h),
+                                                ScreenUtil().setHeight(10.h),
                                           ),
                                           Row(
                                             children: [
@@ -291,13 +293,13 @@ class _ListPageState extends State<ListPage> {
                                                   style: TextStyle(
                                                       fontSize: 15.sp,
                                                       fontWeight:
-                                                      FontWeight.bold)),
+                                                          FontWeight.bold)),
                                               Flexible(
                                                 fit: FlexFit.tight,
                                                 child: Container(
                                                   //                                      color: Colors.green,
                                                   width:
-                                                  ScreenUtil().setWidth(63),
+                                                      ScreenUtil().setWidth(63),
                                                   height: ScreenUtil()
                                                       .setHeight(30),
                                                 ),
@@ -306,24 +308,24 @@ class _ListPageState extends State<ListPage> {
                                                 //                                     color: Colors.brown,
                                                 //
                                                 width:
-                                                ScreenUtil().setWidth(85),
+                                                    ScreenUtil().setWidth(85),
                                                 height:
-                                                ScreenUtil().setHeight(30),
+                                                    ScreenUtil().setHeight(30),
                                                 child: Row(
                                                   mainAxisAlignment:
-                                                  MainAxisAlignment.end,
+                                                      MainAxisAlignment.end,
                                                   children: [
                                                     Column(
                                                       mainAxisAlignment:
-                                                      MainAxisAlignment.end,
+                                                          MainAxisAlignment.end,
                                                       children: [
                                                         Text(
                                                           '${docs[index]['profile']['heart']}',
                                                           style: TextStyle(
                                                               fontSize: 12.sp,
                                                               fontWeight:
-                                                              FontWeight
-                                                                  .bold,
+                                                                  FontWeight
+                                                                      .bold,
                                                               color: Color(
                                                                   0xffa7a7a7)),
                                                         ),
@@ -344,35 +346,74 @@ class _ListPageState extends State<ListPage> {
                                                     InkWell(
                                                       child: isPressed
                                                           ? Icon(
-                                                        EvaIcons.heart,
-                                                        color: Colors
-                                                            .red[500],
-                                                        size: 18.35.sp,
-                                                      )
+                                                              EvaIcons.heart,
+                                                              color: Colors
+                                                                  .red[500],
+                                                              size: 18.35.sp,
+                                                            )
                                                           : Icon(EvaIcons.heartOutline,
-                                                          color: Color(
-                                                              0xff878787),
-                                                          size: 18.35.h),
+                                                              color: Color(
+                                                                  0xff878787),
+                                                              size: 18.35.h),
                                                       onTap: () {
                                                         isPressed
-                                                            ? FirebaseFirestore.instance.collection('user').doc(docs[index]['userUID']).update({
-                                                          'profile.heart': docs[index]['profile']['heart'] - 1,
-                                                          'profile.isPressedList': FieldValue.arrayRemove([_user!.uid])
-                                                        })
-                                                            : FirebaseFirestore.instance.collection('user').doc(docs[index]['userUID']).update({
-                                                          'profile.heart': docs[index]['profile']['heart'] + 1,
-                                                          'profile.isPressedList': FieldValue.arrayUnion([_user!.uid])
-                                                        });
+                                                            ? FirebaseFirestore
+                                                                .instance
+                                                                .collection(
+                                                                    'user')
+                                                                .doc(docs[index]
+                                                                    ['userUID'])
+                                                                .update({
+                                                                'profile.heart':
+                                                                    docs[index]['profile']
+                                                                            [
+                                                                            'heart'] -
+                                                                        1,
+                                                                'profile.isPressedList':
+                                                                    FieldValue
+                                                                        .arrayRemove([
+                                                                  _user!.uid
+                                                                ])
+                                                              })
+                                                            : FirebaseFirestore
+                                                                .instance
+                                                                .collection(
+                                                                    'user')
+                                                                .doc(docs[index]
+                                                                    ['userUID'])
+                                                                .update({
+                                                                'profile.heart':
+                                                                    docs[index]['profile']
+                                                                            [
+                                                                            'heart'] +
+                                                                        1,
+                                                                'profile.isPressedList':
+                                                                    FieldValue
+                                                                        .arrayUnion([
+                                                                  _user!.uid
+                                                                ])
+                                                              });
                                                         isPressed
-                                                            ? FirebaseFirestore.instance
-                                                            .collection('user')
-                                                            .doc(_user!.uid)
-                                                            .update({'wishList.${docs[index]['userUID']}': FieldValue.delete()})
-                                                            : FirebaseFirestore.instance
-                                                            .collection('user')
-                                                            .doc(_user!.uid)
-                                                            .update({'wishList.${docs[index]['userUID']}': docs[index]['userName']});
-
+                                                            ? FirebaseFirestore
+                                                                .instance
+                                                                .collection(
+                                                                    'user')
+                                                                .doc(_user!.uid)
+                                                                .update({
+                                                                'wishList.${docs[index]['userUID']}':
+                                                                    FieldValue
+                                                                        .delete()
+                                                              })
+                                                            : FirebaseFirestore
+                                                                .instance
+                                                                .collection(
+                                                                    'user')
+                                                                .doc(_user!.uid)
+                                                                .update({
+                                                                'wishList.${docs[index]['userUID']}':
+                                                                    docs[index][
+                                                                        'userName']
+                                                              });
                                                       },
                                                     ),
                                                   ],

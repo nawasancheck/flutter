@@ -57,7 +57,7 @@ class _SearchManagerState extends State<SearchManager> {
                                 fit: BoxFit.cover),
                             shape: RoundedRectangleBorder(
                                 borderRadius:
-                                BorderRadiusDirectional.circular(15))),
+                                    BorderRadiusDirectional.circular(15))),
                         height: ScreenUtil().setHeight(126),
                         width: ScreenUtil().setWidth(132),
                       ), //      사진
@@ -92,15 +92,14 @@ class _SearchManagerState extends State<SearchManager> {
                                     //
                                     width: ScreenUtil().setWidth(130),
                                     child: Row(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.end,
+                                      mainAxisAlignment: MainAxisAlignment.end,
                                       children: [
                                         Container(
                                           //                            color: Colors.brown,
                                           //
                                           child: Row(
                                             mainAxisAlignment:
-                                            MainAxisAlignment.end,
+                                                MainAxisAlignment.end,
                                             children: [
                                               Icon(
                                                 Icons.star,
@@ -111,8 +110,7 @@ class _SearchManagerState extends State<SearchManager> {
                                                 "8.8",
                                                 style: TextStyle(
                                                     fontSize: 20.sp,
-                                                    color:
-                                                    Color(0xff352641)),
+                                                    color: Color(0xff352641)),
                                               ),
                                             ],
                                           ),
@@ -180,31 +178,28 @@ class _SearchManagerState extends State<SearchManager> {
                                   width: ScreenUtil().setWidth(85),
                                   height: ScreenUtil().setHeight(50),
                                   child: Row(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.end,
+                                    mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
                                       Text(
                                         walkerlist.isPressed
-                                            ? "${walkerlist.heart+1}"
+                                            ? "${walkerlist.heart + 1}"
                                             : "${walkerlist.heart}",
-                                        style: TextStyle(
-                                            color: Color(0xff878787)),
+                                        style:
+                                            TextStyle(color: Color(0xff878787)),
                                       ),
                                       IconButton(
                                         iconSize: 25.sp,
                                         icon: walkerlist.isPressed
                                             ? Icon(EvaIcons.heart)
                                             : Icon(
-                                          EvaIcons.heartOutline,
-                                          color: Color(0xff878787),
-                                        ),
+                                                EvaIcons.heartOutline,
+                                                color: Color(0xff878787),
+                                              ),
                                         color: walkerlist.isPressed
                                             ? Colors.red[500]
                                             : Colors.red[500],
                                         onPressed: () {
-                                          setState(() {
-
-                                          });
+                                          setState(() {});
                                         },
                                       ),
                                     ],
@@ -221,7 +216,6 @@ class _SearchManagerState extends State<SearchManager> {
                         width: ScreenUtil().setWidth(5),
                         height: ScreenUtil().setHeight(130),
                       ),
-
                     ],
                   ),
                   //      사진
@@ -230,8 +224,10 @@ class _SearchManagerState extends State<SearchManager> {
             ),
           ),
         ),
-        icon: Icon(Icons.search,color: Colors.black,),
-
+        icon: Icon(
+          Icons.search,
+          color: Colors.black,
+        ),
       ),
     );
   }
