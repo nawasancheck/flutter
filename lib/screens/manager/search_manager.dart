@@ -57,7 +57,7 @@ class _SearchManagerState extends State<SearchManager> {
                                 fit: BoxFit.cover),
                             shape: RoundedRectangleBorder(
                                 borderRadius:
-                                    BorderRadiusDirectional.circular(15))),
+                                BorderRadiusDirectional.circular(15))),
                         height: ScreenUtil().setHeight(126),
                         width: ScreenUtil().setWidth(132),
                       ), //      사진
@@ -99,7 +99,7 @@ class _SearchManagerState extends State<SearchManager> {
                                           //
                                           child: Row(
                                             mainAxisAlignment:
-                                                MainAxisAlignment.end,
+                                            MainAxisAlignment.end,
                                             children: [
                                               Icon(
                                                 Icons.star,
@@ -185,16 +185,16 @@ class _SearchManagerState extends State<SearchManager> {
                                             ? "${walkerlist.heart + 1}"
                                             : "${walkerlist.heart}",
                                         style:
-                                            TextStyle(color: Color(0xff878787)),
+                                        TextStyle(color: Color(0xff878787)),
                                       ),
                                       IconButton(
                                         iconSize: 25.sp,
                                         icon: walkerlist.isPressed
                                             ? Icon(EvaIcons.heart)
                                             : Icon(
-                                                EvaIcons.heartOutline,
-                                                color: Color(0xff878787),
-                                              ),
+                                          EvaIcons.heartOutline,
+                                          color: Color(0xff878787),
+                                        ),
                                         color: walkerlist.isPressed
                                             ? Colors.red[500]
                                             : Colors.red[500],
