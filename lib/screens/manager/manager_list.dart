@@ -51,6 +51,7 @@ class _ListPageState extends State<ListPage> {
         appBar: AppBar(
           backgroundColor: Colors.white,
           title: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Container(
                 //   color: Colors.yellow,
@@ -163,16 +164,17 @@ class _ListPageState extends State<ListPage> {
                                   Flexible(
                                     fit: FlexFit.tight,
                                     child: Container(
-                                      //width: ScreenUtil().setWidth(280),
-                                      height: ScreenUtil().setHeight(148.h),
-                                      //             color: Colors.orange,
+                                      height:
+                                          ScreenUtil().setHeight(180.h //148.h
+                                              ),
+                                      //                 color: Colors.orange,
                                       //
                                       child: Column(
                                         mainAxisAlignment:
                                             MainAxisAlignment.start,
                                         children: [
                                           Container(
-                                            //              color: Colors.lightBlueAccent,
+                                            //                    color: Colors.lightBlueAccent,
                                             height: ScreenUtil().setHeight(5.h),
                                           ),
                                           Row(
@@ -193,7 +195,7 @@ class _ListPageState extends State<ListPage> {
                                                 child: Container(
                                                   height: 10,
                                                   width: 10,
-                                                  //                      color: Colors.blue,
+                                                  //                           color: Colors.blue,
                                                 ),
                                               ),
                                               Container(
@@ -253,9 +255,9 @@ class _ListPageState extends State<ListPage> {
                                             ],
                                           ),
                                           Container(
-                                            //             color: Colors.lightBlueAccent,
+                                            //                    color: Colors.lightBlueAccent,
                                             height:
-                                                ScreenUtil().setHeight(18.h),
+                                                ScreenUtil().setHeight(22.h),
                                           ),
                                           Row(
                                             children: [
@@ -282,145 +284,162 @@ class _ListPageState extends State<ListPage> {
                                             ],
                                           ),
                                           Container(
-                                            //            color: Colors.lightBlueAccent,
+                                            //               color: Colors.lightBlueAccent,
                                             height:
-                                                ScreenUtil().setHeight(10.h),
+                                                ScreenUtil().setHeight(13.h),
                                           ),
-                                          Row(
-                                            children: [
-                                              Text(
-                                                  "  60분 ${docs[index]['profile']['price1']} P",
-                                                  style: TextStyle(
-                                                      fontSize: 15.sp,
-                                                      fontWeight:
-                                                          FontWeight.bold)),
-                                              Flexible(
-                                                fit: FlexFit.tight,
-                                                child: Container(
-                                                  //                                      color: Colors.green,
-                                                  width:
-                                                      ScreenUtil().setWidth(63),
+                                          Container(
+                                            //                 color: Colors.lightBlueAccent,
+                                            height: ScreenUtil().setHeight(0.h),
+                                          ),
+                                          Container(
+                                            //              color: Colors.yellow,
+                                            height:
+                                                ScreenUtil().setHeight(25.h),
+                                            child: Row(
+                                              children: [
+                                                Text(
+                                                    "  60분 ${docs[index]['profile']['price1']} P",
+                                                    style: TextStyle(
+                                                        fontSize: 15.sp,
+                                                        fontWeight:
+                                                            FontWeight.bold)),
+                                                Flexible(
+                                                  fit: FlexFit.tight,
+                                                  child: Container(
+                                                    //                       color: Colors.lightBlueAccent,
+                                                    height: ScreenUtil()
+                                                        .setHeight(20.h),
+                                                  ),
+                                                ),
+                                                Container(
+                                                  //                     color: Colors.brown,
+                                                  //
+                                                  width: ScreenUtil()
+                                                      .setWidth(60.w),
                                                   height: ScreenUtil()
-                                                      .setHeight(30),
+                                                      .setHeight(25.h),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.end,
+                                                    children: [
+                                                      Column(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .end,
+                                                        children: [
+                                                          Text(
+                                                            '${docs[index]['profile']['heart']}',
+                                                            style: TextStyle(
+                                                                fontSize: 12.sp,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                color: Color(
+                                                                    0xffa7a7a7)),
+                                                          ),
+                                                          Container(
+                                                            //                       color: Colors.yellow,
+                                                            height: ScreenUtil()
+                                                                .setHeight(5.h),
+                                                            width: 10,
+                                                          )
+                                                        ],
+                                                      ),
+                                                      Container(
+                                                        //                    color: Colors.yellow,
+                                                        height: 10,
+                                                        width: ScreenUtil()
+                                                            .setWidth(3.w),
+                                                      ),
+                                                      InkWell(
+                                                        child: isPressed
+                                                            ? Icon(
+                                                                EvaIcons.heart,
+                                                                color: Colors
+                                                                    .red[500],
+                                                                size: 18.35.sp,
+                                                              )
+                                                            : Icon(
+                                                                EvaIcons
+                                                                    .heartOutline,
+                                                                color: Color(
+                                                                    0xff878787),
+                                                                size: 18.35.h),
+                                                        onTap: () {
+                                                          isPressed
+                                                              ? FirebaseFirestore
+                                                                  .instance
+                                                                  .collection(
+                                                                      'user')
+                                                                  .doc(docs[
+                                                                          index]
+                                                                      [
+                                                                      'userUID'])
+                                                                  .update({
+                                                                  'profile.heart':
+                                                                      docs[index]['profile']
+                                                                              [
+                                                                              'heart'] -
+                                                                          1,
+                                                                  'profile.isPressedList':
+                                                                      FieldValue
+                                                                          .arrayRemove([
+                                                                    _user!.uid
+                                                                  ])
+                                                                })
+                                                              : FirebaseFirestore
+                                                                  .instance
+                                                                  .collection(
+                                                                      'user')
+                                                                  .doc(docs[
+                                                                          index]
+                                                                      [
+                                                                      'userUID'])
+                                                                  .update({
+                                                                  'profile.heart':
+                                                                      docs[index]['profile']
+                                                                              [
+                                                                              'heart'] +
+                                                                          1,
+                                                                  'profile.isPressedList':
+                                                                      FieldValue
+                                                                          .arrayUnion([
+                                                                    _user!.uid
+                                                                  ])
+                                                                });
+                                                          isPressed
+                                                              ? FirebaseFirestore
+                                                                  .instance
+                                                                  .collection(
+                                                                      'user')
+                                                                  .doc(_user!
+                                                                      .uid)
+                                                                  .update({
+                                                                  'wishList.${docs[index]['userUID']}':
+                                                                      FieldValue
+                                                                          .delete()
+                                                                })
+                                                              : FirebaseFirestore
+                                                                  .instance
+                                                                  .collection(
+                                                                      'user')
+                                                                  .doc(_user!
+                                                                      .uid)
+                                                                  .update({
+                                                                  'wishList.${docs[index]['userUID']}':
+                                                                      docs[index]
+                                                                          [
+                                                                          'userName']
+                                                                });
+                                                        },
+                                                      ),
+                                                    ],
+                                                  ),
                                                 ),
-                                              ),
-                                              Container(
-                                                //                                     color: Colors.brown,
-                                                //
-                                                width:
-                                                    ScreenUtil().setWidth(85),
-                                                height:
-                                                    ScreenUtil().setHeight(30),
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.end,
-                                                  children: [
-                                                    Column(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment.end,
-                                                      children: [
-                                                        Text(
-                                                          '${docs[index]['profile']['heart']}',
-                                                          style: TextStyle(
-                                                              fontSize: 12.sp,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              color: Color(
-                                                                  0xffa7a7a7)),
-                                                        ),
-                                                        Container(
-                                                          //                       color: Colors.yellow,
-                                                          height: ScreenUtil()
-                                                              .setHeight(5.h),
-                                                          width: 10,
-                                                        )
-                                                      ],
-                                                    ),
-                                                    Container(
-                                                      //                    color: Colors.yellow,
-                                                      height: 10,
-                                                      width: ScreenUtil()
-                                                          .setWidth(3.w),
-                                                    ),
-                                                    InkWell(
-                                                      child: isPressed
-                                                          ? Icon(
-                                                              EvaIcons.heart,
-                                                              color: Colors
-                                                                  .red[500],
-                                                              size: 18.35.sp,
-                                                            )
-                                                          : Icon(EvaIcons.heartOutline,
-                                                              color: Color(
-                                                                  0xff878787),
-                                                              size: 18.35.h),
-                                                      onTap: () {
-                                                        isPressed
-                                                            ? FirebaseFirestore
-                                                                .instance
-                                                                .collection(
-                                                                    'user')
-                                                                .doc(docs[index]
-                                                                    ['userUID'])
-                                                                .update({
-                                                                'profile.heart':
-                                                                    docs[index]['profile']
-                                                                            [
-                                                                            'heart'] -
-                                                                        1,
-                                                                'profile.isPressedList':
-                                                                    FieldValue
-                                                                        .arrayRemove([
-                                                                  _user!.uid
-                                                                ])
-                                                              })
-                                                            : FirebaseFirestore
-                                                                .instance
-                                                                .collection(
-                                                                    'user')
-                                                                .doc(docs[index]
-                                                                    ['userUID'])
-                                                                .update({
-                                                                'profile.heart':
-                                                                    docs[index]['profile']
-                                                                            [
-                                                                            'heart'] +
-                                                                        1,
-                                                                'profile.isPressedList':
-                                                                    FieldValue
-                                                                        .arrayUnion([
-                                                                  _user!.uid
-                                                                ])
-                                                              });
-                                                        isPressed
-                                                            ? FirebaseFirestore
-                                                                .instance
-                                                                .collection(
-                                                                    'user')
-                                                                .doc(_user!.uid)
-                                                                .update({
-                                                                'wishList.${docs[index]['userUID']}':
-                                                                    FieldValue
-                                                                        .delete()
-                                                              })
-                                                            : FirebaseFirestore
-                                                                .instance
-                                                                .collection(
-                                                                    'user')
-                                                                .doc(_user!.uid)
-                                                                .update({
-                                                                'wishList.${docs[index]['userUID']}':
-                                                                    docs[index][
-                                                                        'userName']
-                                                              });
-                                                      },
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ],
-                                          )
+                                              ],
+                                            ),
+                                          ),
                                         ],
                                       ),
                                     ),
