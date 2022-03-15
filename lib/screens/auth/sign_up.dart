@@ -310,7 +310,9 @@ class _SignUpState extends State<SignUp> {
                       'userName': _userName,
                       'email': _userEmail,
                       'role': 'client',
-                      'userUID': newUser.user!.uid
+                      'userUID': newUser.user!.uid,
+                      'profile': {'isPressList': []},
+                      'wishList': []
                     });
 
                     await newUser.user!.updateProfile(displayName: _userName);
