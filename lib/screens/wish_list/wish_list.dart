@@ -164,9 +164,10 @@ class _WishListState extends State<WishList> {
                                             onPressed: () {
                                               isPressed
                                                   ? FirebaseFirestore.instance.collection('user').doc(docs['userUID']).update(
-                                                      {'profile.heart': docs['profile']['heart'] - 1, 'profile.isPressedList.${_user!.uid}': false})
+                                                      {'profile.heart': docs['profile']['heart'] - 1,
+                                                        'profile.isPressedList': FieldValue.arrayRemove([_user!.uid])})
                                                   : FirebaseFirestore.instance.collection('user').doc(docs['userUID']).update(
-                                                      {'profile.heart': docs['profile']['heart'] + 1, 'profile.isPressedList.${_user!.uid}': true});
+                                                      {'profile.heart': docs['profile']['heart'] + 1, 'profile.isPressedList': FieldValue.arrayUnion([_user!.uid])});
                                               isPressed
                                                   ? FirebaseFirestore.instance
                                                       .collection('user')
