@@ -132,8 +132,7 @@ class _ListPageState extends State<ListPage> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => ManagerDetailPage(
-                                          docs[index]['userUID'],
-                                          docs[index]['profile']['title'])));
+                                          docs[index]['userUID'])));
                             },
                             child: Container(
                               //              color: Colors.green,

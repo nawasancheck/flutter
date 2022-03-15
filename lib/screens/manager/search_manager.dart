@@ -43,7 +43,7 @@ class _SearchManagerState extends State<SearchManager> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => ManagerDetailPage('', '')));
+                          builder: (context) => ManagerDetailPage('')));
                 },
                 child: Container(
                   //              color: Colors.green,

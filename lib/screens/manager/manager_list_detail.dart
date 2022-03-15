@@ -6,9 +6,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 
 class ManagerDetailPage extends StatelessWidget {
   final String opponentUID;
-  final String opponentName;
 
-  ManagerDetailPage(this.opponentUID, this.opponentName);
+  ManagerDetailPage(this.opponentUID);
 
   @override
   Widget build(BuildContext context) {
@@ -313,7 +312,7 @@ class ManagerDetailPage extends StatelessWidget {
                           color: Color(0xff51A7CA),
                           onPressed: () => {
                                 Navigator.of(context, rootNavigator: true)
-                                    .push(MaterialPageRoute(builder: (context) => ChatScreen(opponentUID, opponentName)))
+                                    .push(MaterialPageRoute(builder: (context) => ChatScreen(opponentUID, docs['profile']['title'])))
                               },
                           child: new Text("채팅하기", style: TextStyle(fontSize: 16.sp)))),
                 ),
