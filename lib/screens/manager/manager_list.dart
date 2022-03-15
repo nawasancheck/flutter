@@ -111,10 +111,10 @@ class _ListPageState extends State<ListPage> {
                   itemExtent: 180.sp,
                   itemCount: docs.length,
                   itemBuilder: (context, index) {
-                    var isPressed = docs[index]['profile']['isPressedList']['${_user!.uid}'];
-                    if (docs[index]['profile']['isPressedList']['${_user!.uid}'] == null) {
-                      isPressed = false;
-                    }
+
+                    List isPressedList = docs[index]['profile']['isPressedList'];
+                    bool isPressed = isPressedList.contains('${_user!.uid}');
+
                     return Card(
                       child: InkWell(
                         onTap: () {
@@ -235,11 +235,11 @@ class _ListPageState extends State<ListPage> {
                                                   isPressed
                                                       ? FirebaseFirestore.instance.collection('user').doc(docs[index]['userUID']).update({
                                                           'profile.heart': docs[index]['profile']['heart'] - 1,
-                                                          'profile.isPressedList.${_user!.uid}': false
+                                                          'profile.isPressedList': FieldValue.arrayRemove([_user!.uid])
                                                         })
                                                       : FirebaseFirestore.instance.collection('user').doc(docs[index]['userUID']).update({
                                                           'profile.heart': docs[index]['profile']['heart'] + 1,
-                                                          'profile.isPressedList.${_user!.uid}': true
+                                                          'profile.isPressedList': FieldValue.arrayUnion([_user!.uid])
                                                         });
                                                   isPressed
                                                       ? FirebaseFirestore.instance

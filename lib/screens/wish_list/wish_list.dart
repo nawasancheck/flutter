@@ -60,10 +60,8 @@ class _WishListState extends State<WishList> {
 
                             var docs = snapshot2.data?.data();
 
-                            var isPressed = docs!['profile']['isPressedList']['${_user!.uid}'];
-                            if (docs['profile']['isPressedList']['${_user!.uid}'] == null) {
-                              isPressed = false;
-                            }
+                            List isPressedList = docs!['profile']['isPressedList'];
+                            bool isPressed = isPressedList.contains('${_user!.uid}');
 
                             return Row(
                               children: [
