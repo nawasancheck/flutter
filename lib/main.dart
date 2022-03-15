@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-        designSize: Size(428, 926),
+        designSize: Size(392.7, 781.1),
         minTextAdapt: true,
         builder: () => MaterialApp(
               initialRoute: '/',
