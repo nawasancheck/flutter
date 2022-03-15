@@ -94,9 +94,9 @@ class _SignInState extends State<SignIn> {
               height: ScreenUtil().setHeight(40),
               child: Center(
                   child: Text(
-                    "다양한 매력을 가진 매니저를 선택하고,",
-                    style: TextStyle(fontFamily: "gangwon", fontSize: 18.sp),
-                  )),
+                "다양한 매력을 가진 매니저를 선택하고,",
+                style: TextStyle(fontFamily: "gangwon", fontSize: 18.sp),
+              )),
             ),
             Container(
               //           color: Colors.green,
@@ -285,8 +285,7 @@ class _SignInState extends State<SignIn> {
                     child: TextButton(
                       child: Text(" | 비밀번호 재설정", style: TextStyle(fontSize: 12.sp, color: Color(0xff666666))),
                       onPressed: () {
-                        Navigator.of(context, rootNavigator: true)
-                            .push(MaterialPageRoute(builder: (context) => PasswordReset(auth: _auth)));
+                        Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (context) => PasswordReset(auth: _auth)));
                       },
                     ),
                   ),
@@ -390,8 +389,8 @@ class _SignInState extends State<SignIn> {
                   Container(
                     width: ScreenUtil().setWidth(130),
                     child: MaterialButton(
-                      //                                 color: Colors.red,
-                      //
+                        //                                 color: Colors.red,
+                        //
                         onPressed: () {
                           Navigator.pushNamed(context, '/signup');
                         },

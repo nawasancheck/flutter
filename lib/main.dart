@@ -12,7 +12,7 @@ import 'package:flutter_app/screens/manager/manager_list.dart';
 import 'package:flutter_app/screens/auth/sign_up.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MyApp());
@@ -28,17 +28,17 @@ class MyApp extends StatelessWidget {
               initialRoute: '/',
               routes: {
                 '/': (context) => StreamBuilder(
-                  stream: FirebaseAuth.instance.authStateChanges(),
-                  builder: (context, snapshot) {
-                    if(snapshot.hasData) {
-                      return HomePage();
-                    }
-                    return SignIn();
-                  },
-                ),
+                      stream: FirebaseAuth.instance.authStateChanges(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          return HomePage();
+                        }
+                        return SignIn();
+                      },
+                    ),
                 '/signup': (context) => SignUp(),
                 '/home': (context) => HomePage(),
-                '/chat' : (context) => ChatList(),
+                '/chat': (context) => ChatList(),
               },
               title: '동행',
               theme: ThemeData(primaryColor: Color(0xff0082af)),
@@ -55,31 +55,18 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return CupertinoTabScaffold(                            // CupertinoTapScaffold : ios 디자인
-      tabBar: CupertinoTabBar(                              // BottomNavigationBar
+    return CupertinoTabScaffold(
+      // CupertinoTapScaffold : ios 디자인
+      tabBar: CupertinoTabBar(
+        // BottomNavigationBar
         activeColor: Color(0xff0082af),
         inactiveColor: Colors.black,
         items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home_outlined),
-            label: "홈"
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(EvaIcons.heartOutline),
-              label: "찜"
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(EvaIcons.messageSquareOutline),
-              label: "메세지"
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(EvaIcons.clockOutline),
-              label: "나의예약"
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(EvaIcons.personOutline),
-              label: "내프로필"
-          ),
+          BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: "홈"),
+          BottomNavigationBarItem(icon: Icon(EvaIcons.heartOutline), label: "찜"),
+          BottomNavigationBarItem(icon: Icon(EvaIcons.messageSquareOutline), label: "메세지"),
+          BottomNavigationBarItem(icon: Icon(EvaIcons.clockOutline), label: "나의예약"),
+          BottomNavigationBarItem(icon: Icon(EvaIcons.personOutline), label: "내프로필"),
         ],
       ),
       tabBuilder: (context, index) {

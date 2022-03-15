@@ -15,8 +15,10 @@ class _ScheduleState extends State<Schedule> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: PreferredSize(preferredSize: Size.fromHeight(0),
-          child: AppBar(),),
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(0),
+          child: AppBar(),
+        ),
         body: SfCalendar(
           view: CalendarView.month,
 
@@ -27,29 +29,21 @@ class _ScheduleState extends State<Schedule> {
           monthViewSettings: const MonthViewSettings(
             showAgenda: true,
             appointmentDisplayMode: MonthAppointmentDisplayMode.appointment,
-    ),
+          ),
         ));
   }
 
   List<Meeting> _getDataSource() {
-
     final List<Meeting> meetings = <Meeting>[];
     final DateTime today = DateTime.now();
-    final DateTime startTime =
-    DateTime(today.year, today.month, today.day, 9, 0, 0);
-    final DateTime endTime = startTime.add(const Duration(hours: 1,minutes: 30));
-    meetings.add(Meeting(
-        '산책예약 백원재님', startTime, endTime, const Color(0xFF0F8644), false));
-    meetings.add(Meeting(
-        '산책예약 백원재님', startTime, endTime, const Color(0xFF0F8644), false));
-    meetings.add(Meeting(
-        '산책예약 백원재님', startTime, endTime, const Color(0xFF0F8644), false));
-    meetings.add(Meeting(
-        '산책예약 백원재님', startTime, endTime, const Color(0xFF0F8644), false));
-    meetings.add(Meeting(
-        '산책예약 백원재님', startTime, endTime, const Color(0xFF0F8644), false));
-    return
-      meetings;
+    final DateTime startTime = DateTime(today.year, today.month, today.day, 9, 0, 0);
+    final DateTime endTime = startTime.add(const Duration(hours: 1, minutes: 30));
+    meetings.add(Meeting('산책예약 백원재님', startTime, endTime, const Color(0xFF0F8644), false));
+    meetings.add(Meeting('산책예약 백원재님', startTime, endTime, const Color(0xFF0F8644), false));
+    meetings.add(Meeting('산책예약 백원재님', startTime, endTime, const Color(0xFF0F8644), false));
+    meetings.add(Meeting('산책예약 백원재님', startTime, endTime, const Color(0xFF0F8644), false));
+    meetings.add(Meeting('산책예약 백원재님', startTime, endTime, const Color(0xFF0F8644), false));
+    return meetings;
   }
 }
 

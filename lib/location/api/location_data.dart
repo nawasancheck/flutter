@@ -12,7 +12,6 @@ class LocationData extends StatefulWidget {
 }
 
 class _LocationDataState extends State<LocationData> {
-
   Future<List> fetchData() async {
     Map<String, String> headerss = {
       "X-NCP-APIGW-API-KEY-ID": "ayz7r0vskw", // 개인 클라이언트 아이디
@@ -27,7 +26,8 @@ class _LocationDataState extends State<LocationData> {
     print(position);
 
     Response response = await get(
-        Uri.parse("https://naveropenapi.apigw.ntruss.com/map-reversegeocode/v2/gc?request=coordsToaddr&coords=-122.0840352,37.4220094&sourcecrs=epsg:4326&output=json"),
+        Uri.parse(
+            "https://naveropenapi.apigw.ntruss.com/map-reversegeocode/v2/gc?request=coordsToaddr&coords=-122.0840352,37.4220094&sourcecrs=epsg:4326&output=json"),
         headers: headerss);
 
     String jsonData = response.body;
@@ -41,14 +41,12 @@ class _LocationDataState extends State<LocationData> {
     return location;
   }
 
-  void getLocation() async{
+  void getLocation() async {
     try {
       LocationPermission permission = await Geolocator.requestPermission();
-      Position position = await Geolocator.getCurrentPosition(
-          desiredAccuracy: LocationAccuracy.high);
+      Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
       print(position);
-    }
-    catch (e){
+    } catch (e) {
       print('error');
     }
   }
@@ -56,16 +54,13 @@ class _LocationDataState extends State<LocationData> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Row(
-        children: [
-          RaisedButton(
+      body: Row(children: [
+        RaisedButton(
             onPressed: () {
               fetchData();
             },
             child: Text('Get my location')),
-
-        ]
-        ),
-      );
+      ]),
+    );
   }
 }
