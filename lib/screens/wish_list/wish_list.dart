@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/screens/manager/manager_list_detail.dart';
@@ -19,185 +20,437 @@ class _WishListState extends State<WishList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(0),
-          child: AppBar(),
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          title: Text(
+            "찜 목록",
+            style: TextStyle(
+                color: Color(0xff324755),
+                fontSize: 20.sp,
+                fontWeight: FontWeight.bold),
+          ),
+          centerTitle: true,
         ),
         body: StreamBuilder(
-            stream: FirebaseFirestore.instance.collection('user').doc(_user!.uid).snapshots(),
-            builder: (context, AsyncSnapshot<DocumentSnapshot<Map<String, dynamic>>> snapshot) {
+            stream: FirebaseFirestore.instance
+                .collection('user')
+                .doc(_user!.uid)
+                .snapshots(),
+            builder: (context,
+                AsyncSnapshot<DocumentSnapshot<Map<String, dynamic>>>
+                snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(child: CircularProgressIndicator());
               }
 
               if (snapshot.data!.data()?['wishList'] == null) {
-                return Text('null');
+                return Center(
+                    child: Text(
+                      "마음에 드는 리스너를 찜해보세요!!!",
+                      style: TextStyle(fontSize: 20.sp),
+                    ));
               } else if (snapshot.data!.data()?['wishList'].length == 0) {
-                return Text('0');
+                return Container(
+                    width: ScreenUtil().screenWidth,
+                    height: ScreenUtil().screenHeight,
+                    color: Colors.grey,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Center(
+                            child: Text(
+                              "마음에 드는 리스너를 찜해보세요!!!",
+                              style: TextStyle(fontSize: 20.sp),
+                            )),
+                      ],
+                    ));
               }
 
               Map wishMap = snapshot.data!.data()?['wishList'];
               List wishList = wishMap.keys.toList();
               List wishValueList = wishMap.values.toList();
 
-              return ListView.builder(
-                  shrinkWrap: true,
-                  itemExtent: 180,
-                  itemCount: wishMap.length,
-                  itemBuilder: (context, index) {
-                    return Card(
-                      child: InkWell(
-                        onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => ManagerDetailPage(wishList[index], wishValueList[index])));
-                        },
-                        child: Container(
-                            child: StreamBuilder(
-                          stream: FirebaseFirestore.instance.collection('user').doc(wishList[index]).snapshots(),
-                          builder: (context, AsyncSnapshot<DocumentSnapshot<Map<String, dynamic>>> snapshot2) {
-                            if (snapshot2.connectionState == ConnectionState.waiting) {
-                              return Center(child: CircularProgressIndicator());
-                            }
+              return Container(
+                child: Container(
+                  width: ScreenUtil().screenWidth,
+                  height: ScreenUtil().screenHeight,
+                  //
+                  //color: Colors.blue,
+                  child: ListView.builder(
+                      shrinkWrap: true,
+                      itemExtent: 140.sp,
+                      itemCount: wishMap.length,
+                      itemBuilder: (context, index) {
+                        return Card(
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ManagerDetailPage(
+                                          wishList[index],
+                                          wishValueList[index])));
+                            },
+                            child: Container(
+                              //     color: Colors.yellow,
+                                child: StreamBuilder(
+                                  stream: FirebaseFirestore.instance
+                                      .collection('user')
+                                      .doc(wishList[index])
+                                      .snapshots(),
+                                  builder: (context,
+                                      AsyncSnapshot<
+                                          DocumentSnapshot<
+                                              Map<String, dynamic>>>
+                                      snapshot2) {
+                                    if (snapshot2.connectionState ==
+                                        ConnectionState.waiting) {
+                                      return Center(
+                                          child: CircularProgressIndicator());
+                                    }
 
-                            var docs = snapshot2.data?.data();
+                                    var docs = snapshot2.data?.data();
 
-                            List isPressedList = docs!['profile']['isPressedList'];
-                            bool isPressed = isPressedList.contains('${_user!.uid}');
+                                    List isPressedList = docs!['profile']['isPressedList'];
+                                    bool isPressed = isPressedList.contains('${_user!.uid}');
 
-                            return Row(
-                              children: [
-                                Container(
-                                  decoration: ShapeDecoration(
-                                      image: DecorationImage(image: AssetImage(docs['profile']['imageUrl']), fit: BoxFit.cover),
-                                      shape: RoundedRectangleBorder(borderRadius: BorderRadiusDirectional.circular(15))),
-                                  height: ScreenUtil().setHeight(126),
-                                  width: ScreenUtil().setWidth(132),
-                                ), //      사진
 
-                                Container(
-                                  //                   color: Colors.yellow,
-                                  //
-                                  width: ScreenUtil().setWidth(10),
-                                  height: ScreenUtil().setHeight(130),
-                                ),
+                                    return Row(
+                                      children: [
+                                        Container(
+                                          decoration: ShapeDecoration(
+                                              image: DecorationImage(
+                                                  image: AssetImage(
+                                                      docs['profile']['imageUrl']),
+                                                  fit: BoxFit.cover),
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                  BorderRadiusDirectional
+                                                      .circular(15))),
+                                          height: ScreenUtil().setHeight(107),
+                                          width: ScreenUtil().setWidth(94),
+                                        ), //      사진
 
-                                Container(
-                                  width: ScreenUtil().setWidth(270),
-                                  height: ScreenUtil().setHeight(162),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Text(
-                                            " " + docs['profile']['title'],
-                                            style: TextStyle(fontSize: 25.sp, fontWeight: FontWeight.bold),
-                                          ),
-                                          Flexible(
-                                            fit: FlexFit.tight,
-                                            child: Container(
-                                              width: ScreenUtil().setWidth(130),
-                                              child: Row(
-                                                mainAxisAlignment: MainAxisAlignment.end,
-                                                children: [
-                                                  Container(
-                                                    child: Row(
-                                                      mainAxisAlignment: MainAxisAlignment.end,
-                                                      children: [
-                                                        Icon(
-                                                          Icons.star,
-                                                          color: Colors.yellow,
-                                                          size: 20.sp,
-                                                        ),
-                                                        Text(
-                                                          docs['profile']['star'].toStringAsFixed(1),
-                                                          style: TextStyle(fontSize: 20.sp, color: Color(0xff352641)),
-                                                        ),
-                                                      ],
+                                        Container(
+                                          //                color: Colors.yellow,
+                                          //
+                                          width: ScreenUtil().setWidth(10),
+                                          height: ScreenUtil().setHeight(130),
+                                        ),
+
+                                        Flexible(
+                                          fit: FlexFit.tight,
+                                          child: Container(
+                                            //color: Colors.orange,
+                                            child: Column(
+                                              mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                              children: [
+                                                Row(
+                                                  children: [
+                                                    Container(
+                                                      //           color:Colors.green,
+                                                      child: Text(
+                                                        " " +
+                                                            docs['profile']
+                                                            ['title'] +
+                                                            " ",
+                                                        style: TextStyle(
+                                                            fontSize: 20.sp,
+                                                            fontWeight:
+                                                            FontWeight.bold,
+                                                            color:
+                                                            Color(0xff241332)),
+                                                      ),
                                                     ),
-                                                  ),
-                                                ],
-                                              ),
+                                                    Flexible(
+                                                      fit: FlexFit.tight,
+                                                      child: Container(
+                                                        //             color: Colors.green,
+                                                        child: Row(
+                                                          mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .start,
+                                                          children: [
+                                                            Container(
+                                                              child: Row(
+                                                                mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .start,
+                                                                children: [
+                                                                  Icon(
+                                                                    Icons.star,
+                                                                    color: Colors
+                                                                        .yellow,
+                                                                    size: 20.sp,
+                                                                  ),
+                                                                  Text(
+                                                                    docs['profile']
+                                                                    ['star']
+                                                                        .toStringAsFixed(
+                                                                        1),
+                                                                    style: TextStyle(
+                                                                        fontSize:
+                                                                        15.sp,
+                                                                        color: Color(
+                                                                            0xff8e8594)),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Flexible(
+                                                      fit: FlexFit.tight,
+                                                      child: Container(
+                                                        height: ScreenUtil()
+                                                            .setHeight(25),
+                                                        //         color: Colors.orange,
+                                                        child: Row(
+                                                          mainAxisAlignment:
+                                                          MainAxisAlignment.end,
+                                                          children: [
+                                                            InkWell(
+                                                              child: Icon(
+                                                                EvaIcons.heart,
+                                                                color:
+                                                                Colors.red[500],
+                                                                size: 20.sp,
+                                                              ),
+                                                              onTap: () {
+                                                                isPressed
+                                                                    ? FirebaseFirestore
+                                                                    .instance
+                                                                    .collection(
+                                                                    'user')
+                                                                    .doc(docs[
+                                                                'userUID'])
+                                                                    .update(
+                                                                    {
+                                                                      'profile.heart':
+                                                                      docs['profile']['heart'] -
+                                                                          1,
+                                                                      'profile.isPressedList': FieldValue.arrayRemove([_user!.uid])})
+                                                                    : FirebaseFirestore
+                                                                    .instance
+                                                                    .collection(
+                                                                    'user')
+                                                                    .doc(docs[
+                                                                'userUID'])
+                                                                    .update(
+                                                                    {
+                                                                      'profile.heart':
+                                                                      docs['profile']['heart'] +
+                                                                          1,
+                                                                      'profile.isPressedList': FieldValue.arrayUnion([_user!.uid])});
+
+                                                                isPressed
+                                                                    ? FirebaseFirestore
+                                                                    .instance
+                                                                    .collection(
+                                                                    'user')
+                                                                    .doc(_user!
+                                                                    .uid)
+                                                                    .update({
+                                                                  'wishList.${docs['userUID']}':
+                                                                  FieldValue
+                                                                      .delete()
+                                                                })
+                                                                    : FirebaseFirestore
+                                                                    .instance
+                                                                    .collection(
+                                                                    'user')
+                                                                    .doc(_user!
+                                                                    .uid)
+                                                                    .update({
+                                                                  'wishList.${docs['userUID']}':
+                                                                  docs[
+                                                                  'userName']
+                                                                });
+                                                              },
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Row(
+                                                  children: [
+                                                    Text(
+                                                        "  " +
+                                                            docs['profile']
+                                                            ['area'] +
+                                                            "  /",
+                                                        style: TextStyle(
+                                                            fontSize: 12.sp,
+                                                            color:
+                                                            Color(0xff494444))),
+                                                    Text(
+                                                        "  " +
+                                                            docs['profile']['like'],
+                                                        style: TextStyle(
+                                                            fontSize: 12.sp,
+                                                            color:
+                                                            Color(0xff494444))),
+                                                  ],
+                                                ),
+                                                Row(
+                                                  children: [
+                                                    Flexible(
+                                                      fit: FlexFit.loose,
+                                                      child: Container(
+                                                        //            color: Colors.blue,
+                                                          child: Row(
+                                                            children: [
+                                                              Column(
+                                                                children: [
+                                                                  Text(
+                                                                    "  " +
+                                                                        "60분 " +
+                                                                        docs['profile'][
+                                                                        'price1']
+                                                                            .toString() +
+                                                                        " P",
+                                                                    style: TextStyle(
+                                                                        fontSize: 13.sp,
+                                                                        fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                        color: Color(
+                                                                            0xff516675)),
+                                                                  ),
+                                                                  Text(
+                                                                    "  " +
+                                                                        "60분 " +
+                                                                        docs['profile'][
+                                                                        'price1']
+                                                                            .toString() +
+                                                                        " P",
+                                                                    style: TextStyle(
+                                                                        fontSize: 13.sp,
+                                                                        fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                        color: Color(
+                                                                            0xff516675)),
+                                                                  ),
+                                                                  Text(
+                                                                    "  " +
+                                                                        "60분 " +
+                                                                        docs['profile'][
+                                                                        'price1']
+                                                                            .toString() +
+                                                                        " P",
+                                                                    style: TextStyle(
+                                                                        fontSize: 13.sp,
+                                                                        fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                        color: Color(
+                                                                            0xff516675)),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                              Flexible(
+                                                                fit: FlexFit.tight,
+                                                                child: Container(
+                                                                  //                     color: Colors.green,
+                                                                  width: 130,
+                                                                  height: 47,
+                                                                  child: Column(
+                                                                    mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .end,
+                                                                    children: [
+                                                                      Row(
+                                                                        mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .end,
+                                                                        children: [
+                                                                          Container(
+                                                                            width: 78.w,
+                                                                            height:
+                                                                            28.h,
+                                                                            child:
+                                                                            FlatButton(
+                                                                              onPressed:
+                                                                                  () {},
+                                                                              shape: RoundedRectangleBorder(
+                                                                                  borderRadius:
+                                                                                  BorderRadius.circular(30)),
+                                                                              color: Color(
+                                                                                  0xff93e3e6),
+                                                                              child:
+                                                                              Text(
+                                                                                "메시지",
+                                                                                style: TextStyle(
+                                                                                    fontSize:
+                                                                                    12.sp,
+                                                                                    color: Color(0xffffffff),
+                                                                                    fontWeight: FontWeight.bold),
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                          Container(
+                                                                            width: ScreenUtil()
+                                                                                .setWidth(
+                                                                                15.w),
+                                                                          ),
+                                                                          Container(
+                                                                            width: 78.w,
+                                                                            height:
+                                                                            28.h,
+                                                                            child:
+                                                                            FlatButton(
+                                                                              onPressed:
+                                                                                  () {},
+                                                                              shape: RoundedRectangleBorder(
+                                                                                  borderRadius:
+                                                                                  BorderRadius.circular(30)),
+                                                                              color: Color(
+                                                                                  0xff74c8cb),
+                                                                              child:
+                                                                              Text(
+                                                                                "선택예약",
+                                                                                style: TextStyle(
+                                                                                    fontSize:
+                                                                                    12.sp,
+                                                                                    color: Color(0xffffffff),
+                                                                                    fontWeight: FontWeight.bold),
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          )),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
                                             ),
                                           ),
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          Text("  " + docs['profile']['area'] + "  -", style: TextStyle(fontSize: 15.sp, color: Color(0xff6b6b6b))),
-                                          Text(" " + docs['profile']['year'].toString() + "대",
-                                              style: TextStyle(fontSize: 15.sp, color: Color(0xff6b6b6b))),
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          Text("  " + "관심분야 -" + docs['profile']['like'],
-                                              style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold, color: Color(0xff737373))),
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          Text("  " + docs['profile']['description'].substring(0, 20) + ".....",
-                                              style: TextStyle(fontSize: 15.sp, color: Color(0xff878787))),
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          Text("  " + "60분 " + docs['profile']['price1'].toString() + " P",
-                                              style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold)),
-                                          Flexible(
-                                            fit: FlexFit.tight,
-                                            child: Container(
-                                              //                       color: Colors.green,
-                                              width: ScreenUtil().setWidth(63),
-                                              height: ScreenUtil().setHeight(30),
-                                            ),
-                                          ),
-                                          IconButton(
-                                            iconSize: 25.sp,
-                                            icon: isPressed
-                                                ? Icon(EvaIcons.heart)
-                                                : Icon(
-                                                    EvaIcons.heartOutline,
-                                                    color: Color(0xff878787),
-                                                  ),
-                                            color: Colors.red[500],
-                                            onPressed: () {
-                                              isPressed
-                                                  ? FirebaseFirestore.instance.collection('user').doc(docs['userUID']).update({
-                                                      'profile.heart': docs['profile']['heart'] - 1,
-                                                      'profile.isPressedList': FieldValue.arrayRemove([_user!.uid])
-                                                    })
-                                                  : FirebaseFirestore.instance.collection('user').doc(docs['userUID']).update({
-                                                      'profile.heart': docs['profile']['heart'] + 1,
-                                                      'profile.isPressedList': FieldValue.arrayUnion([_user!.uid])
-                                                    });
-                                              isPressed
-                                                  ? FirebaseFirestore.instance
-                                                      .collection('user')
-                                                      .doc(_user!.uid)
-                                                      .update({'wishList.${docs['userUID']}': FieldValue.delete()})
-                                                  : FirebaseFirestore.instance
-                                                      .collection('user')
-                                                      .doc(_user!.uid)
-                                                      .update({'wishList.${docs['userUID']}': docs['userName']});
-                                            },
-                                          ),
-                                        ],
-                                      )
-                                    ],
-                                  ),
-                                ),
-                                Container(
-                                  width: ScreenUtil().setWidth(5),
-                                  height: ScreenUtil().setHeight(130),
-                                ),
-                              ],
-                            );
-                          },
-                        )),
-                      ),
-                    );
-                  });
+                                        ),
+                                        Container(
+                                          width: ScreenUtil().setWidth(5),
+                                          height: ScreenUtil().setHeight(130),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                )),
+                          ),
+                        );
+                      }),
+                ),
+              );
             }));
   }
 }
