@@ -24,10 +24,7 @@ class _ChatState extends State<ChatList> {
           backgroundColor: Colors.white,
           title: Text(
             "메세지",
-            style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-                fontSize: 25.sp),
+            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 25.sp),
           ),
           actions: [
             IconButton(
@@ -47,10 +44,8 @@ class _ChatState extends State<ChatList> {
                   child: Card(
                       child: StreamBuilder(
                           stream: FirebaseFirestore.instance.collection('chat').doc(_user!.uid).collection('chat_user_num').snapshots(),
-                          builder: (context,
-                              AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
-                            if (snapshot.connectionState ==
-                                ConnectionState.waiting) {
+                          builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+                            if (snapshot.connectionState == ConnectionState.waiting) {
                               return Center(
                                 child: CircularProgressIndicator(),
                               );
@@ -68,29 +63,24 @@ class _ChatState extends State<ChatList> {
                                   itemExtent: 90.sp,
                                   itemCount: num,
                                   itemBuilder: (context, index) {
-
                                     return Card(
                                       child: InkWell(
                                         //     splashColor: Colors.yellow,
                                         onTap: () {
                                           // 바텀네비게이션 지우기
                                           //
-                                          Navigator.of(context,
-                                                  rootNavigator: true)
-                                              .push(MaterialPageRoute(
-                                                  builder: (_) => ChatScreen(
-                                                      '${snapshot.data?.docs[index]['userUID']}',
-                                                      '${snapshot.data?.docs[index]['userName']}')));
+                                          Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(
+                                              builder: (_) => ChatScreen(
+                                                  '${snapshot.data?.docs[index]['userUID']}', '${snapshot.data?.docs[index]['userName']}')));
                                         },
 
                                         child: StreamBuilder(
-                                            stream: FirebaseFirestore.instance.collection("user").doc(snapshot.data?.docs[index]['userUID']).snapshots(),
-                                            builder: (BuildContext context,
-                                                AsyncSnapshot<DocumentSnapshot<Map<String,dynamic>>> snapshot2) {
+                                            stream:
+                                                FirebaseFirestore.instance.collection("user").doc(snapshot.data?.docs[index]['userUID']).snapshots(),
+                                            builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot<Map<String, dynamic>>> snapshot2) {
                                               if (snapshot2.connectionState == ConnectionState.waiting) {
                                                 return Center(
-                                                  child:
-                                                      CircularProgressIndicator(),
+                                                  child: CircularProgressIndicator(),
                                                 );
                                               }
                                               var docs = snapshot2.data!.data();
@@ -101,9 +91,7 @@ class _ChatState extends State<ChatList> {
                                                       width: ScreenUtil().setWidth(70),
                                                       decoration: BoxDecoration(
                                                           image: DecorationImage(
-                                                              image: AssetImage(docs?['profile']['imageUrl']),
-                                                              fit: BoxFit.cover,
-                                                              scale: 57),
+                                                              image: AssetImage(docs?['profile']['imageUrl']), fit: BoxFit.cover, scale: 57),
                                                           shape: BoxShape.circle)),
                                                   Container(
                                                     //                 color: Colors.purple,
@@ -113,78 +101,65 @@ class _ChatState extends State<ChatList> {
                                                       //               color: Colors.blue,
                                                       height: ScreenUtil().setHeight(100),
                                                       width: ScreenUtil().setWidth(240),
-                                                      child: Column(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment.center,
-                                                          children: [
-                                                            Row(
-                                                                mainAxisAlignment: MainAxisAlignment.start,
-                                                                children: [
-                                                                  Text(docs?['profile']['title'],
-                                                                      style: TextStyle(
-                                                                          fontSize: 20.sp,
-                                                                          fontWeight: FontWeight.bold,
-                                                                          color: Color(0xff222b31))),
-                                                                  Text("  " + docs?['profile']['area'],
-                                                                      style: TextStyle(
-                                                                          fontSize: 13.sp,
-                                                                          fontWeight: FontWeight.bold,
-                                                                          color: Color(0xff8fa2ae)))
-                                                                ]),
-                                                            Row(
-                                                                mainAxisAlignment: MainAxisAlignment.start,
-                                                                children: [
-                                                                  StreamBuilder(
-                                                                      stream: FirebaseFirestore.instance.collection("chat").doc(_user!.uid).collection(snapshot.data?.docs[index]['userUID']).orderBy('time', descending: true).snapshots(),
-                                                                      builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot3) {
+                                                      child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+                                                        Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                                                          Text(docs?['profile']['title'],
+                                                              style:
+                                                                  TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold, color: Color(0xff222b31))),
+                                                          Text("  " + docs?['profile']['area'],
+                                                              style:
+                                                                  TextStyle(fontSize: 13.sp, fontWeight: FontWeight.bold, color: Color(0xff8fa2ae)))
+                                                        ]),
+                                                        Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                                                          StreamBuilder(
+                                                              stream: FirebaseFirestore.instance
+                                                                  .collection("chat")
+                                                                  .doc(_user!.uid)
+                                                                  .collection(snapshot.data?.docs[index]['userUID'])
+                                                                  .orderBy('time', descending: true)
+                                                                  .snapshots(),
+                                                              builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot3) {
+                                                                if (snapshot3.connectionState == ConnectionState.waiting) {
+                                                                  return Center(
+                                                                    child: CircularProgressIndicator(),
+                                                                  );
+                                                                }
 
-                                                                        if (snapshot3.connectionState == ConnectionState.waiting) {
-                                                                          return Center(
-                                                                            child: CircularProgressIndicator(),
-                                                                          );
-                                                                        }
-
-                                                                        return Text(
-                                                                          '${snapshot3.data?.docs[0]['text']}',
-                                                                          style: TextStyle(
-                                                                              color: Color(
-                                                                                  0xffa090c4)),
-                                                                        );
-                                                                      }),
-                                                                ])
-                                                          ])),
+                                                                return Text(
+                                                                  '${snapshot3.data?.docs[0]['text']}',
+                                                                  style: TextStyle(color: Color(0xffa090c4)),
+                                                                );
+                                                              }),
+                                                        ])
+                                                      ])),
                                                   Flexible(
                                                       fit: FlexFit.tight,
                                                       child: Container(
                                                         //               color: Colors.red,
-                                                        height: ScreenUtil()
-                                                            .setHeight(100),
-                                                        width: ScreenUtil()
-                                                            .setWidth(40),
+                                                        height: ScreenUtil().setHeight(100),
+                                                        width: ScreenUtil().setWidth(40),
                                                       )),
                                                   Container(
                                                     //           color: Colors.yellow,
-                                                    height: ScreenUtil()
-                                                        .setHeight(100),
-                                                    width: ScreenUtil()
-                                                        .setWidth(38),
+                                                    height: ScreenUtil().setHeight(100),
+                                                    width: ScreenUtil().setWidth(38),
                                                     child: StreamBuilder(
-                                                        stream: FirebaseFirestore.instance.collection("chat").doc(_user!.uid).collection(snapshot.data?.docs[index]['userUID']).orderBy('time', descending: true).snapshots(),
+                                                        stream: FirebaseFirestore.instance
+                                                            .collection("chat")
+                                                            .doc(_user!.uid)
+                                                            .collection(snapshot.data?.docs[index]['userUID'])
+                                                            .orderBy('time', descending: true)
+                                                            .snapshots(),
                                                         builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot4) {
-
                                                           if (snapshot4.connectionState == ConnectionState.waiting) {
                                                             return Center(
                                                               child: CircularProgressIndicator(),
                                                             );
                                                           }
 
-                                                        return Text(
-                                                            '${snapshot4.data?.docs[0]['time']}',
-                                                            style: TextStyle(
-                                                              fontSize: 13.sp,
-                                                              color: Color(0xff7898186)));
-                                                        })
-                                                    ,
+                                                          return Text('${snapshot4.data?.docs[0]['time']}',
+                                                              style: TextStyle(fontSize: 13.sp, color: Color(0xff7898186)));
+                                                        }),
                                                   )
                                                 ],
                                               );

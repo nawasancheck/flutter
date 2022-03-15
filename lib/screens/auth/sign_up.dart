@@ -302,8 +302,7 @@ class _SignUpState extends State<SignUp> {
                 child: MaterialButton(
                   color: Color(0xff74BABC),
                   onPressed: () async {
-                    final newUser = await _auth.createUserWithEmailAndPassword(
-                        email: _userEmail, password: _userPassword);
+                    final newUser = await _auth.createUserWithEmailAndPassword(email: _userEmail, password: _userPassword);
 
                     // doc(newUser.user!.uid)는 식별자 역할을 한다.
                     await FirebaseFirestore.instance.collection('user').doc(newUser.user!.uid).set({

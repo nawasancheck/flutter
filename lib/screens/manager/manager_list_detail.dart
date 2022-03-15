@@ -8,7 +8,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 class ManagerDetailPage extends StatelessWidget {
   final String opponentUID;
 
-
   ManagerDetailPage(this.opponentUID);
 
   @override
@@ -19,13 +18,8 @@ class ManagerDetailPage extends StatelessWidget {
           child: AppBar(),
         ),
         body: StreamBuilder(
-            stream: FirebaseFirestore.instance
-                .collection('user')
-                .doc(opponentUID)
-                .snapshots(),
-            builder: (context,
-                AsyncSnapshot<DocumentSnapshot<Map<String, dynamic>>>
-                snapshot) {
+            stream: FirebaseFirestore.instance.collection('user').doc(opponentUID).snapshots(),
+            builder: (context, AsyncSnapshot<DocumentSnapshot<Map<String, dynamic>>> snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(child: CircularProgressIndicator());
               }
@@ -47,8 +41,7 @@ class ManagerDetailPage extends StatelessWidget {
                           Container(
                               width: ScreenUtil().screenWidth,
                               height: ScreenUtil().setHeight(408.h),
-                              decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.white)),
+                              decoration: BoxDecoration(border: Border.all(color: Colors.white)),
                               child: Image.asset(
                                 docs['profile']['imageUrl'],
                                 fit: BoxFit.cover,
@@ -56,175 +49,162 @@ class ManagerDetailPage extends StatelessWidget {
                           Padding(
                               padding: const EdgeInsets.only(left: 20),
                               child: Container(
-                                child: Column(
-                                    crossAxisAlignment:
-                                    CrossAxisAlignment.start,
-                                    children: [
-                                      Text(docs['profile']['title'],
-                                          style: TextStyle(
-                                            fontSize: 26.sp,
-                                            fontWeight: FontWeight.bold,
-                                          )),
-                                      Text(
-                                        "${docs['profile']['area']}" +
-                                            " / " +
-                                            "${docs['profile']['year']}" +
-                                            "대",
-                                        style: TextStyle(
-                                            fontSize: 14.sp,
-                                            color: Colors.grey,
-                                            fontWeight: FontWeight.bold),
+                                child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                                  Text(docs['profile']['title'],
+                                      style: TextStyle(
+                                        fontSize: 26.sp,
+                                        fontWeight: FontWeight.bold,
+                                      )),
+                                  Text(
+                                    "${docs['profile']['area']}" + " / " + "${docs['profile']['year']}" + "대",
+                                    style: TextStyle(fontSize: 14.sp, color: Colors.grey, fontWeight: FontWeight.bold),
+                                  ),
+                                  Container(
+                                    height: ScreenUtil().setHeight(0),
+                                  ),
+                                  Row(children: [
+                                    Icon(
+                                      Icons.star,
+                                      color: Colors.yellow,
+                                      size: 25,
+                                    ),
+                                    Container(width: ScreenUtil().setWidth(5)),
+                                    Text(
+                                      "9.0",
+                                      style: TextStyle(
+                                        fontSize: 14.sp,
+                                        fontWeight: FontWeight.bold,
                                       ),
-                                      Container(
-                                        height: ScreenUtil().setHeight(0),
+                                    ),
+                                    Text(
+                                      "/10",
+                                      style: TextStyle(
+                                        fontSize: 10.sp,
+                                        color: Colors.grey,
+                                        fontWeight: FontWeight.bold,
                                       ),
-                                      Row(children: [
-                                        Icon(
-                                          Icons.star,
-                                          color: Colors.yellow,
-                                          size: 25,
-                                        ),
-                                        Container(
-                                            width: ScreenUtil().setWidth(5)),
-                                        Text(
-                                          "9.0",
-                                          style: TextStyle(
-                                            fontSize: 14.sp,
-                                            fontWeight: FontWeight.bold,
+                                    ),
+                                    TextButton(
+                                      onPressed: () {},
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "후기 ",
+                                            style: TextStyle(
+                                              fontSize: 12.sp,
+                                              color: Colors.lightBlue,
+                                              fontWeight: FontWeight.bold,
+                                            ),
                                           ),
+                                          Text(
+                                            "29",
+                                            style: TextStyle(
+                                              fontSize: 16.sp,
+                                              color: Colors.lightBlue,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          Text(
+                                            "개",
+                                            style: TextStyle(
+                                              fontSize: 12.sp,
+                                              color: Colors.lightBlue,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          Container(width: ScreenUtil().setWidth(5)),
+                                          Icon(
+                                            Icons.arrow_forward_ios_rounded,
+                                            color: Colors.lightBlue,
+                                            size: 14,
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ]),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        "시간별 포인트",
+                                        style: TextStyle(
+                                          fontSize: 12.sp,
+                                          color: Colors.grey,
+                                          fontWeight: FontWeight.bold,
                                         ),
-                                        Text(
-                                          "/10",
+                                      ),
+                                      Text(" 30분",
                                           style: TextStyle(
                                             fontSize: 10.sp,
                                             color: Colors.grey,
                                             fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        TextButton(
-                                          onPressed: () {},
-                                          child: Row(
-                                            mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                "후기 ",
-                                                style: TextStyle(
-                                                  fontSize: 12.sp,
-                                                  color: Colors.lightBlue,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                              Text(
-                                                "29",
-                                                style: TextStyle(
-                                                  fontSize: 16.sp,
-                                                  color: Colors.lightBlue,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                              Text(
-                                                "개",
-                                                style: TextStyle(
-                                                  fontSize: 12.sp,
-                                                  color: Colors.lightBlue,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                              Container(
-                                                  width:
-                                                  ScreenUtil().setWidth(5)),
-                                              Icon(
-                                                Icons.arrow_forward_ios_rounded,
-                                                color: Colors.lightBlue,
-                                                size: 14,
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      ]),
-                                      Row(
-                                        children: [
-                                          Text(
-                                            "시간별 포인트",
-                                            style: TextStyle(
-                                              fontSize: 12.sp,
-                                              color: Colors.grey,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                          Text(" 30분",
-                                              style: TextStyle(
-                                                fontSize: 10.sp,
-                                                color: Colors.grey,
-                                                fontWeight: FontWeight.bold,
-                                              )),
-                                          Text(" 6,000 P",
-                                              style: TextStyle(
-                                                fontSize: 12.sp,
-                                                color: Colors.pink[700],
-                                                fontWeight: FontWeight.bold,
-                                              )),
-                                          Text(" / 60분",
-                                              style: TextStyle(
-                                                fontSize: 12.sp,
-                                                color: Colors.grey,
-                                                fontWeight: FontWeight.bold,
-                                              )),
-                                          Text(" 10,000 P",
-                                              style: TextStyle(
-                                                fontSize: 12.sp,
-                                                color: Colors.pink[700],
-                                                fontWeight: FontWeight.bold,
-                                              )),
-                                          Text(" / 90분",
-                                              style: TextStyle(
-                                                fontSize: 12.sp,
-                                                color: Colors.grey,
-                                                fontWeight: FontWeight.bold,
-                                              )),
-                                          Text(" 14,000 P",
-                                              style: TextStyle(
-                                                fontSize: 12.sp,
-                                                color: Colors.pink[700],
-                                                fontWeight: FontWeight.bold,
-                                              )),
-                                        ],
-                                      ),
-                                      Container(
-                                        height: ScreenUtil().setHeight(10),
-                                      ),
-                                      Row(
-                                        children: [
-                                          Text("MBTI",
-                                              style: TextStyle(
-                                                fontSize: 14.sp,
-                                                color: Colors.grey,
-                                                fontWeight: FontWeight.bold,
-                                              )),
-                                          Text("  ENTJ",
-                                              style: TextStyle(
-                                                fontSize: 14.sp,
-                                                fontWeight: FontWeight.bold,
-                                              )),
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          Text("관심분야",
-                                              style: TextStyle(
-                                                fontSize: 14.sp,
-                                                color: Colors.grey,
-                                                fontWeight: FontWeight.bold,
-                                              )),
-                                          Text("  옷, 패션",
-                                              style: TextStyle(
-                                                fontSize: 14.sp,
-                                                fontWeight: FontWeight.bold,
-                                              )),
-                                        ],
-                                      ),
-                                    ]),
+                                          )),
+                                      Text(" 6,000 P",
+                                          style: TextStyle(
+                                            fontSize: 12.sp,
+                                            color: Colors.pink[700],
+                                            fontWeight: FontWeight.bold,
+                                          )),
+                                      Text(" / 60분",
+                                          style: TextStyle(
+                                            fontSize: 12.sp,
+                                            color: Colors.grey,
+                                            fontWeight: FontWeight.bold,
+                                          )),
+                                      Text(" 10,000 P",
+                                          style: TextStyle(
+                                            fontSize: 12.sp,
+                                            color: Colors.pink[700],
+                                            fontWeight: FontWeight.bold,
+                                          )),
+                                      Text(" / 90분",
+                                          style: TextStyle(
+                                            fontSize: 12.sp,
+                                            color: Colors.grey,
+                                            fontWeight: FontWeight.bold,
+                                          )),
+                                      Text(" 14,000 P",
+                                          style: TextStyle(
+                                            fontSize: 12.sp,
+                                            color: Colors.pink[700],
+                                            fontWeight: FontWeight.bold,
+                                          )),
+                                    ],
+                                  ),
+                                  Container(
+                                    height: ScreenUtil().setHeight(10),
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text("MBTI",
+                                          style: TextStyle(
+                                            fontSize: 14.sp,
+                                            color: Colors.grey,
+                                            fontWeight: FontWeight.bold,
+                                          )),
+                                      Text("  ENTJ",
+                                          style: TextStyle(
+                                            fontSize: 14.sp,
+                                            fontWeight: FontWeight.bold,
+                                          )),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text("관심분야",
+                                          style: TextStyle(
+                                            fontSize: 14.sp,
+                                            color: Colors.grey,
+                                            fontWeight: FontWeight.bold,
+                                          )),
+                                      Text("  옷, 패션",
+                                          style: TextStyle(
+                                            fontSize: 14.sp,
+                                            fontWeight: FontWeight.bold,
+                                          )),
+                                    ],
+                                  ),
+                                ]),
                               )),
                           Container(
                             height: ScreenUtil().setHeight(10),
@@ -234,20 +214,15 @@ class ManagerDetailPage extends StatelessWidget {
                             child: Card(
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(16),
-                                side: BorderSide(
-                                    color: Colors.blue.shade300, width: 2),
+                                side: BorderSide(color: Colors.blue.shade300, width: 2),
                               ),
                               color: Colors.white,
                               child: Padding(
-                                padding:
-                                const EdgeInsets.fromLTRB(20, 20, 20, 20),
+                                padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Text(
-                                        "'" +
-                                            docs['profile']['title'] +
-                                            "' 간단 소개 !",
+                                    Text("'" + docs['profile']['title'] + "' 간단 소개 !",
                                         style: TextStyle(
                                           fontSize: 15.sp,
                                           fontWeight: FontWeight.bold,
@@ -271,20 +246,15 @@ class ManagerDetailPage extends StatelessWidget {
                             child: Card(
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(16),
-                                side: BorderSide(
-                                    color: Colors.blue.shade300, width: 2),
+                                side: BorderSide(color: Colors.blue.shade300, width: 2),
                               ),
                               color: Colors.white,
                               child: Padding(
-                                padding:
-                                const EdgeInsets.fromLTRB(20, 20, 20, 20),
+                                padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Text(
-                                        "'" +
-                                            docs['profile']['title'] +
-                                            "' 매니져의 추천 코스 !",
+                                    Text("'" + docs['profile']['title'] + "' 매니져의 추천 코스 !",
                                         style: TextStyle(
                                           fontSize: 15.sp,
                                           fontWeight: FontWeight.bold,
@@ -292,8 +262,7 @@ class ManagerDetailPage extends StatelessWidget {
                                     Container(
                                       height: ScreenUtil().setHeight(7),
                                     ),
-                                    Text(
-                                        "60분 홍제천 코스를 추천합니다.\n종로구 평창동 49번지에서 시작해 종로구 홍지동,서대문구에서 홍은동을 거쳐 마포구의 난지도까지",
+                                    Text("60분 홍제천 코스를 추천합니다.\n종로구 평창동 49번지에서 시작해 종로구 홍지동,서대문구에서 홍은동을 거쳐 마포구의 난지도까지",
                                         style: TextStyle(
                                           fontSize: 13.sp,
                                           color: Colors.grey,
@@ -323,10 +292,8 @@ class ManagerDetailPage extends StatelessWidget {
                         children: [
                           InkWell(
                             onTap: () {
-                              Navigator.of(context, rootNavigator: true).push(
-                                  MaterialPageRoute(
-                                      builder: (context) => ChatScreen(
-                                          opponentUID, docs['profile']['title'])));
+                              Navigator.of(context, rootNavigator: true)
+                                  .push(MaterialPageRoute(builder: (context) => ChatScreen(opponentUID, docs['profile']['title'])));
                             },
                             child: Container(
                               height: 76.h,
@@ -334,10 +301,7 @@ class ManagerDetailPage extends StatelessWidget {
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(20),
-                                border: Border.all(
-                                    color: Colors.blue.shade300,
-                                    style: BorderStyle.solid,
-                                    width: 2.sp),
+                                border: Border.all(color: Colors.blue.shade300, style: BorderStyle.solid, width: 2.sp),
                               ),
                               child: Icon(
                                 EvaIcons.messageCircleOutline,
@@ -357,12 +321,9 @@ class ManagerDetailPage extends StatelessWidget {
                                 ),
                                 child: Center(
                                     child: Text(
-                                      "산책 예약하기",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 21.sp,
-                                          color: Color(0xffffffff)),
-                                    ))),
+                                  "산책 예약하기",
+                                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 21.sp, color: Color(0xffffffff)),
+                                ))),
                           ),
                           InkWell(
                             onTap: () {},
@@ -372,10 +333,7 @@ class ManagerDetailPage extends StatelessWidget {
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(20),
-                                border: Border.all(
-                                    color: Colors.blue.shade300,
-                                    style: BorderStyle.solid,
-                                    width: 2.sp),
+                                border: Border.all(color: Colors.blue.shade300, style: BorderStyle.solid, width: 2.sp),
                               ),
                               child: Icon(
                                 EvaIcons.heart,

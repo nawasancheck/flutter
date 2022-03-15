@@ -10,8 +10,7 @@ class NewMessage extends StatefulWidget {
   final String opponentUID;
   final String opponentName;
 
-  const NewMessage(this.opponentUID, this.opponentName, {Key? key})
-      : super(key: key);
+  const NewMessage(this.opponentUID, this.opponentName, {Key? key}) : super(key: key);
 
   @override
   _NewMessageState createState() => _NewMessageState();
@@ -39,11 +38,7 @@ class _NewMessageState extends State<NewMessage> {
         .then((_) => print('Success1'))
         .catchError((error) => print('Failed: $error'));
 
-    FirebaseFirestore.instance
-        .collection("chat")
-        .doc(widget.opponentUID)
-        .collection(currentUser.uid)
-        .add({
+    FirebaseFirestore.instance.collection("chat").doc(widget.opponentUID).collection(currentUser.uid).add({
       'text': _userEnterMessage,
       'time': Timestamp.now().toDate(),
       'sendUID': currentUser.uid,
@@ -56,36 +51,23 @@ class _NewMessageState extends State<NewMessage> {
   void createList() {
     final currentUser = FirebaseAuth.instance.currentUser;
 
-    FirebaseFirestore.instance
-        .collection("chat")
-        .doc(currentUser!.uid)
-        .collection(widget.opponentUID)
-        .get()
-        .then((docsSnapshot) => {
-              if (docsSnapshot.size == 0)
-                print('size = 0')
-              else
-                {
-                  FirebaseFirestore.instance
-                      .collection("chat")
-                      .doc(currentUser.uid)
-                      .collection('chat_user_num')
-                      .doc(widget.opponentUID)
-                      .set({
-                    'userUID': widget.opponentUID,
-                    'userName': widget.opponentName,
-                  }),
-                  FirebaseFirestore.instance
-                      .collection("chat")
-                      .doc(widget.opponentUID)
-                      .collection('chat_user_num')
-                      .doc(currentUser.uid)
-                      .set({
-                    'userUID': currentUser.uid,
-                    'userName': currentUser.displayName
-                  })
-                }
-            });
+    FirebaseFirestore.instance.collection("chat").doc(currentUser!.uid).collection(widget.opponentUID).get().then((docsSnapshot) => {
+          if (docsSnapshot.size == 0)
+            print('size = 0')
+          else
+            {
+              FirebaseFirestore.instance.collection("chat").doc(currentUser.uid).collection('chat_user_num').doc(widget.opponentUID).set({
+                'userUID': widget.opponentUID,
+                'userName': widget.opponentName,
+              }),
+              FirebaseFirestore.instance
+                  .collection("chat")
+                  .doc(widget.opponentUID)
+                  .collection('chat_user_num')
+                  .doc(currentUser.uid)
+                  .set({'userUID': currentUser.uid, 'userName': currentUser.displayName})
+            }
+        });
   }
 
   void _sendImage(String text, String type) {
@@ -103,8 +85,7 @@ class _NewMessageState extends State<NewMessage> {
   Future getImage() async {
     ImagePicker imagePicker = ImagePicker();
 
-    PickedFile? pickedFile =
-        await imagePicker.getImage(source: ImageSource.gallery);
+    PickedFile? pickedFile = await imagePicker.getImage(source: ImageSource.gallery);
     if (pickedFile != null) {
       String path = pickedFile.path;
       uploadFile(path);
@@ -142,8 +123,7 @@ class _NewMessageState extends State<NewMessage> {
               onChanged: (value) {
                 // onChanged가 실행되면 값이 value에 들어온다.
                 setState(() {
-                  _userEnterMessage =
-                      value; // 서로 같을 때, 값이 있을 때 value값을 가져오도록 설계
+                  _userEnterMessage = value; // 서로 같을 때, 값이 있을 때 value값을 가져오도록 설계
                 });
               }, // 텍스트필드에 값이 입력되면 Send a message가 활성화
             ),

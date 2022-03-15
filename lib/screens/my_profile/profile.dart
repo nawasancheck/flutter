@@ -19,10 +19,7 @@ class Profile extends StatelessWidget {
         backgroundColor: Colors.white,
         title: Text(
           "마이 페이지",
-          style: TextStyle(
-              fontSize: 20.sp,
-              color: Colors.black,
-              fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 20.sp, color: Colors.black, fontWeight: FontWeight.bold),
         ),
       ),
       body: ListView(children: [
@@ -35,11 +32,7 @@ class Profile extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('${_user!.displayName}',
-                    style: TextStyle(
-                        fontSize: 23.sp,
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold)),
+                Text('${_user!.displayName}', style: TextStyle(fontSize: 23.sp, color: Colors.black, fontWeight: FontWeight.bold)),
                 Container(height: ScreenUtil().setHeight(5)),
                 Text("${_user.email}",
                     style: TextStyle(
@@ -61,11 +54,7 @@ class Profile extends StatelessWidget {
             child: Row(
               children: [
                 Container(width: ScreenUtil().setWidth(10)),
-                Text("나와포인트 15,000",
-                    style: TextStyle(
-                        fontSize: 18.sp,
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold)),
+                Text("나와포인트 15,000", style: TextStyle(fontSize: 18.sp, color: Colors.black, fontWeight: FontWeight.bold)),
                 Container(width: ScreenUtil().setWidth(110)),
                 TextButton(
                     onPressed: () {},
@@ -75,119 +64,95 @@ class Profile extends StatelessWidget {
                         ),
                         backgroundColor: Colors.yellow,
                         padding: EdgeInsets.fromLTRB(15, 0, 15, 2)),
-                    child: Text("충전하기",
-                        style: TextStyle(
-                            fontSize: 16.sp,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold)))
+                    child: Text("충전하기", style: TextStyle(fontSize: 16.sp, color: Colors.black, fontWeight: FontWeight.bold)))
               ],
             ),
           ),
         ),
         Container(height: ScreenUtil().setHeight(13)),
-
-        ListView(
-            padding: EdgeInsets.only(left: 5),
-            shrinkWrap: true,
-            children: <Widget>[
-              ListTile(
-                tileColor: Color(0xfff9f9f9),
-                onTap: (){},
-                leading: Icon(EvaIcons.bulbOutline,size: 30,),
-                title: Transform.translate(
-                    offset: Offset(-15, 0),
-                    child: Text('공지사항',style: TextStyle(
-                        fontSize: 19.sp,
-                        color: Color(0xff878787),
-                        fontWeight: FontWeight.bold
-                        ))),
-              ),
-              ListTile(
-                tileColor: Color(0xfff9f9f9),
-                onTap: (){},
-                leading: Icon(EvaIcons.giftOutline,size: 30,),
-                title: Transform.translate(
-                    offset: Offset(-15, 0),
-                    child: Text('쿠폰함',style: TextStyle(
-                        fontSize: 19.sp,
-                        color: Colors.grey,
-                        fontWeight: FontWeight.bold
-                    ))),
-              ),
-              ListTile(
-                tileColor: Color(0xfff9f9f9),
-                onTap: (){},
-                leading: Icon(EvaIcons.messageCircleOutline,size: 30,),
-                title: Transform.translate(
-                    offset: Offset(-15, 0),
-                    child: Text('고객센터',style: TextStyle(
-                        fontSize: 19.sp,
-                        color: Colors.grey,
-                        fontWeight: FontWeight.bold
-                    ))),
-              ),
-              ListTile(
-                tileColor: Color(0xfff9f9f9),
-                onTap: (){},
-                leading: Icon(EvaIcons.menu2Outline,size: 30,),
-                title: Transform.translate(
-                    offset: Offset(-15, 0),
-                    child: Text('회원정보 변경',style: TextStyle(
-                        fontSize: 19.sp,
-                        color: Colors.grey,
-                        fontWeight: FontWeight.bold
-                    ))),
-              ),
-              ListTile(
-                tileColor: Color(0xfff9f9f9),
-                onTap: (){},
-                leading: Icon(EvaIcons.creditCardOutline,size: 30,),
-                title: Transform.translate(
-                    offset: Offset(-15, 0),
-                    child: Text('간편결제 관리',style: TextStyle(
-                        fontSize: 19.sp,
-                        color: Colors.grey,
-                        fontWeight: FontWeight.bold
-                    ))),
-              ),
-              ListTile(
-                tileColor: Color(0xfff9f9f9),
-                onTap: (){},
-                leading: Icon(EvaIcons.layersOutline,size: 30,),
-                title: Transform.translate(
-                    offset: Offset(-15, 0),
-                    child: Text('내가 쓴 리뷰',style: TextStyle(
-                        fontSize: 19.sp,
-                        color: Colors.grey,
-                        fontWeight: FontWeight.bold
-                    ))),
-              ),
-              ListTile(
-                tileColor: Color(0xfff9f9f9),
-                onTap: (){},
-                leading: Icon(EvaIcons.unlockOutline,size: 30,),
-                title: Transform.translate(
-                    offset: Offset(-15, 0),
-                    child: Text('차단한 회원',style: TextStyle(
-                        fontSize: 19.sp,
-                        color: Colors.grey,
-                        fontWeight: FontWeight.bold
-                    ))),
-              ),
-              ListTile(
-                tileColor: Color(0xfff9f9f9),
-                onTap: (){},
-                leading: Icon(EvaIcons.settings2Outline,size: 30,),
-                title: Transform.translate(
-                    offset: Offset(-15, 0),
-                    child: Text('설정',style: TextStyle(
-                        fontSize: 19.sp,
-                        color: Colors.grey,
-                        fontWeight: FontWeight.bold
-                    ))),
-              ),
-
-            ]),
+        ListView(padding: EdgeInsets.only(left: 5), shrinkWrap: true, children: <Widget>[
+          ListTile(
+            tileColor: Color(0xfff9f9f9),
+            onTap: () {},
+            leading: Icon(
+              EvaIcons.bulbOutline,
+              size: 30,
+            ),
+            title: Transform.translate(
+                offset: Offset(-15, 0),
+                child: Text('공지사항', style: TextStyle(fontSize: 19.sp, color: Color(0xff878787), fontWeight: FontWeight.bold))),
+          ),
+          ListTile(
+            tileColor: Color(0xfff9f9f9),
+            onTap: () {},
+            leading: Icon(
+              EvaIcons.giftOutline,
+              size: 30,
+            ),
+            title: Transform.translate(
+                offset: Offset(-15, 0), child: Text('쿠폰함', style: TextStyle(fontSize: 19.sp, color: Colors.grey, fontWeight: FontWeight.bold))),
+          ),
+          ListTile(
+            tileColor: Color(0xfff9f9f9),
+            onTap: () {},
+            leading: Icon(
+              EvaIcons.messageCircleOutline,
+              size: 30,
+            ),
+            title: Transform.translate(
+                offset: Offset(-15, 0), child: Text('고객센터', style: TextStyle(fontSize: 19.sp, color: Colors.grey, fontWeight: FontWeight.bold))),
+          ),
+          ListTile(
+            tileColor: Color(0xfff9f9f9),
+            onTap: () {},
+            leading: Icon(
+              EvaIcons.menu2Outline,
+              size: 30,
+            ),
+            title: Transform.translate(
+                offset: Offset(-15, 0), child: Text('회원정보 변경', style: TextStyle(fontSize: 19.sp, color: Colors.grey, fontWeight: FontWeight.bold))),
+          ),
+          ListTile(
+            tileColor: Color(0xfff9f9f9),
+            onTap: () {},
+            leading: Icon(
+              EvaIcons.creditCardOutline,
+              size: 30,
+            ),
+            title: Transform.translate(
+                offset: Offset(-15, 0), child: Text('간편결제 관리', style: TextStyle(fontSize: 19.sp, color: Colors.grey, fontWeight: FontWeight.bold))),
+          ),
+          ListTile(
+            tileColor: Color(0xfff9f9f9),
+            onTap: () {},
+            leading: Icon(
+              EvaIcons.layersOutline,
+              size: 30,
+            ),
+            title: Transform.translate(
+                offset: Offset(-15, 0), child: Text('내가 쓴 리뷰', style: TextStyle(fontSize: 19.sp, color: Colors.grey, fontWeight: FontWeight.bold))),
+          ),
+          ListTile(
+            tileColor: Color(0xfff9f9f9),
+            onTap: () {},
+            leading: Icon(
+              EvaIcons.unlockOutline,
+              size: 30,
+            ),
+            title: Transform.translate(
+                offset: Offset(-15, 0), child: Text('차단한 회원', style: TextStyle(fontSize: 19.sp, color: Colors.grey, fontWeight: FontWeight.bold))),
+          ),
+          ListTile(
+            tileColor: Color(0xfff9f9f9),
+            onTap: () {},
+            leading: Icon(
+              EvaIcons.settings2Outline,
+              size: 30,
+            ),
+            title: Transform.translate(
+                offset: Offset(-15, 0), child: Text('설정', style: TextStyle(fontSize: 19.sp, color: Colors.grey, fontWeight: FontWeight.bold))),
+          ),
+        ]),
       ]),
     );
   }
