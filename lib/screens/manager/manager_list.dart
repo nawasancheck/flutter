@@ -91,7 +91,9 @@ class _ListPageState extends State<ListPage> {
                 color: Color(0xff525252),
                 size: 20.16.sp,
               ),
-              onPressed: () {},
+              onPressed: () {
+                FirebaseAuth.instance.signOut();
+              },
             )
           ],
         ),
