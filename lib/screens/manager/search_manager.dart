@@ -2,7 +2,6 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:search_page/search_page.dart';
-
 import '../../manager/manager_info.dart';
 import 'manager_list_detail.dart';
 
@@ -24,12 +23,12 @@ class _SearchManagerState extends State<SearchManager> {
           delegate: SearchPage<Manager>(
             onQueryUpdate: (s) => print(s),
             items: Manager.managerList,
-            searchLabel: 'Search people',
+            searchLabel: '리스너 찾기!!!!',
             suggestion: Center(
-              child: Text('Filter people by name, surname or age'),
+              child: Text('찾는 리스너의 닉네임을 입력해주세요!!!'),
             ),
             failure: Center(
-              child: Text('No person found :('),
+              child: Text('그런 리스너는 없습니다 ㅠㅠ'),
             ),
             filter: (walker) => [
               walker.title,
@@ -204,7 +203,7 @@ class _SearchManagerState extends State<SearchManager> {
                                             : Colors.red[500],
                                         onPressed: () {
                                           setState(() {
-                                            walkerlist.isPressed = !walkerlist.isPressed;
+
                                           });
                                         },
                                       ),
