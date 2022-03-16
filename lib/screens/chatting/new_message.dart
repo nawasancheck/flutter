@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:uuid/uuid.dart';
 
 class NewMessage extends StatefulWidget {
   final String opponentUID;
@@ -31,78 +32,108 @@ class _NewMessageState extends State<NewMessage> {
         .collection(widget.opponentUID)
         .add({
           'text': _userEnterMessage,
+          'fakeText' : _userEnterMessage,
           'time': Timestamp.now().toDate(),
           'sendUID': currentUser.uid,
           'receiverUID': widget.opponentUID,
+          'type': 'text'
         })
         .then((_) => print('Success1'))
         .catchError((error) => print('Failed: $error'));
 
     FirebaseFirestore.instance.collection("chat").doc(widget.opponentUID).collection(currentUser.uid).add({
       'text': _userEnterMessage,
+      'fakeText' : _userEnterMessage,
       'time': Timestamp.now().toDate(),
       'sendUID': currentUser.uid,
       'receiverUID': widget.opponentUID,
+      'type': 'text'
     });
 
     _controller.clear();
+  }
+
+
+  void _sendImage(String text, String type) {
+    final currentUser = FirebaseAuth.instance.currentUser;
+
+    FirebaseFirestore.instance.collection("chat").doc(currentUser!.uid).collection(widget.opponentUID).add({
+      'text': text,
+      'fakeText' : '사진',
+      'time': Timestamp.now(),
+      'sendUID': currentUser.uid,
+      'receiverUID': widget.opponentUID,
+      'type': type,
+    });
+
+    FirebaseFirestore.instance.collection("chat").doc(widget.opponentUID).collection(currentUser.uid).add({
+      'text': text,
+      'fakeText' : '사진',
+      'time': Timestamp.now().toDate(),
+      'sendUID': currentUser.uid,
+      'receiverUID': widget.opponentUID,
+      'type': type,
+    });
+
+    _controller.clear();
+  }
+
+  File? imageFile;
+  Future getImage() async {
+    ImagePicker _picker = ImagePicker();
+
+    await _picker.pickImage(source: ImageSource.gallery).then((xFile) {
+      if(xFile != null) {
+        imageFile = File(xFile.path);
+        uploadImage();
+      }
+    });
+  }
+
+  Future uploadImage() async {
+    String fileName = Uuid().v1();
+    var ref = FirebaseStorage.instance.ref().child('images').child("$fileName.jpg");
+
+    var uploadTask = await ref.putFile(imageFile!);
+
+    String imageUrl = await uploadTask.ref.getDownloadURL();
+
+    _sendImage(imageUrl, 'image');
   }
 
   void createList() {
     final currentUser = FirebaseAuth.instance.currentUser;
 
     FirebaseFirestore.instance.collection("chat").doc(currentUser!.uid).collection(widget.opponentUID).get().then((docsSnapshot) => {
-          if (docsSnapshot.size == 0)
-            print('size = 0')
-          else
-            {
-              FirebaseFirestore.instance.collection("chat").doc(currentUser.uid).collection('chat_user_num').doc(widget.opponentUID).set({
-                'userUID': widget.opponentUID,
-                'userName': widget.opponentName,
-              }),
-              FirebaseFirestore.instance
-                  .collection("chat")
-                  .doc(widget.opponentUID)
-                  .collection('chat_user_num')
-                  .doc(currentUser.uid)
-                  .set({'userUID': currentUser.uid, 'userName': currentUser.displayName})
-            }
-        });
-  }
-
-  void _sendImage(String text, String type) {
-    final currentUser = FirebaseAuth.instance.currentUser;
-
-    FirebaseFirestore.instance.collection("chat").add({
-      'text': text,
-      'time': Timestamp.now(),
-      'userID': currentUser!.uid,
-      'type': type,
-    });
-    _controller.clear();
-  }
-
-  Future getImage() async {
-    ImagePicker imagePicker = ImagePicker();
-
-    PickedFile? pickedFile = await imagePicker.getImage(source: ImageSource.gallery);
-    if (pickedFile != null) {
-      String path = pickedFile.path;
-      uploadFile(path);
-    }
-  }
-
-  Future uploadFile(String path) async {
-    String fileName = DateTime.now().microsecondsSinceEpoch.toString();
-    Reference reference = FirebaseStorage.instance.ref().child(fileName);
-    UploadTask uploadTask = reference.putFile(File(path));
-    TaskSnapshot taskSnapshot = uploadTask.snapshot;
-    taskSnapshot.ref.getDownloadURL().then((downloadUrl) {
-      setState(() {
-        _sendImage(downloadUrl, 'image');
-      });
+      if (docsSnapshot.size == 0)
+        print('size = 0')
+      else
+        {
+          FirebaseFirestore.instance.collection("chat").doc(currentUser.uid).collection('chat_user_num').doc(widget.opponentUID).set({
+            'userUID': widget.opponentUID,
+            'userName': widget.opponentName,
+          }),
+          FirebaseFirestore.instance
+              .collection("chat")
+              .doc(widget.opponentUID)
+              .collection('chat_user_num')
+              .doc(currentUser.uid)
+              .set({'userUID': currentUser.uid, 'userName': currentUser.displayName})
+        }
     });
   }
+
+  // Future uploadFile(String path) async {
+  //   String fileName = DateTime.now().microsecondsSinceEpoch.toString();
+  //   Reference reference = FirebaseStorage.instance.ref().child(fileName);
+  //   UploadTask uploadTask = reference.putFile(File(path));
+  //   TaskSnapshot taskSnapshot = uploadTask.snapshot;
+  //   taskSnapshot.ref.getDownloadURL().then((downloadUrl) {
+  //     setState(() {
+  //       _sendImage(downloadUrl, 'image');
+  //     });
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -113,7 +144,7 @@ class _NewMessageState extends State<NewMessage> {
         children: [
           IconButton(
             icon: Icon(Icons.image),
-            onPressed: getImage,
+            onPressed: () => getImage(),
           ),
           Expanded(
             child: TextField(
