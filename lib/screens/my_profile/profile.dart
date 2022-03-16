@@ -80,7 +80,10 @@ class Profile extends StatelessWidget {
             ),
             title: Transform.translate(
                 offset: Offset(-15, 0),
-                child: Text('공지사항', style: TextStyle(fontSize: 19.sp, color: Color(0xff878787), fontWeight: FontWeight.bold))),
+                child: Text(
+                  '공지사항',
+                  style: TextStyle(fontSize: 19.sp, color: Color(0xff878787), fontWeight: FontWeight.bold),
+                )),
           ),
           ListTile(
             tileColor: Color(0xfff9f9f9),
