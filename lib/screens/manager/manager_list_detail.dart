@@ -15,7 +15,7 @@ class ManagerDetailPage extends StatelessWidget {
     return Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(0),
-          child: AppBar(),
+          child: AppBar( backgroundColor: Color(0xffffffff),),
         ),
         body: StreamBuilder(
             stream: FirebaseFirestore.instance.collection('user').doc(opponentUID).snapshots(),
