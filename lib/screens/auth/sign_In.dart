@@ -25,7 +25,8 @@ class _SignInState extends State<SignIn> {
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
     // Obtain the auth details from the request
-    final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser?.authentication;
 
     // Create a new credential
     final credential = GoogleAuthProvider.credential(
@@ -42,7 +43,8 @@ class _SignInState extends State<SignIn> {
     final LoginResult loginResult = await FacebookAuth.instance.login();
 
     // Create a credential from the access token
-    final OAuthCredential facebookAuthCredential = FacebookAuthProvider.credential(loginResult.accessToken!.token);
+    final OAuthCredential facebookAuthCredential =
+        FacebookAuthProvider.credential(loginResult.accessToken!.token);
 
     // Once signed in, return the UserCredential
     return FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
@@ -52,87 +54,69 @@ class _SignInState extends State<SignIn> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(0),
+        child: AppBar(backgroundColor: Color(0xffffffff), elevation: 0,
+        ),
+      ),
       body: Container(
         //      color: Colors.yellow,
-        //
         width: ScreenUtil().screenWidth,
         height: ScreenUtil().screenHeight,
 
         child: Column(
           children: [
             Container(
-              //         color: Colors.green,
-              //
-              width: ScreenUtil().setWidth(380),
-              height: ScreenUtil().setHeight(100),
+              //        color: Colors.green,
+              width: 380.w,
+              height: 20.h,
             ),
             Container(
-              //         color: Colors.green,
-              //
+              //        color: Colors.green,
               width: ScreenUtil().setWidth(380),
               height: ScreenUtil().setHeight(20),
-            ),
-            Container(
-              //          color: Colors.blue,
-              //
-              width: ScreenUtil().setWidth(150),
-              height: ScreenUtil().setHeight(70),
-              child: Center(
-                child: Text("나와산책", style: TextStyle(fontFamily: "Montserrat", fontSize: 36.sp, fontWeight: FontWeight.bold)),
-              ),
-            ),
-            Container(
-              //          color: Colors.green,
-              //
-              width: ScreenUtil().setWidth(380),
-              height: ScreenUtil().setHeight(20),
-            ),
-            Container(
-              //          color: Colors.blue,
-              //
-              width: ScreenUtil().setWidth(380),
-              height: ScreenUtil().setHeight(40),
-              child: Center(
-                  child: Text(
-                "다양한 매력을 가진 매니저를 선택하고,",
-                style: TextStyle(fontFamily: "gangwon", fontSize: 18.sp),
-              )),
-            ),
-            Container(
-              //           color: Colors.green,
-              //
-              width: ScreenUtil().setWidth(380),
-              height: ScreenUtil().setHeight(5),
-            ),
-            Container(
-              //           color: Colors.blue,
-              //
-              width: ScreenUtil().setWidth(380),
-              height: ScreenUtil().setHeight(40),
-              child: Center(child: Text("산책을 시작해 보세요!", style: TextStyle(fontFamily: "gangwon", fontSize: 18.sp))),
             ),
             Container(
               //         color: Colors.blue,
-              //
-              width: ScreenUtil().setWidth(327),
-              height: ScreenUtil().setHeight(35),
-              child: Text("이메일", style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold)),
+              width: ScreenUtil().setWidth(150),
+              height: ScreenUtil().setHeight(45),
+              child: Center(
+                child: Text("나와산책",
+                    style: TextStyle(
+                        color: Color(0xff000000),
+                        fontSize: 32.sp,
+                        fontWeight: FontWeight.bold)),
+              ),
             ),
             Container(
-              //         color: Colors.green,
-              //
+              // color: Colors.green,
               width: ScreenUtil().setWidth(327),
-              height: ScreenUtil().setHeight(1),
+              height: ScreenUtil().setHeight(60),
             ),
             Container(
-              //          color: Colors.grey,
-              //
+              //       color: Colors.blue,
+              width: 327.w,
+              height: 25.h,
+              child: Text(
+                "이메일",
+                style: TextStyle(
+                    color: Color(0xff000000),
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.bold),
+              ),
+            ),
+            Container(
+              color: Colors.white,
               width: ScreenUtil().setWidth(327),
               height: ScreenUtil().setHeight(48),
               child: TextField(
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: '이메일을 입력해주세요',
+                  labelStyle: TextStyle(
+                    fontSize: 14.sp,
+                    color: Color(0xffc4c4c4),
+                  ),
                 ),
                 onChanged: (value) {
                   setState(() {
@@ -142,31 +126,32 @@ class _SignInState extends State<SignIn> {
               ),
             ),
             Container(
-              //           color: Colors.green,
+              //          color: Colors.green,
               width: ScreenUtil().setWidth(327),
               height: ScreenUtil().setHeight(5),
             ),
             Container(
               //          color: Colors.blue,
-              width: ScreenUtil().setWidth(327),
-              height: ScreenUtil().setHeight(25),
-              child: Text("비밀번호", style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold)),
+              width: 327.w,
+              height: 25.h,
+              child: Text("비밀번호",
+                  style: TextStyle(
+                      color: Color(0xff000000),
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.bold)),
             ),
             Container(
-              //         color: Colors.green,
-              //
-              width: ScreenUtil().setWidth(327),
-              height: ScreenUtil().setHeight(10),
-            ),
-            Container(
-              //        color: Colors.grey,
-              //
+              color: Colors.white,
               width: ScreenUtil().setWidth(327),
               height: ScreenUtil().setHeight(48),
               child: TextField(
                 obscureText: true,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
+                  labelStyle: TextStyle(
+                    fontSize: 14.sp,
+                    color: Color(0xffc4c4c4),
+                  ),
                   labelText: '비밀번호 8~16자, 영문, 숫자, 특수문자',
                 ),
                 onChanged: (value) {
@@ -177,137 +162,129 @@ class _SignInState extends State<SignIn> {
               ),
             ),
             Container(
-              //          color: Colors.green,
-              //
-              width: ScreenUtil().setWidth(380),
-              height: ScreenUtil().setHeight(5),
-            ),
-            Container(
               //        color: Colors.green,
-              //
-              width: ScreenUtil().screenWidth,
-              height: ScreenUtil().setHeight(40),
+              width: 327.w,
+              height: 40.h,
               child: Row(
-                // mainAxisAlignment: MainAxisAlignment.start,
-                //
                 children: [
-                  Container(
-                    //           color: Colors.yellow,
-                    //
-                    width: ScreenUtil().setWidth(34),
-                  ),
-                  IconButton(
-                    iconSize: 24.sp,
-                    icon: _isPressed ? Icon(Icons.circle) : Icon(Icons.circle_outlined),
-                    color: _isPressed ? Colors.grey : Colors.grey,
-                    onPressed: () {
+                  InkWell(
+                    child: _isPressed ? Icon(Icons.circle, color: Color(0xffc4c4c4),)
+                        : Icon(Icons.circle_outlined, color: Color(0xffc4c4c4),),
+                    onTap: () {
                       setState(() {
                         _isPressed = !_isPressed;
                       });
                     },
                   ),
                   Container(
-                    //             color: Colors.blue,
-                    //
+                    //    color: Colors.red,
+                    width: 5.w,
+                  ),
+                  Container(
+                    //               color: Colors.blue,
                     child: Text(
                       "자동로그인",
-                      style: TextStyle(fontSize: 12.sp, color: Color(0xff231515)),
+                      style:
+                          TextStyle(fontSize: 12.sp, color: Color(0xff231515)),
                     ),
                   ),
-                  Container(
-                    //                       color: Colors.green,
-                    //
-                    width: ScreenUtil().setWidth(157),
+                  Flexible(
+                    fit: FlexFit.tight,
+                    child: Container(
+                        //                       color: Colors.red,
+                        ),
                   ),
                   Container(
-                    //              color: Colors.blue,
-                    //
+                    //           color: Colors.blue,
                     child: Text(
                       "개인정보처리방침",
-                      style: TextStyle(fontSize: 12.sp, color: Color(0xff351313)),
+                      style:
+                          TextStyle(fontSize: 12.sp, color: Color(0xff351313)),
                     ),
                   ),
                 ],
               ),
             ),
             Container(
-              //          color: Colors.green,
-              //
-              width: ScreenUtil().setWidth(380),
-              height: ScreenUtil().setHeight(5),
+              width: 327.w,
+              height: 43.h,
+              child: FlatButton(
+                onPressed: () async {
+                  try {
+                    final loginUser = await _auth.signInWithEmailAndPassword(email: _userEmail, password: _userPassword);
+                    FirebaseAuth.instance.setPersistence(Persistence.NONE);} catch (e) {
+                    // 스냅바 구현 해야 함.
+                  }
+                },
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10)),
+                color: Color(0xff74BABC),
+                child: Text(
+                  "로그인",
+                  style: TextStyle(
+                      fontSize: 16.sp,
+                      color: Color(0xffffffff),
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
             ),
             Container(
-                width: ScreenUtil().setWidth(327),
-                height: ScreenUtil().setHeight(43),
-                child: MaterialButton(
-                  color: Color(0xff74BABC),
-                  onPressed: () async {
-                    try {
-                      final loginUser = await _auth.signInWithEmailAndPassword(email: _userEmail, password: _userPassword);
-                      FirebaseAuth.instance.setPersistence(Persistence.NONE);
-                    } catch (e) {
-                      // 스냅바 구현 해야 함.
-                    }
-                  },
-                  child: Text(
-                    "로그인",
-                    style: TextStyle(color: Color(0xffffffff), fontWeight: FontWeight.bold),
-                  ),
-                )),
-            Container(
-              //       color: Colors.green,
-              //
-              width: ScreenUtil().setWidth(380),
-              height: ScreenUtil().setHeight(20),
-            ),
-            Container(
-              //             color: Colors.orange,
-              //
-              width: ScreenUtil().setWidth(385),
-              height: ScreenUtil().setHeight(43),
+              //            color: Colors.orange,
+              width: 327.w,
+              height: 32.h,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Container(
-                    //              color: Colors.yellow,
-                    //
-                    width: ScreenUtil().setWidth(155),
+                  Flexible(
+                    fit: FlexFit.tight,
+                    child: Container(
+                        //             color: Colors.red,
+                        width: 50.w),
                   ),
                   Container(
-                    //        color: Colors.orange,
-                    //
+                    height: 32.h,
+                    width: 80.w,
+                    //        color: Colors.brown,
                     child: TextButton(
-                      child: Text("이메일 찾기", style: TextStyle(fontSize: 12.sp, color: Color(0xff666666))),
+                      child: Text("이메일 찾기",
+                          style: TextStyle(
+                              fontSize: 13.sp, color: Color(0xff666666))),
                       onPressed: () {},
                     ),
                   ),
                   Container(
+                      child: Text(
+                    " | ",
+                    style: TextStyle(fontSize: 13.sp, color: Color(0xff666666)),
+                  )),
+                  Container(
+                    height: 32.h,
+                    width: 110.w,
+                    // color: Colors.purple,
                     child: TextButton(
-                      child: Text(" | 비밀번호 재설정", style: TextStyle(fontSize: 12.sp, color: Color(0xff666666))),
+                      child: Text("비밀번호 재설정",
+                          style: TextStyle(
+                              fontSize: 13.sp, color: Color(0xff666666))),
                       onPressed: () {
-                        Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (context) => PasswordReset(auth: _auth)));
+                        Navigator.of(context, rootNavigator: true).push(
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    PasswordReset(auth: _auth)));
                       },
                     ),
-                  ),
-                  Container(
-                    width: ScreenUtil().setWidth(30),
-                    //                color: Colors.purple,
-                    //
                   ),
                 ],
               ),
             ),
             Container(
-              //         color: Colors.green,
-              //
-              width: ScreenUtil().setWidth(380),
-              height: ScreenUtil().setHeight(20),
+              //        color: Colors.green,
+              width: 380.w,
+              height: 30.h,
             ),
             Container(
-              //          color: Colors.blue,
-              //
-              width: ScreenUtil().setWidth(327),
-              height: ScreenUtil().setHeight(50),
+              //         color: Colors.blue,
+              width: 327.w,
+              height: 40.h,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -319,7 +296,7 @@ class _SignInState extends State<SignIn> {
                   ),
                   Text(
                     "간편 로그인",
-                    style: TextStyle(fontSize: 12.sp, color: Color(0xff000000)),
+                    style: TextStyle(fontSize: 13.sp, color: Color(0xff000000)),
                   ),
                   Expanded(
                     child: Divider(
@@ -333,71 +310,87 @@ class _SignInState extends State<SignIn> {
             Container(
               //           color: Colors.green,
               //
-              width: ScreenUtil().setWidth(380),
-              height: ScreenUtil().setHeight(20),
+              width: 380.w,
+              height: 10.h,
             ),
             Container(
-              //color: Colors.blue,
-              //
-              width: ScreenUtil().setWidth(327),
-              height: ScreenUtil().setHeight(43),
-              child: MaterialButton(
-                color: Color(0xffF6F2E9),
+              width: 327.w,
+              height: 43.h,
+              child: FlatButton(
                 onPressed: () async {
                   final loginUser = await signInWithGoogle();
-                  if (loginUser.user != null) Navigator.pushNamed(context, '/home');
+                  if (loginUser.user != null)
+                    Navigator.pushNamed(context, '/home');
                 },
-                child: Text("GOOGLE로 로그인하기"),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10)),
+                color: Color(0xffF6F2E9),
+                child: Text(
+                  "GOOGLE로 로그인하기",
+                  style: TextStyle(
+                      fontSize: 13.sp,
+                      color: Color(0xff000000),
+                      fontWeight: FontWeight.bold),
+                ),
               ),
             ),
             Container(
-              //          color: Colors.green,
-              //
-              width: ScreenUtil().setWidth(380),
-              height: ScreenUtil().setHeight(20),
+              //         color: Colors.green,
+              width: 380.w,
+              height: 10.h,
             ),
             Container(
-                width: ScreenUtil().setWidth(327),
-                height: ScreenUtil().setHeight(43),
-                child: MaterialButton(
-                  color: Color(0xff3B5999),
-                  onPressed: () async {
-                    final loginUser = await signInWithFacebook();
-                    if (loginUser.user != null) Navigator.pushNamed(context, '/home');
-                  },
-                  child: Text(
-                    "FACEBOOK으로 로그인하기",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                )),
+              width: 327.w,
+              height: 43.h,
+              child: FlatButton(
+                onPressed: () async {
+                  final loginUser = await signInWithFacebook();
+                  if (loginUser.user != null)
+                    Navigator.pushNamed(context, '/home');
+                },
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10)),
+                color: Color(0xff3B5999),
+                child: Text(
+                  "FACEBOOK으로 로그인하기",
+                  style: TextStyle(
+                      fontSize: 13.sp,
+                      color: Color(0xffffffff),
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
             Container(
-              //        color: Colors.yellow,
+              // color: Colors.green,
               //
+              width: 380.w,
+              height: 40.h,
+            ),
+            Container(
+              //       color: Colors.yellow,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
                     //                      color: Colors.orange,
-                    //
-                    child: Text("계정이 없으신가요?"),
+                    child: Text(
+                      "계정이 없으신가요?",
+                      style:
+                          TextStyle(fontSize: 15.sp, color: Color(0xff000000)),
+                    ),
                   ),
                   Container(
-                    width: ScreenUtil().setWidth(30),
-                    //                             color: Colors.purple,
-                    //
-                  ),
-                  Container(
-                    width: ScreenUtil().setWidth(130),
-                    child: MaterialButton(
-                        //                                 color: Colors.red,
-                        //
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/signup');
-                        },
-                        child: Text(
-                          "회원가입 하기",
-                          style: TextStyle(color: Colors.grey),
-                        )),
+                    // color: Colors.red,
+                    width: 103.w,
+                    height: 35,
+                    child: TextButton(
+                      child: Text("회원가입 하기",
+                          style: TextStyle(
+                              fontSize: 15.sp, color: Color(0xff74babd))),
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/signup');
+                      },
+                    ),
                   )
                 ],
               ),
