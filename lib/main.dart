@@ -11,6 +11,7 @@ import 'package:flutter_app/screens/reservation/schedule.dart';
 import 'package:flutter_app/screens/manager/manager_list.dart';
 import 'package:flutter_app/screens/auth/sign_up.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter/services.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,6 +22,9 @@ void main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    //SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top]); // AppBar 상단 상태창 디자인
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: Colors.transparent
+    ,systemNavigationBarColor: Colors.grey)); // AppBar 상단 상태창 디자인
     return ScreenUtilInit(
         designSize: Size(392.7, 781.1),
         minTextAdapt: true,
@@ -41,7 +45,7 @@ class MyApp extends StatelessWidget {
                 '/chat': (context) => ChatList(),
               },
               title: '동행',
-              theme: ThemeData(primaryColor: Color(0xff0082af)),
+              theme: ThemeData(primaryColor: Color(0xffffffff)),
               debugShowCheckedModeBanner: false,
             ));
   }
