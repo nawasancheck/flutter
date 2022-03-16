@@ -1,12 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/screens/chatting/in_chat_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 
 class ManagerDetailPage extends StatelessWidget {
   final String opponentUID;
+  final _user = FirebaseAuth.instance.currentUser;
 
   ManagerDetailPage(this.opponentUID);
 
@@ -28,6 +29,9 @@ class ManagerDetailPage extends StatelessWidget {
               if (docs == null) {
                 return Text('null');
               }
+
+              List isPressedList = docs['profile']['isPressedList'];
+              bool isPressed = isPressedList.contains('${_user!.uid}');
 
               return Container(
                 child: Column(
@@ -70,7 +74,7 @@ class ManagerDetailPage extends StatelessWidget {
                                     ),
                                     Container(width: ScreenUtil().setWidth(5)),
                                     Text(
-                                      "9.0",
+                                      "${docs['profile']['star']}",
                                       style: TextStyle(
                                         fontSize: 14.sp,
                                         fontWeight: FontWeight.bold,
@@ -98,7 +102,7 @@ class ManagerDetailPage extends StatelessWidget {
                                             ),
                                           ),
                                           Text(
-                                            "29",
+                                            "0",
                                             style: TextStyle(
                                               fontSize: 16.sp,
                                               color: Colors.lightBlue,
@@ -135,11 +139,11 @@ class ManagerDetailPage extends StatelessWidget {
                                       ),
                                       Text(" 30분",
                                           style: TextStyle(
-                                            fontSize: 10.sp,
+                                            fontSize: 12.sp,
                                             color: Colors.grey,
                                             fontWeight: FontWeight.bold,
                                           )),
-                                      Text(" 6,000 P",
+                                      Text(" ${docs['profile']['price1']} P",
                                           style: TextStyle(
                                             fontSize: 12.sp,
                                             color: Colors.pink[700],
@@ -151,7 +155,7 @@ class ManagerDetailPage extends StatelessWidget {
                                             color: Colors.grey,
                                             fontWeight: FontWeight.bold,
                                           )),
-                                      Text(" 10,000 P",
+                                      Text(" ${docs['profile']['price2']} P",
                                           style: TextStyle(
                                             fontSize: 12.sp,
                                             color: Colors.pink[700],
@@ -163,7 +167,7 @@ class ManagerDetailPage extends StatelessWidget {
                                             color: Colors.grey,
                                             fontWeight: FontWeight.bold,
                                           )),
-                                      Text(" 14,000 P",
+                                      Text(" ${docs['profile']['price3']} P",
                                           style: TextStyle(
                                             fontSize: 12.sp,
                                             color: Colors.pink[700],
@@ -182,7 +186,7 @@ class ManagerDetailPage extends StatelessWidget {
                                             color: Colors.grey,
                                             fontWeight: FontWeight.bold,
                                           )),
-                                      Text("  ENTJ",
+                                      Text("  ${docs['profile']['MBTI']}",
                                           style: TextStyle(
                                             fontSize: 14.sp,
                                             fontWeight: FontWeight.bold,
@@ -197,7 +201,7 @@ class ManagerDetailPage extends StatelessWidget {
                                             color: Colors.grey,
                                             fontWeight: FontWeight.bold,
                                           )),
-                                      Text("  옷, 패션",
+                                      Text("  ${docs['profile']['like']}",
                                           style: TextStyle(
                                             fontSize: 14.sp,
                                             fontWeight: FontWeight.bold,
@@ -262,7 +266,7 @@ class ManagerDetailPage extends StatelessWidget {
                                     Container(
                                       height: ScreenUtil().setHeight(7),
                                     ),
-                                    Text("60분 홍제천 코스를 추천합니다.\n종로구 평창동 49번지에서 시작해 종로구 홍지동,서대문구에서 홍은동을 거쳐 마포구의 난지도까지",
+                                    Text("${docs['profile']['course']}",
                                         style: TextStyle(
                                           fontSize: 13.sp,
                                           color: Colors.grey,
@@ -326,7 +330,29 @@ class ManagerDetailPage extends StatelessWidget {
                                 ))),
                           ),
                           InkWell(
-                            onTap: () {},
+                            onTap: () {
+                              isPressed
+                                  ? FirebaseFirestore.instance.collection('user').doc(docs['userUID']).update({
+                                'profile.heart': docs['profile']['heart'] - 1,
+                                'profile.isPressedList': FieldValue.arrayRemove([_user!.uid])
+                              })
+                                  : FirebaseFirestore.instance.collection('user').doc(docs['userUID']).update({
+                                'profile.heart': docs['profile']['heart'] + 1,
+                                'profile.isPressedList': FieldValue.arrayUnion([_user!.uid])
+                              });
+
+                              isPressed
+                                  ? FirebaseFirestore.instance
+                                  .collection('user')
+                                  .doc(_user!.uid)
+                                  .update({'wishList.${docs['userUID']}': FieldValue.delete()})
+                              //     .update({'wishList': FieldValue.arrayRemove([docs['userUID']])})
+                                  : FirebaseFirestore.instance
+                                  .collection('user')
+                                  .doc(_user!.uid)
+                                  .update({'wishList.${docs['userUID']}': docs['userName']});
+                              //     .update({'wishList': FieldValue.arrayUnion([docs['userUID']])});
+                            },
                             child: Container(
                               height: 76.h,
                               width: 76.w,
@@ -335,11 +361,13 @@ class ManagerDetailPage extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(20),
                                 border: Border.all(color: Colors.blue.shade300, style: BorderStyle.solid, width: 2.sp),
                               ),
-                              child: Icon(
+                              child: isPressed
+                              ? Icon(
                                 EvaIcons.heart,
                                 color: Colors.red[500],
                                 size: 27.sp,
-                              ),
+                              )
+                              : Icon(EvaIcons.heartOutline, color: Color(0xff878787), size: 27.sp),
                             ),
                           ),
                         ],
