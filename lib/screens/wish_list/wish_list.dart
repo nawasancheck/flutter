@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/screens/chatting/in_chat_screen.dart';
 import 'package:flutter_app/screens/manager/manager_list_detail.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -58,9 +59,9 @@ class _WishListState extends State<WishList> {
                     ));
               }
 
+              // List wishList = snapshot.data!.data()?['wishList'];
               Map wishMap = snapshot.data!.data()?['wishList'];
               List wishList = wishMap.keys.toList();
-              List wishValueList = wishMap.values.toList();
 
               return Container(
                 child: Container(
@@ -71,17 +72,14 @@ class _WishListState extends State<WishList> {
                   child: ListView.builder(
                       shrinkWrap: true,
                       itemExtent: 140.sp,
+                      // itemCount: wishList.length,
                       itemCount: wishMap.length,
                       itemBuilder: (context, index) {
                         return Card(
                           child: InkWell(
                             onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => ManagerDetailPage(
-                                            wishList[index],
-                                          )));
+                              Navigator.of(context, rootNavigator: true)
+                                  .push(MaterialPageRoute(builder: (context) => ManagerDetailPage(wishList[index])));
                             },
                             child: Container(
                                 //     color: Colors.yellow,
@@ -184,13 +182,15 @@ class _WishListState extends State<WishList> {
 
                                                             isPressed
                                                                 ? FirebaseFirestore.instance
-                                                                    .collection('user')
-                                                                    .doc(_user!.uid)
-                                                                    .update({'wishList.${docs['userUID']}': FieldValue.delete()})
+                                                                .collection('user')
+                                                                .doc(_user!.uid)
+                                                            .update({'wishList.${docs['userUID']}': FieldValue.delete()})
+                                                            //     .update({'wishList': FieldValue.arrayRemove([docs['userUID']])})
                                                                 : FirebaseFirestore.instance
-                                                                    .collection('user')
-                                                                    .doc(_user!.uid)
-                                                                    .update({'wishList.${docs['userUID']}': docs['userName']});
+                                                                .collection('user')
+                                                                .doc(_user!.uid)
+                                                            .update({'wishList.${docs['userUID']}': docs['userName']});
+                                                            //     .update({'wishList': FieldValue.arrayUnion([docs['userUID']])});
                                                           },
                                                         ),
                                                       ],
@@ -217,15 +217,15 @@ class _WishListState extends State<WishList> {
                                                       Column(
                                                         children: [
                                                           Text(
-                                                            "  " + "60분 " + docs['profile']['price1'].toString() + " P",
+                                                            "  " + "30분 " + docs['profile']['price1'].toString() + " P",
                                                             style: TextStyle(fontSize: 13.sp, fontWeight: FontWeight.bold, color: Color(0xff516675)),
                                                           ),
                                                           Text(
-                                                            "  " + "60분 " + docs['profile']['price1'].toString() + " P",
+                                                            "  " + "60분 " + docs['profile']['price2'].toString() + " P",
                                                             style: TextStyle(fontSize: 13.sp, fontWeight: FontWeight.bold, color: Color(0xff516675)),
                                                           ),
                                                           Text(
-                                                            "  " + "60분 " + docs['profile']['price1'].toString() + " P",
+                                                            "  " + "90분 " + docs['profile']['price3'].toString() + " P",
                                                             style: TextStyle(fontSize: 13.sp, fontWeight: FontWeight.bold, color: Color(0xff516675)),
                                                           ),
                                                         ],
@@ -246,7 +246,10 @@ class _WishListState extends State<WishList> {
                                                                     width: 78.w,
                                                                     height: 28.h,
                                                                     child: FlatButton(
-                                                                      onPressed: () {},
+                                                                      onPressed: () {
+                                                                        Navigator.of(context, rootNavigator: true)
+                                                                            .push(MaterialPageRoute(builder: (context) => ChatScreen(docs['userUID'], docs['profile']['title'])));
+                                                                      },
                                                                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
                                                                       color: Color(0xff93e3e6),
                                                                       child: Text(

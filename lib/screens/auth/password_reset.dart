@@ -11,9 +11,10 @@ class PasswordReset extends StatefulWidget {
 }
 
 class _PasswordResetState extends State<PasswordReset> {
+  String resetUserEmail = '';
+
   @override
   Widget build(BuildContext context) {
-    String resetUserEmail = '';
 
     return Scaffold(
         body: Container(
@@ -22,12 +23,10 @@ class _PasswordResetState extends State<PasswordReset> {
           TextField(onChanged: (value) {
             setState(() {
               resetUserEmail = value.trim();
-              print(resetUserEmail);
             });
           }),
           TextButton(
               onPressed: () async {
-                print(resetUserEmail);
                 await widget.auth.setLanguageCode("ko");
                 await widget.auth.sendPasswordResetEmail(email: resetUserEmail);
               },

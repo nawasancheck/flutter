@@ -25,8 +25,10 @@ class Messages extends StatelessWidget {
             reverse: true,
             itemCount: chatDocs.length, // itemBuilder에서 보여줄 갯수
             itemBuilder: (context, index) {
+
               // 리스트에 그려질 항목을 Lazy하게 child을 생성해준다.
-              return ChatBubble(chatDocs[index]['text'], chatDocs[index]['sendUID'].toString() == user.uid);
+              print(chatDocs[index]['type'] + index.toString());
+              return ChatBubble(chatDocs[index]['text'], chatDocs[index]['sendUID'].toString() == user.uid, chatDocs[index]['type']);
             },
           );
         });

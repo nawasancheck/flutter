@@ -126,7 +126,7 @@ class _ChatState extends State<ChatList> {
                                                                 }
 
                                                                 return Text(
-                                                                  '${snapshot3.data?.docs[0]['text']}',
+                                                                  '${snapshot3.data?.docs[0]['fakeText']}',
                                                                   style: TextStyle(color: Color(0xffa090c4)),
                                                                 );
                                                               }),

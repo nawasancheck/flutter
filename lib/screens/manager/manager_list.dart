@@ -122,10 +122,8 @@ class _ListPageState extends State<ListPage> {
                             onTap: () {
                               // 바텀네비게이션 없애기
                               //
-                              Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(
-                                  builder: (_) => ManagerDetailPage(
-                                        docs[index]['userUID'],
-                                      )));
+                              Navigator.of(context, rootNavigator: true)
+                                  .push(MaterialPageRoute(builder: (_) => ManagerDetailPage(docs[index]['userUID'])));
                             },
                             child: Container(
                               //              color: Colors.green,
@@ -241,7 +239,7 @@ class _ListPageState extends State<ListPage> {
                                             height: ScreenUtil().setHeight(25.h),
                                             child: Row(
                                               children: [
-                                                Text("  60분 ${docs[index]['profile']['price1']} P",
+                                                Text("  60분 ${docs[index]['profile']['price2']} P",
                                                     style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold)),
                                                 Flexible(
                                                   fit: FlexFit.tight,
@@ -300,10 +298,12 @@ class _ListPageState extends State<ListPage> {
                                                                   .collection('user')
                                                                   .doc(_user!.uid)
                                                                   .update({'wishList.${docs[index]['userUID']}': FieldValue.delete()})
+                                                                  // .update({'wishList': FieldValue.arrayRemove([docs[index]['userUID']])})
                                                               : FirebaseFirestore.instance
                                                                   .collection('user')
                                                                   .doc(_user!.uid)
                                                                   .update({'wishList.${docs[index]['userUID']}': docs[index]['userName']});
+                                                                  // .update({'wishList': FieldValue.arrayUnion([docs[index]['userUID']])});
                                                         },
                                                       ),
                                                     ],
