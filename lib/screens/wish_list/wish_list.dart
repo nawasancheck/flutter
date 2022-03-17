@@ -59,9 +59,9 @@ class _WishListState extends State<WishList> {
                     ));
               }
 
-              // List wishList = snapshot.data!.data()?['wishList'];
-              Map wishMap = snapshot.data!.data()?['wishList'];
-              List wishList = wishMap.keys.toList();
+              List wishList = snapshot.data!.data()?['wishList'];
+              // Map wishMap = snapshot.data!.data()?['wishList'];
+              // List wishList = wishMap.keys.toList();
 
               return Container(
                 child: Container(
@@ -72,8 +72,8 @@ class _WishListState extends State<WishList> {
                   child: ListView.builder(
                       shrinkWrap: true,
                       itemExtent: 140.sp,
-                      // itemCount: wishList.length,
-                      itemCount: wishMap.length,
+                      itemCount: wishList.length,
+                      // itemCount: wishMap.length,
                       itemBuilder: (context, index) {
                         return Card(
                           child: InkWell(
