@@ -297,13 +297,13 @@ class _ListPageState extends State<ListPage> {
                                                               ? FirebaseFirestore.instance
                                                                   .collection('user')
                                                                   .doc(_user!.uid)
-                                                                  .update({'wishList.${docs[index]['userUID']}': FieldValue.delete()})
-                                                                  // .update({'wishList': FieldValue.arrayRemove([docs[index]['userUID']])})
+                                                                  // .update({'wishList.${docs[index]['userUID']}': FieldValue.delete()})
+                                                                  .update({'wishList': FieldValue.arrayRemove([docs[index]['userUID']])})
                                                               : FirebaseFirestore.instance
                                                                   .collection('user')
                                                                   .doc(_user!.uid)
-                                                                  .update({'wishList.${docs[index]['userUID']}': docs[index]['userName']});
-                                                                  // .update({'wishList': FieldValue.arrayUnion([docs[index]['userUID']])});
+                                                                  // .update({'wishList.${docs[index]['userUID']}': docs[index]['userName']});
+                                                                  .update({'wishList': FieldValue.arrayUnion([docs[index]['userUID']])});
                                                         },
                                                       ),
                                                     ],
