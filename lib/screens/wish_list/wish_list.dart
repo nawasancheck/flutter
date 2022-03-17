@@ -184,13 +184,13 @@ class _WishListState extends State<WishList> {
                                                                 ? FirebaseFirestore.instance
                                                                 .collection('user')
                                                                 .doc(_user!.uid)
-                                                            .update({'wishList.${docs['userUID']}': FieldValue.delete()})
-                                                            //     .update({'wishList': FieldValue.arrayRemove([docs['userUID']])})
+                                                            // .update({'wishList.${docs['userUID']}': FieldValue.delete()})
+                                                                .update({'wishList': FieldValue.arrayRemove([docs['userUID']])})
                                                                 : FirebaseFirestore.instance
                                                                 .collection('user')
                                                                 .doc(_user!.uid)
-                                                            .update({'wishList.${docs['userUID']}': docs['userName']});
-                                                            //     .update({'wishList': FieldValue.arrayUnion([docs['userUID']])});
+                                                            // .update({'wishList.${docs['userUID']}': docs['userName']});
+                                                                .update({'wishList': FieldValue.arrayUnion([docs['userUID']])});
                                                           },
                                                         ),
                                                       ],
