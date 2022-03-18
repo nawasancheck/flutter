@@ -46,9 +46,17 @@ class ManagerDetailPage extends StatelessWidget {
                               width: ScreenUtil().screenWidth,
                               height: ScreenUtil().setHeight(408.h),
                               decoration: BoxDecoration(border: Border.all(color: Colors.white)),
-                              child: Image.asset(
-                                docs['profile']['imageUrl'],
-                                fit: BoxFit.cover,
+                              child: ShaderMask(
+                                child: Image.asset(
+                                  docs['profile']['imageUrl'],
+                                  fit: BoxFit.cover,
+                                ),
+                                shaderCallback: (Rect bounds){
+                                  return LinearGradient(colors: [Colors.white, Colors.transparent],
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                  stops: [0.7,1]).createShader(bounds);
+                                },
                               )),
                           Padding(
                               padding: const EdgeInsets.only(left: 20),
@@ -89,7 +97,7 @@ class ManagerDetailPage extends StatelessWidget {
                                       ),
                                     ),
                                     TextButton(
-                                      onPressed: () {},
+                                      onPressed: () {Navigator.pop(context,'pop');},
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment.start,
                                         children: [
