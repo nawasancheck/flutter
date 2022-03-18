@@ -56,7 +56,7 @@ class _SignInState extends State<SignIn> {
       resizeToAvoidBottomInset: false,
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(0),
-        child: AppBar(backgroundColor: Color(0xffffffff), elevation: 0,
+        child: AppBar(backgroundColor: Colors.transparent, elevation: 0,
         ),
       ),
       body: Container(
