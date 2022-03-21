@@ -1,9 +1,7 @@
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:syncfusion_flutter_calendar/calendar.dart';
-
-/// The hove page which hosts the calendar
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 class Schedule extends StatefulWidget {
-  /// Creates the home page to display teh calendar widget.
   const Schedule({Key? key}) : super(key: key);
 
   @override
@@ -15,102 +13,278 @@ class _ScheduleState extends State<Schedule> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(0),
-          child: AppBar(),
-        ),
-        body: SfCalendar(
-          view: CalendarView.month,
+      appBar: AppBar(
+        backgroundColor: Colors.lightBlueAccent,
+        title: Text("매니저 이름"),
+        centerTitle: true,
+      ),
+      body: Container(
+        color: Colors.yellow,
+        width: ScreenUtil().screenWidth,
+        height: ScreenUtil().screenHeight,
+        child: ListView(children: [
 
-          dataSource: MeetingDataSource(_getDataSource()),
-          // by default the month appointment display mode set as Indicator, we can
-          // change the display mode as appointment using the appointment display
-          // mode property
-          monthViewSettings: const MonthViewSettings(
-            showAgenda: true,
-            appointmentDisplayMode: MonthAppointmentDisplayMode.appointment,
+          Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Row(
+              children: [
+                Icon(EvaIcons.calendarOutline),
+                Text("날짜 선택"),
+              ],
+            ),
           ),
-        ));
+
+          Padding(
+            padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+            child: Container(
+              width: 280,
+              height: 200,
+              decoration: BoxDecoration(
+                color: Colors.greenAccent,
+                borderRadius: BorderRadius.circular(20)
+              ),
+            ),
+          ),
+
+          Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Row(
+              children: [
+                Icon(EvaIcons.clockOutline),
+                Text("시간 선택"),
+              ],
+            ),
+          ),
+
+         Padding(
+           padding: const EdgeInsets.fromLTRB(7, 0, 15, 0),
+           child: Row(
+             children: [
+             Padding(
+               padding: const EdgeInsets.symmetric(horizontal: 8),
+               child: Container(
+                 width: 100.w,
+                 height: 50.h,
+                 decoration: BoxDecoration(
+                   color: Colors.greenAccent,
+                   borderRadius: BorderRadius.circular(30),
+                 ),
+               ),
+             ),
+
+               Padding(
+                 padding: const EdgeInsets.symmetric(horizontal: 8),
+                 child: Container(
+                   width: 100.w,
+                   height: 50.h,
+                   decoration: BoxDecoration(
+                     color: Colors.greenAccent,
+                     borderRadius: BorderRadius.circular(30),
+                   ),
+                 ),
+               ),
+
+               Padding(
+                 padding: const EdgeInsets.symmetric(horizontal: 8),
+                 child: Container(
+                   width: 100.w,
+                   height: 50.h,
+                   decoration: BoxDecoration(
+                     color: Colors.greenAccent,
+                     borderRadius: BorderRadius.circular(30),
+                   ),
+                 ),
+               ),
+           ],
+           ),
+         ),
+
+          Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Text("오전"),
+          ),
+
+          Padding(
+            padding: const EdgeInsets.fromLTRB(7, 0, 15, 0),
+            child: Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child: Container(
+                    width: 80.w,
+                    height: 40.h,
+                    decoration: BoxDecoration(
+                      color: Colors.greenAccent,
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                  ),
+                ),
+
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child: Container(
+                    width: 80.w,
+                    height: 40.h,
+                    decoration: BoxDecoration(
+                      color: Colors.greenAccent,
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+
+          Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Text("오후"),
+          ),
+
+
+
+          Padding(
+            padding: const EdgeInsets.fromLTRB(12,0,15,0),
+            child: Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(3, 0, 5, 5),
+                  child: Container(
+                    width: 80.w,
+                    height: 40.h,
+                    decoration: BoxDecoration(
+                      color: Colors.greenAccent,
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                  ),
+                ),
+                Padding(padding: const EdgeInsets.fromLTRB(3, 0, 5, 5),
+                  child: Container(
+                    width: 80.w,
+                    height: 40.h,
+                    decoration: BoxDecoration(
+                      color: Colors.greenAccent,
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                  ),
+                ),
+                Padding(padding: const EdgeInsets.fromLTRB(3, 0, 5, 5),
+                  child: Container(
+                    width: 80.w,
+                    height: 40.h,
+                    decoration: BoxDecoration(
+                      color: Colors.greenAccent,
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                  ),
+                ),
+                Padding(padding: const EdgeInsets.fromLTRB(3, 0, 5, 5),
+                  child: Container(
+                    width: 80.w,
+                    height: 40.h,
+                    decoration: BoxDecoration(
+                      color: Colors.greenAccent,
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          Padding(
+            padding: const EdgeInsets.fromLTRB(12,0,15,0),
+            child: Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(3, 0, 5, 5),
+                  child: Container(
+                    width: 80.w,
+                    height: 40.h,
+                    decoration: BoxDecoration(
+                      color: Colors.greenAccent,
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                  ),
+                ),
+                Padding(padding: const EdgeInsets.fromLTRB(3, 0, 5, 5),
+                  child: Container(
+                    width: 80.w,
+                    height: 40.h,
+                    decoration: BoxDecoration(
+                      color: Colors.greenAccent,
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                  ),
+                ),
+                Padding(padding: const EdgeInsets.fromLTRB(3, 0, 5, 5),
+                  child: Container(
+                    width: 80.w,
+                    height: 40.h,
+                    decoration: BoxDecoration(
+                      color: Colors.greenAccent,
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                  ),
+                ),
+                Padding(padding: const EdgeInsets.fromLTRB(3, 0, 5, 5),
+                  child: Container(
+                    width: 80.w,
+                    height: 40.h,
+                    decoration: BoxDecoration(
+                      color: Colors.greenAccent,
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          Padding(
+            padding: const EdgeInsets.fromLTRB(12,0,15,0),
+            child: Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(3, 0, 5, 5),
+                  child: Container(
+                    width: 80.w,
+                    height: 40.h,
+                    decoration: BoxDecoration(
+                      color: Colors.greenAccent,
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                  ),
+                ),
+                Padding(padding: const EdgeInsets.fromLTRB(3, 0, 5, 5),
+                  child: Container(
+                    width: 80.w,
+                    height: 40.h,
+                    decoration: BoxDecoration(
+                      color: Colors.greenAccent,
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+
+          Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: FlatButton(
+              color: Colors.red,
+                onPressed: (){},
+                child: Text("다음 단계"),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10)
+              )
+            ),
+          )
+          
+        ],),
+      ),
+    );
   }
-
-  List<Meeting> _getDataSource() {
-    final List<Meeting> meetings = <Meeting>[];
-    final DateTime today = DateTime.now();
-    final DateTime startTime = DateTime(today.year, today.month, today.day, 9, 0, 0);
-    final DateTime endTime = startTime.add(const Duration(hours: 1, minutes: 30));
-    meetings.add(Meeting('산책예약 백원재님', startTime, endTime, const Color(0xFF0F8644), false));
-    meetings.add(Meeting('산책예약 백원재님', startTime, endTime, const Color(0xFF0F8644), false));
-    meetings.add(Meeting('산책예약 백원재님', startTime, endTime, const Color(0xFF0F8644), false));
-    meetings.add(Meeting('산책예약 백원재님', startTime, endTime, const Color(0xFF0F8644), false));
-    meetings.add(Meeting('산책예약 백원재님', startTime, endTime, const Color(0xFF0F8644), false));
-    return meetings;
-  }
-}
-
-/// An object to set the appointment collection data source to calendar, which
-/// used to map the custom appointment data to the calendar appointment, and
-/// allows to add, remove or reset the appointment collection.
-class MeetingDataSource extends CalendarDataSource {
-  /// Creates a meeting data source, which used to set the appointment
-  /// collection to the calendar
-  MeetingDataSource(List<Meeting> source) {
-    appointments = source;
-  }
-
-  @override
-  DateTime getStartTime(int index) {
-    return _getMeetingData(index).from;
-  }
-
-  @override
-  DateTime getEndTime(int index) {
-    return _getMeetingData(index).to;
-  }
-
-  @override
-  String getSubject(int index) {
-    return _getMeetingData(index).eventName;
-  }
-
-  @override
-  Color getColor(int index) {
-    return _getMeetingData(index).background;
-  }
-
-  @override
-  bool isAllDay(int index) {
-    return _getMeetingData(index).isAllDay;
-  }
-
-  Meeting _getMeetingData(int index) {
-    final dynamic meeting = appointments![index];
-    late final Meeting meetingData;
-    if (meeting is Meeting) {
-      meetingData = meeting;
-    }
-
-    return meetingData;
-  }
-}
-
-/// Custom business object class which contains properties to hold the detailed
-/// information about the event data which will be rendered in calendar.
-class Meeting {
-  /// Creates a meeting class with required details.
-  Meeting(this.eventName, this.from, this.to, this.background, this.isAllDay);
-
-  /// Event name which is equivalent to subject property of [Appointment].
-  String eventName;
-
-  /// From which is equivalent to start time property of [Appointment].
-  DateTime from;
-
-  /// To which is equivalent to end time property of [Appointment].
-  DateTime to;
-
-  /// Background which is equivalent to color property of [Appointment].
-  Color background;
-
-  /// IsAllDay which is equivalent to isAllDay property of [Appointment].
-  bool isAllDay;
 }
