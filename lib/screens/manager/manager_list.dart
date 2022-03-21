@@ -54,11 +54,8 @@ class _ListPageState extends State<ListPage> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Container(
-                //   color: Colors.yellow,
-                //
-                child: DropdownButton(
-                    // initial Value
-                    //
+                //color: Colors.yellow,
+                child: DropdownButton(    //  initial Value
                     value: dropDownValue,
                     icon: const Icon(
                       Icons.more_vert,
@@ -94,6 +91,8 @@ class _ListPageState extends State<ListPage> {
             )
           ],
         ),
+
+
         body: Container(
             child: StreamBuilder(
                 stream: FirebaseFirestore.instance.collection('user').where('role', isEqualTo: 'manager').snapshots(),
@@ -116,8 +115,6 @@ class _ListPageState extends State<ListPage> {
                         bool isPressed = isPressedList.contains('${_user!.uid}');
 
                         return Card(
-                          //          color: Colors.yellow,
-                          //
                           child: InkWell(
                             onTap: () {
                               // 바텀네비게이션 없애기
@@ -126,8 +123,7 @@ class _ListPageState extends State<ListPage> {
                                   .push(MaterialPageRoute(builder: (_) => ManagerDetailPage(docs[index]['userUID'])));
                             },
                             child: Container(
-                              //              color: Colors.green,
-                              //
+                              //color: Colors.green,
                               child: Row(
                                 children: [
                                   Container(
@@ -136,11 +132,10 @@ class _ListPageState extends State<ListPage> {
                                         shape: RoundedRectangleBorder(borderRadius: BorderRadiusDirectional.circular(15))),
                                     height: ScreenUtil().setHeight(126.h),
                                     width: ScreenUtil().setWidth(132.w),
-                                  ), //      사진
+                                  ),
 
                                   Container(
-                                    //                          color: Colors.yellow,
-                                    //
+                                    //color: Colors.yellow,
                                     width: ScreenUtil().setWidth(10),
                                     height: ScreenUtil().setHeight(130),
                                   ),
@@ -150,92 +145,87 @@ class _ListPageState extends State<ListPage> {
                                     child: Container(
                                       height: ScreenUtil().setHeight(180.h //148.h
                                           ),
-                                      //                 color: Colors.orange,
-                                      //
+                                      //color: Colors.orange,
                                       child: Column(
                                         mainAxisAlignment: MainAxisAlignment.start,
                                         children: [
-                                          Container(
-                                            //                    color: Colors.lightBlueAccent,
-                                            height: ScreenUtil().setHeight(5.h),
-                                          ),
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                " " + docs[index]['profile']['title'],
-                                                style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold, color: Color(0xff241332)),
-                                              ),
-                                              Flexible(
-                                                fit: FlexFit.tight,
-                                                child: Container(
-                                                  height: 10,
-                                                  width: 10,
-                                                  //                           color: Colors.blue,
+                                          Padding(
+                                            padding: const EdgeInsets.only(top: 5),
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  " " + docs[index]['profile']['title'],
+                                                  style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold, color: Color(0xff241332)),
                                                 ),
-                                              ),
-                                              Container(
-                                                //                                     color: Colors.green,
-                                                //
-                                                width: ScreenUtil().setWidth(43.w),
-                                                child: Row(
-                                                  mainAxisAlignment: MainAxisAlignment.end,
-                                                  children: [
-                                                    Container(
-                                                      child: Row(
-                                                        mainAxisAlignment: MainAxisAlignment.end,
-                                                        children: [
-                                                          Icon(
-                                                            Icons.star,
-                                                            color: Colors.yellow,
-                                                            size: 15.sp,
-                                                          ),
-                                                          Text(
-                                                            docs[index]['profile']['star'].toStringAsFixed(1),
-                                                            style: TextStyle(fontSize: 15.sp, color: Color(0xff8e8594)),
-                                                          ),
-                                                        ],
+                                                Flexible(
+                                                  fit: FlexFit.tight,
+                                                  child: Container(
+                                                    height: 10,
+                                                    width: 10,
+                                                    //color: Colors.blue,
+                                                  ),
+                                                ),
+                                                Container(
+                                                  //color: Colors.green,
+                                                  width: ScreenUtil().setWidth(43.w),
+                                                  child: Row(
+                                                    mainAxisAlignment: MainAxisAlignment.end,
+                                                    children: [
+                                                      Container(
+                                                        child: Row(
+                                                          mainAxisAlignment: MainAxisAlignment.end,
+                                                          children: [
+                                                            Icon(
+                                                              Icons.star,
+                                                              color: Colors.yellow,
+                                                              size: 15.sp,
+                                                            ),
+                                                            Text(
+                                                              docs[index]['profile']['star'].toStringAsFixed(1),
+                                                              style: TextStyle(fontSize: 15.sp, color: Color(0xff8e8594)),
+                                                            ),
+                                                          ],
+                                                        ),
                                                       ),
-                                                    ),
-                                                  ],
+                                                    ],
+                                                  ),
                                                 ),
-                                              ),
-                                            ],
+                                              ],
+                                            ),
                                           ),
-                                          Row(
-                                            children: [
-                                              Text(" " + " ${docs[index]['profile']['area']} - ",
-                                                  style: TextStyle(fontSize: 10.sp, color: Color(0xff6b6b6b))),
-                                              Text(" ${docs[index]['profile']['year']}대",
-                                                  style: TextStyle(fontSize: 10.sp, color: Color(0xff6b6b6b))),
-                                            ],
+
+                                          Padding(
+                                            padding: const EdgeInsets.only(bottom: 22),
+                                            child: Row(
+                                              children: [
+                                                Text(" " + " ${docs[index]['profile']['area']} - ",
+                                                    style: TextStyle(fontSize: 10.sp, color: Color(0xff6b6b6b))),
+                                                Text(" ${docs[index]['profile']['year']}대",
+                                                    style: TextStyle(fontSize: 10.sp, color: Color(0xff6b6b6b))),
+                                              ],
+                                            ),
                                           ),
-                                          Container(
-                                            //                    color: Colors.lightBlueAccent,
-                                            height: ScreenUtil().setHeight(22.h),
-                                          ),
+
                                           Row(
                                             children: [
                                               Text(" " + " 관심분야 - ${docs[index]['profile']['like'].substring(0, 6) + "..."}",
                                                   style: TextStyle(fontSize: 13.sp, fontWeight: FontWeight.bold, color: Color(0xff737373))),
                                             ],
                                           ),
-                                          Row(
-                                            children: [
-                                              Text(" " + " ${docs[index]['profile']['description'].substring(0, 26)}...",
-                                                  style: TextStyle(fontSize: 11.sp, color: Color(0xff878787))),
-                                            ],
+
+                                          Padding(
+                                            padding: const EdgeInsets.only(bottom: 13),
+                                            child: Row(
+                                              children: [
+                                                Text(" " + " ${docs[index]['profile']['description'].substring(0, 26)}...",
+                                                    style: TextStyle(fontSize: 11.sp, color: Color(0xff878787))),
+                                              ],
+                                            ),
                                           ),
+
                                           Container(
-                                            //               color: Colors.lightBlueAccent,
-                                            height: ScreenUtil().setHeight(13.h),
-                                          ),
-                                          Container(
-                                            //                 color: Colors.lightBlueAccent,
-                                            height: ScreenUtil().setHeight(0.h),
-                                          ),
-                                          Container(
-                                            //              color: Colors.yellow,
+                                            //color: Colors.yellow,
                                             height: ScreenUtil().setHeight(25.h),
                                             child: Row(
                                               children: [
@@ -244,13 +234,12 @@ class _ListPageState extends State<ListPage> {
                                                 Flexible(
                                                   fit: FlexFit.tight,
                                                   child: Container(
-                                                    //                       color: Colors.lightBlueAccent,
+                                                    //color: Colors.lightBlueAccent,
                                                     height: ScreenUtil().setHeight(20.h),
                                                   ),
                                                 ),
                                                 Container(
-                                                  //                     color: Colors.brown,
-                                                  //
+                                                  //color: Colors.brown,
                                                   width: ScreenUtil().setWidth(60.w),
                                                   height: ScreenUtil().setHeight(25.h),
                                                   child: Row(
@@ -270,41 +259,39 @@ class _ListPageState extends State<ListPage> {
                                                           )
                                                         ],
                                                       ),
-                                                      Container(
-                                                        //                    color: Colors.yellow,
-                                                        height: 10,
-                                                        width: ScreenUtil().setWidth(3.w),
-                                                      ),
-                                                      InkWell(
-                                                        child: isPressed
-                                                            ? Icon(
-                                                                EvaIcons.heart,
-                                                                color: Colors.red[500],
-                                                                size: 18.35.sp,
-                                                              )
-                                                            : Icon(EvaIcons.heartOutline, color: Color(0xff878787), size: 18.35.h),
-                                                        onTap: () {
-                                                          isPressed
-                                                              ? FirebaseFirestore.instance.collection('user').doc(docs[index]['userUID']).update({
-                                                                  'profile.heart': docs[index]['profile']['heart'] - 1,
-                                                                  'profile.isPressedList': FieldValue.arrayRemove([_user!.uid])
-                                                                })
-                                                              : FirebaseFirestore.instance.collection('user').doc(docs[index]['userUID']).update({
-                                                                  'profile.heart': docs[index]['profile']['heart'] + 1,
-                                                                  'profile.isPressedList': FieldValue.arrayUnion([_user!.uid])
-                                                                });
-                                                          isPressed
-                                                              ? FirebaseFirestore.instance
-                                                                  .collection('user')
-                                                                  .doc(_user!.uid)
-                                                                  // .update({'wishList.${docs[index]['userUID']}': FieldValue.delete()})
-                                                                  .update({'wishList': FieldValue.arrayRemove([docs[index]['userUID']])})
-                                                              : FirebaseFirestore.instance
-                                                                  .collection('user')
-                                                                  .doc(_user!.uid)
-                                                                  // .update({'wishList.${docs[index]['userUID']}': docs[index]['userName']});
-                                                                  .update({'wishList': FieldValue.arrayUnion([docs[index]['userUID']])});
-                                                        },
+                                                      Padding(
+                                                        padding: const EdgeInsets.only(left: 3),
+                                                        child: InkWell(
+                                                          child: isPressed
+                                                              ? Icon(
+                                                                  EvaIcons.heart,
+                                                                  color: Colors.red[500],
+                                                                  size: 18.35.sp,
+                                                                )
+                                                              : Icon(EvaIcons.heartOutline, color: Color(0xff878787), size: 18.35.h),
+                                                          onTap: () {
+                                                            isPressed
+                                                                ? FirebaseFirestore.instance.collection('user').doc(docs[index]['userUID']).update({
+                                                                    'profile.heart': docs[index]['profile']['heart'] - 1,
+                                                                    'profile.isPressedList': FieldValue.arrayRemove([_user!.uid])
+                                                                  })
+                                                                : FirebaseFirestore.instance.collection('user').doc(docs[index]['userUID']).update({
+                                                                    'profile.heart': docs[index]['profile']['heart'] + 1,
+                                                                    'profile.isPressedList': FieldValue.arrayUnion([_user!.uid])
+                                                                  });
+                                                            isPressed
+                                                                ? FirebaseFirestore.instance
+                                                                    .collection('user')
+                                                                    .doc(_user!.uid)
+                                                                    // .update({'wishList.${docs[index]['userUID']}': FieldValue.delete()})
+                                                                    .update({'wishList': FieldValue.arrayRemove([docs[index]['userUID']])})
+                                                                : FirebaseFirestore.instance
+                                                                    .collection('user')
+                                                                    .doc(_user!.uid)
+                                                                    // .update({'wishList.${docs[index]['userUID']}': docs[index]['userName']});
+                                                                    .update({'wishList': FieldValue.arrayUnion([docs[index]['userUID']])});
+                                                          },
+                                                        ),
                                                       ),
                                                     ],
                                                   ),
@@ -318,7 +305,7 @@ class _ListPageState extends State<ListPage> {
                                   ),
 
                                   Container(
-                                    //           color: Colors.red,
+                                    //color: Colors.red,
                                     width: ScreenUtil().setWidth(5),
                                     height: ScreenUtil().setHeight(130),
                                   ),
