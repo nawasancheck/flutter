@@ -4,6 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/screens/chatting/in_chat_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart';
 
 class ChatList extends StatefulWidget {
   const ChatList({Key? key}) : super(key: key);
@@ -152,13 +154,34 @@ class _ChatState extends State<ChatList> {
                                                             .snapshots(),
                                                         builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot4) {
                                                           if (snapshot4.connectionState == ConnectionState.waiting) {
+
                                                             return Center(
                                                               child: CircularProgressIndicator(),
                                                             );
                                                           }
+                                                          var time = snapshot4.data?.docs[0]['time'].toDate();
+                                                          var ampm = '';
 
-                                                          return Text('${snapshot4.data?.docs[0]['time']}',
-                                                              style: TextStyle(fontSize: 13.sp, color: Color(0xff7898186)));
+                                                          if(time.hour<=12) {
+                                                            ampm = '오전';
+                                                          }
+                                                          else {
+                                                            ampm = '오후';
+                                                          }
+
+                                                          if(time.year == DateTime.now().year && time.month == DateTime.now().month && time.day == DateTime.now().day) {
+                                                            return Text('$ampm ${time.hour}:${time.minute}',
+                                                                style: TextStyle(fontSize: 13.sp, color: Color(0xff7898186)));
+                                                          }
+                                                          else if(DateTime.now().day - time.day == 1){
+                                                            return Text('어제',
+                                                                style: TextStyle(fontSize: 13.sp, color: Color(0xff7898186)));
+                                                          }
+                                                          else {
+                                                            return Text('${time.year}-${time.month}-${time.day}',
+                                                                style: TextStyle(fontSize: 13.sp, color: Color(0xff7898186)));
+                                                          }
+
                                                         }),
                                                   )
                                                 ],
