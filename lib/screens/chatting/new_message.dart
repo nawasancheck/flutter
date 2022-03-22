@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
 
 class NewMessage extends StatefulWidget {
@@ -114,28 +115,16 @@ class _NewMessageState extends State<NewMessage> {
                   .doc(currentUser.uid)
                   .collection('chat_user_num')
                   .doc(widget.opponentUID)
-                  .set({'userUID': widget.opponentUID, 'userName': widget.opponentName, 'time': Timestamp.now()}),
+                  .set({'userUID': widget.opponentUID, 'userName': widget.opponentName, 'time': Timestamp.now().millisecondsSinceEpoch  + DateTime.now().timeZoneOffset.inMilliseconds}),
               FirebaseFirestore.instance
                   .collection("chat")
                   .doc(widget.opponentUID)
                   .collection('chat_user_num')
                   .doc(currentUser.uid)
-                  .set({'userUID': currentUser.uid, 'userName': currentUser.displayName, 'time': Timestamp.now()})
+                  .set({'userUID': currentUser.uid, 'userName': currentUser.displayName, 'time': Timestamp.now().millisecondsSinceEpoch  + DateTime.now().timeZoneOffset.inMilliseconds})
             }
         });
   }
-
-  // Future uploadFile(String path) async {
-  //   String fileName = DateTime.now().microsecondsSinceEpoch.toString();
-  //   Reference reference = FirebaseStorage.instance.ref().child(fileName);
-  //   UploadTask uploadTask = reference.putFile(File(path));
-  //   TaskSnapshot taskSnapshot = uploadTask.snapshot;
-  //   taskSnapshot.ref.getDownloadURL().then((downloadUrl) {
-  //     setState(() {
-  //       _sendImage(downloadUrl, 'image');
-  //     });
-  //   });
-  // }
 
   @override
   Widget build(BuildContext context) {
