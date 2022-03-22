@@ -43,7 +43,7 @@ class _ChatState extends State<ChatList> {
               Flexible(
                   child: Card(
                       child: StreamBuilder(
-                          stream: FirebaseFirestore.instance.collection('chat').doc(_user!.uid).collection('chat_user_num').snapshots(),
+                          stream: FirebaseFirestore.instance.collection('chat').doc(_user!.uid).collection('chat_user_num').orderBy('time', descending: true).snapshots(),
                           builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
                             if (snapshot.connectionState == ConnectionState.waiting) {
                               return Center(
