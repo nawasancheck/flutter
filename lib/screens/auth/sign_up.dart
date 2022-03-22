@@ -310,7 +310,7 @@ class _SignUpState extends State<SignUp> {
                       'email': _userEmail,
                       'role': 'client',
                       'userUID': newUser.user!.uid,
-                      'profile': {'isPressList': []},
+                      'profile': {'isPressList': [], 'title': _userName, 'imageUrl': 'assets/logo.png'},
                       'wishList': []
                     });
 
