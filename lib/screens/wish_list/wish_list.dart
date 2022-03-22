@@ -67,8 +67,8 @@ class _WishListState extends State<WishList> {
                 child: Container(
                   width: ScreenUtil().screenWidth,
                   height: ScreenUtil().screenHeight,
-                  //
-                  //color: Colors.blue,
+
+                  color: Colors.grey,
                   child: ListView.builder(
                       shrinkWrap: true,
                       itemExtent: 140.sp,
@@ -82,7 +82,7 @@ class _WishListState extends State<WishList> {
                                   .push(MaterialPageRoute(builder: (context) => ManagerDetailPage(wishList[index])));
                             },
                             child: Container(
-                                //     color: Colors.yellow,
+                                //color: Colors.lightGreen,
                                 child: StreamBuilder(
                               stream: FirebaseFirestore.instance.collection('user').doc(wishList[index]).snapshots(),
                               builder: (context, AsyncSnapshot<DocumentSnapshot<Map<String, dynamic>>> snapshot2) {
@@ -98,6 +98,12 @@ class _WishListState extends State<WishList> {
                                 return Row(
                                   children: [
                                     Container(
+                                      //color: Colors.yellow,
+                                      width: ScreenUtil().setWidth(10),
+                                      height: ScreenUtil().setHeight(130),
+                                    ),
+
+                                    Container(
                                       decoration: ShapeDecoration(
                                           image: DecorationImage(image: AssetImage(docs['profile']['imageUrl']), fit: BoxFit.cover),
                                           shape: RoundedRectangleBorder(borderRadius: BorderRadiusDirectional.circular(15))),
@@ -106,8 +112,7 @@ class _WishListState extends State<WishList> {
                                     ), //      사진
 
                                     Container(
-                                      //                color: Colors.yellow,
-                                      //
+                                      //color: Colors.yellow,
                                       width: ScreenUtil().setWidth(10),
                                       height: ScreenUtil().setHeight(130),
                                     ),
@@ -121,87 +126,62 @@ class _WishListState extends State<WishList> {
                                           children: [
                                             Row(
                                               children: [
-                                                Container(
-                                                  //           color:Colors.green,
-                                                  child: Text(
-                                                    " " + docs['profile']['title'] + " ",
-                                                    style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold, color: Color(0xff241332)),
-                                                  ),
+                                                Text(
+                                                  docs['profile']['title'] + " ",
+                                                  style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold, color: Color(0xff241332)),
+                                                ),
+                                                Icon(
+                                                  Icons.star,
+                                                  color: Colors.yellow,
+                                                  size: 20.sp,
+                                                ),
+                                                Text(
+                                                  docs['profile']['star'].toStringAsFixed(1),
+                                                  style: TextStyle(fontSize: 15.sp, color: Color(0xff8e8594)),
                                                 ),
                                                 Flexible(
                                                   fit: FlexFit.tight,
-                                                  child: Container(
-                                                    //             color: Colors.green,
-                                                    child: Row(
-                                                      mainAxisAlignment: MainAxisAlignment.start,
-                                                      children: [
-                                                        Container(
-                                                          child: Row(
-                                                            mainAxisAlignment: MainAxisAlignment.start,
-                                                            children: [
-                                                              Icon(
-                                                                Icons.star,
-                                                                color: Colors.yellow,
-                                                                size: 20.sp,
-                                                              ),
-                                                              Text(
-                                                                docs['profile']['star'].toStringAsFixed(1),
-                                                                style: TextStyle(fontSize: 15.sp, color: Color(0xff8e8594)),
-                                                              ),
-                                                            ],
-                                                          ),
+                                                  child: Row(
+                                                    mainAxisAlignment: MainAxisAlignment.end,
+                                                    children: [
+                                                      InkWell(
+                                                        child: Icon(
+                                                          EvaIcons.heart,
+                                                          color: Colors.red[500],
+                                                          size: 20.sp,
                                                         ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ),
-                                                Flexible(
-                                                  fit: FlexFit.tight,
-                                                  child: Container(
-                                                    height: ScreenUtil().setHeight(25),
-                                                    //         color: Colors.orange,
-                                                    child: Row(
-                                                      mainAxisAlignment: MainAxisAlignment.end,
-                                                      children: [
-                                                        InkWell(
-                                                          child: Icon(
-                                                            EvaIcons.heart,
-                                                            color: Colors.red[500],
-                                                            size: 20.sp,
-                                                          ),
-                                                          onTap: () {
-                                                            isPressed
-                                                                ? FirebaseFirestore.instance.collection('user').doc(docs['userUID']).update({
-                                                                    'profile.heart': docs['profile']['heart'] - 1,
-                                                                    'profile.isPressedList': FieldValue.arrayRemove([_user!.uid])
-                                                                  })
-                                                                : FirebaseFirestore.instance.collection('user').doc(docs['userUID']).update({
-                                                                    'profile.heart': docs['profile']['heart'] + 1,
-                                                                    'profile.isPressedList': FieldValue.arrayUnion([_user!.uid])
-                                                                  });
+                                                        onTap: () {
+                                                          isPressed
+                                                              ? FirebaseFirestore.instance.collection('user').doc(docs['userUID']).update({
+                                                                  'profile.heart': docs['profile']['heart'] - 1,
+                                                                  'profile.isPressedList': FieldValue.arrayRemove([_user!.uid])
+                                                                })
+                                                              : FirebaseFirestore.instance.collection('user').doc(docs['userUID']).update({
+                                                                  'profile.heart': docs['profile']['heart'] + 1,
+                                                                  'profile.isPressedList': FieldValue.arrayUnion([_user!.uid])
+                                                                });
 
-                                                            isPressed
-                                                                ? FirebaseFirestore.instance
-                                                                .collection('user')
-                                                                .doc(_user!.uid)
-                                                            // .update({'wishList.${docs['userUID']}': FieldValue.delete()})
-                                                                .update({'wishList': FieldValue.arrayRemove([docs['userUID']])})
-                                                                : FirebaseFirestore.instance
-                                                                .collection('user')
-                                                                .doc(_user!.uid)
-                                                            // .update({'wishList.${docs['userUID']}': docs['userName']});
-                                                                .update({'wishList': FieldValue.arrayUnion([docs['userUID']])});
-                                                          },
-                                                        ),
-                                                      ],
-                                                    ),
+                                                          isPressed
+                                                              ? FirebaseFirestore.instance
+                                                              .collection('user')
+                                                              .doc(_user!.uid)
+                                                          // .update({'wishList.${docs['userUID']}': FieldValue.delete()})
+                                                              .update({'wishList': FieldValue.arrayRemove([docs['userUID']])})
+                                                              : FirebaseFirestore.instance
+                                                              .collection('user')
+                                                              .doc(_user!.uid)
+                                                          // .update({'wishList.${docs['userUID']}': docs['userName']});
+                                                              .update({'wishList': FieldValue.arrayUnion([docs['userUID']])});
+                                                        },
+                                                      ),
+                                                    ],
                                                   ),
                                                 ),
                                               ],
                                             ),
                                             Row(
                                               children: [
-                                                Text("  " + docs['profile']['area'] + "  /",
+                                                Text(docs['profile']['area'] + "  /",
                                                     style: TextStyle(fontSize: 12.sp, color: Color(0xff494444))),
                                                 Text("  " + docs['profile']['like'], style: TextStyle(fontSize: 12.sp, color: Color(0xff494444))),
                                               ],
@@ -211,38 +191,36 @@ class _WishListState extends State<WishList> {
                                                 Flexible(
                                                   fit: FlexFit.loose,
                                                   child: Container(
-                                                      //            color: Colors.blue,
+                                                      //color: Colors.blue,
                                                       child: Row(
                                                     children: [
                                                       Column(
                                                         children: [
                                                           Text(
-                                                            "  " + "30분 " + docs['profile']['price1'].toString() + " P",
+                                                            "30분 " + docs['profile']['price1'].toString() + " P",
                                                             style: TextStyle(fontSize: 13.sp, fontWeight: FontWeight.bold, color: Color(0xff516675)),
                                                           ),
                                                           Text(
-                                                            "  " + "60분 " + docs['profile']['price2'].toString() + " P",
+                                                            "60분 " + docs['profile']['price2'].toString() + " P",
                                                             style: TextStyle(fontSize: 13.sp, fontWeight: FontWeight.bold, color: Color(0xff516675)),
                                                           ),
                                                           Text(
-                                                            "  " + "90분 " + docs['profile']['price3'].toString() + " P",
+                                                            "90분 " + docs['profile']['price3'].toString() + " P",
                                                             style: TextStyle(fontSize: 13.sp, fontWeight: FontWeight.bold, color: Color(0xff516675)),
                                                           ),
                                                         ],
                                                       ),
                                                       Flexible(
                                                         fit: FlexFit.tight,
-                                                        child: Container(
-                                                          //                     color: Colors.green,
-                                                          width: 130,
-                                                          height: 47,
-                                                          child: Column(
-                                                            mainAxisAlignment: MainAxisAlignment.end,
-                                                            children: [
-                                                              Row(
-                                                                mainAxisAlignment: MainAxisAlignment.end,
-                                                                children: [
-                                                                  Container(
+                                                        child: Column(
+                                                          mainAxisAlignment: MainAxisAlignment.end,
+                                                          children: [
+                                                            Row(
+                                                              mainAxisAlignment: MainAxisAlignment.end,
+                                                              children: [
+                                                                Padding(
+                                                                  padding: const EdgeInsets.only(top: 21),
+                                                                  child: Container(
                                                                     width: 78.w,
                                                                     height: 28.h,
                                                                     child: FlatButton(
@@ -259,10 +237,10 @@ class _WishListState extends State<WishList> {
                                                                       ),
                                                                     ),
                                                                   ),
-                                                                  Container(
-                                                                    width: ScreenUtil().setWidth(15.w),
-                                                                  ),
-                                                                  Container(
+                                                                ),
+                                                                Padding(
+                                                                  padding: const EdgeInsets.fromLTRB(5, 21, 0, 0),
+                                                                  child: Container(
                                                                     width: 78.w,
                                                                     height: 28.h,
                                                                     child: FlatButton(
@@ -276,10 +254,10 @@ class _WishListState extends State<WishList> {
                                                                       ),
                                                                     ),
                                                                   ),
-                                                                ],
-                                                              ),
-                                                            ],
-                                                          ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ],
                                                         ),
                                                       ),
                                                     ],
@@ -292,7 +270,8 @@ class _WishListState extends State<WishList> {
                                       ),
                                     ),
                                     Container(
-                                      width: ScreenUtil().setWidth(5),
+                                      //color: Colors.lightBlueAccent,
+                                      width: ScreenUtil().setWidth(10),
                                       height: ScreenUtil().setHeight(130),
                                     ),
                                   ],
