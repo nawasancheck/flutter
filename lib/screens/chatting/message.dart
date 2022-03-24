@@ -27,7 +27,6 @@ class Messages extends StatelessWidget {
             itemBuilder: (context, index) {
 
               // 리스트에 그려질 항목을 Lazy하게 child을 생성해준다.
-              print(chatDocs[index]['type'] + index.toString());
               return ChatBubble(chatDocs[index]['text'], chatDocs[index]['sendUID'].toString() == user.uid, chatDocs[index]['type']);
             },
           );

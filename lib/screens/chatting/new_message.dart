@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
 
 class NewMessage extends StatefulWidget {
@@ -32,7 +33,7 @@ class _NewMessageState extends State<NewMessage> {
         .collection(widget.opponentUID)
         .add({
           'text': _userEnterMessage,
-          'fakeText' : _userEnterMessage,
+          'fakeText': _userEnterMessage,
           'time': Timestamp.now().toDate(),
           'sendUID': currentUser.uid,
           'receiverUID': widget.opponentUID,
@@ -43,7 +44,7 @@ class _NewMessageState extends State<NewMessage> {
 
     FirebaseFirestore.instance.collection("chat").doc(widget.opponentUID).collection(currentUser.uid).add({
       'text': _userEnterMessage,
-      'fakeText' : _userEnterMessage,
+      'fakeText': _userEnterMessage,
       'time': Timestamp.now().toDate(),
       'sendUID': currentUser.uid,
       'receiverUID': widget.opponentUID,
@@ -53,13 +54,12 @@ class _NewMessageState extends State<NewMessage> {
     _controller.clear();
   }
 
-
   void _sendImage(String text, String type) {
     final currentUser = FirebaseAuth.instance.currentUser;
 
     FirebaseFirestore.instance.collection("chat").doc(currentUser!.uid).collection(widget.opponentUID).add({
       'text': text,
-      'fakeText' : '사진',
+      'fakeText': '사진',
       'time': Timestamp.now(),
       'sendUID': currentUser.uid,
       'receiverUID': widget.opponentUID,
@@ -68,7 +68,7 @@ class _NewMessageState extends State<NewMessage> {
 
     FirebaseFirestore.instance.collection("chat").doc(widget.opponentUID).collection(currentUser.uid).add({
       'text': text,
-      'fakeText' : '사진',
+      'fakeText': '사진',
       'time': Timestamp.now().toDate(),
       'sendUID': currentUser.uid,
       'receiverUID': widget.opponentUID,
@@ -79,11 +79,12 @@ class _NewMessageState extends State<NewMessage> {
   }
 
   File? imageFile;
+
   Future getImage() async {
     ImagePicker _picker = ImagePicker();
 
     await _picker.pickImage(source: ImageSource.gallery).then((xFile) {
-      if(xFile != null) {
+      if (xFile != null) {
         imageFile = File(xFile.path);
         uploadImage();
       }
@@ -105,35 +106,25 @@ class _NewMessageState extends State<NewMessage> {
     final currentUser = FirebaseAuth.instance.currentUser;
 
     FirebaseFirestore.instance.collection("chat").doc(currentUser!.uid).collection(widget.opponentUID).get().then((docsSnapshot) => {
-      if (docsSnapshot.size == 0)
-        print('size = 0')
-      else
-        {
-          FirebaseFirestore.instance.collection("chat").doc(currentUser.uid).collection('chat_user_num').doc(widget.opponentUID).set({
-            'userUID': widget.opponentUID,
-            'userName': widget.opponentName,
-          }),
-          FirebaseFirestore.instance
-              .collection("chat")
-              .doc(widget.opponentUID)
-              .collection('chat_user_num')
-              .doc(currentUser.uid)
-              .set({'userUID': currentUser.uid, 'userName': currentUser.displayName})
-        }
-    });
+          if (docsSnapshot.size == 0)
+            print('size = 0')
+          else
+            {
+              FirebaseFirestore.instance
+                  .collection("chat")
+                  .doc(currentUser.uid)
+                  .collection('chat_user_num')
+                  .doc(widget.opponentUID)
+                  .set({'userUID': widget.opponentUID, 'userName': widget.opponentName, 'time': Timestamp.now().millisecondsSinceEpoch  + DateTime.now().timeZoneOffset.inMilliseconds}),
+              FirebaseFirestore.instance
+                  .collection("chat")
+                  .doc(widget.opponentUID)
+                  .collection('chat_user_num')
+                  .doc(currentUser.uid)
+                  .set({'userUID': currentUser.uid, 'userName': currentUser.displayName, 'time': Timestamp.now().millisecondsSinceEpoch  + DateTime.now().timeZoneOffset.inMilliseconds})
+            }
+        });
   }
-
-  // Future uploadFile(String path) async {
-  //   String fileName = DateTime.now().microsecondsSinceEpoch.toString();
-  //   Reference reference = FirebaseStorage.instance.ref().child(fileName);
-  //   UploadTask uploadTask = reference.putFile(File(path));
-  //   TaskSnapshot taskSnapshot = uploadTask.snapshot;
-  //   taskSnapshot.ref.getDownloadURL().then((downloadUrl) {
-  //     setState(() {
-  //       _sendImage(downloadUrl, 'image');
-  //     });
-  //   });
-  // }
 
   @override
   Widget build(BuildContext context) {
