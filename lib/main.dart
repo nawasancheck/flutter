@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/screens/auth/sign_In.dart';
 import 'package:flutter_app/screens/chatting/chat_list.dart';
+import 'package:flutter_app/screens/freeboard/freeboard.dart';
 import 'package:flutter_app/screens/wish_list/wish_list.dart';
 import 'package:flutter_app/screens/my_profile/profile.dart';
 import 'package:flutter_app/screens/reservation/schedule.dart';
@@ -64,7 +65,7 @@ class _HomePageState extends State<HomePage> {
         inactiveColor: Colors.black,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: "홈"),
-          BottomNavigationBarItem(icon: Icon(EvaIcons.heartOutline), label: "찜"),
+          BottomNavigationBarItem(icon: Icon(EvaIcons.clipboardOutline), label: "게시판"),
           BottomNavigationBarItem(icon: Icon(EvaIcons.messageSquareOutline), label: "메세지"),
           BottomNavigationBarItem(icon: Icon(EvaIcons.clockOutline), label: "나의예약"),
           BottomNavigationBarItem(icon: Icon(EvaIcons.personOutline), label: "내프로필"),
@@ -79,7 +80,7 @@ class _HomePageState extends State<HomePage> {
             break;
           case 1:
             return CupertinoTabView(builder: (context) {
-              return CupertinoPageScaffold(child: WishList());
+              return CupertinoPageScaffold(child: FreeBoard());
             });
             break;
           case 2:
