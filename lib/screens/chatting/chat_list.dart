@@ -43,7 +43,9 @@ class _ChatState extends State<ChatList> {
           height: ScreenUtil().screenHeight,
           color: Colors.grey,
           child: StreamBuilder(
-              stream: FirebaseFirestore.instance.collection('chat').doc(_user!.uid).collection('chat_user_num').orderBy('time', descending: true).snapshots(),
+              stream: FirebaseFirestore.instance.collection('chat').doc(_user!.uid).collection('chat_user_num')
+                  .orderBy('time', descending: true)
+                  .snapshots(),
               builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(
@@ -68,20 +70,21 @@ class _ChatState extends State<ChatList> {
                           height: 200,
                           child: Card(
                             child: InkWell(
-                                   splashColor: Colors.yellow,
+                              splashColor: Colors.yellow,
                               onTap: () {
                                 // 바텀네비게이션 지우기
                                 //
                                 Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(
-                                    builder: (_) => ChatScreen(
-                                        '${snapshot.data?.docs[index]['userUID']}', '${snapshot.data?.docs[index]['userName']}')));
+                                    builder: (_) =>
+                                        ChatScreen(
+                                            '${snapshot.data?.docs[index]['userUID']}', '${snapshot.data?.docs[index]['userName']}')));
                               },
                               child: Padding(
                                 padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                                 child: Container(
                                   child: StreamBuilder(
                                       stream:
-                                          FirebaseFirestore.instance.collection("user").doc(snapshot.data?.docs[index]['userUID']).snapshots(),
+                                      FirebaseFirestore.instance.collection("user").doc(snapshot.data?.docs[index]['userUID']).snapshots(),
                                       builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot<Map<String, dynamic>>> snapshot2) {
                                         if (snapshot2.connectionState == ConnectionState.waiting) {
                                           return Center(
@@ -103,17 +106,17 @@ class _ChatState extends State<ChatList> {
                                               width: ScreenUtil().setWidth(15),
                                             ),
                                             Container(
-                                                //               color: Colors.blue,
+                                              //               color: Colors.blue,
                                                 height: ScreenUtil().setHeight(100),
                                                 width: ScreenUtil().setWidth(240),
                                                 child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
                                                   Row(mainAxisAlignment: MainAxisAlignment.start, children: [
                                                     Text(docs?['profile']['title'],
                                                         style:
-                                                            TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold, color: Color(0xff222b31))),
+                                                        TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold, color: Color(0xff222b31))),
                                                     Text("  " + docs?['profile']['area'],
                                                         style:
-                                                            TextStyle(fontSize: 10.sp, fontWeight: FontWeight.bold, color: Color(0xff8fa2ae)))
+                                                        TextStyle(fontSize: 10.sp, fontWeight: FontWeight.bold, color: Color(0xff8fa2ae)))
                                                   ]),
                                                   Row(mainAxisAlignment: MainAxisAlignment.start, children: [
                                                     StreamBuilder(
@@ -132,12 +135,12 @@ class _ChatState extends State<ChatList> {
                                                           if (snapshot3.data?.docs[0]['fakeText'].length <= 15) {
                                                             return Text(
                                                               '${snapshot3.data?.docs[0]['fakeText']}',
-                                                              style: TextStyle(color: Color(0xffa090c4),fontSize: 14.sp),
+                                                              style: TextStyle(color: Color(0xffa090c4), fontSize: 14.sp),
                                                             );
                                                           }
                                                           return Text(
-                                                            '${snapshot3.data?.docs[0]['fakeText'].substring(0,15)}...',
-                                                            style: TextStyle(color: Color(0xffa090c4),fontSize: 14.sp),
+                                                            '${snapshot3.data?.docs[0]['fakeText'].substring(0, 15)}...',
+                                                            style: TextStyle(color: Color(0xffa090c4), fontSize: 14.sp),
                                                           );
                                                         }),
                                                   ])
@@ -146,12 +149,19 @@ class _ChatState extends State<ChatList> {
                                               fit: FlexFit.tight,
                                               child: InkWell(
                                                 splashColor: Colors.yellow,
-                                                onTap: () {},
+                                                onTap: () async {
+                                                  CollectionReference<Map<String, dynamic>> collections = FirebaseFirestore.instance.collection("chat").doc(_user!.uid).collection(snapshot.data?.docs[index]['userUID']);
+                                                  QuerySnapshot querySnapshot = await collections.get();
+                                                  for(int i = 0; i<querySnapshot.docs.length; i++) {
+                                                    collections.doc(querySnapshot.docs[i]['id']).delete();
+                                                  }
+                                                  await FirebaseFirestore.instance.collection("chat").doc(_user!.uid).collection('chat_user_num').doc(snapshot.data?.docs[index]['userUID']).delete();
+                                                },
                                                 child: Container(
                                                   color: Colors.red,
                                                   height: ScreenUtil()
                                                       .setHeight(100),
-                                                  child: Text("임시버튼"),
+                                                  child: Text("삭제"),
                                                   //width: ScreenUtil().setWidth(40),
                                                 ),
                                               ),
@@ -171,7 +181,6 @@ class _ChatState extends State<ChatList> {
                                                         .snapshots(),
                                                     builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot4) {
                                                       if (snapshot4.connectionState == ConnectionState.waiting) {
-
                                                         return Center(
                                                           child: CircularProgressIndicator(),
                                                         );
@@ -179,18 +188,26 @@ class _ChatState extends State<ChatList> {
                                                       var time = snapshot4.data?.docs[0]['time'].toDate();
                                                       var ampm = '';
 
-                                                      if(time.hour<=12) {
+                                                      if (time.hour <= 12) {
                                                         ampm = '오전';
                                                       }
                                                       else {
                                                         ampm = '오후';
                                                       }
 
-                                                      if(time.year == DateTime.now().year && time.month == DateTime.now().month && time.day == DateTime.now().day) {
+                                                      if (time.year == DateTime
+                                                          .now()
+                                                          .year && time.month == DateTime
+                                                          .now()
+                                                          .month && time.day == DateTime
+                                                          .now()
+                                                          .day) {
                                                         return Text('$ampm ${time.hour}:${time.minute}',
                                                             style: TextStyle(fontSize: 13.sp, color: Color(0xff7898186)));
                                                       }
-                                                      else if(DateTime.now().day - time.day == 1){
+                                                      else if (DateTime
+                                                          .now()
+                                                          .day - time.day == 1) {
                                                         return Text('어제',
                                                             style: TextStyle(fontSize: 13.sp, color: Color(0xff7898186)));
                                                       }
@@ -198,7 +215,6 @@ class _ChatState extends State<ChatList> {
                                                         return Text('${time.year}-${time.month}-${time.day}',
                                                             style: TextStyle(fontSize: 13.sp, color: Color(0xff7898186)));
                                                       }
-
                                                     }),
                                               ),
                                             )
