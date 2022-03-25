@@ -22,6 +22,9 @@ class _WishListState extends State<WishList> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          iconTheme: IconThemeData(
+            color: Color(0xff324755)
+          ),
           backgroundColor: Colors.white,
           title: Text(
             "찜 목록",
