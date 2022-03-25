@@ -94,6 +94,9 @@ class _ListPageState extends State<ListPage> {
 
 
         body: Container(
+            width: ScreenUtil().screenWidth,
+            height: ScreenUtil().screenHeight,
+            color: Colors.grey,
             child: StreamBuilder(
                 stream: FirebaseFirestore.instance.collection('user').where('role', isEqualTo: 'manager').snapshots(),
                 builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
