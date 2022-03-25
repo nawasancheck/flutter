@@ -129,6 +129,12 @@ class _ChatState extends State<ChatList> {
                                                               child: CircularProgressIndicator(),
                                                             );
                                                           }
+                                                          if (snapshot3.data?.docs[0]['fakeText'].length <= 15) {
+                                                            return Text(
+                                                              '${snapshot3.data?.docs[0]['fakeText']}',
+                                                              style: TextStyle(color: Color(0xffa090c4),fontSize: 14.sp),
+                                                            );
+                                                          }
                                                           return Text(
                                                             '${snapshot3.data?.docs[0]['fakeText'].substring(0,15)}...',
                                                             style: TextStyle(color: Color(0xffa090c4),fontSize: 14.sp),
