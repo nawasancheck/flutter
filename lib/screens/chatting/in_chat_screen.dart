@@ -15,11 +15,10 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
   final _authentication = FirebaseAuth.instance;
-  User? loggedUser; // 값을 초기화하지 않을 것이므로 ? 을 붙여야 한다.
+  User? loggedUser;
 
   @override
   void initState() {
-    // 위젯이 생성될 때 처음으로 호출되는 메서드다.
     // TODO: implement initState
     super.initState();
     getCurrentUser();
