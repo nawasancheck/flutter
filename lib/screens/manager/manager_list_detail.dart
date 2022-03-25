@@ -14,9 +14,11 @@ class ManagerDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(0),
-          child: AppBar( backgroundColor: Color(0xffffffff),),
+        appBar: AppBar(
+          backgroundColor: Color(0xffffffff),
+          iconTheme: IconThemeData(
+            color: Color(0xff324755),
+          ),
         ),
         body: StreamBuilder(
             stream: FirebaseFirestore.instance.collection('user').doc(opponentUID).snapshots(),
@@ -302,80 +304,89 @@ class ManagerDetailPage extends StatelessWidget {
                       ),
                       child: Row(
                         children: [
-                          InkWell(
-                            onTap: () {
-                              Navigator.of(context, rootNavigator: true)
-                                  .push(MaterialPageRoute(builder: (context) => ChatScreen(opponentUID, docs['profile']['title'])));
-                            },
-                            child: Container(
-                              height: 76.h,
-                              width: 76.w,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(20),
-                                border: Border.all(color: Colors.blue.shade300, style: BorderStyle.solid, width: 2.sp),
-                              ),
-                              child: Icon(
-                                EvaIcons.messageCircleOutline,
-                                color: Color(0xffa9a9a9),
-                                size: 27.sp,
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(7, 0, 3, 0),
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.of(context, rootNavigator: true)
+                                    .push(MaterialPageRoute(builder: (context) => ChatScreen(opponentUID, docs['profile']['title'])));
+                              },
+                              child: Container(
+                                height: 76.h,
+                                width: 76.w,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(20),
+                                  border: Border.all(color: Colors.blue.shade300, style: BorderStyle.solid, width: 2.sp),
+                                ),
+                                child: Icon(
+                                  EvaIcons.messageCircleOutline,
+                                  color: Color(0xffa9a9a9),
+                                  size: 27.sp,
+                                ),
                               ),
                             ),
                           ),
-                          InkWell(
-                            onTap: () {},
-                            child: Container(
-                                height: 76.h,
-                                width: 238.w,
-                                decoration: BoxDecoration(
-                                  color: Color(0xff93e3e6),
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                                child: Center(
-                                    child: Text(
-                                  "산책 예약하기",
-                                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 21.sp, color: Color(0xffffffff)),
-                                ))),
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(6, 0, 6, 0),
+                            child: InkWell(
+                              onTap: () {},
+                              child: Container(
+                                  height: 76.h,
+                                  width: 208.w,
+                                  decoration: BoxDecoration(
+                                    color: Color(0xff93e3e6),
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  child: Center(
+                                      child: Text(
+                                    "산책 예약하기",
+                                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 21.sp, color: Color(0xffffffff)),
+                                  ))),
+                            ),
                           ),
-                          InkWell(
-                            onTap: () {
-                              isPressed
-                                  ? FirebaseFirestore.instance.collection('user').doc(docs['userUID']).update({
-                                'profile.heart': docs['profile']['heart'] - 1,
-                                'profile.isPressedList': FieldValue.arrayRemove([_user!.uid])
-                              })
-                                  : FirebaseFirestore.instance.collection('user').doc(docs['userUID']).update({
-                                'profile.heart': docs['profile']['heart'] + 1,
-                                'profile.isPressedList': FieldValue.arrayUnion([_user!.uid])
-                              });
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(3, 0, 7, 0),
+                            child: InkWell(
+                              onTap: () {
+                                isPressed
+                                    ? FirebaseFirestore.instance.collection('user').doc(docs['userUID']).update({
+                                  'profile.heart': docs['profile']['heart'] - 1,
+                                  'profile.isPressedList': FieldValue.arrayRemove([_user!.uid])
+                                })
+                                    : FirebaseFirestore.instance.collection('user').doc(docs['userUID']).update({
+                                  'profile.heart': docs['profile']['heart'] + 1,
+                                  'profile.isPressedList': FieldValue.arrayUnion([_user!.uid])
+                                });
 
-                              isPressed
-                                  ? FirebaseFirestore.instance
-                                  .collection('user')
-                                  .doc(_user!.uid)
-                                  // .update({'wishList.${docs['userUID']}': FieldValue.delete()})
-                                  .update({'wishList': FieldValue.arrayRemove([docs['userUID']])})
-                                  : FirebaseFirestore.instance
-                                  .collection('user')
-                                  .doc(_user!.uid)
-                                  // .update({'wishList.${docs['userUID']}': docs['userName']});
-                                  .update({'wishList': FieldValue.arrayUnion([docs['userUID']])});
-                            },
-                            child: Container(
-                              height: 76.h,
-                              width: 76.w,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(20),
-                                border: Border.all(color: Colors.blue.shade300, style: BorderStyle.solid, width: 2.sp),
+                                isPressed
+                                    ? FirebaseFirestore.instance
+                                    .collection('user')
+                                    .doc(_user!.uid)
+                                    // .update({'wishList.${docs['userUID']}': FieldValue.delete()})
+                                    .update({'wishList': FieldValue.arrayRemove([docs['userUID']])})
+                                    : FirebaseFirestore.instance
+                                    .collection('user')
+                                    .doc(_user!.uid)
+                                    // .update({'wishList.${docs['userUID']}': docs['userName']});
+                                    .update({'wishList': FieldValue.arrayUnion([docs['userUID']])});
+                              },
+                              child: Container(
+                                height: 76.h,
+                                width: 76.w,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(20),
+                                  border: Border.all(color: Colors.blue.shade300, style: BorderStyle.solid, width: 2.sp),
+                                ),
+                                child: isPressed
+                                ? Icon(
+                                  EvaIcons.heart,
+                                  color: Colors.red[500],
+                                  size: 27.sp,
+                                )
+                                : Icon(EvaIcons.heartOutline, color: Color(0xff878787), size: 27.sp),
                               ),
-                              child: isPressed
-                              ? Icon(
-                                EvaIcons.heart,
-                                color: Colors.red[500],
-                                size: 27.sp,
-                              )
-                              : Icon(EvaIcons.heartOutline, color: Color(0xff878787), size: 27.sp),
                             ),
                           ),
                         ],
