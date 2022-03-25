@@ -41,7 +41,7 @@ class _ChatState extends State<ChatList> {
         body: Container(
           width: ScreenUtil().screenWidth,
           height: ScreenUtil().screenHeight,
-          //color: Colors.greenAccent,
+          color: Colors.grey,
           child: StreamBuilder(
               stream: FirebaseFirestore.instance.collection('chat').doc(_user!.uid).collection('chat_user_num').orderBy('time', descending: true).snapshots(),
               builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
@@ -137,12 +137,19 @@ class _ChatState extends State<ChatList> {
                                                   ])
                                                 ])),
                                             Flexible(
-                                                fit: FlexFit.tight,
+                                              fit: FlexFit.tight,
+                                              child: InkWell(
+                                                splashColor: Colors.yellow,
+                                                onTap: () {},
                                                 child: Container(
-                                                  //              color: Colors.red,
-                                                  height: ScreenUtil().setHeight(100),
-                                                  width: ScreenUtil().setWidth(40),
-                                                )),
+                                                  color: Colors.red,
+                                                  height: ScreenUtil()
+                                                      .setHeight(100),
+                                                  child: Text("임시버튼"),
+                                                  //width: ScreenUtil().setWidth(40),
+                                                ),
+                                              ),
+                                            ),
                                             Padding(
                                               padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
                                               child: Container(
