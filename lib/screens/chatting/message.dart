@@ -20,10 +20,10 @@ class Messages extends StatelessWidget {
             );
           }
 
-          List<QueryDocumentSnapshot<Map<String, dynamic>>> chatDocs = snapshot.data!.docs; // snapshot이 waiting일 수 있으므로 끝나고 선언해야 한다.
+          List<QueryDocumentSnapshot<Map<String, dynamic>>> chatDocs = snapshot.data!.docs;
           return ListView.builder(
             reverse: true,
-            itemCount: chatDocs.length, // itemBuilder에서 보여줄 갯수
+            itemCount: chatDocs.length,
             itemBuilder: (context, index) {
 
               // 리스트에 그려질 항목을 Lazy하게 child을 생성해준다.
