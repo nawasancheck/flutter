@@ -6,9 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/screens/auth/sign_In.dart';
 import 'package:flutter_app/screens/chatting/chat_list.dart';
 import 'package:flutter_app/screens/freeboard/freeboard.dart';
-import 'package:flutter_app/screens/wish_list/wish_list.dart';
+import 'package:flutter_app/screens/reservation/my_reservation.dart';
 import 'package:flutter_app/screens/my_profile/profile.dart';
-import 'package:flutter_app/screens/reservation/schedule.dart';
 import 'package:flutter_app/screens/manager/manager_list.dart';
 import 'package:flutter_app/screens/auth/sign_up.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -90,7 +89,7 @@ class _HomePageState extends State<HomePage> {
             break;
           case 3:
             return CupertinoTabView(builder: (context) {
-              return CupertinoPageScaffold(child: Schedule());
+              return CupertinoPageScaffold(child: MyReservation());
             });
             break;
           case 4:
