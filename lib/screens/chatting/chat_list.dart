@@ -41,7 +41,7 @@ class _ChatState extends State<ChatList> {
         body: Container(
           width: ScreenUtil().screenWidth,
           height: ScreenUtil().screenHeight,
-          color: Colors.grey,
+          color: Color(0xffececec),
           child: StreamBuilder(
               stream: FirebaseFirestore.instance.collection('chat').doc(_user!.uid).collection('chat_user_num')
                   .orderBy('time', descending: true)
@@ -67,7 +67,7 @@ class _ChatState extends State<ChatList> {
                       itemBuilder: (context, index) {
                         return Container(
                           //padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                          height: 200,
+                          height: 200.h,
                           child: Card(
                             child: InkWell(
                               splashColor: Colors.yellow,
