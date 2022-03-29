@@ -27,9 +27,10 @@ class MyReservation extends StatelessWidget {
       body: Container(
         width: ScreenUtil().screenWidth,
         height: ScreenUtil().screenHeight,
-        color: Colors.grey,
+        color: Color(0xffececec),
         child: ListView.builder(
-          itemExtent: 120,
+          itemExtent:140.sp,
+          //130.sp,
         itemCount: numbers.length,
         itemBuilder: (context,index){
           return Padding(
@@ -48,7 +49,7 @@ class MyReservation extends StatelessWidget {
                         height: 30,
                         decoration: BoxDecoration(
                           border: Border.all(color: Colors.grey),
-                            color: Colors.lightBlueAccent,
+                            color: Color(0xff93e3e6),
                             borderRadius: BorderRadius.circular(20)
                         ),
                         child: Center(child: Text("년도/월/일(요일) - 산책예정")),

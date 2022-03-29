@@ -17,12 +17,13 @@ class FreeBoard extends StatelessWidget {
         backgroundColor: Color(0xffffffff),
       ),
       body: Container(
-        color: Colors.greenAccent,
+        //color: Colors.greenAccent,
         child: Column(children: [
           Container(
             width: ScreenUtil().screenWidth,
-            height: 60.h,
-            color: Colors.grey,
+            height: ScreenUtil().setHeight(60),
+            //60.h,
+            color: Color(0xffececec),
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: numbers.length,
@@ -30,13 +31,13 @@ class FreeBoard extends StatelessWidget {
                 return Padding(
                   padding: const EdgeInsets.fromLTRB(3, 8, 3, 8),
                   child: Container(
-                    height: 20.h,
-                    width: 100.w,
+                    height: ScreenUtil().setHeight(20),
+                    width: ScreenUtil().setWidth(100),
                     decoration: BoxDecoration(
                       border: Border.all(
                         color: Colors.blueGrey
                       ),
-                      color: Color(0xffffffff),
+                      color: Color(0xffe1f3f3),
                       borderRadius: BorderRadius.circular(20)
                     ),
                     child: Center(child: Text("관심분야")),
@@ -49,8 +50,8 @@ class FreeBoard extends StatelessWidget {
             fit: FlexFit.tight,
             child: Container(
               width: ScreenUtil().screenWidth,
-             // height: 50.h,
-              color: Colors.grey,
+
+              color: Color(0xffececec),
               child: ListView.builder(
 
                   itemCount: numbers.length,
@@ -61,48 +62,48 @@ class FreeBoard extends StatelessWidget {
                         height: 202.h,
                         width: ScreenUtil().screenWidth,
                         decoration: BoxDecoration(
-                            color: Colors.redAccent,
+                            //color: Colors.redAccent,
                         ),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                           Container(
                             width: ScreenUtil().screenWidth,
-                            height: 150.h,
+                            height: ScreenUtil().setHeight(150),
                             color: Color(0xffffffff),
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Container(
-                               // color: Colors.amberAccent,
+                               //color: Colors.amberAccent,
                                 child: Column(children: [
                                   Row(children: [
                                     Padding(
                                       padding: const EdgeInsets.fromLTRB(0, 0, 5, 0),
                                       child: Container(
-                                        height: 25.h,
-                                        width: 70.w,
+                                        height: ScreenUtil().setHeight(26),
+                                        width: ScreenUtil().setWidth(70),
                                         decoration: BoxDecoration(
-                                            color: Colors.grey,
+                                            color: Color(0xffececec),
                                             borderRadius: BorderRadius.circular(5)
                                         ),
-                                        child: Center(child: Text("# 강아지")),
+                                        child: Center(child: Text("# 강아지",style: TextStyle(fontSize: 15.sp))),
                                       ),
                                     ),
                                     Container(
-                                      height: 25.h,
-                                      width: 70.w,
+                                      height: ScreenUtil().setHeight(26),
+                                      width: ScreenUtil().setWidth(70),
                                       decoration: BoxDecoration(
-                                          color: Colors.grey,
+                                          color: Color(0xffececec),
                                           borderRadius: BorderRadius.circular(5)
                                       ),
-                                      child: Center(child: Text("# 산책")),
+                                      child: Center(child: Text("# 산책",style: TextStyle(fontSize: 15.sp))),
                                     ),
                                     Flexible(
                                       fit: FlexFit.tight,
                                       child: Container(
                                        // color:Colors.greenAccent,
-                                        height: 25.h,
-                                        width: 70.w,
+                                        height: ScreenUtil().setHeight(26),
+                                        width: ScreenUtil().setWidth(70),
                                       ),
                                     ),
                                     Icon(
@@ -116,7 +117,7 @@ class FreeBoard extends StatelessWidget {
                                     child: Row(
                                       mainAxisAlignment: MainAxisAlignment.start,
                                       children: [
-                                        Text("지역"+" / "+"닉네임"),
+                                        Text("지역"+" / "+"닉네임",style: TextStyle(fontSize: 15.sp),),
                                       ],),
                                   ),
 
@@ -125,28 +126,28 @@ class FreeBoard extends StatelessWidget {
                                     child: Row(
                                       mainAxisAlignment: MainAxisAlignment.start,
                                       children: [
-                                        Text("내용@@@@@@@@@@@@@@@@@@@@@"),
+                                        Text("내용@@@@@@@@@@@@@@@@@@@@@",style: TextStyle(fontSize: 15.sp),),
                                       ],),
                                   ),
 
                                   Padding(
-                                    padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                                     child: Row(
                                       mainAxisAlignment: MainAxisAlignment.start,
                                       children: [
-                                        Icon(EvaIcons.smilingFaceOutline),
-                                        Text("공감수"+ " " ),
-                                        Icon(EvaIcons.messageCircleOutline),
-                                        Text("댓글수"),
+                                        Icon(EvaIcons.smilingFaceOutline,size: 15.sp,),
+                                        Text("공감수"+ " ",style: TextStyle(fontSize: 15.sp),),
+                                        Icon(EvaIcons.messageCircleOutline,size: 15.sp,),
+                                        Text("댓글수",style: TextStyle(fontSize: 15.sp),),
                                         Flexible(
                                           fit: FlexFit.tight,
                                           child: Container(
                                           //  color:Colors.greenAccent,
-                                            height: 25.h,
-                                            width: 70.w,
+                                            height: ScreenUtil().setHeight(26),
+                                            width: ScreenUtil().setWidth(70),
                                           ),
                                         ),
-                                        Text("경과 시간 ex)1시간 전")
+                                        Text("경과 시간 ex)1시간 전",style: TextStyle(fontSize: 15.sp),)
                                       ],),
                                   ),
                                 ],),
@@ -154,29 +155,30 @@ class FreeBoard extends StatelessWidget {
                             ),
                           ),Container(
                             width: ScreenUtil().screenWidth,
-                            height: 2.h,
-                            color: Colors.grey,
+                              height: ScreenUtil().setHeight(2),
+
+                            color: Color(0xffececec),
                           ),
                           Container(
                             width: ScreenUtil().screenWidth,
-                            height: 50.h,
+                            height: ScreenUtil().setHeight(50),
                            // color: Colors.greenAccent,
                             child: Row(children: [
                               Container(
-                                width: 195.35.w,
-                                height: 50.h,
+                                height: ScreenUtil().setHeight(50),
+                                width: ScreenUtil().setWidth(195.35),
                                 color: Color(0xffffffff),
-                                child: Center(child: Text("공감하기")),
+                                child: Center(child: Text("공감하기",style: TextStyle(fontSize: 15.sp),)),
                               ),
                               Container(
-                                width: 2.w,
-                                height: 50.h,
-                                color: Colors.grey,
+                                height: ScreenUtil().setHeight(50),
+                                width: ScreenUtil().setWidth(2),
+                                color: Color(0xffececec),
                               ),Container(
-                                width: 195.35.w,
-                                height: 50.h,
+                                height: ScreenUtil().setHeight(50),
+                                width: ScreenUtil().setWidth(195.35),
                                 color: Color(0xffffffff),
-                                child: Center(child: Text("댓글달기")),
+                                child: Center(child: Text("댓글달기",style: TextStyle(fontSize: 15.sp),)),
                               )
                             ],),
                           ),
