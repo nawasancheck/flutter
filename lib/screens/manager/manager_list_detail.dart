@@ -292,7 +292,7 @@ class ManagerDetailPage extends StatelessWidget {
                       ),
                     ),
                     Container(
-                      height: ScreenUtil().setHeight(102.h),
+                      height: ScreenUtil().setHeight(102),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         boxShadow: [
@@ -304,9 +304,10 @@ class ManagerDetailPage extends StatelessWidget {
                         ],
                       ),
                       child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Padding(
-                            padding: const EdgeInsets.fromLTRB(7, 0, 3, 0),
+                            padding: const EdgeInsets.fromLTRB(3, 0, 3, 0),
                             child: InkWell(
                               onTap: () {
                                 Navigator.of(context, rootNavigator: true)
@@ -350,7 +351,7 @@ class ManagerDetailPage extends StatelessWidget {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.fromLTRB(3, 0, 7, 0),
+                            padding: const EdgeInsets.fromLTRB(3, 0, 3, 0),
                             child: InkWell(
                               onTap: () {
                                 isPressed

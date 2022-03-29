@@ -49,7 +49,7 @@ class _WishListState extends State<WishList> {
                 return Container(
                     width: ScreenUtil().screenWidth,
                     height: ScreenUtil().screenHeight,
-                    color: Colors.grey,
+                    color: Color(0xffececec),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -71,7 +71,7 @@ class _WishListState extends State<WishList> {
                   width: ScreenUtil().screenWidth,
                   height: ScreenUtil().screenHeight,
 
-                  color: Colors.grey,
+                  color: Color(0xffececec),
                   child: ListView.builder(
                       shrinkWrap: true,
                       itemExtent: 140.sp,
@@ -85,7 +85,7 @@ class _WishListState extends State<WishList> {
                                   .push(MaterialPageRoute(builder: (context) => ManagerDetailPage(wishList[index])));
                             },
                             child: Container(
-                                //color: Colors.lightGreen,
+                               // color: Colors.lightGreen,
                                 child: StreamBuilder(
                               stream: FirebaseFirestore.instance.collection('user').doc(wishList[index]).snapshots(),
                               builder: (context, AsyncSnapshot<DocumentSnapshot<Map<String, dynamic>>> snapshot2) {
@@ -123,7 +123,7 @@ class _WishListState extends State<WishList> {
                                     Flexible(
                                       fit: FlexFit.tight,
                                       child: Container(
-                                        //color: Colors.orange,
+                                       // color: Colors.orange,
                                         child: Column(
                                           mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
@@ -244,7 +244,7 @@ class _WishListState extends State<WishList> {
                                                                 Padding(
                                                                   padding: const EdgeInsets.fromLTRB(5, 21, 0, 0),
                                                                   child: Container(
-                                                                    width: 78.w,
+                                                                    width: ScreenUtil().setWidth(78),
                                                                     height: 28.h,
                                                                     child: FlatButton(
                                                                       onPressed: () {},

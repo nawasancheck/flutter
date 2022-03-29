@@ -44,6 +44,13 @@ class MyApp extends StatelessWidget {
               title: '동행',
               theme: ThemeData(primaryColor: Color(0xffffffff)),
               debugShowCheckedModeBanner: false,
+              // 폰트 사이즈 고정
+              builder: (context, child) {
+                return MediaQuery(
+                  data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+                  child: child!,
+                );
+          }
             ));
   }
 }
@@ -60,8 +67,8 @@ class _HomePageState extends State<HomePage> {
       // CupertinoTapScaffold : ios 디자인
       tabBar: CupertinoTabBar(
         // BottomNavigationBar
-        activeColor: Color(0xff0082af),
-        inactiveColor: Colors.black,
+        activeColor: Color(0xff93e3e6),
+        inactiveColor: Color(0xff909090),
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: "홈"),
           BottomNavigationBarItem(icon: Icon(EvaIcons.clipboardOutline), label: "게시판"),
