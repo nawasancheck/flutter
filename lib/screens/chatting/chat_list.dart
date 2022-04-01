@@ -150,13 +150,20 @@ class _ChatState extends State<ChatList> {
                                               child: InkWell(
                                                 splashColor: Colors.yellow,
                                                 onTap: () async {
+                                                  setState(() {
+
+                                                  });
                                                   CollectionReference<Map<String, dynamic>> collections = FirebaseFirestore.instance.collection("chat").doc(_user!.uid).collection(snapshot.data?.docs[index]['userUID']);
                                                   QuerySnapshot querySnapshot = await collections.get();
                                                   for(int i = 0; i<querySnapshot.docs.length; i++) {
                                                     collections.doc(querySnapshot.docs[i]['id']).delete();
                                                   }
                                                   await FirebaseFirestore.instance.collection("chat").doc(_user!.uid).collection('chat_user_num').doc(snapshot.data?.docs[index]['userUID']).delete();
-                                                },
+
+
+
+                                                  },
+
                                                 child: Container(
                                                   color: Colors.red,
                                                   height: ScreenUtil()
