@@ -1,7 +1,9 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/screens/reservation/reservation_summary.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 class ReservationDetail extends StatefulWidget {
   const ReservationDetail({Key? key}) : super(key: key);
 
@@ -299,7 +301,9 @@ class _ScheduleState extends State<ReservationDetail> {
               padding: const EdgeInsets.all(15.0),
               child: FlatButton(
                   color: Color(0xff93e3e6),
-                  onPressed: (){},
+                  onPressed: (){
+                    Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder:(_) => ReservationSummary()));
+                  },
                   child: Text("다음 단계"),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10)

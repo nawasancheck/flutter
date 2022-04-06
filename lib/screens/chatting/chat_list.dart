@@ -149,19 +149,44 @@ class _ChatState extends State<ChatList> {
                                               fit: FlexFit.tight,
                                               child: InkWell(
                                                 splashColor: Colors.yellow,
-                                                onTap: () async {
-                                                  setState(() {
-
-                                                  });
-                                                  CollectionReference<Map<String, dynamic>> collections = FirebaseFirestore.instance.collection("chat").doc(_user!.uid).collection(snapshot.data?.docs[index]['userUID']);
-                                                  QuerySnapshot querySnapshot = await collections.get();
-                                                  for(int i = 0; i<querySnapshot.docs.length; i++) {
-                                                    collections.doc(querySnapshot.docs[i]['id']).delete();
-                                                  }
-                                                  await FirebaseFirestore.instance.collection("chat").doc(_user!.uid).collection('chat_user_num').doc(snapshot.data?.docs[index]['userUID']).delete();
-
-
-
+                                                onTap: ()  {
+                                                  showDialog(
+                                                      context: context,
+                                                      barrierDismissible: false,
+                                                      builder: (BuildContext context){
+                                                        return AlertDialog(
+                                                          title: Text("팝업 메세지"),
+                                                          content: SingleChildScrollView(
+                                                            child: ListBody(
+                                                              children: [
+                                                                Text('alert dialog 테스트'),
+                                                                Text('ok 버튼 클릭'),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                          actions: [
+                                                            FlatButton(
+                                                              child: Text('ok'),
+                                                              onPressed: () async {
+                                                                CollectionReference<Map<String, dynamic>> collections = FirebaseFirestore.instance.collection("chat").doc(_user!.uid).collection(snapshot.data?.docs[index]['userUID']);
+                                                                QuerySnapshot querySnapshot = await collections.get();
+                                                                for(int i = 0; i<querySnapshot.docs.length; i++) {
+                                                                  collections.doc(querySnapshot.docs[i]['id']).delete();
+                                                                }
+                                                                await FirebaseFirestore.instance.collection("chat").doc(_user!.uid).collection('chat_user_num').doc(snapshot.data?.docs[index]['userUID']).delete();
+                                                                Navigator.of(context).pop();
+                                                              },
+                                                            ),
+                                                            FlatButton(
+                                                              child: Text('cancel'),
+                                                              onPressed: (){
+                                                                Navigator.of(context).pop();
+                                                              },
+                                                            ),
+                                                          ],
+                                                        );
+                                                      }
+                                                  );
                                                   },
 
                                                 child: Container(
