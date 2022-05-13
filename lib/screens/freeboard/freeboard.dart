@@ -256,7 +256,7 @@ class _FreeBoardState extends State<FreeBoard> {
                                                       ? Center(
                                                           child: TextButton(
                                                           onPressed: () async {
-                                                            var sn = await FirebaseFirestore.instance.collection('board_test').get();
+                                                            var sn = await FirebaseFirestore.instance.collection('board_test').orderBy('time', descending: true).get();
                                                             FirebaseFirestore.instance.collection('board_test').doc(sn.docs[index].id).update({
                                                               'isPressedList': FieldValue.arrayRemove([_user!.uid])
                                                             });
@@ -266,7 +266,7 @@ class _FreeBoardState extends State<FreeBoard> {
                                                       : Center(
                                                           child: TextButton(
                                                           onPressed: () async {
-                                                            var sn = await FirebaseFirestore.instance.collection('board_test').get();
+                                                            var sn = await FirebaseFirestore.instance.collection('board_test').orderBy('time', descending: true).get();
                                                             FirebaseFirestore.instance.collection('board_test').doc(sn.docs[index].id).update({
                                                               'isPressedList': FieldValue.arrayUnion([_user!.uid])
                                                             });
@@ -286,7 +286,7 @@ class _FreeBoardState extends State<FreeBoard> {
                                                   child: Center(
                                                       child: TextButton(
                                                     onPressed: () async {
-                                                      var sn = await FirebaseFirestore.instance.collection('board_test').get();
+                                                      var sn = await FirebaseFirestore.instance.collection('board_test').orderBy('time', descending: true).get();
                                                       Navigator.of(context, rootNavigator: true)
                                                           .push(MaterialPageRoute(builder: (_) => WriteComment(sn.docs[index].id)));
                                                     },
