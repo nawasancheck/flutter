@@ -1,11 +1,30 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/screens/community/write.dart';
+import 'package:flutter_app/screens/community/write_post.dart';
+import 'package:flutter_app/screens/community/write_comment.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class FreeBoard extends StatelessWidget {
+class FreeBoard extends StatefulWidget {
+  const FreeBoard({Key? key}) : super(key: key);
+
+  @override
+  _FreeBoardState createState() => _FreeBoardState();
+}
+
+class _FreeBoardState extends State<FreeBoard> {
+  final _user = FirebaseAuth.instance.currentUser;
   final List<int> numbers = <int>[1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  var isPressed = false;
+
+  late String _id; // 게시물 + 랜덤 99999 그외 시간 기준 방법 등등..
+  late String writeId; //글 작성자 (유저데이터 테이블 = User.usersName)
+  late String contentTitle; //글 제목
+  late String text; //글 내용
+  late String createAt; //글 작성,수정 시간
+  late List<String> likeList; //좋아요 수
+  late List<String> imgList;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +45,7 @@ class FreeBoard extends StatelessWidget {
               color: Colors.black,
             ),
             onPressed: () {
-              Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => WriteScreen()));
+              Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => WritePost()));
             },
           )
         ],
@@ -74,6 +93,30 @@ class FreeBoard extends StatelessWidget {
                       return ListView.builder(
                         itemCount: docs.length,
                         itemBuilder: (context, index) {
+                          List isPressedList = docs[index]['isPressedList'];
+                          int comments = docs[index]['comments'];
+                          bool isPressed = isPressedList.contains('${_user!.uid}');
+                          var time = docs[index]['time'].toDate();
+                          var ampm = '';
+                          var writeTime = '';
+                          if (time.hour <= 12) {
+                            ampm = '오전';
+                          } else {
+                            ampm = '오후';
+                          }
+
+                          if (time.year == DateTime.now().year && time.month == DateTime.now().month && time.day == DateTime.now().day) {
+                            if (time.hour <= 12) {
+                              writeTime = '$ampm ${time.hour}:${time.minute}';
+                            } else {
+                              writeTime = '$ampm ${time.hour - 12}:${time.minute}';
+                            }
+                          } else if (DateTime.now().day - time.day == 1) {
+                            writeTime = '어제';
+                          } else {
+                            writeTime = '${time.year}-${time.month}-${time.day}';
+                          }
+
                           return Padding(
                             padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
                             child: Container(
@@ -150,9 +193,9 @@ class FreeBoard extends StatelessWidget {
                                                 mainAxisAlignment: MainAxisAlignment.start,
                                                 children: [
                                                   Icon(EvaIcons.smilingFaceOutline),
-                                                  Text("공감수" + " "),
+                                                  Text('${docs[index]['isPressedList'].length}' + " "),
                                                   Icon(EvaIcons.messageCircleOutline),
-                                                  Text("댓글수"),
+                                                  Text("$comments"),
                                                   Flexible(
                                                     fit: FlexFit.tight,
                                                     child: Container(
@@ -161,7 +204,7 @@ class FreeBoard extends StatelessWidget {
                                                       width: 70.w,
                                                     ),
                                                   ),
-                                                  Text("경과 시간 ex)1시간 전")
+                                                  Text("$writeTime")
                                                 ],
                                               ),
                                             ),
@@ -182,11 +225,30 @@ class FreeBoard extends StatelessWidget {
                                     child: Row(
                                       children: [
                                         Container(
-                                          width: 195.35.w,
-                                          height: 50.h,
-                                          color: Color(0xffffffff),
-                                          child: Center(child: Text("공감하기")),
-                                        ),
+                                            width: 195.35.w,
+                                            height: 50.h,
+                                            color: Color(0xffffffff),
+                                            child: isPressed
+                                                ? Center(
+                                                    child: TextButton(
+                                                    onPressed: () async {
+                                                      var sn = await FirebaseFirestore.instance.collection('board_test').get();
+                                                      FirebaseFirestore.instance.collection('board_test').doc(sn.docs[index].id).update({
+                                                        'isPressedList': FieldValue.arrayRemove([_user!.uid])
+                                                      });
+                                                    },
+                                                    child: Text("공감 안하기"),
+                                                  ))
+                                                : Center(
+                                                    child: TextButton(
+                                                    onPressed: () async {
+                                                      var sn = await FirebaseFirestore.instance.collection('board_test').get();
+                                                      FirebaseFirestore.instance.collection('board_test').doc(sn.docs[index].id).update({
+                                                        'isPressedList': FieldValue.arrayUnion([_user!.uid])
+                                                      });
+                                                    },
+                                                    child: Text("공감하기"),
+                                                  ))),
                                         Container(
                                           width: 2.w,
                                           height: 50.h,
@@ -196,7 +258,14 @@ class FreeBoard extends StatelessWidget {
                                           width: 195.35.w,
                                           height: 50.h,
                                           color: Color(0xffffffff),
-                                          child: Center(child: Text("댓글달기")),
+                                          child: Center(
+                                              child: TextButton(
+                                            onPressed: () async {
+                                              var sn = await FirebaseFirestore.instance.collection('board_test').get();
+                                              Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => WriteComment(sn.docs[index].id)));
+                                            },
+                                            child: Text('댓글 달기'),
+                                          )),
                                         )
                                       ],
                                     ),
