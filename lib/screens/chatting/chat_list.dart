@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/screens/chatting/in_chat_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -39,7 +40,7 @@ class _ChatState extends State<ChatList> {
         body: Container(
           width: ScreenUtil().screenWidth,
           height: ScreenUtil().screenHeight,
-          color: Colors.grey,
+          color: Color(0xffececec),
           child: StreamBuilder(
               stream: FirebaseFirestore.instance.collection('chat').doc(_user!.uid).collection('chat_user_num')
                   .orderBy('time', descending: true)
@@ -65,7 +66,7 @@ class _ChatState extends State<ChatList> {
                       itemBuilder: (context, index) {
                         return Container(
                           //padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                          height: 200,
+                          height: 200.h,
                           child: Card(
                             child: InkWell(
                               splashColor: Colors.yellow,
@@ -147,14 +148,49 @@ class _ChatState extends State<ChatList> {
                                               fit: FlexFit.tight,
                                               child: InkWell(
                                                 splashColor: Colors.yellow,
-                                                onTap: () async {
-                                                  CollectionReference<Map<String, dynamic>> collections = FirebaseFirestore.instance.collection("chat").doc(_user!.uid).collection(snapshot.data?.docs[index]['userUID']);
-                                                  QuerySnapshot querySnapshot = await collections.get();
-                                                  for(int i = 0; i<querySnapshot.docs.length; i++) {
-                                                    collections.doc(querySnapshot.docs[i]['id']).delete();
-                                                  }
-                                                  await FirebaseFirestore.instance.collection("chat").doc(_user!.uid).collection('chat_user_num').doc(snapshot.data?.docs[index]['userUID']).delete();
-                                                },
+                                                onTap: ()  {
+                                                  showDialog(
+                                                      context: context,
+                                                      barrierDismissible: false,
+                                                      builder: (BuildContext context){
+                                                        return CupertinoAlertDialog(
+                                                          title: Text("팝업 메세지"),
+                                                          content: SingleChildScrollView(
+                                                            child: Container(
+                                                              color: Colors.greenAccent,
+                                                              child: Column(
+                                                                children: [
+                                                                  Text('alert dialog 테스트'),
+                                                                  Text('ok 버튼 클릭'),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          actions: [
+                                                            FlatButton(
+                                                              child: Text('ok'),
+                                                              onPressed: () async {
+                                                                CollectionReference<Map<String, dynamic>> collections = FirebaseFirestore.instance.collection("chat").doc(_user!.uid).collection(snapshot.data?.docs[index]['userUID']);
+                                                                QuerySnapshot querySnapshot = await collections.get();
+                                                                for(int i = 0; i<querySnapshot.docs.length; i++) {
+                                                                  collections.doc(querySnapshot.docs[i]['id']).delete();
+                                                                }
+                                                                await FirebaseFirestore.instance.collection("chat").doc(_user!.uid).collection('chat_user_num').doc(snapshot.data?.docs[index]['userUID']).delete();
+                                                                Navigator.of(context).pop();
+                                                              },
+                                                            ),
+                                                            FlatButton(
+                                                              child: Text('cancel'),
+                                                              onPressed: (){
+                                                                Navigator.of(context).pop();
+                                                              },
+                                                            ),
+                                                          ],
+                                                        );
+                                                      }
+                                                  );
+                                                  },
+
                                                 child: Container(
                                                   color: Colors.red,
                                                   height: ScreenUtil()

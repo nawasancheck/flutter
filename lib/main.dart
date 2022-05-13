@@ -6,9 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/screens/auth/sign_In.dart';
 import 'package:flutter_app/screens/chatting/chat_list.dart';
 import 'package:flutter_app/screens/freeboard/freeboard.dart';
-import 'package:flutter_app/screens/wish_list/wish_list.dart';
+import 'package:flutter_app/screens/reservation/my_reservation.dart';
 import 'package:flutter_app/screens/my_profile/profile.dart';
-import 'package:flutter_app/screens/reservation/schedule.dart';
 import 'package:flutter_app/screens/manager/manager_list.dart';
 import 'package:flutter_app/screens/auth/sign_up.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -45,6 +44,13 @@ class MyApp extends StatelessWidget {
               title: '동행',
               theme: ThemeData(primaryColor: Color(0xffffffff)),
               debugShowCheckedModeBanner: false,
+              // 폰트 사이즈 고정
+              builder: (context, child) {
+                return MediaQuery(
+                  data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+                  child: child!,
+                );
+          }
             ));
   }
 }
@@ -61,8 +67,8 @@ class _HomePageState extends State<HomePage> {
       // CupertinoTapScaffold : ios 디자인
       tabBar: CupertinoTabBar(
         // BottomNavigationBar
-        activeColor: Color(0xff0082af),
-        inactiveColor: Colors.black,
+        activeColor: Color(0xff93e3e6),
+        inactiveColor: Color(0xff909090),
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: "홈"),
           BottomNavigationBarItem(icon: Icon(EvaIcons.clipboardOutline), label: "게시판"),
@@ -90,7 +96,7 @@ class _HomePageState extends State<HomePage> {
             break;
           case 3:
             return CupertinoTabView(builder: (context) {
-              return CupertinoPageScaffold(child: Schedule());
+              return CupertinoPageScaffold(child: MyReservation());
             });
             break;
           case 4:

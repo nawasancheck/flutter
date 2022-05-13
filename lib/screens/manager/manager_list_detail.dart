@@ -3,6 +3,7 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/screens/chatting/in_chat_screen.dart';
+import 'package:flutter_app/screens/reservation/reservation_detail.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ManagerDetailPage extends StatelessWidget {
@@ -291,7 +292,7 @@ class ManagerDetailPage extends StatelessWidget {
                       ),
                     ),
                     Container(
-                      height: ScreenUtil().setHeight(102.h),
+                      height: ScreenUtil().setHeight(102),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         boxShadow: [
@@ -303,9 +304,10 @@ class ManagerDetailPage extends StatelessWidget {
                         ],
                       ),
                       child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Padding(
-                            padding: const EdgeInsets.fromLTRB(7, 0, 3, 0),
+                            padding: const EdgeInsets.fromLTRB(3, 0, 3, 0),
                             child: InkWell(
                               onTap: () {
                                 Navigator.of(context, rootNavigator: true)
@@ -330,7 +332,10 @@ class ManagerDetailPage extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.fromLTRB(6, 0, 6, 0),
                             child: InkWell(
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.of(context, rootNavigator: true).push
+                                  (MaterialPageRoute(builder: (_) => ReservationDetail()));
+                              },
                               child: Container(
                                   height: 76.h,
                                   width: 208.w,
@@ -346,7 +351,7 @@ class ManagerDetailPage extends StatelessWidget {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.fromLTRB(3, 0, 7, 0),
+                            padding: const EdgeInsets.fromLTRB(3, 0, 3, 0),
                             child: InkWell(
                               onTap: () {
                                 isPressed

@@ -96,7 +96,7 @@ class _ListPageState extends State<ListPage> {
         body: Container(
             width: ScreenUtil().screenWidth,
             height: ScreenUtil().screenHeight,
-            color: Colors.grey,
+            color: Color(0xffececec),
             child: StreamBuilder(
                 stream: FirebaseFirestore.instance.collection('user').where('role', isEqualTo: 'manager').snapshots(),
                 builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
@@ -111,13 +111,13 @@ class _ListPageState extends State<ListPage> {
 
                   return ListView.builder(
                       shrinkWrap: true,
-                      itemExtent: 162.sp,
                       itemCount: docs.length,
                       itemBuilder: (context, index) {
                         List isPressedList = docs[index]['profile']['isPressedList'];
                         bool isPressed = isPressedList.contains('${_user!.uid}');
 
-                        return Card(
+                        return Container(
+                          height: ScreenUtil().setHeight(162),
                           child: InkWell(
                             onTap: () {
                               // 바텀네비게이션 없애기
@@ -125,28 +125,35 @@ class _ListPageState extends State<ListPage> {
                               Navigator.of(context, rootNavigator: true)
                                   .push(MaterialPageRoute(builder: (_) => ManagerDetailPage(docs[index]['userUID'])));
                             },
-                            child: Container(
+                            child: Card(
                               //color: Colors.green,
                               child: Row(
                                 children: [
                                   Container(
+                                    //color: Colors.yellow,
+                                    width: ScreenUtil().setWidth(10),
+                                    height: ScreenUtil().setHeight(126),
+                                  ),
+
+                                  Container(
+                                    height: ScreenUtil().setHeight(126),
+                                    width: ScreenUtil().setWidth(132),
                                     decoration: ShapeDecoration(
                                         image: DecorationImage(image: AssetImage(docs[index]['profile']['imageUrl']), fit: BoxFit.cover),
                                         shape: RoundedRectangleBorder(borderRadius: BorderRadiusDirectional.circular(15))),
-                                    height: ScreenUtil().setHeight(126.h),
-                                    width: ScreenUtil().setWidth(132.w),
                                   ),
 
                                   Container(
                                     //color: Colors.yellow,
                                     width: ScreenUtil().setWidth(10),
-                                    height: ScreenUtil().setHeight(130),
+                                    height: ScreenUtil().setHeight(126),
                                   ),
 
                                   Flexible(
                                     fit: FlexFit.tight,
                                     child: Container(
-                                      height: ScreenUtil().setHeight(180.h //148.h
+                                      //color: Colors.orangeAccent,
+                                      height: ScreenUtil().setHeight(126,  //126.h //148.h
                                           ),
                                       //color: Colors.orange,
                                       child: Column(
@@ -171,7 +178,7 @@ class _ListPageState extends State<ListPage> {
                                                 ),
                                                 Container(
                                                   //color: Colors.green,
-                                                  width: ScreenUtil().setWidth(43.w),
+                                                  width: ScreenUtil().setWidth(43),
                                                   child: Row(
                                                     mainAxisAlignment: MainAxisAlignment.end,
                                                     children: [
@@ -199,7 +206,7 @@ class _ListPageState extends State<ListPage> {
                                           ),
 
                                           Padding(
-                                            padding: const EdgeInsets.only(bottom: 22),
+                                            padding: const EdgeInsets.only(bottom: 10),
                                             child: Row(
                                               children: [
                                                 Text(" " + " ${docs[index]['profile']['area']} - ",
@@ -218,10 +225,10 @@ class _ListPageState extends State<ListPage> {
                                           ),
 
                                           Padding(
-                                            padding: const EdgeInsets.only(bottom: 13),
+                                            padding: const EdgeInsets.only(bottom: 0),
                                             child: Row(
                                               children: [
-                                                Text(" " + " ${docs[index]['profile']['description'].substring(0, 26)}...",
+                                                Text(" " + " ${docs[index]['profile']['description'].substring(0, 20)}...",
                                                     style: TextStyle(fontSize: 11.sp, color: Color(0xff878787))),
                                               ],
                                             ),
