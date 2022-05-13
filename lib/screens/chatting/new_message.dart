@@ -5,7 +5,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
 
 class NewMessage extends StatefulWidget {
@@ -58,7 +57,7 @@ class _NewMessageState extends State<NewMessage> {
     FirebaseFirestore.instance.collection("chat").doc(currentUser!.uid).collection(widget.opponentUID).add({
       'text': text,
       'fakeText': '사진',
-      'time': Timestamp.now(),
+      'time': Timestamp.now().toDate(),
       'sendUID': currentUser.uid,
       'receiverUID': widget.opponentUID,
       'type': type,
