@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 
 import '../freeboard/freeboard.dart';
 
-class WriteScreen extends StatefulWidget {
-  const WriteScreen({Key? key}) : super(key: key);
+class WritePost extends StatefulWidget {
+  const WritePost({Key? key}) : super(key: key);
 
   @override
   _WriteScreenState createState() => _WriteScreenState();
 }
 
-class _WriteScreenState extends State<WriteScreen> {
+class _WriteScreenState extends State<WritePost> {
   String text = '';
   final _auth = FirebaseAuth.instance;
 
@@ -33,6 +33,9 @@ class _WriteScreenState extends State<WriteScreen> {
               await FirebaseFirestore.instance.collection('board_test').add({
                 'text': text,
                 'user_name': _auth.currentUser!.displayName,
+                'time': Timestamp.now().toDate(),
+                'isPressedList': FieldValue.arrayUnion([]),
+                'comments': 0
               });
 
               Navigator.push(context, MaterialPageRoute(builder: (context) => FreeBoard()));
