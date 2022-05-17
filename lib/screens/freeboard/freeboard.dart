@@ -4,6 +4,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/screens/community/write_post.dart';
 import 'package:flutter_app/screens/community/write_comment.dart';
+import 'package:flutter_app/screens/freeboard/freeboard_content.dart';
+import 'package:flutter_app/screens/manager/manager_list_detail.dart';
+import 'package:flutter_app/screens/my_profile/profile.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class FreeBoard extends StatefulWidget {
@@ -41,25 +44,220 @@ class _FreeBoardState extends State<FreeBoard> {
         actions: [
           IconButton(
             icon: Icon(
-              EvaIcons.upload,
+              EvaIcons.plusCircleOutline,
               color: Colors.black,
             ),
             onPressed: () {
-              Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => WritePost()));
+              Navigator.of(context, rootNavigator: true)
+                  .push(MaterialPageRoute(builder: (_) => WritePost()));
             },
           )
         ],
       ),
-      body: Container(
+      body: Column(
+        children: [
+          Flexible(
+            fit: FlexFit.tight,
+            child: Container(
+              width: ScreenUtil().screenWidth,
+              height: ScreenUtil().setHeight(110),
+              color: Colors.greenAccent,
+              child: StreamBuilder(
+                  stream: FirebaseFirestore.instance
+                      .collection('board_test')
+                      .orderBy('time', descending: true)
+                      .snapshots(),
+                  builder: (context,
+                      AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
+                      snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Center(child: CircularProgressIndicator());
+                    }
+                    final docs = snapshot.data!.docs;
+                    if (docs.length == 0) {
+                      return Text('null');
+                    }
+                    return ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: docs.length,
+                        itemBuilder: (context, index) {
+                          List isPressedList = docs[index]['isPressedList'];
+                          int comments = docs[index]['comments'];
+                          bool isPressed =
+                          isPressedList.contains('${_user!.uid}');
+                          var time = docs[index]['time'].toDate();
+                          var ampm = '';
+                          var writeTime = '';
+                          if (time.hour <= 12) {
+                            ampm = '오전';
+                          } else {
+                            ampm = '오후';
+                          }
+
+                          if (time.year == DateTime.now().year &&
+                              time.month == DateTime.now().month &&
+                              time.day == DateTime.now().day) {
+                            if (time.hour <= 12) {
+                              writeTime = '$ampm ${time.hour}:${time.minute}';
+                            } else {
+                              writeTime =
+                              '$ampm ${time.hour - 12}:${time.minute}';
+                            }
+                          } else if (DateTime.now().day - time.day == 1) {
+                            writeTime = '어제';
+                          } else {
+                            writeTime =
+                            '${time.year}-${time.month}-${time.day}';
+                          }
+                          return Padding(
+                            padding: const EdgeInsets.fromLTRB(3, 3, 3, 5),
+                            child: Container(
+                              height: ScreenUtil().setHeight(100),
+                              width: ScreenUtil().screenWidth,
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  border: Border.all(
+                                      color: Colors.grey,
+                                      style: BorderStyle.solid,
+                                      width: 2),
+                                  borderRadius: BorderRadius.circular(10)
+                                //color: Colors.redAccent,
+                              ),
+                              child: InkWell(
+                                  onTap: () {
+                                    // 바텀네비게이션 없애기
+                                    //
+                                    Navigator.of(context, rootNavigator: true)
+                                        .push(MaterialPageRoute(
+                                        builder: (_) =>
+                                            FreeBoardContent()));
+                                  },
+                                  child: Center(
+                                    child: Container(
+                                      height: ScreenUtil().setHeight(80),
+                                      width: ScreenUtil().setWidth(360),
+                                      //color: Colors. green,
+                                      child: Column(
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Text(
+                                                '제목',
+                                                // 아직 contentTitle이 활성화 안된듯?
+                                                style: TextStyle(
+                                                    fontSize: 20.sp,
+                                                    fontWeight:
+                                                    FontWeight.bold),
+                                              ),
+                                            ],
+                                          ),
+                                          Row(
+                                            children: [
+                                              Text(
+                                                docs[index]['text'],
+                                                style: TextStyle(
+                                                  fontSize: 15.sp,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          Row(
+                                            children: [
+                                              Text(
+                                                "$writeTime",
+                                                style: TextStyle(
+                                                  fontSize: 15.sp,
+                                                ),
+                                              ),
+                                              Text(
+                                                '  '+docs[index]['user_name'],
+                                                style: TextStyle(
+                                                  fontSize: 15.sp,
+                                                ),
+                                              ),
+                                              Flexible(
+                                                fit: FlexFit.tight,
+                                                child: SizedBox(
+                                                  width: 10,
+                                                ),
+                                              ),
+                                              Icon(
+                                                EvaIcons.heartOutline,
+                                                color: Colors.redAccent,
+                                              ),
+                                              Text(
+                                                "${docs[index]['isPressedList'].length}" +
+                                                    " ",
+                                                style: TextStyle(
+                                                  fontSize: 15.sp,
+                                                  color: Colors.redAccent,
+                                                ),
+                                              ),
+                                              Icon(
+                                                EvaIcons.messageCircleOutline,
+                                                color: Colors.blue,
+                                              ),
+                                              Text(
+                                                "$comments",
+                                                style: TextStyle(
+                                                  fontSize: 15.sp,
+                                                  color: Colors.blue,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  )
+                              ),
+                            ),
+                          );
+                        });
+                  }),
+
+            ),
+          ),
+        ],
+      ),
+      floatingActionButtonLocation:
+      FloatingActionButtonLocation.endFloat,
+      floatingActionButton :FloatingActionButton(
+        onPressed: () { Navigator.of(context, rootNavigator: true)
+            .push(MaterialPageRoute(builder: (_) => WritePost()));},
+      ),
+
+    );
+  }
+}
+
+
+// 이전 코드 body부분
+/*
+*  body: Container(
         //color: Colors.greenAccent,
         child: Column(
           children: [
             Container(
               width: ScreenUtil().screenWidth,
-              height: ScreenUtil().setHeight(400),
+              height: ScreenUtil().setHeight(60),
               //60.h,
-              color: Colors.greenAccent,
-
+              color: Color(0xffececec),
+              child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: numbers.length,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.fromLTRB(3, 8, 3, 8),
+                      child: Container(
+                        height: ScreenUtil().setHeight(20),
+                        width: ScreenUtil().setWidth(100),
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.blueGrey), color: Color(0xffe1f3f3), borderRadius: BorderRadius.circular(20)),
+                        child: Center(child: Text("관심분야")),
+                      ),
+                    );
+                  }),
             ),
             Flexible(
               fit: FlexFit.tight,
@@ -298,3 +496,4 @@ class _FreeBoardState extends State<FreeBoard> {
     );
   }
 }
+*/
