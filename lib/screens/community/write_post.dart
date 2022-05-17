@@ -28,7 +28,6 @@ class _WriteScreenState extends State<WritePost> {
         ),
         TextButton(
             onPressed: () async {
-              print(text);
 
               await FirebaseFirestore.instance.collection('board_test').add({
                 'text': text,
