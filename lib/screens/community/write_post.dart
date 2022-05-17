@@ -37,8 +37,7 @@ class _WriteScreenState extends State<WritePost> {
                 'isPressedList': FieldValue.arrayUnion([]),
                 'comments': 0
               });
-
-              Navigator.push(context, MaterialPageRoute(builder: (context) => FreeBoard()));
+              Navigator.pop(context);
             },
             child: Text("작성"))
       ])),

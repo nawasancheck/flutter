@@ -37,7 +37,7 @@ class WriteComment extends StatelessWidget {
                     'comments': sn['comments'] +1
                   });
 
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => FreeBoard()));
+                  Navigator.pop(context);
                 },
                 child: Text("작성"))
           ])),
