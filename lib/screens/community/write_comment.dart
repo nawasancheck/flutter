@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import '../freeboard/comments.dart';
 import '../freeboard/freeboard.dart';
 
 class WriteComment extends StatelessWidget {
@@ -11,7 +12,6 @@ class WriteComment extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     String text = '';
     final _currentUser = FirebaseAuth.instance.currentUser;
 
@@ -19,28 +19,26 @@ class WriteComment extends StatelessWidget {
       appBar: AppBar(title: Text("댓글 스크린")),
       body: Container(
           child: Column(children: [
-            TextField(
-              onChanged: (value) {
-                text = value.trim();
-              },
-            ),
-            TextButton(
-                onPressed: () async {
-                  var sn = await FirebaseFirestore.instance.collection('board_test').doc(boardNum).get();
+            Expanded(child: Comments(boardNum)),
+        TextField(
+          onChanged: (value) {
+            text = value.trim();
+          },
+        ),
+        TextButton(
+            onPressed: () async {
+              var sn = await FirebaseFirestore.instance.collection('board_test').doc(boardNum).get();
 
-                  await FirebaseFirestore.instance.collection('board_test').doc(boardNum).collection('comment').add({
-                    'userUID': _currentUser!.uid,
-                    'text': text,
-                  });
+              await FirebaseFirestore.instance.collection('board_test').doc(boardNum).collection('comment').add({
+                'userUID': _currentUser!.uid,
+                'text': text,
+              });
 
-                  FirebaseFirestore.instance.collection('board_test').doc(boardNum).update({
-                    'comments': sn['comments'] +1
-                  });
-
-                  Navigator.pop(context);
-                },
-                child: Text("작성"))
-          ])),
+              FirebaseFirestore.instance.collection('board_test').doc(boardNum).update({'comments': sn['comments'] + 1});
+              
+            },
+            child: Text("작성"))
+      ])),
     );
   }
 }
