@@ -245,10 +245,19 @@ class FreeBoardContent extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: OutlinedButton.icon( onPressed: () {},
-              icon: Icon(Icons.add, size: 18), 
-              label: Text("댓글 쓰기"), )
+            child: TextField(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: '댓글을 입력해주세요',
+                labelStyle: TextStyle(
+                  fontSize: 14.sp,
+                  color: Color(0xffc4c4c4),
+                ),
+              ),
+              onChanged: (value) {
+              },
             ),
+          ),
         ],),
       ),
     );
