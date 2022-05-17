@@ -9,28 +9,23 @@ import 'package:flutter_app/screens/manager/manager_list_detail.dart';
 import 'package:flutter_app/screens/my_profile/profile.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class FreeBoard extends StatefulWidget {
+class FreeBoard extends StatelessWidget {
   const FreeBoard({Key? key}) : super(key: key);
 
   @override
-  _FreeBoardState createState() => _FreeBoardState();
-}
-
-class _FreeBoardState extends State<FreeBoard> {
-  final _user = FirebaseAuth.instance.currentUser;
-  final List<int> numbers = <int>[1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-  var isPressed = false;
-
-  late String _id; // 게시물 + 랜덤 99999 그외 시간 기준 방법 등등..
-  late String writeId; //글 작성자 (유저데이터 테이블 = User.usersName)
-  late String contentTitle; //글 제목
-  late String text; //글 내용
-  late String createAt; //글 작성,수정 시간
-  late List<String> likeList; //좋아요 수
-  late List<String> imgList;
-
-  @override
   Widget build(BuildContext context) {
+
+    final _user = FirebaseAuth.instance.currentUser;
+    final List<int> numbers = <int>[1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    var isPressed = false;
+
+    late String _id; // 게시물 + 랜덤 99999 그외 시간 기준 방법 등등..
+    late String writeId; //글 작성자 (유저데이터 테이블 = User.usersName)
+    late String contentTitle; //글 제목
+    late String text; //글 내용
+    late String createAt; //글 작성,수정 시간
+    late List<String> likeList; //좋아요 수
+    late List<String> imgList;
     return Scaffold(
       appBar: AppBar(
         title: Text("자유게시판",
