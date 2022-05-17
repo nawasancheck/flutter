@@ -56,24 +56,10 @@ class _FreeBoardState extends State<FreeBoard> {
           children: [
             Container(
               width: ScreenUtil().screenWidth,
-              height: ScreenUtil().setHeight(60),
+              height: ScreenUtil().setHeight(400),
               //60.h,
-              color: Color(0xffececec),
-              child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: numbers.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.fromLTRB(3, 8, 3, 8),
-                      child: Container(
-                        height: ScreenUtil().setHeight(20),
-                        width: ScreenUtil().setWidth(100),
-                        decoration: BoxDecoration(
-                            border: Border.all(color: Colors.blueGrey), color: Color(0xffe1f3f3), borderRadius: BorderRadius.circular(20)),
-                        child: Center(child: Text("관심분야")),
-                      ),
-                    );
-                  }),
+              color: Colors.greenAccent,
+
             ),
             Flexible(
               fit: FlexFit.tight,
