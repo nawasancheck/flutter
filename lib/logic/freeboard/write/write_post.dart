@@ -12,7 +12,8 @@ class WritePost extends StatefulWidget {
 }
 
 class _WriteScreenState extends State<WritePost> {
-  String text = '';
+  String title = '';
+  String content = '';
   final _auth = FirebaseAuth.instance;
 
   @override
@@ -21,17 +22,23 @@ class _WriteScreenState extends State<WritePost> {
       appBar: AppBar(title: Text("작성 스크린")),
       body: Container(
           child: Column(children: [
+            TextField(
+              onChanged: (value) {
+                title = value.trim();
+              },
+            ),
         TextField(
           onChanged: (value) {
-            text = value.trim();
+            content = value.trim();
           },
         ),
         TextButton(
             onPressed: () async {
 
               await FirebaseFirestore.instance.collection('board_test').add({
-                'text': text,
-                'user_name': _auth.currentUser!.displayName,
+                'title': title,
+                'content': content,
+                'userName': _auth.currentUser!.displayName,
                 'time': Timestamp.now().toDate(),
                 'isPressedList': FieldValue.arrayUnion([]),
                 'comments': 0

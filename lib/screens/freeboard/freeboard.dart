@@ -2,11 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/screens/community/write_post.dart';
-import 'package:flutter_app/screens/community/write_comment.dart';
+import 'package:flutter_app/logic/freeboard/write/write_post.dart';
 import 'package:flutter_app/screens/freeboard/freeboard_content.dart';
-import 'package:flutter_app/screens/manager/manager_list_detail.dart';
-import 'package:flutter_app/screens/my_profile/profile.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class FreeBoard extends StatelessWidget {
@@ -14,7 +11,6 @@ class FreeBoard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final _user = FirebaseAuth.instance.currentUser;
     final List<int> numbers = <int>[1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
     var isPressed = false;
@@ -43,8 +39,7 @@ class FreeBoard extends StatelessWidget {
               color: Colors.black,
             ),
             onPressed: () {
-              Navigator.of(context, rootNavigator: true)
-                  .push(MaterialPageRoute(builder: (_) => WritePost()));
+              Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => WritePost()));
             },
           )
         ],
@@ -57,14 +52,9 @@ class FreeBoard extends StatelessWidget {
               width: ScreenUtil().screenWidth,
               height: ScreenUtil().setHeight(110),
               color: Colors.greenAccent,
-              child: StreamBuilder(
-                  stream: FirebaseFirestore.instance
-                      .collection('board_test')
-                      .orderBy('time', descending: true)
-                      .snapshots(),
-                  builder: (context,
-                      AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
-                      snapshot) {
+              child: FutureBuilder(
+                  future: FirebaseFirestore.instance.collection('board_test').orderBy('time', descending: true).get(),
+                  builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return Center(child: CircularProgressIndicator());
                     }
@@ -76,33 +66,29 @@ class FreeBoard extends StatelessWidget {
                         shrinkWrap: true,
                         itemCount: docs.length,
                         itemBuilder: (context, index) {
-                          List isPressedList = docs[index]['isPressedList'];
+                          // List isPressedList = docs[index]['isPressedList'];
                           int comments = docs[index]['comments'];
-                          bool isPressed =
-                          isPressedList.contains('${_user!.uid}');
                           var time = docs[index]['time'].toDate();
                           var ampm = '';
                           var writeTime = '';
+                          // bool isPressed = isPressedList.contains('${_user!.uid}');
+
                           if (time.hour <= 12) {
                             ampm = '오전';
                           } else {
                             ampm = '오후';
                           }
 
-                          if (time.year == DateTime.now().year &&
-                              time.month == DateTime.now().month &&
-                              time.day == DateTime.now().day) {
+                          if (time.year == DateTime.now().year && time.month == DateTime.now().month && time.day == DateTime.now().day) {
                             if (time.hour <= 12) {
                               writeTime = '$ampm ${time.hour}:${time.minute}';
                             } else {
-                              writeTime =
-                              '$ampm ${time.hour - 12}:${time.minute}';
+                              writeTime = '$ampm ${time.hour - 12}:${time.minute}';
                             }
                           } else if (DateTime.now().day - time.day == 1) {
                             writeTime = '어제';
                           } else {
-                            writeTime =
-                            '${time.year}-${time.month}-${time.day}';
+                            writeTime = '${time.year}-${time.month}-${time.day}';
                           }
                           return Padding(
                             padding: const EdgeInsets.fromLTRB(3, 3, 3, 5),
@@ -111,21 +97,16 @@ class FreeBoard extends StatelessWidget {
                               width: ScreenUtil().screenWidth,
                               decoration: BoxDecoration(
                                   color: Colors.white,
-                                  border: Border.all(
-                                      color: Colors.grey,
-                                      style: BorderStyle.solid,
-                                      width: 2),
+                                  border: Border.all(color: Colors.grey, style: BorderStyle.solid, width: 2),
                                   borderRadius: BorderRadius.circular(10)
-                                //color: Colors.redAccent,
-                              ),
+                                  //color: Colors.redAccent,
+                                  ),
                               child: InkWell(
                                   onTap: () {
                                     // 바텀네비게이션 없애기
                                     //
                                     Navigator.of(context, rootNavigator: true)
-                                        .push(MaterialPageRoute(
-                                        builder: (_) =>
-                                            FreeBoardContent()));
+                                        .push(MaterialPageRoute(builder: (_) => FreeBoardContent(docs[index].id)));
                                   },
                                   child: Center(
                                     child: Container(
@@ -137,19 +118,16 @@ class FreeBoard extends StatelessWidget {
                                           Row(
                                             children: [
                                               Text(
-                                                '제목',
+                                                docs[index]['title'],
                                                 // 아직 contentTitle이 활성화 안된듯?
-                                                style: TextStyle(
-                                                    fontSize: 20.sp,
-                                                    fontWeight:
-                                                    FontWeight.bold),
+                                                style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
                                               ),
                                             ],
                                           ),
                                           Row(
                                             children: [
                                               Text(
-                                                docs[index]['text'],
+                                                docs[index]['content'],
                                                 style: TextStyle(
                                                   fontSize: 15.sp,
                                                 ),
@@ -165,7 +143,7 @@ class FreeBoard extends StatelessWidget {
                                                 ),
                                               ),
                                               Text(
-                                                '  '+docs[index]['user_name'],
+                                                '  ' + docs[index]['userName'],
                                                 style: TextStyle(
                                                   fontSize: 15.sp,
                                                 ),
@@ -176,18 +154,54 @@ class FreeBoard extends StatelessWidget {
                                                   width: 10,
                                                 ),
                                               ),
-                                              Icon(
-                                                EvaIcons.heartOutline,
-                                                color: Colors.redAccent,
+                                              StreamBuilder(
+                                                stream:
+                                                    FirebaseFirestore.instance.collection('board_test').orderBy('time', descending: true).snapshots(),
+                                                builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+                                                  if (snapshot.connectionState == ConnectionState.waiting) {
+                                                    return Center(child: CircularProgressIndicator());
+                                                  }
+                                                  List isPressedList = snapshot.data!.docs[index]['isPressedList'];
+                                                  bool isPressed2 = isPressedList.contains('${_user!.uid}');
+                                                  return Row(
+                                                    children: [
+                                                      InkWell(
+                                                        onTap: () async {
+                                                          var sn = await FirebaseFirestore.instance
+                                                              .collection('board_test')
+                                                              .orderBy('time', descending: true)
+                                                              .get();
+
+                                                          isPressed2
+                                                              ? FirebaseFirestore.instance.collection('board_test').doc(sn.docs[index].id).update({
+                                                                  'isPressedList': FieldValue.arrayRemove([_user.uid])
+                                                                })
+                                                              : FirebaseFirestore.instance.collection('board_test').doc(sn.docs[index].id).update({
+                                                                  'isPressedList': FieldValue.arrayUnion([_user.uid])
+                                                                });
+                                                        },
+                                                        child: isPressed2
+                                                            ? Icon(
+                                                                EvaIcons.heart,
+                                                                color: Colors.redAccent,
+                                                              )
+                                                            : Icon(
+                                                                EvaIcons.heartOutline,
+                                                                color: Colors.redAccent,
+                                                              ),
+                                                      ),
+                                                      Text(
+                                                        "${isPressedList.length}" + " ",
+                                                        style: TextStyle(
+                                                          fontSize: 15.sp,
+                                                          color: Colors.redAccent,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  );
+                                                },
                                               ),
-                                              Text(
-                                                "${docs[index]['isPressedList'].length}" +
-                                                    " ",
-                                                style: TextStyle(
-                                                  fontSize: 15.sp,
-                                                  color: Colors.redAccent,
-                                                ),
-                                              ),
+
                                               Icon(
                                                 EvaIcons.messageCircleOutline,
                                                 color: Colors.blue,
@@ -204,289 +218,21 @@ class FreeBoard extends StatelessWidget {
                                         ],
                                       ),
                                     ),
-                                  )
-                              ),
+                                  )),
                             ),
                           );
                         });
                   }),
-
             ),
           ),
         ],
       ),
-      floatingActionButtonLocation:
-      FloatingActionButtonLocation.endFloat,
-      floatingActionButton :FloatingActionButton(
-        onPressed: () { Navigator.of(context, rootNavigator: true)
-            .push(MaterialPageRoute(builder: (_) => WritePost()));},
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => WritePost()));
+        },
       ),
-
     );
   }
 }
-
-//
-// 이전 게시판 body부분 주석으로 달아 놓음
-/*
-body: Container(
-        //color: Colors.greenAccent,
-        child: Column(
-          children: [
-            Container(
-              width: ScreenUtil().screenWidth,
-              height: ScreenUtil().setHeight(60),
-              //60.h,
-              color: Color(0xffececec),
-              child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: numbers.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.fromLTRB(3, 8, 3, 8),
-                      child: Container(
-                        height: ScreenUtil().setHeight(20),
-                        width: ScreenUtil().setWidth(100),
-                        decoration: BoxDecoration(
-                            border: Border.all(color: Colors.blueGrey), color: Color(0xffe1f3f3), borderRadius: BorderRadius.circular(20)),
-                        child: Center(child: Text("관심분야")),
-                      ),
-                    );
-                  }),
-            ),
-            Flexible(
-              fit: FlexFit.tight,
-              child: Container(
-                  width: ScreenUtil().screenWidth,
-                  color: Color(0xffececec),
-                  child: Scrollbar(
-                      child: StreamBuilder(
-                          stream: FirebaseFirestore.instance.collection('board_test').orderBy('time', descending: true).snapshots(),
-                          builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
-                            if (snapshot.connectionState == ConnectionState.waiting) {
-                              return Center(child: CircularProgressIndicator());
-                            }
-                            final docs = snapshot.data!.docs;
-                            if (docs.length == 0) {
-                              return Text('null');
-                            }
-
-                            return ListView.builder(
-                                itemCount: docs.length,
-                                itemBuilder: (context, index) {
-                                  List isPressedList = docs[index]['isPressedList'];
-                                  int comments = docs[index]['comments'];
-                                  bool isPressed = isPressedList.contains('${_user!.uid}');
-                                  var time = docs[index]['time'].toDate();
-                                  var ampm = '';
-                                  var writeTime = '';
-                                  if (time.hour <= 12) {
-                                    ampm = '오전';
-                                  } else {
-                                    ampm = '오후';
-                                  }
-
-                                  if (time.year == DateTime.now().year && time.month == DateTime.now().month && time.day == DateTime.now().day) {
-                                    if (time.hour <= 12) {
-                                      writeTime = '$ampm ${time.hour}:${time.minute}';
-                                    } else {
-                                      writeTime = '$ampm ${time.hour - 12}:${time.minute}';
-                                    }
-                                  } else if (DateTime.now().day - time.day == 1) {
-                                    writeTime = '어제';
-                                  } else {
-                                    writeTime = '${time.year}-${time.month}-${time.day}';
-                                  }
-
-                                  return Padding(
-                                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
-                                    child: Container(
-                                      height: 202.h,
-                                      width: ScreenUtil().screenWidth,
-                                      decoration: BoxDecoration(
-                                          //color: Colors.redAccent,
-                                          ),
-                                      child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        children: [
-                                          Container(
-                                            width: ScreenUtil().screenWidth,
-                                            height: ScreenUtil().setHeight(150),
-                                            color: Color(0xffffffff),
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(8.0),
-                                              child: Container(
-                                                //color: Colors.amberAccent,
-                                                child: Column(
-                                                  children: [
-                                                    Row(
-                                                      children: [
-                                                        Padding(
-                                                          padding: const EdgeInsets.fromLTRB(0, 0, 5, 0),
-                                                          child: Container(
-                                                            height: ScreenUtil().setHeight(26),
-                                                            width: ScreenUtil().setWidth(70),
-                                                            decoration:
-                                                                BoxDecoration(color: Color(0xffececec), borderRadius: BorderRadius.circular(5)),
-                                                            child: Center(child: Text("# 강아지", style: TextStyle(fontSize: 15.sp))),
-                                                          ),
-                                                        ),
-                                                        Container(
-                                                          height: ScreenUtil().setHeight(26),
-                                                          width: ScreenUtil().setWidth(70),
-                                                          decoration: BoxDecoration(color: Color(0xffececec), borderRadius: BorderRadius.circular(5)),
-                                                          child: Center(child: Text("# 산책", style: TextStyle(fontSize: 15.sp))),
-                                                        ),
-                                                        Flexible(
-                                                          fit: FlexFit.tight,
-                                                          child: Container(
-                                                            // color:Colors.greenAccent,
-                                                            height: ScreenUtil().setHeight(26),
-                                                            width: ScreenUtil().setWidth(70),
-                                                          ),
-                                                        ),
-                                                        Icon(
-                                                          Icons.more_vert,
-                                                          color: Color(0xff909090),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    Padding(
-                                                      padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-                                                      child: Row(
-                                                        mainAxisAlignment: MainAxisAlignment.start,
-                                                        children: [
-                                                          Text(
-                                                            "지역" + " / " + docs[index]['user_name'],
-                                                            style: TextStyle(fontSize: 15.sp),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    Padding(
-                                                      padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-                                                      child: Row(
-                                                        mainAxisAlignment: MainAxisAlignment.start,
-                                                        children: [
-                                                          Text(
-                                                            docs[index]['text'],
-                                                            style: TextStyle(fontSize: 15.sp),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    Padding(
-                                                      padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                                                      child: Row(
-                                                        mainAxisAlignment: MainAxisAlignment.start,
-                                                        children: [
-                                                          Icon(
-                                                            EvaIcons.smilingFaceOutline,
-                                                            size: 15.sp,
-                                                          ),
-                                                          Text(
-                                                            "${docs[index]['isPressedList'].length}" + " ",
-                                                            style: TextStyle(fontSize: 15.sp),
-                                                          ),
-                                                          Icon(
-                                                            EvaIcons.messageCircleOutline,
-                                                            size: 15.sp,
-                                                          ),
-                                                          Text(
-                                                            "$comments",
-                                                            style: TextStyle(fontSize: 15.sp),
-                                                          ),
-                                                          Flexible(
-                                                            fit: FlexFit.tight,
-                                                            child: Container(
-                                                              //  color:Colors.greenAccent,
-                                                              height: ScreenUtil().setHeight(26),
-                                                              width: ScreenUtil().setWidth(70),
-                                                            ),
-                                                          ),
-                                                          Text(
-                                                            "$writeTime",
-                                                            style: TextStyle(fontSize: 15.sp),
-                                                          )
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          Container(
-                                            width: ScreenUtil().screenWidth,
-                                            height: ScreenUtil().setHeight(2),
-                                            color: Color(0xffececec),
-                                          ),
-                                          Container(
-                                            width: ScreenUtil().screenWidth,
-                                            height: ScreenUtil().setHeight(50),
-                                            // color: Colors.greenAccent,
-                                            child: Row(
-                                              children: [
-                                                Container(
-                                                  height: ScreenUtil().setHeight(50),
-                                                  width: ScreenUtil().setWidth(195.35),
-                                                  color: Color(0xffffffff),
-                                                  child: isPressed
-                                                      ? Center(
-                                                          child: TextButton(
-                                                          onPressed: () async {
-                                                            var sn = await FirebaseFirestore.instance.collection('board_test').orderBy('time', descending: true).get();
-                                                            FirebaseFirestore.instance.collection('board_test').doc(sn.docs[index].id).update({
-                                                              'isPressedList': FieldValue.arrayRemove([_user!.uid])
-                                                            });
-                                                          },
-                                                          child: Text("공감 안하기"),
-                                                        ))
-                                                      : Center(
-                                                          child: TextButton(
-                                                          onPressed: () async {
-                                                            var sn = await FirebaseFirestore.instance.collection('board_test').orderBy('time', descending: true).get();
-                                                            FirebaseFirestore.instance.collection('board_test').doc(sn.docs[index].id).update({
-                                                              'isPressedList': FieldValue.arrayUnion([_user!.uid])
-                                                            });
-                                                          },
-                                                          child: Text("공감하기"),
-                                                        )),
-                                                ),
-                                                Container(
-                                                  height: ScreenUtil().setHeight(50),
-                                                  width: ScreenUtil().setWidth(2),
-                                                  color: Color(0xffececec),
-                                                ),
-                                                Container(
-                                                  height: ScreenUtil().setHeight(50),
-                                                  width: ScreenUtil().setWidth(195.35),
-                                                  color: Color(0xffffffff),
-                                                  child: Center(
-                                                      child: TextButton(
-                                                    onPressed: () async {
-                                                      var sn = await FirebaseFirestore.instance.collection('board_test').orderBy('time', descending: true).get();
-                                                      Navigator.of(context, rootNavigator: true)
-                                                          .push(MaterialPageRoute(builder: (_) => WriteComment(sn.docs[index].id)));
-                                                    },
-                                                    child: Text(
-                                                      "댓글달기",
-                                                      style: TextStyle(fontSize: 15.sp),
-                                                    ),
-                                                  )),
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  );
-                                });
-                          }))),
-            )
-          ],
-        ),
-      ),
-    );
-     */
