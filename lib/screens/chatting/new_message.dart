@@ -141,7 +141,8 @@ class _NewMessageState extends State<NewMessage> {
                 // onChanged가 실행되면 값이 value에 들어온다.
                 setState(() {
                   _userEnterMessage = value; // 서로 같을 때, 값이 있을 때 value값을 가져오도록 설계
-                });
+                }
+                );
               }, // 텍스트필드에 값이 입력되면 Send a message가 활성화
             ),
           ), // Form 위젯 필요 없다?
