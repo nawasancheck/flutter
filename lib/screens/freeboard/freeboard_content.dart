@@ -241,7 +241,6 @@ class FreeBoardContent extends StatelessWidget {
                     );
                   },
                 ),
-
               ],
             ),
           );
