@@ -52,6 +52,18 @@ class FreeBoardContent extends StatelessWidget {
 
           var docs = snapshot.data!;
 
+          var time = docs['time'].toDate();
+          var ampm = '';
+          var writeTime = '';
+
+          if (time.hour <= 12) {
+            ampm = '오전';
+          } else {
+            ampm = '오후';
+          }
+
+          writeTime = '${time.year}년 ${time.month}월 ${time.day}일 $ampm ${time.hour}:${time.minute}';
+
           return Container(
             color: Color(0xffececec),
             //color: Colors.yellow,
@@ -85,7 +97,7 @@ class FreeBoardContent extends StatelessWidget {
                               ),
                               Row(
                                 children: [
-                                  Text(" ${docs['time'].toDate()}"),
+                                  Text(" $writeTime"),
                                 ],
                               )
                             ],
@@ -170,6 +182,19 @@ class FreeBoardContent extends StatelessWidget {
                           shrinkWrap: true,
                           itemCount: docs2.length,
                           itemBuilder: (context, index) {
+
+                            var time = docs2[index]['time'].toDate();
+                            var ampm = '';
+                            var writeTime = '';
+
+                            if (time.hour <= 12) {
+                              ampm = '오전';
+                            } else {
+                              ampm = '오후';
+                            }
+
+                            writeTime = '${time.year}년 ${time.month}월 ${time.day}일 $ampm ${time.hour}:${time.minute}';
+
                             return Container(
                               //        color: Colors.blue,
                               width: ScreenUtil().setWidth(350),
@@ -225,7 +250,7 @@ class FreeBoardContent extends StatelessWidget {
                                   ),
                                   Row(
                                     children: [
-                                      Text("\n ${docs2[index]['time'].toDate()}"),
+                                      Text("\n $writeTime"),
                                     ],
                                   ),
                                   Divider(
