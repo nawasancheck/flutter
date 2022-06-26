@@ -314,7 +314,7 @@ class _SignUpState extends State<SignUp> {
                       'wishList': []
                     });
 
-                    await newUser.user!.updateProfile(displayName: _userName);
+                    await newUser.user!.updateDisplayName(_userName);
                     await newUser.user!.reload();
 
                     Navigator.push(context, MaterialPageRoute(builder: (context) => SignIn()));
