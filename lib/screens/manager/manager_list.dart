@@ -55,7 +55,8 @@ class _ListPageState extends State<ListPage> {
             children: [
               Container(
                 //color: Colors.yellow,
-                child: DropdownButton(    //  initial Value
+                child: DropdownButton(
+                    //  initial Value
                     value: dropDownValue,
                     icon: const Icon(
                       Icons.more_vert,
@@ -91,8 +92,6 @@ class _ListPageState extends State<ListPage> {
             )
           ],
         ),
-
-
         body: Container(
             width: ScreenUtil().screenWidth,
             height: ScreenUtil().screenHeight,
@@ -100,8 +99,8 @@ class _ListPageState extends State<ListPage> {
             child: StreamBuilder(
                 stream: FirebaseFirestore.instance.collection('user').where('role', isEqualTo: 'manager').snapshots(),
                 builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(child: CircularProgressIndicator());
+                  if (!snapshot.hasData) {
+                    return CircularProgressIndicator();
                   }
 
                   final docs = snapshot.data!.docs;
@@ -134,7 +133,6 @@ class _ListPageState extends State<ListPage> {
                                     width: ScreenUtil().setWidth(10),
                                     height: ScreenUtil().setHeight(126),
                                   ),
-
                                   Container(
                                     height: ScreenUtil().setHeight(126),
                                     width: ScreenUtil().setWidth(132),
@@ -142,19 +140,18 @@ class _ListPageState extends State<ListPage> {
                                         image: DecorationImage(image: AssetImage(docs[index]['profile']['imageUrl']), fit: BoxFit.cover),
                                         shape: RoundedRectangleBorder(borderRadius: BorderRadiusDirectional.circular(15))),
                                   ),
-
                                   Container(
                                     //color: Colors.yellow,
                                     width: ScreenUtil().setWidth(10),
                                     height: ScreenUtil().setHeight(126),
                                   ),
-
                                   Flexible(
                                     fit: FlexFit.tight,
                                     child: Container(
                                       //color: Colors.orangeAccent,
-                                      height: ScreenUtil().setHeight(126,  //126.h //148.h
-                                          ),
+                                      height: ScreenUtil().setHeight(
+                                        126, //126.h //148.h
+                                      ),
                                       //color: Colors.orange,
                                       child: Column(
                                         mainAxisAlignment: MainAxisAlignment.start,
@@ -204,7 +201,6 @@ class _ListPageState extends State<ListPage> {
                                               ],
                                             ),
                                           ),
-
                                           Padding(
                                             padding: const EdgeInsets.only(bottom: 10),
                                             child: Row(
@@ -216,14 +212,12 @@ class _ListPageState extends State<ListPage> {
                                               ],
                                             ),
                                           ),
-
                                           Row(
                                             children: [
                                               Text(" " + " 관심분야 - ${docs[index]['profile']['like'].substring(0, 6) + "..."}",
                                                   style: TextStyle(fontSize: 13.sp, fontWeight: FontWeight.bold, color: Color(0xff737373))),
                                             ],
                                           ),
-
                                           Padding(
                                             padding: const EdgeInsets.only(bottom: 0),
                                             child: Row(
@@ -233,7 +227,6 @@ class _ListPageState extends State<ListPage> {
                                               ],
                                             ),
                                           ),
-
                                           Container(
                                             //color: Colors.yellow,
                                             height: ScreenUtil().setHeight(25.h),
@@ -280,26 +273,28 @@ class _ListPageState extends State<ListPage> {
                                                                 )
                                                               : Icon(EvaIcons.heartOutline, color: Color(0xff878787), size: 18.35.h),
                                                           onTap: () {
-                                                            isPressed
-                                                                ? FirebaseFirestore.instance.collection('user').doc(docs[index]['userUID']).update({
-                                                                    'profile.heart': docs[index]['profile']['heart'] - 1,
-                                                                    'profile.isPressedList': FieldValue.arrayRemove([_user!.uid])
-                                                                  })
-                                                                : FirebaseFirestore.instance.collection('user').doc(docs[index]['userUID']).update({
-                                                                    'profile.heart': docs[index]['profile']['heart'] + 1,
-                                                                    'profile.isPressedList': FieldValue.arrayUnion([_user!.uid])
-                                                                  });
-                                                            isPressed
-                                                                ? FirebaseFirestore.instance
-                                                                    .collection('user')
-                                                                    .doc(_user!.uid)
-                                                                    // .update({'wishList.${docs[index]['userUID']}': FieldValue.delete()})
-                                                                    .update({'wishList': FieldValue.arrayRemove([docs[index]['userUID']])})
-                                                                : FirebaseFirestore.instance
-                                                                    .collection('user')
-                                                                    .doc(_user!.uid)
-                                                                    // .update({'wishList.${docs[index]['userUID']}': docs[index]['userName']});
-                                                                    .update({'wishList': FieldValue.arrayUnion([docs[index]['userUID']])});
+                                                            setState(() {
+                                                              isPressed
+                                                                  ? FirebaseFirestore.instance.collection('user').doc(docs[index]['userUID']).update({
+                                                                      'profile.heart': docs[index]['profile']['heart'] - 1,
+                                                                      'profile.isPressedList': FieldValue.arrayRemove([_user!.uid])
+                                                                    })
+                                                                  : FirebaseFirestore.instance.collection('user').doc(docs[index]['userUID']).update({
+                                                                      'profile.heart': docs[index]['profile']['heart'] + 1,
+                                                                      'profile.isPressedList': FieldValue.arrayUnion([_user!.uid])
+                                                                    });
+                                                              isPressed
+                                                                  ? FirebaseFirestore.instance.collection('user').doc(_user!.uid)
+                                                                      // .update({'wishList.${docs[index]['userUID']}': FieldValue.delete()})
+                                                                      .update({
+                                                                      'wishList': FieldValue.arrayRemove([docs[index]['userUID']])
+                                                                    })
+                                                                  : FirebaseFirestore.instance.collection('user').doc(_user!.uid)
+                                                                      // .update({'wishList.${docs[index]['userUID']}': docs[index]['userName']});
+                                                                      .update({
+                                                                      'wishList': FieldValue.arrayUnion([docs[index]['userUID']])
+                                                                    });
+                                                            });
                                                           },
                                                         ),
                                                       ),
@@ -313,7 +308,6 @@ class _ListPageState extends State<ListPage> {
                                       ),
                                     ),
                                   ),
-
                                   Container(
                                     //color: Colors.red,
                                     width: ScreenUtil().setWidth(5),
