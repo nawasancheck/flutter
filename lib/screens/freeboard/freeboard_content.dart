@@ -5,11 +5,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../logic/freeboard/write/write_comment.dart';
 
-class FreeBoardContent extends StatelessWidget {
+class FreeBoardContent extends StatefulWidget {
   final String boardNum;
 
   const FreeBoardContent(this.boardNum, {Key? key}) : super(key: key);
 
+  @override
+  State<FreeBoardContent> createState() => FreeBoardContentState();
+}
+
+class FreeBoardContentState extends State<FreeBoardContent> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,13 +45,9 @@ class FreeBoardContent extends StatelessWidget {
         ],
       ),
       body: FutureBuilder(
-        future: FirebaseFirestore.instance.collection('board_test').doc(boardNum).get(),
+        future: FirebaseFirestore.instance.collection('board_test').doc(widget.boardNum).get(),
         builder: (context, AsyncSnapshot<DocumentSnapshot<Map<String, dynamic>>> snapshot) {
           if (!snapshot.hasData) {
-            return Center(child: CircularProgressIndicator());
-          }
-
-          if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
           }
 
@@ -107,7 +108,7 @@ class FreeBoardContent extends StatelessWidget {
                     ),
                   ),
                 ),
-                WriteComment(boardNum),
+                WriteComment(widget.boardNum),
                 Container(
                   //           color: Colors.blue,
                   width: ScreenUtil().setWidth(350),
@@ -133,7 +134,7 @@ class FreeBoardContent extends StatelessWidget {
                   ),
                 ),
                 FutureBuilder(
-                  future: FirebaseFirestore.instance.collection('board_test').doc(boardNum).collection('comment').get(),
+                  future: FirebaseFirestore.instance.collection('board_test').doc(widget.boardNum).collection('comment').orderBy('time', descending: false).get(),
                   builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot2) {
                     if (!snapshot2.hasData) {
                       return Center(child: CircularProgressIndicator());
@@ -193,7 +194,7 @@ class FreeBoardContent extends StatelessWidget {
                               ampm = '오후';
                             }
 
-                            writeTime = '${time.year}년 ${time.month}월 ${time.day}일 $ampm ${time.hour}:${time.minute}';
+                            writeTime = ' ${time.month}/${time.day} ${time.hour}:${time.minute}';
 
                             return Container(
                               //        color: Colors.blue,
@@ -201,47 +202,39 @@ class FreeBoardContent extends StatelessWidget {
                               height: ScreenUtil().setHeight(120),
                               child: Column(
                                 children: [
-                                  Row(
-                                    children: [
-                                      Container(
-                                        width: ScreenUtil().setWidth(30),
-                                        height: ScreenUtil().setHeight(30),
-                                        decoration: BoxDecoration(color: Colors.grey[350], borderRadius: BorderRadius.circular(10)),
-                                      ),
-                                      Text(" ${docs2[index]['userName']}"),
-                                      Flexible(fit: FlexFit.tight, child: Container()),
-                                      Container(
-                                        decoration: BoxDecoration(color: Color(0xffe1f3f3), borderRadius: BorderRadius.circular(3)),
-                                        child: Row(
-                                          children: [
-                                            Icon(
-                                              EvaIcons.messageCircleOutline,
-                                              color: Colors.grey,
-                                            ),
-                                            Text(
-                                              "  |  ",
-                                              style: TextStyle(
-                                                color: Colors.grey,
-                                              ),
-                                            ),
-                                            Icon(
-                                              EvaIcons.heartOutline,
-                                              color: Colors.grey,
-                                            ),
-                                            Text(
-                                              "  |  ",
-                                              style: TextStyle(
-                                                color: Colors.grey,
-                                              ),
-                                            ),
-                                            Icon(
-                                              EvaIcons.moreVertical,
-                                              color: Colors.grey,
-                                            )
-                                          ],
+                                  Expanded(
+                                    child: Row(
+                                      children: [
+                                        Container(
+                                          width: ScreenUtil().setWidth(30),
+                                          height: ScreenUtil().setHeight(30),
+                                          decoration: BoxDecoration(color: Colors.grey[350], borderRadius: BorderRadius.circular(10)),
                                         ),
-                                      ),
-                                    ],
+                                        Text(" ${docs2[index]['userName']}"),
+                                        Flexible(fit: FlexFit.tight, child: Container()),
+                                        Container(
+                                          decoration: BoxDecoration(color: Color(0xffe1f3f3), borderRadius: BorderRadius.circular(3)),
+                                          child: Row(
+                                            children: [
+                                              Icon(
+                                                EvaIcons.heartOutline,
+                                                color: Colors.grey,
+                                              ),
+                                              Text(
+                                                "  |  ",
+                                                style: TextStyle(
+                                                  color: Colors.grey,
+                                                ),
+                                              ),
+                                              Icon(
+                                                EvaIcons.moreVertical,
+                                                color: Colors.grey,
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                   Row(
                                     children: [
