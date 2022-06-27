@@ -1,9 +1,9 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/screens/my_profile/listener_application.dart';
 import 'package:flutter_app/screens/wish_list/wish_list.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 
 class Profile extends StatelessWidget {
   const Profile({Key? key}) : super(key: key);
@@ -20,7 +20,10 @@ class Profile extends StatelessWidget {
         backgroundColor: Colors.white,
         title: Text(
           "마이 페이지",
-          style: TextStyle(fontSize: 20.sp, color: Colors.black, fontWeight: FontWeight.bold),
+          style: TextStyle(
+              fontSize: 20.sp,
+              color: Colors.black,
+              fontWeight: FontWeight.bold),
         ),
       ),
       body: Container(
@@ -38,7 +41,11 @@ class Profile extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('${_user!.displayName}', style: TextStyle(fontSize: 23.sp, color: Colors.black, fontWeight: FontWeight.bold)),
+                  Text('${_user!.displayName}',
+                      style: TextStyle(
+                          fontSize: 23.sp,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold)),
                   Container(height: ScreenUtil().setHeight(5)),
                   Text("${_user.email}",
                       style: TextStyle(
@@ -60,7 +67,11 @@ class Profile extends StatelessWidget {
               child: Row(
                 children: [
                   Container(width: ScreenUtil().setWidth(10)),
-                  Text("나와포인트 15,000", style: TextStyle(fontSize: 18.sp, color: Colors.black, fontWeight: FontWeight.bold)),
+                  Text("나와포인트 15,000",
+                      style: TextStyle(
+                          fontSize: 18.sp,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold)),
                   Container(width: ScreenUtil().setWidth(110)),
                   TextButton(
                       onPressed: () {},
@@ -70,7 +81,11 @@ class Profile extends StatelessWidget {
                           ),
                           backgroundColor: Colors.yellow,
                           padding: EdgeInsets.fromLTRB(15, 0, 15, 2)),
-                      child: Text("충전하기", style: TextStyle(fontSize: 16.sp, color: Colors.black, fontWeight: FontWeight.bold)))
+                      child: Text("충전하기",
+                          style: TextStyle(
+                              fontSize: 16.sp,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold)))
                 ],
               ),
             ),
@@ -81,179 +96,269 @@ class Profile extends StatelessWidget {
             height: ScreenUtil().setHeight(447),
             //color: Colors.orange,
             child: Scrollbar(
-              child: ListView(padding: EdgeInsets.only(left: 5), shrinkWrap: true,
+              child: ListView(
+                  padding: EdgeInsets.only(left: 5),
+                  shrinkWrap: true,
                   children: <Widget>[
                     Container(
                       color: Color(0xfff9f9f9),
-                      width: ScreenUtil().screenWidth ,
+                      width: ScreenUtil().screenWidth,
                       height: ScreenUtil().setHeight(60),
                       child: InkWell(
-                        onTap: (){},
-                        child: Row(children: [
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(15, 0, 10, 0),
-                            child: Icon(
-                              EvaIcons.bulbOutline,
-                              size: 30,
-                              color: Color(0xff878787),
+                        onTap: () {
+                          Navigator.of(context, rootNavigator: true).push(
+                              MaterialPageRoute(
+                                  builder: (_) => ListenerApplication()));
+                        },
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(15, 0, 10, 0),
+                              child: Icon(
+                                EvaIcons.smilingFaceOutline,
+                                size: 30,
+                                color: Color(0xff878787),
+                              ),
                             ),
-                          ),
-                          Text('공지사항', style: TextStyle(fontSize: 19.sp, color: Color(0xff878787), fontWeight: FontWeight.bold),
-                          ),
-                        ],),
+                            Text(
+                              '리스너 지원하기',
+                              style: TextStyle(
+                                  fontSize: 19.sp,
+                                  color: Color(0xff878787),
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                     Container(
                       color: Color(0xfff9f9f9),
-                      width: ScreenUtil().screenWidth ,
+                      width: ScreenUtil().screenWidth,
                       height: ScreenUtil().setHeight(60),
                       child: InkWell(
-                        onTap: (){Navigator.of(context, rootNavigator: true)
-                            .push(MaterialPageRoute(builder: (_) => WishList()));},
-                        child: Row(children: [
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(15, 0, 10, 0),
-                            child: Icon(
-                              EvaIcons.heartOutline,
-                              size: 30,
-                              color: Color(0xff878787),
+                        onTap: () {},
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(15, 0, 10, 0),
+                              child: Icon(
+                                EvaIcons.bulbOutline,
+                                size: 30,
+                                color: Color(0xff878787),
+                              ),
                             ),
-                          ),
-                        Text('찜 목록', style: TextStyle(fontSize: 19.sp, color: Colors.grey, fontWeight: FontWeight.bold)),
-                        ],),
+                            Text(
+                              '공지사항',
+                              style: TextStyle(
+                                  fontSize: 19.sp,
+                                  color: Color(0xff878787),
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                     Container(
                       color: Color(0xfff9f9f9),
-                      width: ScreenUtil().screenWidth ,
+                      width: ScreenUtil().screenWidth,
                       height: ScreenUtil().setHeight(60),
                       child: InkWell(
-                        onTap: (){},
-                        child: Row(children: [
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(15, 0, 10, 0),
-                            child: Icon(
-                              EvaIcons.giftOutline,
-                              size: 30,
-                              color: Color(0xff878787),
+                        onTap: () {
+                          Navigator.of(context, rootNavigator: true).push(
+                              MaterialPageRoute(builder: (_) => WishList()));
+                        },
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(15, 0, 10, 0),
+                              child: Icon(
+                                EvaIcons.heartOutline,
+                                size: 30,
+                                color: Color(0xff878787),
+                              ),
                             ),
-                          ),
-                        Text('쿠폰함', style: TextStyle(fontSize: 19.sp, color: Colors.grey, fontWeight: FontWeight.bold)),
-                        ],),
+                            Text('찜 목록',
+                                style: TextStyle(
+                                    fontSize: 19.sp,
+                                    color: Colors.grey,
+                                    fontWeight: FontWeight.bold)),
+                          ],
+                        ),
                       ),
                     ),
                     Container(
                       color: Color(0xfff9f9f9),
-                      width: ScreenUtil().screenWidth ,
+                      width: ScreenUtil().screenWidth,
                       height: ScreenUtil().setHeight(60),
                       child: InkWell(
-                        onTap: (){},
-                        child: Row(children: [
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(15, 0, 10, 0),
-                            child: Icon(
-                              EvaIcons.messageCircleOutline,
-                              size: 30,
-                              color: Color(0xff878787),
+                        onTap: () {},
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(15, 0, 10, 0),
+                              child: Icon(
+                                EvaIcons.giftOutline,
+                                size: 30,
+                                color: Color(0xff878787),
+                              ),
                             ),
-                          ),
-                          Text('고객센터', style: TextStyle(fontSize: 19.sp, color: Colors.grey, fontWeight: FontWeight.bold)),
-                        ],),
+                            Text('쿠폰함',
+                                style: TextStyle(
+                                    fontSize: 19.sp,
+                                    color: Colors.grey,
+                                    fontWeight: FontWeight.bold)),
+                          ],
+                        ),
                       ),
                     ),
                     Container(
                       color: Color(0xfff9f9f9),
-                      width: ScreenUtil().screenWidth ,
+                      width: ScreenUtil().screenWidth,
                       height: ScreenUtil().setHeight(60),
                       child: InkWell(
-                        onTap: (){},
-                        child: Row(children: [
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(15, 0, 10, 0),
-                            child: Icon(
-                              EvaIcons.menu2Outline,
-                              size: 30,
-                              color: Color(0xff878787),
+                        onTap: () {},
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(15, 0, 10, 0),
+                              child: Icon(
+                                EvaIcons.messageCircleOutline,
+                                size: 30,
+                                color: Color(0xff878787),
+                              ),
                             ),
-                          ),
-                          Text('회원정보 변경', style: TextStyle(fontSize: 19.sp, color: Colors.grey, fontWeight: FontWeight.bold)),
-                        ],),
+                            Text('고객센터',
+                                style: TextStyle(
+                                    fontSize: 19.sp,
+                                    color: Colors.grey,
+                                    fontWeight: FontWeight.bold)),
+                          ],
+                        ),
                       ),
                     ),
                     Container(
                       color: Color(0xfff9f9f9),
-                      width: ScreenUtil().screenWidth ,
+                      width: ScreenUtil().screenWidth,
                       height: ScreenUtil().setHeight(60),
                       child: InkWell(
-                        onTap: (){},
-                        child: Row(children: [
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(15, 0, 10, 0),
-                            child: Icon(
-                              EvaIcons.creditCardOutline,
-                              size: 30,
-                              color: Color(0xff878787),
+                        onTap: () {},
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(15, 0, 10, 0),
+                              child: Icon(
+                                EvaIcons.menu2Outline,
+                                size: 30,
+                                color: Color(0xff878787),
+                              ),
                             ),
-                          ),
-                          Text('간편결제 관리', style: TextStyle(fontSize: 19.sp, color: Colors.grey, fontWeight: FontWeight.bold)),
-                        ],),
+                            Text('회원정보 변경',
+                                style: TextStyle(
+                                    fontSize: 19.sp,
+                                    color: Colors.grey,
+                                    fontWeight: FontWeight.bold)),
+                          ],
+                        ),
                       ),
                     ),
                     Container(
                       color: Color(0xfff9f9f9),
-                      width: ScreenUtil().screenWidth ,
+                      width: ScreenUtil().screenWidth,
                       height: ScreenUtil().setHeight(60),
                       child: InkWell(
-                        onTap: (){},
-                        child: Row(children: [
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(15, 0, 10, 0),
-                            child: Icon(
-                              EvaIcons.layersOutline,
-                              size: 30,
-                              color: Color(0xff878787),
+                        onTap: () {},
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(15, 0, 10, 0),
+                              child: Icon(
+                                EvaIcons.creditCardOutline,
+                                size: 30,
+                                color: Color(0xff878787),
+                              ),
                             ),
-                          ),
-                          Text('내가 쓴 리뷰', style: TextStyle(fontSize: 19.sp, color: Colors.grey, fontWeight: FontWeight.bold)),
-                        ],),
+                            Text('간편결제 관리',
+                                style: TextStyle(
+                                    fontSize: 19.sp,
+                                    color: Colors.grey,
+                                    fontWeight: FontWeight.bold)),
+                          ],
+                        ),
                       ),
                     ),
                     Container(
                       color: Color(0xfff9f9f9),
-                      width: ScreenUtil().screenWidth ,
+                      width: ScreenUtil().screenWidth,
                       height: ScreenUtil().setHeight(60),
                       child: InkWell(
-                        onTap: (){},
-                        child: Row(children: [
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(15, 0, 10, 0),
-                            child: Icon(
-                              EvaIcons.unlockOutline,
-                              size: 30,
-                              color: Color(0xff878787),
+                        onTap: () {},
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(15, 0, 10, 0),
+                              child: Icon(
+                                EvaIcons.layersOutline,
+                                size: 30,
+                                color: Color(0xff878787),
+                              ),
                             ),
-                          ),
-                          Text('차단한 회원', style: TextStyle(fontSize: 19.sp, color: Colors.grey, fontWeight: FontWeight.bold)),
-                        ],),
+                            Text('내가 쓴 리뷰',
+                                style: TextStyle(
+                                    fontSize: 19.sp,
+                                    color: Colors.grey,
+                                    fontWeight: FontWeight.bold)),
+                          ],
+                        ),
                       ),
                     ),
                     Container(
                       color: Color(0xfff9f9f9),
-                      width: ScreenUtil().screenWidth ,
+                      width: ScreenUtil().screenWidth,
                       height: ScreenUtil().setHeight(60),
                       child: InkWell(
-                        onTap: (){},
-                        child: Row(children: [
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(15, 0, 10, 0),
-                            child: Icon(
-                              EvaIcons.settings2Outline,
-                              size: 30,
-                              color: Color(0xff878787),
+                        onTap: () {},
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(15, 0, 10, 0),
+                              child: Icon(
+                                EvaIcons.unlockOutline,
+                                size: 30,
+                                color: Color(0xff878787),
+                              ),
                             ),
-                          ),
-                          Text('설정', style: TextStyle(fontSize: 19.sp, color: Colors.grey, fontWeight: FontWeight.bold)),
-                        ],),
+                            Text('차단한 회원',
+                                style: TextStyle(
+                                    fontSize: 19.sp,
+                                    color: Colors.grey,
+                                    fontWeight: FontWeight.bold)),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Container(
+                      color: Color(0xfff9f9f9),
+                      width: ScreenUtil().screenWidth,
+                      height: ScreenUtil().setHeight(60),
+                      child: InkWell(
+                        onTap: () {},
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(15, 0, 10, 0),
+                              child: Icon(
+                                EvaIcons.settings2Outline,
+                                size: 30,
+                                color: Color(0xff878787),
+                              ),
+                            ),
+                            Text('설정',
+                                style: TextStyle(
+                                    fontSize: 19.sp,
+                                    color: Colors.grey,
+                                    fontWeight: FontWeight.bold)),
+                          ],
+                        ),
                       ),
                     ),
                   ]),
