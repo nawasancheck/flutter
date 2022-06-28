@@ -134,7 +134,12 @@ class FreeBoardContentState extends State<FreeBoardContent> {
                   ),
                 ),
                 FutureBuilder(
-                  future: FirebaseFirestore.instance.collection('board_test').doc(widget.boardNum).collection('comment').orderBy('time', descending: false).get(),
+                  future: FirebaseFirestore.instance
+                      .collection('board_test')
+                      .doc(widget.boardNum)
+                      .collection('comment')
+                      .orderBy('time', descending: false)
+                      .get(),
                   builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot2) {
                     if (!snapshot2.hasData) {
                       return Center(child: CircularProgressIndicator());
@@ -183,7 +188,6 @@ class FreeBoardContentState extends State<FreeBoardContent> {
                           shrinkWrap: true,
                           itemCount: docs2.length,
                           itemBuilder: (context, index) {
-
                             var time = docs2[index]['time'].toDate();
                             var ampm = '';
                             var writeTime = '';
