@@ -45,7 +45,7 @@ class FreeBoard extends StatelessWidget {
             child: Container(
               width: ScreenUtil().screenWidth,
               height: ScreenUtil().setHeight(110),
-              color: Colors.greenAccent,
+              color: Color(0xffececec),
               child: FutureBuilder(
                 future: FirebaseFirestore.instance.collection('board_test').orderBy('time', descending: true).get(),
                 builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
@@ -112,21 +112,34 @@ class FreeBoard extends StatelessWidget {
                                   children: [
                                     Row(
                                       children: [
-                                        Text(
-                                          docs[index]['title'],
-                                          // 아직 contentTitle이 활성화 안된듯?
-                                          style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
-                                        ),
+                                        if(docs[index]['title'].length<25) // 제목 글자 수 제한 25자
+                                          Text(
+                                              docs[index]['title']),
+                                        if(docs[index]['title'].length>=25) // 제목 글자 수 제한 25자
+                                          Text(
+                                            docs[index]['title'].substring(0,25)+"...",
+                                            // 아직 contentTitle이 활성화 안된듯?
+                                            style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
+                                          ),
+
                                       ],
                                     ),
                                     Row(
                                       children: [
-                                        Text(
+                                        if(docs[index]['content'].length<35) // 프리보드 리스트 글내용 표소 35자 까지.
+                                          Text(
                                           docs[index]['content'],
                                           style: TextStyle(
                                             fontSize: 15.sp,
                                           ),
                                         ),
+                                        if(docs[index]['content'].length>=35)
+                                          Text(
+                                            docs[index]['content'].substring(0,35)+"...",
+                                            style: TextStyle(
+                                              fontSize: 15.sp,
+                                            ),
+                                          ),
                                       ],
                                     ),
                                     Row(
@@ -159,30 +172,9 @@ class FreeBoard extends StatelessWidget {
                                             bool isPressed2 = isPressedList.contains('${_user!.uid}');
                                             return Row(
                                               children: [
-                                                InkWell(
-                                                  onTap: () async {
-                                                    var sn = await FirebaseFirestore.instance
-                                                        .collection('board_test')
-                                                        .orderBy('time', descending: true)
-                                                        .get();
-
-                                                    isPressed2
-                                                        ? FirebaseFirestore.instance.collection('board_test').doc(sn.docs[index].id).update({
-                                                            'isPressedList': FieldValue.arrayRemove([_user.uid])
-                                                          })
-                                                        : FirebaseFirestore.instance.collection('board_test').doc(sn.docs[index].id).update({
-                                                            'isPressedList': FieldValue.arrayUnion([_user.uid])
-                                                          });
-                                                  },
-                                                  child: isPressed2
-                                                      ? Icon(
-                                                          EvaIcons.heart,
-                                                          color: Colors.redAccent,
-                                                        )
-                                                      : Icon(
-                                                          EvaIcons.heartOutline,
-                                                          color: Colors.redAccent,
-                                                        ),
+                                                Icon(
+                                                  EvaIcons.heartOutline,
+                                                  color: Colors.redAccent,
                                                 ),
                                                 Text(
                                                   "${isPressedList.length}" + " ",
@@ -222,12 +214,6 @@ class FreeBoard extends StatelessWidget {
             ),
           ),
         ],
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => WritePost()));
-        },
       ),
     );
   }
