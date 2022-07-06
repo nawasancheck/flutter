@@ -209,7 +209,7 @@ class MyReservation extends StatelessWidget {
                                         borderRadius: BorderRadius.circular(20),
 
                                         image: DecorationImage(
-                                            image:  AssetImage('assets/wonjae2.png',),fit: BoxFit.cover
+                                            image:  AssetImage('assets/Im Yejun.png',),fit: BoxFit.cover
                                         ),
 
                                       ),),
@@ -303,7 +303,7 @@ class MyReservation extends StatelessWidget {
                                         borderRadius: BorderRadius.circular(20),
 
                                         image: DecorationImage(
-                                            image:  AssetImage('assets/wonjae2.png',),fit: BoxFit.cover
+                                            image:  AssetImage('assets/jinkyo.png',),fit: BoxFit.cover
                                         ),
 
                                       ),),

@@ -29,7 +29,7 @@ class FreeBoard extends StatelessWidget {
         actions: [
           IconButton(
             icon: Icon(
-              EvaIcons.plusCircleOutline,
+              Icons.add,//EvaIcons.plus,
               color: Colors.black,
             ),
             onPressed: () {
@@ -104,8 +104,8 @@ class FreeBoard extends StatelessWidget {
                               Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => FreeBoardContent(docs[index].id)));
                             },
                             child: Center(
-                              child: Container(
-                                height: ScreenUtil().setHeight(80),
+                              child: Container( // 리스트 안 내용 크기 컨테이너
+                                height: ScreenUtil().setHeight(70.5),
                                 width: ScreenUtil().setWidth(360),
                                 //color: Colors. green,
                                 child: Column(

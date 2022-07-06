@@ -214,7 +214,8 @@ class FreeBoardContentState extends State<FreeBoardContent> {
                                                     Text("   ${docs2[index]['userName']}"),
                                                     Flexible(fit: FlexFit.tight, child: Container()),
                                                     Container(
-                                                      decoration: BoxDecoration(color: Color(0xffe1f3f3), borderRadius: BorderRadius.circular(3)),
+                                                      decoration: BoxDecoration(//color: Color(0xffe1f3f3),
+                                                         borderRadius: BorderRadius.circular(3)),
                                                       child: Row(
                                                         children: [
                                                           Icon(
@@ -268,7 +269,7 @@ class FreeBoardContentState extends State<FreeBoardContent> {
                   )),
               Container( // 댓글달기 컨테이너
                   height: ScreenUtil().setHeight(50),
-                  width: ScreenUtil().setWidth(360),
+                  width: ScreenUtil().setWidth(370),
                 decoration: BoxDecoration(
                     color: Color(0xffe1f3f3),
                   borderRadius: BorderRadius.circular(15),
