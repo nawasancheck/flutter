@@ -13,37 +13,79 @@ class ChargePoint extends StatelessWidget {
         centerTitle: true,
         backgroundColor: Colors.white,
       ),
-      body: Container(
+      body: Container( // body 전체 컨테이너
         width: ScreenUtil().screenWidth,
         height: ScreenUtil().screenHeight,
         child: Column(
           children: [
-            Text("충전 금액", style: TextStyle(fontSize: 20.sp,color: Color(0xff324755)),),
-
+            SizedBox(height: ScreenUtil().setHeight(15),),
             Container(
-              //color: Colors.yellow,
-                width: ScreenUtil().screenWidth,
-                height: ScreenUtil().setHeight(100),
-                child: Column(
+              width: ScreenUtil().setWidth(360),
+              height: ScreenUtil().setHeight(130),
+              decoration: BoxDecoration(
+                  color:Color(0xffe1f3f3),borderRadius: BorderRadius.circular(5),
+                  //border: Border.all(color: Colors.grey)
+                ),
+              child: Center(child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Row(
                   children: [
                     Container(
-                      child: ChargeMoney(),
-                    )
+                      width: ScreenUtil().setWidth(300),
+                        //color:Colors.yellow
+                        child: Text("이용방법, 설명, 공지사항 ex) 심사기준 변경안내 2022년 7월 1일부터 포인트 충전이 가능합니다.",style: TextStyle(fontSize: 13.sp, ),)),
+                  Icon(Icons.arrow_forward_ios_rounded)
                   ],
-                )),
-
-            Text("충전 후 포인트: ex) 30,000", style: TextStyle(fontSize: 20.sp,color: Color(0xff324755)),),
-
-            Container(
-              width: 300.sp,
-                height: 50.sp,
-                color: Color(0xffe1f3f3),
-                padding: const EdgeInsets.all(8.0),
-                child: MaterialButton( onPressed: () {},
-                  elevation: 10,
-                  child: Text("충전하기"), )
+                ),
+              )),
             ),
-            
+            SizedBox(height: ScreenUtil().setHeight(15),),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text("   충전 금액",style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),),
+              ],
+            ),
+            SizedBox(height: ScreenUtil().setHeight(5),),
+            Container(
+              width: ScreenUtil().setWidth(360),
+              //height: ScreenUtil().setHeight(100),
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(5),
+              border: Border.all(color: Colors.grey)),
+              child: Center(
+                child:ChargeMoney(),
+              ),
+            ),
+
+            SizedBox(height: ScreenUtil().setHeight(15),),
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text("     충전 후 포인트: ex) 30,000", style: TextStyle(fontSize: 15.sp,color: Color(0xff324755)),),
+              ],
+            ),
+
+            Flexible(fit:FlexFit.tight,child: SizedBox(height: ScreenUtil().setHeight(15),)),
+
+            InkWell(
+                onTap: (){},
+                splashColor: Colors.grey,
+                child: Container(
+                  width: 360.sp,
+                  height: 40.sp,
+                  decoration: BoxDecoration(color: Color(0xffe1f3f3),borderRadius: BorderRadius.circular(5),
+                      border: Border.all(color: Colors.grey, width: 1)),
+                  padding: const EdgeInsets.all(8.0),
+                  child:  Center(child: Text("충전하기",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13.sp),)), )
+            ),
+
+            SizedBox(height: ScreenUtil().setHeight(15),),
+
+
+
+
+
           ],),
         color: Color(0xffececec),
 
