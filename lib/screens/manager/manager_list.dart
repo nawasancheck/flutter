@@ -1,10 +1,15 @@
+import 'dart:developer';
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/screens/auth/sign_In.dart';
 import 'package:flutter_app/screens/manager/manager_list_detail.dart';
 import 'package:flutter_app/screens/manager/search_manager.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class ListPage extends StatefulWidget {
   const ListPage({Key? key}) : super(key: key);
@@ -86,8 +91,8 @@ class _ListPageState extends State<ListPage> {
                 color: Color(0xff525252),
                 size: 20.16.sp,
               ),
-              onPressed: () {
-                FirebaseAuth.instance.signOut();
+              onPressed: () async {
+                await FirebaseAuth.instance.signOut();
               },
             )
           ],
@@ -274,25 +279,26 @@ class _ListPageState extends State<ListPage> {
                                                               : Icon(EvaIcons.heartOutline, color: Color(0xff878787), size: 18.35.h),
                                                           onTap: () {
                                                             setState(() {
+                                                              var userUID = docs[index]['userUID'].trim();
                                                               isPressed
                                                                   ? FirebaseFirestore.instance.collection('user').doc(docs[index]['userUID']).update({
                                                                       'profile.heart': docs[index]['profile']['heart'] - 1,
-                                                                      'profile.isPressedList': FieldValue.arrayRemove([_user!.uid])
+                                                                      'profile.isPressedList': FieldValue.arrayRemove([_user!.uid.trim()])
                                                                     })
                                                                   : FirebaseFirestore.instance.collection('user').doc(docs[index]['userUID']).update({
                                                                       'profile.heart': docs[index]['profile']['heart'] + 1,
-                                                                      'profile.isPressedList': FieldValue.arrayUnion([_user!.uid])
+                                                                      'profile.isPressedList': FieldValue.arrayUnion([_user!.uid.trim()])
                                                                     });
                                                               isPressed
                                                                   ? FirebaseFirestore.instance.collection('user').doc(_user!.uid)
                                                                       // .update({'wishList.${docs[index]['userUID']}': FieldValue.delete()})
                                                                       .update({
-                                                                      'wishList': FieldValue.arrayRemove([docs[index]['userUID']])
+                                                                      'wishList': FieldValue.arrayRemove([userUID])
                                                                     })
                                                                   : FirebaseFirestore.instance.collection('user').doc(_user!.uid)
                                                                       // .update({'wishList.${docs[index]['userUID']}': docs[index]['userName']});
                                                                       .update({
-                                                                      'wishList': FieldValue.arrayUnion([docs[index]['userUID']])
+                                                                      'wishList': FieldValue.arrayUnion([userUID])
                                                                     });
                                                             });
                                                           },
