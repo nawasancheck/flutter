@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../screens/freeboard/freeboard_content.dart';
 
@@ -42,7 +43,8 @@ class _WriteCommentState extends State<WriteComment> {
       padding: EdgeInsets.all(8),
       child: Row(
         children: [
-          Expanded(
+          Container(
+            width: ScreenUtil().setWidth(325),
             child: TextField(
               maxLines: null,
               controller: _controller,
@@ -54,13 +56,12 @@ class _WriteCommentState extends State<WriteComment> {
                 });
               }, // 텍스트필드에 값이 입력되면 Send a message가 활성화
             ),
-          ), // Form 위젯 필요 없다?
-          IconButton(
-            onPressed: _userEnterMessage.trim().isEmpty ? null : _writeComment,
-            // 좌우의 공백을 제거하고 비어있다면 null로 실행 X, 괄호가 있으면 값 리턴, 없으면 참조만
-            icon: Icon(Icons.send),
-            color: Colors.blue,
-          )
+          ), //
+          GestureDetector(
+            onTap:_userEnterMessage.trim().isEmpty ? null : _writeComment,
+            child: Icon(Icons.send),
+          ),// Form 위젯 필요 없다?
+
         ],
       ),
     );

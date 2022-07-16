@@ -44,124 +44,221 @@ class _ListenerAplicationState extends State<ListenerApplication> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: Text("리스너 지원 1차"),
+        title: Text("리스너 지원 1차", style: TextStyle(color: Color(0xff324755), fontWeight: FontWeight.bold),),
+        backgroundColor: Colors.white,
+        iconTheme: IconThemeData(
+          color: Color(0xff324755),
+        ),
         centerTitle: true,
       ),
       body: Container(
           color: Color(0xffececec),
           width: ScreenUtil().screenWidth,
           height: ScreenUtil().screenHeight,
-          child: ListView(
+          child: Column(
             children: [
-              Container(
-                color: Colors.greenAccent,
-                width: ScreenUtil().screenWidth,
-                height: ScreenUtil().setHeight(80),
-                child: Row(
-                  children: [
-                    SizedBox(width: 10.sp),
-                    Icon(EvaIcons.smilingFaceOutline,size: 50,),
-                    SizedBox(width: 20.sp),
-                    Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text("닉네임"),
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text("지역"),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                //color: Colors.yellow,
-                  width: ScreenUtil().screenWidth,
-                  height: ScreenUtil().setHeight(100),
-                  child: Column(
-                    children: [
-                      Text("성별"),
-                      Container(
-                        child: Gender(),
-                      )
-                    ],
-                  )),
-              Container(
-                //color: Colors.yellow,
-                  width: ScreenUtil().screenWidth,
-                  height: ScreenUtil().setHeight(100),
-                  child: Column(
-                    children: [
-                      Text("나이"),
-                      Container(
-                        child: Age(),
-                      )
-                    ],
-                  )),
-              Container(
-                //color: Colors.yellow,
-                  width: ScreenUtil().screenWidth,
-                  height: ScreenUtil().setHeight(100),
-                  child: Column(
-                    children: [
-                      Text("전화번호"),
-                      Container(
-                          child: TextField(
-                            decoration: InputDecoration(
-                              labelText: 'ex) s01012345678',
-                            ),
-                          ))
-                    ],
-                  )),
-              Container(
-                //color: Colors.yellow,
-                  width: ScreenUtil().screenWidth,
-                  height: ScreenUtil().setHeight(100),
-                  child: Column(
-                    children: [
-                      Text("이메일"),
-                      Container(
-                          child: TextField(
-                            decoration: InputDecoration(
-                              labelText: 'ex) nawasancheck@gmail.com',
-                            ),
-                          ))
-                    ],
-                  )),
-              InkWell(
-                onTap: () => getImage(),
-                child: Container(
-                  //color: Colors.yellow,
-                  width: ScreenUtil().screenWidth,
-                  height: ScreenUtil().setHeight(140),
+              SizedBox(height:ScreenUtil().setHeight(15)),
+              Center(
+                child: InkWell(
+                  onTap: () => getImage(),
                   child: Column(children: [
-                    Text("사진 2장 첨부"),
                     Container(
-                      width: 100,
-                      height: 100,
-                      color: Colors.grey,
-                      child: Icon(EvaIcons.plus),
+                      width: ScreenUtil().setWidth(100),
+                      height: ScreenUtil().setHeight(100),
+                      decoration: BoxDecoration(shape: BoxShape.circle,color: Colors.grey[400],),
+                      child: Icon(EvaIcons.personOutline,size: 60.sp,color: Colors.white,),
                     ),
                   ]),
                 ),
               ),
+              SizedBox(height:ScreenUtil().setHeight(10)),
 
-              Container(
-                //color: Colors.yellow,
-                width: ScreenUtil().screenWidth,
-                height: ScreenUtil().setHeight(140),
-                child: Center(child: Text("지원서 및 자기소개서")),),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 0, 0, 3),
+                child: Center(
+                  child: Container(
+                    //             color: Colors.blue,
+                    width: ScreenUtil().setWidth(360),
+                    height: ScreenUtil().setHeight(25),
+                    child: Text(
+                      "닉네임",
+                      style: TextStyle(color: Color(0xff000000), fontSize: 16.sp, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
+              ),
+              Center(
+                child: Container(
+                  color: Colors.white,
+                  width: ScreenUtil().setWidth(360),
+                  height: ScreenUtil().setHeight(40),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: '닉네임을 입력해주세요 / 글자 제한수 정하기',
+                      labelStyle: TextStyle(
+                        fontSize: 14.sp,
+                        color: Color(0xffc4c4c4),
+                      ),
+                    ),
+                    onChanged: (value) {
+                      setState(() {
+                      });
+                    },
+                  ),
+                ),
+              ),
+              SizedBox(height:ScreenUtil().setHeight(10)),
+              Center(
+                child: Container(
+                  width: ScreenUtil().setWidth(220),
+                  child: Row(
+                    children: [
+                      Text("성별: "),
+                      Container(
+                        child: Gender(),
+                      ),
+                      Flexible(fit:FlexFit.tight,child: SizedBox()),
+                      Text("나이: "),
+                      Container(
+                        child: Age(),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
 
+              SizedBox(height:ScreenUtil().setHeight(10)),
 
-              Container(
-                //color: Colors.yellow,
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 0, 0, 3),
+                child: Center(
+                  child: Container(
+                    //             color: Colors.blue,
+                    width: ScreenUtil().setWidth(360),
+                    height: ScreenUtil().setHeight(25),
+                    child: Text(
+                      "전화번호",
+                      style: TextStyle(color: Color(0xff000000), fontSize: 16.sp, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
+              ),
+              Center(
+                child: Container(
+                  color: Colors.white,
+                  width: ScreenUtil().setWidth(360),
+                  height: ScreenUtil().setHeight(40),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: '전화번호를 입력해주세요 / 전화번호 인증?',
+                      labelStyle: TextStyle(
+                        fontSize: 14.sp,
+                        color: Color(0xffc4c4c4),
+                      ),
+                    ),
+                    onChanged: (value) {
+                      setState(() {
+                      });
+                    },
+                  ),
+                ),
+              ),
+              SizedBox(height:ScreenUtil().setHeight(10)),
+
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 0, 0, 3),
+                child: Center(
+                  child: Container(
+                    //             color: Colors.blue,
+                    width: ScreenUtil().setWidth(360),
+                    height: ScreenUtil().setHeight(25),
+                    child: Text(
+                      "이메일",
+                      style: TextStyle(color: Color(0xff000000), fontSize: 16.sp, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
+              ),
+              Center(
+                child: Container(
+                  color: Colors.white,
+                  width: ScreenUtil().setWidth(360),
+                  height: ScreenUtil().setHeight(40),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: '이메일을 입력해주세요 / 인증?',
+                      labelStyle: TextStyle(
+                        fontSize: 14.sp,
+                        color: Color(0xffc4c4c4),
+                      ),
+                    ),
+                    onChanged: (value) {
+                      setState(() {
+
+                      });
+                    },
+                  ),
+                ),
+              ),
+              SizedBox(height:ScreenUtil().setHeight(10)),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 0, 0, 3),
+                child: Center(
+                  child: Container(
+                    //             color: Colors.blue,
+                    width: ScreenUtil().setWidth(360),
+                    height: ScreenUtil().setHeight(25),
+                    child: Text(
+                      "지원서 및 자기소개서",
+                      style: TextStyle(color: Color(0xff000000), fontSize: 16.sp, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
+              ),
+              Center(
+                child: Container(
+                  color: Colors.white,
+                  width: ScreenUtil().setWidth(360),
+                  height: ScreenUtil().setHeight(40),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: '지원서 작성하기',
+                      labelStyle: TextStyle(
+                        fontSize: 14.sp,
+                        color: Color(0xffc4c4c4),
+                      ),
+                    ),
+                    onChanged: (value) {
+                      setState(() {
+
+                      });
+                    },
+                  ),
+                ),
+              ),
+
+              Flexible(fit:FlexFit.tight,child: SizedBox()),
+
+              InkWell(
+                  onTap: (){},
+                  splashColor: Colors.grey,
+                  child: Center(
+                    child: Container(
+                      width: 360.sp,
+                      height: 40.sp,
+                      decoration: BoxDecoration(color: Color(0xffe1f3f3),borderRadius: BorderRadius.circular(5),
+                          border: Border.all(color: Colors.grey, width: 1)),
+                      padding: const EdgeInsets.all(8.0),
+                      child:  Center(child: Text("제출하기",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13.sp),)), ),
+                  )
+              ),
+              // 이전 제출하기 버튼
+              /*Container(
+                color: Colors.yellow,
                 width: ScreenUtil().screenWidth,
                 height: ScreenUtil().setHeight(140),
                 child: TextButton(
@@ -201,6 +298,8 @@ class _ListenerAplicationState extends State<ListenerApplication> {
                       }
                   );},),
               ),
+               */
+              SizedBox(height:ScreenUtil().setHeight(10)),
             ],
           )),
     );
