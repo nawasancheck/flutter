@@ -1,9 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/screens/auth/kakao/kakao_login.dart';
+import 'package:flutter_app/screens/auth/kakao/login_view_model.dart';
 import 'package:flutter_app/screens/auth/password_reset.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
@@ -13,12 +17,10 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
-  // 자동 로그인 체크 버튼
-  //
-  bool _isPressed = false;
   String _userEmail = '';
   String _userPassword = '';
   final _auth = FirebaseAuth.instance;
+  final viewModel = KakaoViewModel(KakaoLogin());
 
   Future<UserCredential> signInWithGoogle() async {
     // Trigger the authentication flow
@@ -142,29 +144,9 @@ class _SignInState extends State<SignIn> {
                 height: 40.h,
                 child: Row(
                   children: [
-                    InkWell(
-                      child: _isPressed
-                          ? Icon(
-                              Icons.circle,
-                              color: Color(0xffc4c4c4),
-                            )
-                          : Icon(
-                              Icons.circle_outlined,
-                              color: Color(0xffc4c4c4),
-                            ),
-                      onTap: () {
-                        setState(() {
-                          _isPressed = !_isPressed;
-                        });
-                      },
-                    ),
                     Container(
                       //         color: Colors.red,
                       width: 5.w,
-                    ),
-                    Text(
-                      "자동로그인",
-                      style: TextStyle(fontSize: 12.sp, color: Color(0xff231515)),
                     ),
                     Flexible(
                       fit: FlexFit.tight,
@@ -172,9 +154,12 @@ class _SignInState extends State<SignIn> {
                           //                              color: Colors.red,
                           ),
                     ),
-                    Text(
-                      "개인정보처리방침",
-                      style: TextStyle(fontSize: 12.sp, color: Color(0xff351313)),
+                    TextButton(
+                      child: Text("개인정보처리방침", style: TextStyle(fontSize: 12.sp, color: Color(0xff351313))),
+                      onPressed: () async {
+                        final Uri _url = Uri.parse('https://google.com');
+                        await launchUrl(_url);
+                      },
                     ),
                   ],
                 ),
@@ -221,7 +206,10 @@ class _SignInState extends State<SignIn> {
                     //     color: Colors.brown,
                     child: TextButton(
                       child: Text("이메일 찾기", style: TextStyle(fontSize: 13.sp, color: Color(0xff666666))),
-                      onPressed: () {},
+                      onPressed: () async {
+                        final Uri _url = Uri.parse('https://google.com');
+                        await launchUrl(_url);
+                      },
                     ),
                   ),
                   Container(
@@ -279,8 +267,18 @@ class _SignInState extends State<SignIn> {
                 height: 43.h,
                 child: FlatButton(
                   onPressed: () async {
-                    final loginUser = await signInWithGoogle();
-                    if (loginUser.user != null) Navigator.pushNamed(context, '/home');
+                    UserCredential userCredential = await signInWithGoogle();
+                    var querySnapshot = await FirebaseFirestore.instance.collection("user").doc(userCredential.user?.uid).get();
+                    if (!querySnapshot.exists) {
+                      await FirebaseFirestore.instance.collection('user').doc(userCredential.user!.uid).set({
+                        'userName': userCredential.user!.displayName,
+                        'email': userCredential.user!.email,
+                        'role': 'client',
+                        'userUID': userCredential.user!.uid,
+                        'profile': {'isPressList': [], 'title': userCredential.user!.displayName, 'imageUrl': 'assets/logo.png'},
+                        'wishList': []
+                      });
+                    }
                   },
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                   color: Color(0xffF6F2E9),
@@ -298,13 +296,41 @@ class _SignInState extends State<SignIn> {
                 height: 43.h,
                 child: FlatButton(
                   onPressed: () async {
-                    final loginUser = await signInWithFacebook();
-                    if (loginUser.user != null) Navigator.pushNamed(context, '/home');
+                    await signInWithFacebook();
                   },
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                   color: Color(0xff3B5999),
                   child: Text(
                     "FACEBOOK으로 로그인하기",
+                    style: TextStyle(fontSize: 13.sp, color: Color(0xffffffff), fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
+              child: Container(
+                width: 327.w,
+                height: 43.h,
+                child: FlatButton(
+                  onPressed: () async {
+                    var userCredential = await viewModel.signInWithKakao();
+                    var querySnapshot = await FirebaseFirestore.instance.collection("user").doc(userCredential.user?.uid).get();
+                    if (!querySnapshot.exists) {
+                      await FirebaseFirestore.instance.collection('user').doc(userCredential.user!.uid).set({
+                        'userName': userCredential.user!.displayName,
+                        'email': userCredential.user!.email,
+                        'role': 'client',
+                        'userUID': userCredential.user!.uid,
+                        'profile': {'isPressList': [], 'title': userCredential.user!.displayName, 'imageUrl': 'assets/logo.png'},
+                        'wishList': []
+                      });
+                    }
+                  },
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                  color: Color(0xff3B5999),
+                  child: Text(
+                    "카카오톡으로 로그인하기",
                     style: TextStyle(fontSize: 13.sp, color: Color(0xffffffff), fontWeight: FontWeight.bold),
                   ),
                 ),
