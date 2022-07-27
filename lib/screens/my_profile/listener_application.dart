@@ -1,5 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
@@ -11,12 +12,17 @@ class ListenerApplication extends StatefulWidget {
   const ListenerApplication({Key? key}) : super(key: key);
 
   @override
-  _ListenerAplicationState createState() => _ListenerAplicationState();
+  _ListenerApplicationState createState() => _ListenerApplicationState();
 }
 
-class _ListenerAplicationState extends State<ListenerApplication> {
-
+class _ListenerApplicationState extends State<ListenerApplication> {
+  final currentUser = FirebaseAuth.instance.currentUser!;
   File? imageFile;
+
+  String nickname = '';
+  String phoneNumber = '';
+  String email = '';
+  String content = '';
 
   Future getImage() async {
     ImagePicker _picker = ImagePicker();
@@ -37,14 +43,18 @@ class _ListenerAplicationState extends State<ListenerApplication> {
 
     String imageUrl = await uploadTask.ref.getDownloadURL();
 
-   // _sendImage(imageUrl, 'image');
+    // _sendImage(imageUrl, 'image');
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: Text("리스너 지원 1차", style: TextStyle(color: Color(0xff324755), fontWeight: FontWeight.bold),),
+        title: Text(
+          "리스너 지원 1차",
+          style: TextStyle(color: Color(0xff324755), fontWeight: FontWeight.bold),
+        ),
         backgroundColor: Colors.white,
         iconTheme: IconThemeData(
           color: Color(0xff324755),
@@ -57,7 +67,7 @@ class _ListenerAplicationState extends State<ListenerApplication> {
           height: ScreenUtil().screenHeight,
           child: Column(
             children: [
-              SizedBox(height:ScreenUtil().setHeight(15)),
+              SizedBox(height: ScreenUtil().setHeight(15)),
               Center(
                 child: InkWell(
                   onTap: () => getImage(),
@@ -65,13 +75,20 @@ class _ListenerAplicationState extends State<ListenerApplication> {
                     Container(
                       width: ScreenUtil().setWidth(100),
                       height: ScreenUtil().setHeight(100),
-                      decoration: BoxDecoration(shape: BoxShape.circle,color: Colors.grey[400],),
-                      child: Icon(EvaIcons.personOutline,size: 60.sp,color: Colors.white,),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.grey[400],
+                      ),
+                      child: Icon(
+                        EvaIcons.personOutline,
+                        size: 60.sp,
+                        color: Colors.white,
+                      ),
                     ),
                   ]),
                 ),
               ),
-              SizedBox(height:ScreenUtil().setHeight(10)),
+              SizedBox(height: ScreenUtil().setHeight(10)),
 
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 0, 0, 3),
@@ -102,13 +119,12 @@ class _ListenerAplicationState extends State<ListenerApplication> {
                       ),
                     ),
                     onChanged: (value) {
-                      setState(() {
-                      });
+                      nickname = value.trim();
                     },
                   ),
                 ),
               ),
-              SizedBox(height:ScreenUtil().setHeight(10)),
+              SizedBox(height: ScreenUtil().setHeight(10)),
               Center(
                 child: Container(
                   width: ScreenUtil().setWidth(220),
@@ -118,7 +134,7 @@ class _ListenerAplicationState extends State<ListenerApplication> {
                       Container(
                         child: Gender(),
                       ),
-                      Flexible(fit:FlexFit.tight,child: SizedBox()),
+                      Flexible(fit: FlexFit.tight, child: SizedBox()),
                       Text("나이: "),
                       Container(
                         child: Age(),
@@ -128,7 +144,7 @@ class _ListenerAplicationState extends State<ListenerApplication> {
                 ),
               ),
 
-              SizedBox(height:ScreenUtil().setHeight(10)),
+              SizedBox(height: ScreenUtil().setHeight(10)),
 
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 0, 0, 3),
@@ -159,13 +175,12 @@ class _ListenerAplicationState extends State<ListenerApplication> {
                       ),
                     ),
                     onChanged: (value) {
-                      setState(() {
-                      });
+                      phoneNumber = value.trim();
                     },
                   ),
                 ),
               ),
-              SizedBox(height:ScreenUtil().setHeight(10)),
+              SizedBox(height: ScreenUtil().setHeight(10)),
 
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 0, 0, 3),
@@ -196,14 +211,12 @@ class _ListenerAplicationState extends State<ListenerApplication> {
                       ),
                     ),
                     onChanged: (value) {
-                      setState(() {
-
-                      });
+                      email = value.trim();
                     },
                   ),
                 ),
               ),
-              SizedBox(height:ScreenUtil().setHeight(10)),
+              SizedBox(height: ScreenUtil().setHeight(10)),
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 0, 0, 3),
                 child: Center(
@@ -233,29 +246,42 @@ class _ListenerAplicationState extends State<ListenerApplication> {
                       ),
                     ),
                     onChanged: (value) {
-                      setState(() {
-
-                      });
+                      content = value.trim();
                     },
                   ),
                 ),
               ),
 
-              Flexible(fit:FlexFit.tight,child: SizedBox()),
+              Flexible(fit: FlexFit.tight, child: SizedBox()),
 
               InkWell(
-                  onTap: (){},
+                  onTap: () async {
+                    if (await FirebaseFirestore.instance.collection("support_manager").doc(currentUser.uid).get().then((value) => value.exists)) {
+                      print("이미 지원했습니다.");
+                      Navigator.of(context).pop();
+                    } else {
+                      await FirebaseFirestore.instance
+                          .collection("support_manager")
+                          .doc(currentUser.uid)
+                          .set({'nickname': nickname, 'phoneNumber': phoneNumber, 'email': email, 'content': content});
+                      Navigator.of(context).pop();
+                    }
+                  },
                   splashColor: Colors.grey,
                   child: Center(
                     child: Container(
                       width: 360.sp,
                       height: 40.sp,
-                      decoration: BoxDecoration(color: Color(0xffe1f3f3),borderRadius: BorderRadius.circular(5),
-                          border: Border.all(color: Colors.grey, width: 1)),
+                      decoration: BoxDecoration(
+                          color: Color(0xffe1f3f3), borderRadius: BorderRadius.circular(5), border: Border.all(color: Colors.grey, width: 1)),
                       padding: const EdgeInsets.all(8.0),
-                      child:  Center(child: Text("제출하기",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13.sp),)), ),
-                  )
-              ),
+                      child: Center(
+                          child: Text(
+                        "제출하기",
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13.sp),
+                      )),
+                    ),
+                  )),
               // 이전 제출하기 버튼
               /*Container(
                 color: Colors.yellow,
@@ -299,13 +325,12 @@ class _ListenerAplicationState extends State<ListenerApplication> {
                   );},),
               ),
                */
-              SizedBox(height:ScreenUtil().setHeight(10)),
+              SizedBox(height: ScreenUtil().setHeight(10)),
             ],
           )),
     );
   }
 }
-
 
 class Gender extends StatefulWidget {
   const Gender({Key? key}) : super(key: key);
@@ -332,8 +357,7 @@ class _GenderState extends State<Gender> {
           dropdownValueGender = newValue!;
         });
       },
-      items: <String>['성별', '남자', '여자']
-          .map<DropdownMenuItem<String>>((String value) {
+      items: <String>['성별', '남자', '여자'].map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
           value: value,
           child: Text(value),
@@ -368,8 +392,7 @@ class _AgeState extends State<Age> {
           dropdownValueAge = newValue!;
         });
       },
-      items: <String>['20', '30', '40', '50', '60']
-          .map<DropdownMenuItem<String>>((String value) {
+      items: <String>['20', '30', '40', '50', '60'].map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
           value: value,
           child: Text(value),
