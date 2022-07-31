@@ -10,20 +10,113 @@ import 'package:uuid/uuid.dart';
 class NewMessage extends StatefulWidget {
   final String opponentUID;
   final String opponentName;
+  final int myRole;
 
-  const NewMessage(this.opponentUID, this.opponentName, {Key? key}) : super(key: key);
+  const NewMessage(this.opponentUID, this.opponentName, this.myRole, {Key? key}) : super(key: key);
 
   @override
-  _NewMessageState createState() => _NewMessageState();
+  _NewMessageState createState() => _NewMessageState(myRole);
 }
 
 class _NewMessageState extends State<NewMessage> {
+  final currentUser = FirebaseAuth.instance.currentUser!;
   final _controller = TextEditingController();
   var _userEnterMessage = '';
 
-  void _sendMessage() async {
-    final currentUser = FirebaseAuth.instance.currentUser!;
+  // 첫 메시지에 넘겨준다.
+  final int myRole;
 
+  // 내가 유저
+  void userSend() async {
+    DocumentReference<Map<String, dynamic>> docs1 =
+        await FirebaseFirestore.instance.collection("chat_user").doc(currentUser.uid).collection(widget.opponentUID).add({
+      'text': _userEnterMessage,
+      'fakeText': _userEnterMessage,
+      'time': Timestamp.now().toDate(),
+      'sendUID': currentUser.uid,
+      'receiverUID': widget.opponentUID,
+      'type': 'text'
+    });
+    docs1.update({'id': docs1.id});
+
+    DocumentReference<Map<String, dynamic>> docs2 =
+        await FirebaseFirestore.instance.collection("chat_manager").doc(widget.opponentUID).collection(currentUser.uid).add({
+      'text': _userEnterMessage,
+      'fakeText': _userEnterMessage,
+      'time': Timestamp.now().toDate(),
+      'sendUID': currentUser.uid,
+      'receiverUID': widget.opponentUID,
+      'type': 'text'
+    });
+    docs2.update({'id': docs1.id});
+
+    createUserList();
+  }
+
+  void managerSend() async {
+    DocumentReference<Map<String, dynamic>> docs1 =
+        await FirebaseFirestore.instance.collection("chat_manager").doc(currentUser.uid).collection(widget.opponentUID).add({
+      'text': _userEnterMessage,
+      'fakeText': _userEnterMessage,
+      'time': Timestamp.now().toDate(),
+      'sendUID': currentUser.uid,
+      'receiverUID': widget.opponentUID,
+      'type': 'text'
+    });
+
+    DocumentReference<Map<String, dynamic>> docs2 =
+        await FirebaseFirestore.instance.collection("chat_user").doc(widget.opponentUID).collection(currentUser.uid).add({
+      'text': _userEnterMessage,
+      'fakeText': _userEnterMessage,
+      'time': Timestamp.now().toDate(),
+      'sendUID': currentUser.uid,
+      'receiverUID': widget.opponentUID,
+      'type': 'text'
+    });
+    createManagerList();
+  }
+
+  void createUserList() {
+    FirebaseFirestore.instance.collection("chat_user").doc(currentUser.uid).collection(widget.opponentUID).get().then((docsSnapshot) => {
+          if (docsSnapshot.size == 0)
+            print('size = 0')
+          else
+            {
+              FirebaseFirestore.instance.collection("chat_user").doc(currentUser.uid).collection('chat_user_num').doc(widget.opponentUID).set({
+                'userUID': widget.opponentUID,
+                'userName': widget.opponentName,
+                'time': Timestamp.now().millisecondsSinceEpoch + DateTime.now().timeZoneOffset.inMilliseconds
+              }),
+              FirebaseFirestore.instance.collection("chat_manager").doc(widget.opponentUID).collection('chat_user_num').doc(currentUser.uid).set({
+                'userUID': currentUser.uid,
+                'userName': currentUser.displayName,
+                'time': Timestamp.now().millisecondsSinceEpoch + DateTime.now().timeZoneOffset.inMilliseconds
+              })
+            }
+        });
+  }
+
+  void createManagerList() {
+    FirebaseFirestore.instance.collection("chat_manager").doc(currentUser.uid).collection(widget.opponentUID).get().then((docsSnapshot) => {
+          if (docsSnapshot.size == 0)
+            print('size = 0')
+          else
+            {
+              FirebaseFirestore.instance.collection("chat_manager").doc(currentUser.uid).collection('chat_user_num').doc(widget.opponentUID).set({
+                'userUID': widget.opponentUID,
+                'userName': widget.opponentName,
+                'time': Timestamp.now().millisecondsSinceEpoch + DateTime.now().timeZoneOffset.inMilliseconds
+              }),
+              FirebaseFirestore.instance.collection("chat_user").doc(widget.opponentUID).collection('chat_user_num').doc(currentUser.uid).set({
+                'userUID': currentUser.uid,
+                'userName': currentUser.displayName,
+                'time': Timestamp.now().millisecondsSinceEpoch + DateTime.now().timeZoneOffset.inMilliseconds
+              })
+            }
+        });
+  }
+
+  void _sendMessage() async {
     _controller.clear();
 
     DocumentReference<Map<String, dynamic>> docs1 =
@@ -52,9 +145,7 @@ class _NewMessageState extends State<NewMessage> {
   }
 
   void _sendImage(String text, String type) {
-    final currentUser = FirebaseAuth.instance.currentUser;
-
-    FirebaseFirestore.instance.collection("chat").doc(currentUser!.uid).collection(widget.opponentUID).add({
+    FirebaseFirestore.instance.collection("chat").doc(currentUser.uid).collection(widget.opponentUID).add({
       'text': text,
       'fakeText': '사진',
       'time': Timestamp.now().toDate(),
@@ -100,9 +191,7 @@ class _NewMessageState extends State<NewMessage> {
   }
 
   void createList() {
-    final currentUser = FirebaseAuth.instance.currentUser;
-
-    FirebaseFirestore.instance.collection("chat").doc(currentUser!.uid).collection(widget.opponentUID).get().then((docsSnapshot) => {
+    FirebaseFirestore.instance.collection("chat").doc(currentUser.uid).collection(widget.opponentUID).get().then((docsSnapshot) => {
           if (docsSnapshot.size == 0)
             print('size = 0')
           else
@@ -141,13 +230,21 @@ class _NewMessageState extends State<NewMessage> {
                 // onChanged가 실행되면 값이 value에 들어온다.
                 setState(() {
                   _userEnterMessage = value; // 서로 같을 때, 값이 있을 때 value값을 가져오도록 설계
-                }
-                );
+                });
               }, // 텍스트필드에 값이 입력되면 Send a message가 활성화
             ),
           ), // Form 위젯 필요 없다?
           IconButton(
-            onPressed: _userEnterMessage.trim().isEmpty ? null : _sendMessage,
+            onPressed: () {
+              if (_userEnterMessage.trim().isEmpty) {
+              } else {
+                if (myRole == 1) {
+                  userSend();
+                } else {
+                  managerSend();
+                }
+              }
+            },
             // 좌우의 공백을 제거하고 비어있다면 null로 실행 X, 괄호가 있으면 값 리턴, 없으면 참조만
             icon: Icon(Icons.send),
             color: Colors.blue,
@@ -156,4 +253,6 @@ class _NewMessageState extends State<NewMessage> {
       ),
     );
   }
+
+  _NewMessageState(this.myRole);
 }

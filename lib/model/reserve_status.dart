@@ -1,0 +1,1 @@
+enum ReserveStatus { CANCEL, RESERVE }

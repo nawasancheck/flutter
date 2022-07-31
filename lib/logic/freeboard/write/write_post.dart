@@ -22,11 +22,11 @@ class _WriteScreenState extends State<WritePost> {
       appBar: AppBar(title: Text("작성 스크린")),
       body: Container(
           child: Column(children: [
-            TextField(
-              onChanged: (value) {
-                title = value.trim();
-              },
-            ),
+        TextField(
+          onChanged: (value) {
+            title = value.trim();
+          },
+        ),
         TextField(
           onChanged: (value) {
             content = value.trim();
@@ -34,19 +34,23 @@ class _WriteScreenState extends State<WritePost> {
         ),
         TextButton(
             onPressed: () async {
-
-              await FirebaseFirestore.instance.collection('board_test').add({
-                'title': title,
-                'content': content,
-                'userName': _auth.currentUser!.displayName,
-                'time': Timestamp.now().toDate(),
-                'isPressedList': FieldValue.arrayUnion([]),
-                'comments': 0
-              });
-              Navigator.pop(context);
+              await writePost(context);
             },
             child: Text("작성"))
       ])),
     );
+  }
+
+  Future<void> writePost(BuildContext context) async {
+    var documentReference = await FirebaseFirestore.instance.collection('board_test').add({
+      'title': title,
+      'content': content,
+      'userName': _auth.currentUser!.displayName,
+      'time': Timestamp.now().toDate(),
+      'isPressedList': FieldValue.arrayUnion([]),
+      'comments': 0,
+    });
+    documentReference.update({'id': documentReference.id});
+    Navigator.pop(context);
   }
 }
