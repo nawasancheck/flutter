@@ -2,9 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/screens/chatting/in_chat_screen.dart';
+import 'package:flutter_app/screens/chatting/in_chat_screen_user.dart';
 import 'package:flutter_app/screens/reservation/reservation_detail.dart';
+import 'package:flutter_app/screens/reservation/reserve_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class ManagerDetailPage extends StatelessWidget {
   final String opponentUID;
@@ -54,11 +56,12 @@ class ManagerDetailPage extends StatelessWidget {
                                   docs['profile']['imageUrl'],
                                   fit: BoxFit.cover,
                                 ),
-                                shaderCallback: (Rect bounds){
-                                  return LinearGradient(colors: [Colors.white, Colors.transparent],
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter,
-                                  stops: [0.7,1]).createShader(bounds);
+                                shaderCallback: (Rect bounds) {
+                                  return LinearGradient(
+                                      colors: [Colors.white, Colors.transparent],
+                                      begin: Alignment.topCenter,
+                                      end: Alignment.bottomCenter,
+                                      stops: [0.7, 1]).createShader(bounds);
                                 },
                               )),
                           Padding(
@@ -100,7 +103,9 @@ class ManagerDetailPage extends StatelessWidget {
                                       ),
                                     ),
                                     TextButton(
-                                      onPressed: () {Navigator.pop(context,'pop');},
+                                      onPressed: () {
+                                        Navigator.pop(context, 'pop');
+                                      },
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment.start,
                                         children: [
@@ -311,7 +316,7 @@ class ManagerDetailPage extends StatelessWidget {
                             child: InkWell(
                               onTap: () {
                                 Navigator.of(context, rootNavigator: true)
-                                    .push(MaterialPageRoute(builder: (context) => ChatScreen(opponentUID, docs['profile']['title'])));
+                                    .push(MaterialPageRoute(builder: (context) => ChatScreenUser(opponentUID, docs['profile']['title'], 1)));
                               },
                               child: Container(
                                 height: 76.h,
@@ -334,7 +339,8 @@ class ManagerDetailPage extends StatelessWidget {
                             child: InkWell(
                               onTap: () {
                                 Navigator.of(context, rootNavigator: true).push
-                                  (MaterialPageRoute(builder: (_) => ReservationDetail()));
+                                    // (MaterialPageRoute(builder: (_) => ReservationDetail()));
+                                    (MaterialPageRoute(builder: (_) => ReserveScreen(opponentUID)));
                               },
                               child: Container(
                                   height: 76.h,
@@ -356,25 +362,25 @@ class ManagerDetailPage extends StatelessWidget {
                               onTap: () {
                                 isPressed
                                     ? FirebaseFirestore.instance.collection('user').doc(docs['userUID']).update({
-                                  'profile.heart': docs['profile']['heart'] - 1,
-                                  'profile.isPressedList': FieldValue.arrayRemove([_user!.uid])
-                                })
+                                        'profile.heart': docs['profile']['heart'] - 1,
+                                        'profile.isPressedList': FieldValue.arrayRemove([_user!.uid])
+                                      })
                                     : FirebaseFirestore.instance.collection('user').doc(docs['userUID']).update({
-                                  'profile.heart': docs['profile']['heart'] + 1,
-                                  'profile.isPressedList': FieldValue.arrayUnion([_user!.uid])
-                                });
+                                        'profile.heart': docs['profile']['heart'] + 1,
+                                        'profile.isPressedList': FieldValue.arrayUnion([_user!.uid])
+                                      });
 
                                 isPressed
-                                    ? FirebaseFirestore.instance
-                                    .collection('user')
-                                    .doc(_user!.uid)
-                                    // .update({'wishList.${docs['userUID']}': FieldValue.delete()})
-                                    .update({'wishList': FieldValue.arrayRemove([docs['userUID']])})
-                                    : FirebaseFirestore.instance
-                                    .collection('user')
-                                    .doc(_user!.uid)
-                                    // .update({'wishList.${docs['userUID']}': docs['userName']});
-                                    .update({'wishList': FieldValue.arrayUnion([docs['userUID']])});
+                                    ? FirebaseFirestore.instance.collection('user').doc(_user!.uid)
+                                        // .update({'wishList.${docs['userUID']}': FieldValue.delete()})
+                                        .update({
+                                        'wishList': FieldValue.arrayRemove([docs['userUID']])
+                                      })
+                                    : FirebaseFirestore.instance.collection('user').doc(_user!.uid)
+                                        // .update({'wishList.${docs['userUID']}': docs['userName']});
+                                        .update({
+                                        'wishList': FieldValue.arrayUnion([docs['userUID']])
+                                      });
                               },
                               child: Container(
                                 height: 76.h,
@@ -385,12 +391,12 @@ class ManagerDetailPage extends StatelessWidget {
                                   border: Border.all(color: Colors.blue.shade300, style: BorderStyle.solid, width: 2.sp),
                                 ),
                                 child: isPressed
-                                ? Icon(
-                                  EvaIcons.heart,
-                                  color: Colors.red[500],
-                                  size: 27.sp,
-                                )
-                                : Icon(EvaIcons.heartOutline, color: Color(0xff878787), size: 27.sp),
+                                    ? Icon(
+                                        EvaIcons.heart,
+                                        color: Colors.red[500],
+                                        size: 27.sp,
+                                      )
+                                    : Icon(EvaIcons.heartOutline, color: Color(0xff878787), size: 27.sp),
                               ),
                             ),
                           ),
