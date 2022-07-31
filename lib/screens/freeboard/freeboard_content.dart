@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -15,6 +16,8 @@ class FreeBoardContent extends StatefulWidget {
 }
 
 class FreeBoardContentState extends State<FreeBoardContent> {
+  final _currentUser = FirebaseAuth.instance.currentUser;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,18 +49,23 @@ class FreeBoardContentState extends State<FreeBoardContent> {
         ),
         body: Container(
           color: Color(0xffececec),
-          child: Column( // (글내용, 댓글) + 댓글입력
+          child: Column(
+            // (글내용, 댓글) + 댓글입력
             children: [
-              Flexible( // (글내용, 댓글) flexible
+              Flexible(
+                  // (글내용, 댓글) flexible
                   fit: FlexFit.loose,
-                  child: FutureBuilder(
-                    future: FirebaseFirestore.instance.collection('board_test').doc(widget.boardNum).get(),
+                  child: StreamBuilder(
+                    stream: FirebaseFirestore.instance.collection('board_test').doc(widget.boardNum).snapshots(),
                     builder: (context, AsyncSnapshot<DocumentSnapshot<Map<String, dynamic>>> snapshot) {
                       if (!snapshot.hasData) {
                         return Center(child: CircularProgressIndicator());
                       }
 
                       var docs = snapshot.data!;
+
+                      List isPressedList = docs['isPressedList'];
+                      bool isPressed = isPressedList.contains('${_currentUser!.uid}');
 
                       var time = docs['time'].toDate();
                       var ampm = '';
@@ -71,21 +79,24 @@ class FreeBoardContentState extends State<FreeBoardContent> {
 
                       writeTime = '${time.year}년 ${time.month}월 ${time.day}일 $ampm ${time.hour}:${time.minute}';
 
-                      return ListView( // 글내용 + 댓글
+                      return ListView(
+                        // 글내용 + 댓글
                         children: [
-                          Container( // 작성자 프로필 부분
+                          Container(
+                            // 작성자 프로필 부분
                             color: Color(0xffe1f3f3),
                             //         color: Colors.green,
                             width: ScreenUtil().screenWidth,
                             height: ScreenUtil().setHeight(80),
                             child: Center(
                               child: Container(
-                                  //           color: Colors.blue,
+                                //           color: Colors.blue,
                                 width: ScreenUtil().setWidth(360),
                                 height: ScreenUtil().setHeight(80),
                                 child: Row(
                                   children: [
-                                    Container( // 익명 사진
+                                    Container(
+                                      // 익명 사진
                                       width: ScreenUtil().setWidth(50),
                                       height: ScreenUtil().setHeight(50),
                                       decoration: BoxDecoration(color: Colors.grey[350], borderRadius: BorderRadius.circular(10)),
@@ -96,10 +107,13 @@ class FreeBoardContentState extends State<FreeBoardContent> {
                               ),
                             ),
                           ),
-                          SizedBox(height: ScreenUtil().setHeight(5),),
+                          SizedBox(
+                            height: ScreenUtil().setHeight(5),
+                          ),
                           Center(
-                            child: Container( // 글 제목,
-                                  //       color: Colors.green,
+                            child: Container(
+                              // 글 제목,
+                              //       color: Colors.green,
                               width: ScreenUtil().setWidth(360),
                               //height: ScreenUtil().setHeight(50),
                               child: Text(
@@ -108,20 +122,17 @@ class FreeBoardContentState extends State<FreeBoardContent> {
                               ),
                             ),
                           ),
-                          SizedBox(height: ScreenUtil().setHeight(10),),
-                          Flexible(
-                            fit: FlexFit.loose,
-                            child: Center(
-                              child: Container( // 글 내용
-                                     //     color: Colors.red,
-                                width: ScreenUtil().setWidth(360),
-                                //height: ScreenUtil().setHeight(100),
-                                child: Text(
-                                  '${docs['content']}',
-                                  style: TextStyle(
-                                    color: Color(0xff8e8594),
-                                    fontSize: 18.sp,
-                                  ),
+                          SizedBox(
+                            height: ScreenUtil().setHeight(10),
+                          ),
+                          Center(
+                            child: Container(
+                              width: ScreenUtil().setWidth(360),
+                              child: Text(
+                                '${docs['content']}',
+                                style: TextStyle(
+                                  color: Color(0xff8e8594),
+                                  fontSize: 18.sp,
                                 ),
                               ),
                             ),
@@ -146,17 +157,34 @@ class FreeBoardContentState extends State<FreeBoardContent> {
 
                               return Column(
                                 children: [
-                                  SizedBox(height: ScreenUtil().setHeight(5),),
+                                  SizedBox(
+                                    height: ScreenUtil().setHeight(5),
+                                  ),
                                   Container(
                                     //color: Color(0xffe1f3f3),
                                     width: ScreenUtil().setWidth(360),
                                     height: ScreenUtil().setHeight(30),
                                     child: Row(
                                       children: [
-                                        Icon(
-                                          EvaIcons.heartOutline,
-                                          color: Colors.redAccent,
-                                        ),
+                                        InkWell(
+                                            child: isPressed
+                                                ? Icon(
+                                                    EvaIcons.heart,
+                                                    color: Colors.redAccent,
+                                                  )
+                                                : Icon(
+                                                    EvaIcons.heartOutline,
+                                                    color: Colors.redAccent,
+                                                  ),
+                                            onTap: () {
+                                              isPressed
+                                                  ? FirebaseFirestore.instance.collection('board_test').doc(widget.boardNum).update({
+                                                      'isPressedList': FieldValue.arrayRemove([_currentUser!.uid.trim()])
+                                                    })
+                                                  : FirebaseFirestore.instance.collection('board_test').doc(widget.boardNum).update({
+                                                      'isPressedList': FieldValue.arrayUnion([_currentUser!.uid.trim()])
+                                                    });
+                                            }),
                                         Text(
                                           " ${docs['isPressedList'].length}  ",
                                           style: TextStyle(
@@ -178,8 +206,11 @@ class FreeBoardContentState extends State<FreeBoardContent> {
                                       ],
                                     ),
                                   ),
-                                  SizedBox(height: ScreenUtil().setHeight(10),),
-                                  ListView.builder( // 댓글 부분
+                                  SizedBox(
+                                    height: ScreenUtil().setHeight(10),
+                                  ),
+                                  ListView.builder(
+                                    // 댓글 부분
                                     shrinkWrap: true,
                                     itemCount: docs2.length,
                                     itemBuilder: (context, index) {
@@ -196,64 +227,64 @@ class FreeBoardContentState extends State<FreeBoardContent> {
                                       writeTime = ' ${time.month}/${time.day} ${time.hour}:${time.minute}';
 
                                       return Center(
-                                        child: Flexible(
-                                          fit: FlexFit.loose,
-                                          child: Container(
-                                             //       color: Colors.purple,
-                                            width: ScreenUtil().setWidth(360),
-                                           // height: ScreenUtil().setHeight(120),
-                                            child: Column(
-                                              children: [
-                                                Row(
-                                                  children: [
-                                                    Container(
-                                                      width: ScreenUtil().setWidth(30),
-                                                      height: ScreenUtil().setHeight(30),
-                                                      decoration: BoxDecoration(color: Colors.grey[350], borderRadius: BorderRadius.circular(10)),
-                                                    ),
-                                                    Text("   ${docs2[index]['userName']}"),
-                                                    Flexible(fit: FlexFit.tight, child: Container()),
-                                                    Container(
-                                                      decoration: BoxDecoration(//color: Color(0xffe1f3f3),
-                                                         borderRadius: BorderRadius.circular(3)),
-                                                      child: Row(
-                                                        children: [
-                                                          Icon(
-                                                            EvaIcons.heartOutline,
+                                        child: Container(
+                                          //       color: Colors.purple,
+                                          width: ScreenUtil().setWidth(360),
+                                          // height: ScreenUtil().setHeight(120),
+                                          child: Column(
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  Container(
+                                                    width: ScreenUtil().setWidth(30),
+                                                    height: ScreenUtil().setHeight(30),
+                                                    decoration: BoxDecoration(color: Colors.grey[350], borderRadius: BorderRadius.circular(10)),
+                                                  ),
+                                                  Text("   ${docs2[index]['userName']}"),
+                                                  Flexible(fit: FlexFit.tight, child: Container()),
+                                                  Container(
+                                                    decoration: BoxDecoration(
+                                                        //color: Color(0xffe1f3f3),
+                                                        borderRadius: BorderRadius.circular(3)),
+                                                    child: Row(
+                                                      children: [
+                                                        Icon(
+                                                          EvaIcons.heartOutline,
+                                                          color: Colors.grey,
+                                                        ),
+                                                        Text(
+                                                          "  |  ",
+                                                          style: TextStyle(
                                                             color: Colors.grey,
                                                           ),
-                                                          Text(
-                                                            "  |  ",
-                                                            style: TextStyle(
-                                                              color: Colors.grey,
-                                                            ),
-                                                          ),
-                                                          Icon(
-                                                            EvaIcons.moreVertical,
-                                                            color: Colors.grey,
-                                                          )
-                                                        ],
-                                                      ),
+                                                        ),
+                                                        Icon(
+                                                          EvaIcons.moreVertical,
+                                                          color: Colors.grey,
+                                                        )
+                                                      ],
                                                     ),
-                                                  ],
-                                                ),
-                                                SizedBox(height: ScreenUtil().setHeight(5),),
-                                                Row(
-                                                  children: [
-                                                    Text(" ${docs2[index]['text']}"),
-                                                  ],
-                                                ),
-                                                Row(
-                                                  children: [
-                                                    Text("$writeTime"),
-                                                  ],
-                                                ),
-                                                Divider(
-                                                  //indent: 20, endIndent: 20,
-                                                  thickness: 2,
-                                                )
-                                              ],
-                                            ),
+                                                  ),
+                                                ],
+                                              ),
+                                              SizedBox(
+                                                height: ScreenUtil().setHeight(5),
+                                              ),
+                                              Row(
+                                                children: [
+                                                  Text(" ${docs2[index]['text']}"),
+                                                ],
+                                              ),
+                                              Row(
+                                                children: [
+                                                  Text("$writeTime"),
+                                                ],
+                                              ),
+                                              Divider(
+                                                //indent: 20, endIndent: 20,
+                                                thickness: 2,
+                                              )
+                                            ],
                                           ),
                                         ),
                                       );
@@ -267,22 +298,21 @@ class FreeBoardContentState extends State<FreeBoardContent> {
                       );
                     },
                   )),
-              Container( // 댓글달기 컨테이너
-                  height: ScreenUtil().setHeight(50),
-                  width: ScreenUtil().setWidth(370),
+              Container(
+                // 댓글달기 컨테이너
+                height: ScreenUtil().setHeight(50),
+                width: ScreenUtil().setWidth(370),
                 decoration: BoxDecoration(
                     color: Color(0xffe1f3f3),
-                  borderRadius: BorderRadius.circular(15),
-                  border: Border.all(color:Colors.grey,
-                  style: BorderStyle.solid,
-                  width: 1)
-                ),
-                child: Center(child: WriteComment(widget.boardNum)),),
-
-              SizedBox(height: ScreenUtil().setHeight(10),)
+                    borderRadius: BorderRadius.circular(15),
+                    border: Border.all(color: Colors.grey, style: BorderStyle.solid, width: 1)),
+                child: Center(child: WriteComment(widget.boardNum)),
+              ),
+              SizedBox(
+                height: ScreenUtil().setHeight(10),
+              )
             ],
           ),
-        )
-    );
+        ));
   }
 }
