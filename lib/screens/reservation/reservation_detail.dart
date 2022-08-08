@@ -20,6 +20,7 @@ class _ScheduleState extends State<ReservationDetail> {
   // bool _isCheckedTime60 = false;
   // bool _isCheckedTime90 = false;
 
+  
   String? checkListValue1;
 
   String? requests;

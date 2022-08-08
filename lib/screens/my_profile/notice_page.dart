@@ -14,6 +14,7 @@ class NoticePage extends StatefulWidget {
   State<NoticePage> createState() => _NoticePageState();
 }
 
+
 class _NoticePageState extends State<NoticePage> {
   bool isVisible1 = false;
   bool isVisible2 = false;
