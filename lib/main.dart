@@ -74,7 +74,11 @@ class _HomePageState extends State<HomePage> {
           BottomNavigationBarItem(icon: Icon(EvaIcons.clipboardOutline), label: "게시판"),
           BottomNavigationBarItem(icon: Icon(EvaIcons.messageSquareOutline), label: "메세지"),
           BottomNavigationBarItem(icon: Icon(EvaIcons.clockOutline), label: "나의예약"),
+<<<<<<< HEAD
+          BottomNavigationBarItem(icon: Icon(EvaIcons.moreHorizontalOutline), label: "더보기"),
+=======
           BottomNavigationBarItem(icon: Icon(EvaIcons.personOutline), label: "내프로필"),
+>>>>>>> 487eb9a94cb2d756cdf6b2b96bcf3cb353ff8c56
         ],
       ),
       tabBuilder: (context, index) {
