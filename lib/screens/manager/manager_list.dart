@@ -11,9 +11,7 @@ import 'package:flutter_app/screens/manager/search_manager.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-
 import '../tem_searchpage/searchtest1.dart';
-
 
 class ListPage extends StatefulWidget {
   const ListPage({Key? key}) : super(key: key);
@@ -23,7 +21,6 @@ class ListPage extends StatefulWidget {
 }
 
 class _ListPageState extends State<ListPage> {
-
   String dropDownValue = '통합채널';
   final _user = FirebaseAuth.instance.currentUser;
 
@@ -76,7 +73,8 @@ class _ListPageState extends State<ListPage> {
                     items: items.map((String items) {
                       return DropdownMenuItem(
                           value: items,
-                          child: Text(items,
+                          child: Text(
+                            items,
                             style: TextStyle(
                                 fontSize: 20.sp,
                                 fontWeight: FontWeight.bold,
@@ -102,7 +100,6 @@ class _ListPageState extends State<ListPage> {
                     MaterialPageRoute(builder: (context) => SearchPage()));
               },
             ),
-
             SearchManager(),
             IconButton(
               icon: Icon(
@@ -121,10 +118,13 @@ class _ListPageState extends State<ListPage> {
             height: ScreenUtil().screenHeight,
             color: Color(0xffececec),
             child: StreamBuilder(
-
-                stream: FirebaseFirestore.instance.collection('user').where('role', isEqualTo: 'manager').snapshots(),
-                builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
-
+                stream: FirebaseFirestore.instance
+                    .collection('user')
+                    .where('role', isEqualTo: 'manager')
+                    .snapshots(),
+                builder: (context,
+                    AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
+                        snapshot) {
                   if (!snapshot.hasData) {
                     return CircularProgressIndicator();
                   }
@@ -138,10 +138,10 @@ class _ListPageState extends State<ListPage> {
                       shrinkWrap: true,
                       itemCount: docs.length,
                       itemBuilder: (context, index) {
-
-                        List isPressedList = docs[index]['profile']['isPressedList'];
-                        bool isPressed = isPressedList.contains('${_user!.uid}');
-
+                        List isPressedList =
+                            docs[index]['profile']['isPressedList'];
+                        bool isPressed =
+                            isPressedList.contains('${_user!.uid}');
 
                         return Container(
                           height: ScreenUtil().setHeight(162),
@@ -153,6 +153,7 @@ class _ListPageState extends State<ListPage> {
                                   MaterialPageRoute(
                                       builder: (_) => ManagerDetailPage(
                                           docs[index]['userUID'])));
+
                               // 스낵바 테스트
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
@@ -173,12 +174,17 @@ class _ListPageState extends State<ListPage> {
                                     height: ScreenUtil().setHeight(126),
                                     width: ScreenUtil().setWidth(132),
                                     decoration: ShapeDecoration(
-
-                                        image: DecorationImage(image: AssetImage(docs[index]['profile']['imageUrl']), fit: BoxFit.cover),
-                                        shape: RoundedRectangleBorder(borderRadius: BorderRadiusDirectional.circular(15))),
+                                        image: DecorationImage(
+                                            image: AssetImage(docs[index]
+                                                ['profile']['imageUrl']),
+                                            fit: BoxFit.cover),
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadiusDirectional
+                                                    .circular(15))),
                                   ),
                                   Container(
-                                    //color: Colors.yellow,
+                                    // color: Colors.yellow,
                                     width: ScreenUtil().setWidth(10),
                                     height: ScreenUtil().setHeight(126),
                                   ),
@@ -318,6 +324,31 @@ class _ListPageState extends State<ListPage> {
                                                     },
                                                   ),
                                                 ),
+                                                /*Container(
+                                                  color: Colors.green,
+                                                  width: ScreenUtil().setWidth(43),
+                                                  child: Row(
+                                                    mainAxisAlignment: MainAxisAlignment.end,
+                                                    children: [
+                                                      Container(
+                                                        child: Row(
+                                                          mainAxisAlignment: MainAxisAlignment.end,
+                                                          children: [
+                                                            Icon(
+                                                              Icons.star,
+                                                              color: Colors.yellow,
+                                                              size: 15.sp,
+                                                            ),
+                                                            Text(
+                                                              docs[index]['profile']['star'].toStringAsFixed(1),
+                                                              style: TextStyle(fontSize: 15.sp, color: Color(0xff8e8594)),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),*/
                                               ],
                                             ),
                                           ),
@@ -371,6 +402,26 @@ class _ListPageState extends State<ListPage> {
                                                             Color(0xff737373))),
                                             ],
                                           ),
+                                          // 자기소개
+                                          //
+                                          /*Padding(
+                                            padding: const EdgeInsets.only(bottom: 0),
+                                            child: Row(
+                                              children: [
+                                                Text(" " + " ${docs[index]['profile']['description'].substring(0, 10)}...",
+                                                    style: TextStyle(fontSize: 13.sp, color: Color(0xff878787))),
+                                              ],
+                                            ),
+                                          ),*/
+                                          /* Container(
+                                            //color: Colors.yellow,
+                                            height: ScreenUtil().setHeight(25.h),
+                                            child: Row(
+                                              children: [
+                                                //Text("  60분 ${docs[index]['profile']['price2']} P",
+                                                //    style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold)
+                                            ),
+                                          ),*/
                                         ],
                                       ),
                                     ),
