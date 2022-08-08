@@ -35,11 +35,12 @@ dependencies:
   syncfusion_flutter_calendar: ^19.4.52
   firebase_core: ^1.11.0
   firebase_auth: ^3.3.5
+  firebase_messaging: ^12.0.1
   firebase_storage: ^10.2.7
   cloud_firestore: ^3.1.6
   image_picker: ^0.8.5+3
   google_sign_in: ^5.2.3
-  flutter_facebook_auth: ^4.0.1
+  flutter_facebook_auth: ^4.4.0+1
   geolocator: ^8.2.0
   uuid: ^3.0.6
   intl: ^0.17.0
