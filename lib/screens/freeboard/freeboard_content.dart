@@ -38,15 +38,6 @@ class FreeBoardContentState extends State<FreeBoardContent> {
             centerTitle: true,
             backgroundColor: Color(0xffffffff),
             actions: [
-              /*IconButton(
-                icon: Icon(
-                  EvaIcons.moreVertical,
-                  color: Color(0xff324755),
-                  size: 20.16.sp,
-                ),
-                onPressed: () {},
-              ),*/
-
               PopupMenuButton(
                 itemBuilder: (context) {
                   return [
