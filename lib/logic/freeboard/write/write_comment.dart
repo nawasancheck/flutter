@@ -44,17 +44,29 @@ class _WriteCommentState extends State<WriteComment> {
       child: Row(
         children: [
           Container(
-            width: ScreenUtil().setWidth(325),
+            width: ScreenUtil().setWidth(360),
             child: TextField(
               maxLines: null,
               controller: _commentController,
-              decoration: InputDecoration(labelText: 'Send a message...'),
+              decoration: InputDecoration(
+                  labelText: '댓글 쓰기',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                  ),
+                  suffixIcon: IconButton(
+                    onPressed: _userEnterMessage.trim().isEmpty ? null : _writeComment,
+                    icon: Icon(
+                      Icons.send,
+                      color: Color(0xffBF6F6F),
+                    ),
+                  )),
               onChanged: (value) {
                 // onChanged가 실행되면 값이 value에 들어온다.
                 setState(() {
                   _userEnterMessage = value; // 서로 같을 때, 값이 있을 때 value값을 가져오도록 설계
                 });
-              }, // 텍스트필드에 값이 입력되면 Send a message가 활성화
+              },
+              // 텍스트필드에 값이 입력되면 Send a message가 활성화
             ),
           ), //
           GestureDetector(
