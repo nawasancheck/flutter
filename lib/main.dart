@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/screens/auth/sign_In.dart';
 import 'package:flutter_app/screens/chatting/chat_list.dart';
 import 'package:flutter_app/screens/freeboard/freeboard.dart';
+import 'package:flutter_app/screens/homepage.dart';
 import 'package:flutter_app/screens/reservation/my_reservation.dart';
 import 'package:flutter_app/screens/my_profile/profile.dart';
 import 'package:flutter_app/screens/manager/manager_list.dart';
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
+      // default size 392.7, 781.1
         designSize: Size(392.7, 781.1),
         minTextAdapt: true,
         builder: () => MaterialApp(
@@ -55,59 +57,4 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class HomePage extends StatefulWidget {
-  @override
-  _HomePageState createState() => _HomePageState();
-}
 
-class _HomePageState extends State<HomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return CupertinoTabScaffold(
-      // CupertinoTapScaffold : ios 디자인
-      tabBar: CupertinoTabBar(
-        // BottomNavigationBar
-        activeColor: Color(0xff93e3e6),
-        inactiveColor: Color(0xff909090),
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: "홈"),
-          BottomNavigationBarItem(icon: Icon(EvaIcons.clipboardOutline), label: "게시판"),
-          BottomNavigationBarItem(icon: Icon(EvaIcons.messageSquareOutline), label: "메세지"),
-          BottomNavigationBarItem(icon: Icon(EvaIcons.clockOutline), label: "나의예약"),
-          BottomNavigationBarItem(icon: Icon(EvaIcons.personOutline), label: "내프로필"),
-        ],
-      ),
-      tabBuilder: (context, index) {
-        switch (index) {
-          case 0:
-            return CupertinoTabView(builder: (context) {
-              return CupertinoPageScaffold(child: ListPage());
-            });
-            break;
-          case 1:
-            return CupertinoTabView(builder: (context) {
-              return CupertinoPageScaffold(child: FreeBoard());
-            });
-            break;
-          case 2:
-            return CupertinoTabView(builder: (context) {
-              return CupertinoPageScaffold(child: ChatList());
-            });
-            break;
-          case 3:
-            return CupertinoTabView(builder: (context) {
-              return CupertinoPageScaffold(child: MyReservation());
-            });
-            break;
-          case 4:
-            return CupertinoTabView(builder: (context) {
-              return CupertinoPageScaffold(child: Profile());
-            });
-            break;
-          default:
-            return const CupertinoTabView();
-        }
-      },
-    );
-  }
-}

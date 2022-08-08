@@ -1,7 +1,6 @@
 {
   "project_info": {
     "project_number": "656540067394",
-    "firebase_url": "https://nawasancheck-default-rtdb.firebaseio.com",
     "project_id": "nawasancheck",
     "storage_bucket": "nawasancheck.appspot.com"
   },
@@ -14,14 +13,6 @@
         }
       },
       "oauth_client": [
-        {
-          "client_id": "656540067394-i8cl5f9russ2eu7pm1ssa4va5ef6n877.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.flutter_app",
-            "certificate_hash": "4a71e4cb8cd2bc8741e0c1c0e7913cc11a8713c1"
-          }
-        },
         {
           "client_id": "656540067394-n4ojtu6nrinvobgm6hhjeb7f1v13vfbt.apps.googleusercontent.com",
           "client_type": 1,

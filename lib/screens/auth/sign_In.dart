@@ -68,12 +68,17 @@ class _SignInState extends State<SignIn> {
 
         child: Column(
           children: [
+           //
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 50, 0, 30),
               child: Center(
                 child: Text("나와산책", style: TextStyle(color: Color(0xff000000), fontSize: 32.sp, fontWeight: FontWeight.bold)),
               ),
             ),
+
+            // 아이디 비밀번호 입력 로그인
+            //
+            /*
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 0, 0, 3),
               child: Container(
@@ -231,6 +236,9 @@ class _SignInState extends State<SignIn> {
                 ],
               ),
             ),
+            //
+            */
+
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 20, 0, 3),
               child: Container(
@@ -328,7 +336,7 @@ class _SignInState extends State<SignIn> {
                     }
                   },
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                  color: Color(0xff3B5999),
+                  color: Color(0xffF2D230),
                   child: Text(
                     "카카오톡으로 로그인하기",
                     style: TextStyle(fontSize: 13.sp, color: Color(0xffffffff), fontWeight: FontWeight.bold),
@@ -336,7 +344,17 @@ class _SignInState extends State<SignIn> {
                 ),
               ),
             ),
-            Padding(
+            TextButton(
+              child: Text("개인정보처리방침", style: TextStyle(fontSize: 12.sp, color: Color(0xff351313))),
+              onPressed: () async {
+                final Uri _url = Uri.parse('https://google.com');
+                await launchUrl(_url);
+              },
+            ),
+           
+            // 처음 시작시 회원가입 하는 버튼
+            //
+            /* Padding(
               padding: const EdgeInsets.fromLTRB(15, 0, 15, 3),
               child: Container(
                 //       color: Colors.orange,
@@ -364,7 +382,7 @@ class _SignInState extends State<SignIn> {
                   ],
                 ),
               ),
-            ),
+            ),*/
           ],
         ),
       ),

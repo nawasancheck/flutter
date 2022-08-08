@@ -12,7 +12,7 @@ class FreeBoard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _user = FirebaseAuth.instance.currentUser;
-    final List<int> numbers = <int>[1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    // final List<int> numbers = <int>[1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
     return Scaffold(
       appBar: AppBar(
@@ -29,11 +29,12 @@ class FreeBoard extends StatelessWidget {
         actions: [
           IconButton(
             icon: Icon(
-              Icons.add,//EvaIcons.plus,
+              Icons.add, //EvaIcons.plus,
               color: Colors.black,
             ),
             onPressed: () {
-              Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => WritePost()));
+              Navigator.of(context, rootNavigator: true)
+                  .push(MaterialPageRoute(builder: (_) => WritePost()));
             },
           )
         ],
@@ -43,14 +44,19 @@ class FreeBoard extends StatelessWidget {
           Flexible(
             fit: FlexFit.tight,
             child: Container(
+              // body 전체 컨테이너 = 배경 색
               width: ScreenUtil().screenWidth,
               height: ScreenUtil().setHeight(110),
               color: Color(0xffececec),
               child: FutureBuilder(
-                future: FirebaseFirestore.instance.collection('board_test').orderBy('time', descending: true).get(),
-                builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
-
-                  if(!snapshot.hasData) {
+                future: FirebaseFirestore.instance
+                    .collection('board_test')
+                    .orderBy('time', descending: true)
+                    .get(),
+                builder: (context,
+                    AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
+                        snapshot) {
+                  if (!snapshot.hasData) {
                     return CircularProgressIndicator();
                   }
 
@@ -75,7 +81,9 @@ class FreeBoard extends StatelessWidget {
                         ampm = '오후';
                       }
 
-                      if (time.year == DateTime.now().year && time.month == DateTime.now().month && time.day == DateTime.now().day) {
+                      if (time.year == DateTime.now().year &&
+                          time.month == DateTime.now().month &&
+                          time.day == DateTime.now().day) {
                         if (time.hour <= 12) {
                           writeTime = '$ampm ${time.hour}:${time.minute}';
                         } else {
@@ -89,11 +97,15 @@ class FreeBoard extends StatelessWidget {
                       return Padding(
                         padding: const EdgeInsets.fromLTRB(3, 3, 3, 5),
                         child: Container(
+                          // 게시판 리스트 한개
                           height: ScreenUtil().setHeight(100),
                           width: ScreenUtil().screenWidth,
                           decoration: BoxDecoration(
                             color: Colors.white,
-                            border: Border.all(color: Colors.grey, style: BorderStyle.solid, width: 2),
+                            border: Border.all(
+                                color: Color(0xffe2e6e7),
+                                style: BorderStyle.solid,
+                                width: 2),
                             borderRadius: BorderRadius.circular(10),
                             //color: Colors.redAccent,
                           ),
@@ -101,41 +113,53 @@ class FreeBoard extends StatelessWidget {
                             onTap: () {
                               // 바텀네비게이션 없애기
                               //
-                              Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => FreeBoardContent(docs[index].id)));
+                              Navigator.of(context, rootNavigator: true).push(
+                                  MaterialPageRoute(
+                                      builder: (_) =>
+                                          FreeBoardContent(docs[index].id)));
                             },
                             child: Center(
-                              child: Container( // 리스트 안 내용 크기 컨테이너
+                              child: Container(
+                                // 게시판 리스트 안 내용 크기 컨테이너
                                 height: ScreenUtil().setHeight(70.5),
                                 width: ScreenUtil().setWidth(360),
                                 //color: Colors. green,
                                 child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Row(
                                       children: [
-                                        if(docs[index]['title'].length<25) // 제목 글자 수 제한 25자
+                                        if (docs[index]['title'].length <
+                                            25) // 제목 글자 수 제한 25자
+                                          Text(docs[index]['title']),
+                                        if (docs[index]['title'].length >=
+                                            25) // 제목 글자 수 제한 25자
                                           Text(
-                                              docs[index]['title']),
-                                        if(docs[index]['title'].length>=25) // 제목 글자 수 제한 25자
-                                          Text(
-                                            docs[index]['title'].substring(0,25)+"...",
+                                            docs[index]['title']
+                                                    .substring(0, 25) +
+                                                "...",
                                             // 아직 contentTitle이 활성화 안된듯?
-                                            style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
+                                            style: TextStyle(
+                                                fontSize: 20.sp,
+                                                fontWeight: FontWeight.bold),
                                           ),
-
                                       ],
                                     ),
                                     Row(
                                       children: [
-                                        if(docs[index]['content'].length<35) // 프리보드 리스트 글내용 표소 35자 까지.
+                                        if (docs[index]['content'].length <
+                                            35) // 프리보드 리스트 글내용 표소 35자 까지.
                                           Text(
-                                          docs[index]['content'],
-                                          style: TextStyle(
-                                            fontSize: 15.sp,
+                                            docs[index]['content'],
+                                            style: TextStyle(
+                                              fontSize: 15.sp,
+                                            ),
                                           ),
-                                        ),
-                                        if(docs[index]['content'].length>=35)
+                                        if (docs[index]['content'].length >= 35)
                                           Text(
-                                            docs[index]['content'].substring(0,35)+"...",
+                                            docs[index]['content']
+                                                    .substring(0, 35) +
+                                                "...",
                                             style: TextStyle(
                                               fontSize: 15.sp,
                                             ),
@@ -163,13 +187,25 @@ class FreeBoard extends StatelessWidget {
                                           ),
                                         ),
                                         StreamBuilder(
-                                          stream: FirebaseFirestore.instance.collection('board_test').orderBy('time', descending: true).snapshots(),
-                                          builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
-                                            if (snapshot.connectionState == ConnectionState.waiting) {
-                                              return Center(child: CircularProgressIndicator());
+                                          stream: FirebaseFirestore.instance
+                                              .collection('board_test')
+                                              .orderBy('time', descending: true)
+                                              .snapshots(),
+                                          builder: (context,
+                                              AsyncSnapshot<
+                                                      QuerySnapshot<
+                                                          Map<String, dynamic>>>
+                                                  snapshot) {
+                                            if (snapshot.connectionState ==
+                                                ConnectionState.waiting) {
+                                              return Center(
+                                                  child:
+                                                      CircularProgressIndicator());
                                             }
-                                            List isPressedList = snapshot.data!.docs[index]['isPressedList'];
-                                            bool isPressed2 = isPressedList.contains('${_user!.uid}');
+                                            List isPressedList = snapshot.data!
+                                                .docs[index]['isPressedList'];
+                                            bool isPressed2 = isPressedList
+                                                .contains('${_user!.uid}');
                                             return Row(
                                               children: [
                                                 Icon(
@@ -177,7 +213,8 @@ class FreeBoard extends StatelessWidget {
                                                   color: Colors.redAccent,
                                                 ),
                                                 Text(
-                                                  "${isPressedList.length}" + " ",
+                                                  "${isPressedList.length}" +
+                                                      " ",
                                                   style: TextStyle(
                                                     fontSize: 15.sp,
                                                     color: Colors.redAccent,
@@ -189,13 +226,13 @@ class FreeBoard extends StatelessWidget {
                                         ),
                                         Icon(
                                           EvaIcons.messageCircleOutline,
-                                          color: Colors.blue,
+                                          color: Color(0xff4d9391),
                                         ),
                                         Text(
                                           "$comments",
                                           style: TextStyle(
                                             fontSize: 15.sp,
-                                            color: Colors.blue,
+                                            color: Color(0xff4d9391),
                                           ),
                                         ),
                                       ],
