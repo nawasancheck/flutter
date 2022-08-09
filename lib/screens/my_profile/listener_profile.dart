@@ -9,7 +9,6 @@ class ListenerProfile extends StatefulWidget {
   State<ListenerProfile> createState() => _ListenerProfileState();
 }
 
-
 class _ListenerProfileState extends State<ListenerProfile> {
   @override
   Widget build(BuildContext context) {

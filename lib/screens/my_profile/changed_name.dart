@@ -13,7 +13,6 @@ class ChangedName extends StatefulWidget {
   State<ChangedName> createState() => _ChangedNameState();
 }
 
-
 class _ChangedNameState extends State<ChangedName> {
   User? user = FirebaseAuth.instance.currentUser;
   String name = '';

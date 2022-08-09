@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 
+
 class ReservationDetail extends StatefulWidget {
   const ReservationDetail({Key? key}) : super(key: key);
 
@@ -20,7 +21,7 @@ class _ScheduleState extends State<ReservationDetail> {
   // bool _isCheckedTime60 = false;
   // bool _isCheckedTime90 = false;
 
-  
+
   String? checkListValue1;
 
   String? requests;

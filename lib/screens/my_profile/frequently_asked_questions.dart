@@ -12,7 +12,6 @@ class FrequentlyAskedQuestions extends StatefulWidget {
       _FrequentlyAskedQuestionsState();
 }
 
-
 class _FrequentlyAskedQuestionsState extends State<FrequentlyAskedQuestions> {
   bool isVisible1 = false;
   bool isVisible2 = false;

@@ -16,7 +16,6 @@ class MyProfile extends StatefulWidget {
   State<MyProfile> createState() => _MyProfileState();
 }
 
-
 class _MyProfileState extends State<MyProfile> {
 
 

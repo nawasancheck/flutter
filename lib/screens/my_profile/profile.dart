@@ -14,7 +14,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class Profile extends StatelessWidget {
   const Profile({Key? key}) : super(key: key);
 
-
   @override
   Widget build(BuildContext context) {
     final _user = FirebaseAuth.instance.currentUser;
