@@ -14,16 +14,17 @@ class _SearchPageState extends State<SearchPage> {
   final _controller = TextEditingController();
   final _user = FirebaseAuth.instance.currentUser;
 
-  List<Listener> _Listeners = []; //?
-
   @override
   void dispose() {
     _controller.dispose();
     // TODO: implement dispose
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
+    String search = '';
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -49,61 +50,64 @@ class _SearchPageState extends State<SearchPage> {
                     onPressed: () {
                       final Listeners = _controller.text;
                       setState(() {
-                        _Listeners = Listeners as List<Listener>;
+                        ;
                       });
                       /* Clear the search field */
                     },
                   ),
                   hintText: '매니저 검색',
                   border: InputBorder.none),
+              onChanged: (value) {
+                search = value;
+              },
             ),
           ),
         ),
         actions: [IconButton(onPressed: () {}, icon: Icon(Icons.search))],
       ),
       body: Container(
-          width: ScreenUtil().screenWidth,
-          height: ScreenUtil().screenHeight,
-          color: Color(0xffececec),
-          child: StreamBuilder(
-              stream: FirebaseFirestore.instance
-                  .collection('user')
-                  .where('role', isEqualTo: 'manager')
-                  .snapshots(),
-              builder: (context,
-                  AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
-                if (!snapshot.hasData) {
-                  return CircularProgressIndicator();
-                }
+        width: ScreenUtil().screenWidth,
+        height: ScreenUtil().screenHeight,
+        color: Color(0xffececec),
+        child: StreamBuilder(
+          stream: FirebaseFirestore.instance.collection('user').where('role', isEqualTo: 'manager').snapshots(),
+          builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+            if (!snapshot.hasData) {
+              return CircularProgressIndicator();
+            }
 
-                final docs = snapshot.data!.docs;
-                if (docs.length == 0) {
-                  return Text('null');
-                }
+            final docs = snapshot.data!.docs;
+            if (docs.length == 0) {
+              return Text('null');
+            }
 
-                return ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: _Listeners.length,
-                    itemBuilder: (context, index) {
-                      List isPressedList =
-                          docs[index]['profile']['isPressedList'];
-                      bool isPressed = isPressedList.contains('${_user!.uid}');
+            final List allData = docs.where((doc) => doc.data()['profile']['like'].contains(search)).toList();
 
-                      return Container(
-                        height: 100,
-                        width: ScreenUtil().screenWidth,
-                        child: Center(
-                          child: Container(
-                            height: ScreenUtil().setHeight(70),
-                            width: ScreenUtil().setWidth(70),
-                            decoration: ShapeDecoration(
-                                image: DecorationImage(image: AssetImage(docs[index]['profile']['imageUrl']), fit: BoxFit.cover),
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadiusDirectional.circular(15))),
-                          ),
-                        ),
-                      );
-                    });
-              })),
+            return ListView.builder(
+              shrinkWrap: true,
+              itemCount: allData.length,
+              itemBuilder: (context, index) {
+                List isPressedList = docs[index]['profile']['isPressedList'];
+                bool isPressed = isPressedList.contains('${_user!.uid}');
+
+                return Container(
+                  height: 100,
+                  width: ScreenUtil().screenWidth,
+                  child: Center(
+                    child: Container(
+                      height: ScreenUtil().setHeight(70),
+                      width: ScreenUtil().setWidth(70),
+                      decoration: ShapeDecoration(
+                          image: DecorationImage(image: AssetImage(allData[index]['profile']['imageUrl']), fit: BoxFit.cover),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadiusDirectional.circular(15))),
+                    ),
+                  ),
+                );
+              },
+            );
+          },
+        ),
+      ),
     );
   }
 }
