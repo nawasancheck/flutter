@@ -69,8 +69,13 @@ class FreeBoardContentState extends State<FreeBoardContent> {
                             content: Text('해당 글을 삭제 하시겠습니까?'),
                             actions: [
                               FlatButton(
-                                  onPressed: () {
+                                  onPressed: () async {
                                     Navigator.of(context).pop(); // 팝업창 나가기
+
+                                    print(widget.boardNum);
+                                    var freeboardData = await FirebaseFirestore.instance.collection("board_test").doc(widget.boardNum);
+
+                                    freeboardData.delete();
                                   },
                                   child: Text('Okay')),
                               FlatButton(

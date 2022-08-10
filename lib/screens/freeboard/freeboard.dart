@@ -42,8 +42,8 @@ class FreeBoard extends StatelessWidget {
         width: ScreenUtil().screenWidth,
         height: ScreenUtil().setHeight(110),
         color: Color(0xffececec),
-        child: FutureBuilder(
-          future: FirebaseFirestore.instance.collection('board_test').orderBy('time', descending: true).get(),
+        child: StreamBuilder(
+          stream: FirebaseFirestore.instance.collection('board_test').orderBy('time', descending: true).snapshots(),
           builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
             if (!snapshot.hasData) {
               return CircularProgressIndicator();

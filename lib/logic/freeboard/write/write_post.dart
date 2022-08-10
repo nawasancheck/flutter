@@ -159,6 +159,7 @@ class _WriteScreenState extends State<WritePost> {
       'time': Timestamp.now().toDate(),
       'isPressedList': FieldValue.arrayUnion([]),
       'comments': 0,
+      'user_uid': _auth.currentUser!.uid
     });
     documentReference.update({'id': documentReference.id});
     Navigator.pop(context);
