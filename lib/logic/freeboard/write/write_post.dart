@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class WritePost extends StatefulWidget {
   const WritePost({Key? key}) : super(key: key);
@@ -37,8 +38,21 @@ class _WriteScreenState extends State<WritePost> {
           actions: [
             InkWell(
               onTap: () async {
-                writePost(context);
-                Navigator.pop(context);
+                if (title.trim().isEmpty || content.trim().isEmpty) {
+                  Get.snackbar(
+                    "Error message",
+                    "User message",
+                    backgroundColor: Colors.red,
+                    titleText: Text("게시판 작성"),
+                    messageText: Text(
+                      "제목 혹은 내용에 값이 없습니다.",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  );
+                } else {
+                  Navigator.pop(context);
+                  await writePost(context);
+                }
               },
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
