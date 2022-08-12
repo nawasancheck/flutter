@@ -41,14 +41,6 @@ class FreeBoardContentState extends State<FreeBoardContent> {
             centerTitle: true,
             backgroundColor: Color(0xffffffff),
             actions: [
-              /*IconButton(
-                icon: Icon(
-                  EvaIcons.moreVertical,
-                  color: Color(0xff324755),
-                  size: 20.16.sp,
-                ),
-                onPressed: () {},
-              ),*/
               PopupMenuButton(
                 itemBuilder: (context) {
                   return [
@@ -91,7 +83,7 @@ class FreeBoardContentState extends State<FreeBoardContent> {
               )
             ],
           ),
-          body: Container(
+          body: Container( // 배경색 위한 Container
             color: Color(0xffececec),
             child: Column(
               // (글내용, 댓글) + 댓글입력
