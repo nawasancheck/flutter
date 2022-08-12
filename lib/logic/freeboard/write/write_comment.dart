@@ -69,10 +69,10 @@ class _WriteCommentState extends State<WriteComment> {
               // 텍스트필드에 값이 입력되면 Send a message가 활성화
             ),
           ), //
-          GestureDetector(
+          /*GestureDetector(
             onTap: _userEnterMessage.trim().isEmpty ? null : _writeComment,
             child: Icon(Icons.send),
-          ), // Form 위젯 필요 없다?
+          ),*/ // Form 위젯 필요 없다?
         ],
       ),
     );
