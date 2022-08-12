@@ -3,16 +3,17 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/screens/chatting/chat_bubble.dart';
 
-class Messages extends StatelessWidget {
+class MessagesUser extends StatelessWidget {
   final String opponentName;
 
-  const Messages(this.opponentName, {Key? key}) : super(key: key);
+  const MessagesUser(this.opponentName, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser;
     return StreamBuilder(
-        stream: FirebaseFirestore.instance.collection("chat").doc(user!.uid).collection(opponentName).orderBy('time', descending: true).snapshots(),
+        stream:
+            FirebaseFirestore.instance.collection("chat_user").doc(user!.uid).collection(opponentName).orderBy('time', descending: true).snapshots(),
         builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
@@ -25,8 +26,6 @@ class Messages extends StatelessWidget {
             reverse: true,
             itemCount: chatDocs.length,
             itemBuilder: (context, index) {
-
-              // 리스트에 그려질 항목을 Lazy하게 child을 생성해준다.
               return ChatBubble(chatDocs[index]['text'], chatDocs[index]['sendUID'].toString() == user.uid, chatDocs[index]['type']);
             },
           );

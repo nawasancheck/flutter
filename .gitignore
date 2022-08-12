@@ -31,6 +31,7 @@
 .pub/
 /build/
 /lib/clean_architecture
+/assets/
 
 # Web related
 lib/generated_plugin_registrant.dart
@@ -47,3 +48,6 @@ app.*.map.json
 /android/app/release
 
 local.properties
+
+/android/app/src/main/res
+/ios/Runner

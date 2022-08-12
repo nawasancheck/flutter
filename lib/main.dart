@@ -1,17 +1,11 @@
-import 'package:eva_icons_flutter/eva_icons_flutter.dart'; //         Icon 디자인 패키지
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/screens/auth/sign_In.dart';
-import 'package:flutter_app/screens/chatting/chat_list.dart';
-import 'package:flutter_app/screens/freeboard/freeboard.dart';
 import 'package:flutter_app/screens/homepage.dart';
-import 'package:flutter_app/screens/reservation/my_reservation.dart';
-import 'package:flutter_app/screens/my_profile/profile.dart';
-import 'package:flutter_app/screens/manager/manager_list.dart';
-import 'package:flutter_app/screens/auth/sign_up.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart' as kakao;
 
 void main() async {
@@ -25,10 +19,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      // default size 392.7, 781.1
+        // default size 392.7, 781.1
         designSize: Size(392.7, 781.1),
         minTextAdapt: true,
-        builder: () => MaterialApp(
+        builder: (context, child) => GetMaterialApp(
             initialRoute: '/',
             routes: {
               '/': (context) => StreamBuilder<User?>(
@@ -40,9 +34,6 @@ class MyApp extends StatelessWidget {
                       return SignIn();
                     },
                   ),
-              '/signup': (context) => SignUp(),
-              '/home': (context) => HomePage(),
-              '/chat': (context) => ChatList(),
             },
             title: '동행',
             theme: ThemeData(primaryColor: Color(0xffffffff)),
@@ -56,5 +47,3 @@ class MyApp extends StatelessWidget {
             }));
   }
 }
-
-

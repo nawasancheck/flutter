@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/screens/chatting/in_chat_screen.dart';
+import 'package:flutter_app/screens/chatting/in_chat_screen_user.dart';
 import 'package:flutter_app/screens/manager/manager_list_detail.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -22,9 +22,7 @@ class _WishListState extends State<WishList> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          iconTheme: IconThemeData(
-            color: Color(0xff324755)
-          ),
+          iconTheme: IconThemeData(color: Color(0xff324755)),
           backgroundColor: Colors.white,
           title: Text(
             "찜 목록",
@@ -70,7 +68,6 @@ class _WishListState extends State<WishList> {
                 child: Container(
                   width: ScreenUtil().screenWidth,
                   height: ScreenUtil().screenHeight,
-
                   color: Color(0xffececec),
                   child: ListView.builder(
                       shrinkWrap: true,
@@ -85,7 +82,7 @@ class _WishListState extends State<WishList> {
                                   .push(MaterialPageRoute(builder: (context) => ManagerDetailPage(wishList[index])));
                             },
                             child: Container(
-                               // color: Colors.lightGreen,
+                                // color: Colors.lightGreen,
                                 child: StreamBuilder(
                               stream: FirebaseFirestore.instance.collection('user').doc(wishList[index]).snapshots(),
                               builder: (context, AsyncSnapshot<DocumentSnapshot<Map<String, dynamic>>> snapshot2) {
@@ -123,7 +120,7 @@ class _WishListState extends State<WishList> {
                                     Flexible(
                                       fit: FlexFit.tight,
                                       child: Container(
-                                       // color: Colors.orange,
+                                        // color: Colors.orange,
                                         child: Column(
                                           mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
@@ -165,16 +162,16 @@ class _WishListState extends State<WishList> {
                                                                 });
 
                                                           isPressed
-                                                              ? FirebaseFirestore.instance
-                                                              .collection('user')
-                                                              .doc(_user!.uid)
-                                                          // .update({'wishList.${docs['userUID']}': FieldValue.delete()})
-                                                              .update({'wishList': FieldValue.arrayRemove([docs['userUID']])})
-                                                              : FirebaseFirestore.instance
-                                                              .collection('user')
-                                                              .doc(_user!.uid)
-                                                          // .update({'wishList.${docs['userUID']}': docs['userName']});
-                                                              .update({'wishList': FieldValue.arrayUnion([docs['userUID']])});
+                                                              ? FirebaseFirestore.instance.collection('user').doc(_user!.uid)
+                                                                  // .update({'wishList.${docs['userUID']}': FieldValue.delete()})
+                                                                  .update({
+                                                                  'wishList': FieldValue.arrayRemove([docs['userUID']])
+                                                                })
+                                                              : FirebaseFirestore.instance.collection('user').doc(_user!.uid)
+                                                                  // .update({'wishList.${docs['userUID']}': docs['userName']});
+                                                                  .update({
+                                                                  'wishList': FieldValue.arrayUnion([docs['userUID']])
+                                                                });
                                                         },
                                                       ),
                                                     ],
@@ -184,8 +181,7 @@ class _WishListState extends State<WishList> {
                                             ),
                                             Row(
                                               children: [
-                                                Text(docs['profile']['area'] + "  /",
-                                                    style: TextStyle(fontSize: 12.sp, color: Color(0xff494444))),
+                                                Text(docs['profile']['area'] + "  /", style: TextStyle(fontSize: 12.sp, color: Color(0xff494444))),
                                                 Text("  " + docs['profile']['like'], style: TextStyle(fontSize: 12.sp, color: Color(0xff494444))),
                                               ],
                                             ),
@@ -228,8 +224,9 @@ class _WishListState extends State<WishList> {
                                                                     height: 28.h,
                                                                     child: FlatButton(
                                                                       onPressed: () {
-                                                                        Navigator.of(context, rootNavigator: true)
-                                                                            .push(MaterialPageRoute(builder: (context) => ChatScreen(docs['userUID'], docs['profile']['title'])));
+                                                                        Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(
+                                                                            builder: (context) =>
+                                                                                ChatScreenUser(docs['userUID'], docs['profile']['title'], 1)));
                                                                       },
                                                                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
                                                                       color: Color(0xff93e3e6),
