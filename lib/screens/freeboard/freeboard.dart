@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/logic/freeboard/write/write_post.dart';
 import 'package:flutter_app/screens/freeboard/freeboard_content.dart';
@@ -11,7 +10,6 @@ class FreeBoard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _user = FirebaseAuth.instance.currentUser;
     // final List<int> numbers = <int>[1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
     return Scaffold(
@@ -38,11 +36,14 @@ class FreeBoard extends StatelessWidget {
           )
         ],
       ),
-      body: Column( // Flexible 사용하려면 Column이나 Row로 감싸야됨
+      body: Column(
+        // Flexible 사용하려면 Column이나 Row로 감싸야됨
         children: [
-          Flexible( // 게시판 리스트 나열 되는 Container 늘림 : 다양한 기종에 적용 위해서
+          Flexible(
+            // 게시판 리스트 나열 되는 Container 늘림 : 다양한 기종에 적용 위해서
             fit: FlexFit.tight,
-            child: Container( // body의 전체 화면 , 게시판 리스트 나열 되는 Container
+            child: Container(
+              // body의 전체 화면 , 게시판 리스트 나열 되는 Container
               width: ScreenUtil().screenWidth,
               height: ScreenUtil().setHeight(110),
               color: Color(0xffececec),

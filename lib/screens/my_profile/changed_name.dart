@@ -1,8 +1,6 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/screens/my_profile/my_profile.dart';
+import 'package:flutter_app/controller/auth/auth_controller.dart';
 import 'package:flutter_app/screens/my_profile/profile.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -14,7 +12,6 @@ class ChangedName extends StatefulWidget {
 }
 
 class _ChangedNameState extends State<ChangedName> {
-  User? user = FirebaseAuth.instance.currentUser;
   String name = '';
 
   @override
@@ -24,8 +21,7 @@ class _ChangedNameState extends State<ChangedName> {
       appBar: AppBar(
         title: Text(
           "닉네임 변경",
-          style:
-              TextStyle(color: Color(0xff324755), fontWeight: FontWeight.bold),
+          style: TextStyle(color: Color(0xff324755), fontWeight: FontWeight.bold),
         ),
         backgroundColor: Colors.white,
         iconTheme: IconThemeData(
@@ -79,7 +75,7 @@ class _ChangedNameState extends State<ChangedName> {
               child: MaterialButton(
                 color: Color(0xff74BABC),
                 onPressed: () {
-                  user?.updateDisplayName(name);
+                  AuthController.instance.authentication.currentUser!.updateDisplayName(name);
                   Navigator.pushNamedAndRemoveUntil(context, '/', (_) => false);
                   Navigator.push(context, MaterialPageRoute(builder: (context) => Profile()));
                 },
@@ -95,5 +91,3 @@ class _ChangedNameState extends State<ChangedName> {
     );
   }
 }
-
-
