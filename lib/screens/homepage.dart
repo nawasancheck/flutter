@@ -34,7 +34,7 @@ class _HomePageState extends State<HomePage> {
         switch (index) {
           case 0:
             return CupertinoTabView(builder: (context) {
-              return CupertinoPageScaffold(child: ListPage());
+              return CupertinoPageScaffold(child: ManagerListScreen());
             });
             break;
           case 1:

@@ -2,7 +2,7 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:search_page/search_page.dart';
-import '../../manager/manager_info.dart';
+import '../../model/manager_info.dart';
 import 'manager_list_detail.dart';
 
 class SearchManager extends StatefulWidget {
@@ -41,10 +41,7 @@ class _SearchManagerState extends State<SearchManager> {
               //
               child: InkWell(
                 onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => ManagerDetailPage('')));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => ManagerDetailPage('')));
                 },
                 child: Container(
                   //              color: Colors.green,
@@ -53,12 +50,8 @@ class _SearchManagerState extends State<SearchManager> {
                     children: [
                       Container(
                         decoration: ShapeDecoration(
-                            image: DecorationImage(
-                                image: AssetImage(walkerlist.imageUrl),
-                                fit: BoxFit.cover),
-                            shape: RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadiusDirectional.circular(15))),
+                            image: DecorationImage(image: AssetImage(walkerlist.imageUrl), fit: BoxFit.cover),
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadiusDirectional.circular(15))),
                         height: ScreenUtil().setHeight(126),
                         width: ScreenUtil().setWidth(132),
                       ), //      사진
@@ -82,9 +75,7 @@ class _SearchManagerState extends State<SearchManager> {
                               children: [
                                 Text(
                                   " " + walkerlist.title,
-                                  style: TextStyle(
-                                      fontSize: 25.sp,
-                                      fontWeight: FontWeight.bold),
+                                  style: TextStyle(fontSize: 25.sp, fontWeight: FontWeight.bold),
                                 ),
                                 Flexible(
                                   fit: FlexFit.tight,
@@ -122,47 +113,26 @@ class _SearchManagerState extends State<SearchManager> {
                             ),
                             Row(
                               children: [
-                                Text("  " + walkerlist.area.toString() + "  -",
-                                    style: TextStyle(
-                                        fontSize: 15.sp,
-                                        color: Color(0xff6b6b6b))),
-                                Text(" " + walkerlist.year.toString() + "대",
-                                    style: TextStyle(
-                                        fontSize: 15.sp,
-                                        color: Color(0xff6b6b6b))),
+                                Text("  " + walkerlist.area.toString() + "  -", style: TextStyle(fontSize: 15.sp, color: Color(0xff6b6b6b))),
+                                Text(" " + walkerlist.year.toString() + "대", style: TextStyle(fontSize: 15.sp, color: Color(0xff6b6b6b))),
                               ],
                             ),
                             Row(
                               children: [
                                 Text("  " + "관심분야 -" + walkerlist.like,
-                                    style: TextStyle(
-                                        fontSize: 15.sp,
-                                        fontWeight: FontWeight.bold,
-                                        color: Color(0xff737373))),
+                                    style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold, color: Color(0xff737373))),
                               ],
                             ),
                             Row(
                               children: [
-                                Text(
-                                    "  " +
-                                        walkerlist.description
-                                            .substring(0, 20) +
-                                        ".....",
-                                    style: TextStyle(
-                                        fontSize: 15.sp,
-                                        color: Color(0xff878787))),
+                                Text("  " + walkerlist.description.substring(0, 20) + ".....",
+                                    style: TextStyle(fontSize: 15.sp, color: Color(0xff878787))),
                               ],
                             ),
                             Row(
                               children: [
-                                Text(
-                                    "  " +
-                                        "60분 " +
-                                        walkerlist.price1.toString() +
-                                        " P",
-                                    style: TextStyle(
-                                        fontSize: 20.sp,
-                                        fontWeight: FontWeight.bold)),
+                                Text("  " + "60분 " + walkerlist.price1.toString() + " P",
+                                    style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold)),
                                 Flexible(
                                   fit: FlexFit.tight,
                                   child: Container(
@@ -180,11 +150,8 @@ class _SearchManagerState extends State<SearchManager> {
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
                                       Text(
-                                        walkerlist.isPressed
-                                            ? "${walkerlist.heart + 1}"
-                                            : "${walkerlist.heart}",
-                                        style:
-                                            TextStyle(color: Color(0xff878787)),
+                                        walkerlist.isPressed ? "${walkerlist.heart + 1}" : "${walkerlist.heart}",
+                                        style: TextStyle(color: Color(0xff878787)),
                                       ),
                                       IconButton(
                                         iconSize: 25.sp,
@@ -194,9 +161,7 @@ class _SearchManagerState extends State<SearchManager> {
                                                 EvaIcons.heartOutline,
                                                 color: Color(0xff878787),
                                               ),
-                                        color: walkerlist.isPressed
-                                            ? Colors.red[500]
-                                            : Colors.red[500],
+                                        color: walkerlist.isPressed ? Colors.red[500] : Colors.red[500],
                                         onPressed: () {
                                           setState(() {});
                                         },
