@@ -134,7 +134,7 @@ class _ManagerListScreenState extends State<ManagerListScreen> {
                   child: InkWell(
                     onTap: () {
                       // 바텀네비게이션 없애기
-                      Get.to((_) => ManagerDetailPage(docs[index]['userUID']));
+                      Get.to(() => ManagerDetailPage(docs[index]['userUID']));
                     },
                     child: Card(
                       //color: Colors.green,
