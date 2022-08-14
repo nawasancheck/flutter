@@ -83,7 +83,8 @@ class FreeBoardContentState extends State<FreeBoardContent> {
               )
             ],
           ),
-          body: Container( // 배경색 위한 Container
+          body: Container(
+            // 배경색 위한 Container
             color: Color(0xffececec),
             child: Column(
               // (글내용, 댓글) + 댓글입력
@@ -232,13 +233,15 @@ class FreeBoardContentState extends State<FreeBoardContent> {
                                                     color: Colors.redAccent,
                                                   ),
                                             onTap: () {
-                                              isPressed
-                                                  ? FirebaseFirestore.instance.collection('board_test').doc(widget.boardNum).update({
-                                                      'isPressedList': FieldValue.arrayRemove([_currentUser!.uid.trim()])
-                                                    })
-                                                  : FirebaseFirestore.instance.collection('board_test').doc(widget.boardNum).update({
-                                                      'isPressedList': FieldValue.arrayUnion([_currentUser!.uid.trim()])
-                                                    });
+                                              setState(() {
+                                                isPressed
+                                                    ? FirebaseFirestore.instance.collection('board_test').doc(widget.boardNum).update({
+                                                        'isPressedList': FieldValue.arrayRemove([_currentUser!.uid.trim()])
+                                                      })
+                                                    : FirebaseFirestore.instance.collection('board_test').doc(widget.boardNum).update({
+                                                        'isPressedList': FieldValue.arrayUnion([_currentUser!.uid.trim()])
+                                                      });
+                                              });
                                             }),
                                         Text(
                                           " ${docs['isPressedList'].length}  ",
