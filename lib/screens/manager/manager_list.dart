@@ -3,22 +3,21 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/controller/auth/auth_controller.dart';
 import 'package:flutter_app/screens/manager/manager_list_detail.dart';
 import 'package:flutter_app/screens/manager/search_manager.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
-import '../tem_searchpage/searchtest1.dart';
-
-class ListPage extends StatefulWidget {
-  const ListPage({Key? key}) : super(key: key);
+class ManagerListScreen extends StatefulWidget {
+  const ManagerListScreen({Key? key}) : super(key: key);
 
   @override
-  _ListPageState createState() => _ListPageState();
+  _ManagerListScreenState createState() => _ManagerListScreenState();
 }
 
-class _ListPageState extends State<ListPage> {
+class _ManagerListScreenState extends State<ManagerListScreen> {
   String dropDownValue = '통합채널';
-  final _user = FirebaseAuth.instance.currentUser;
 
   var items = [
     '통합채널',
@@ -128,15 +127,14 @@ class _ListPageState extends State<ListPage> {
               itemCount: docs.length,
               itemBuilder: (context, index) {
                 List isPressedList = docs[index]['profile']['isPressedList'];
-                bool isPressed = isPressedList.contains('${_user!.uid}');
+                bool isPressed = isPressedList.contains('${AuthController.instance.authentication.currentUser!.uid}');
 
                 return Container(
                   height: ScreenUtil().setHeight(162),
                   child: InkWell(
                     onTap: () {
                       // 바텀네비게이션 없애기
-                      //
-                      Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => ManagerDetailPage(docs[index]['userUID'])));
+                      Get.to((_) => ManagerDetailPage(docs[index]['userUID']));
                     },
                     child: Card(
                       //color: Colors.green,
@@ -293,19 +291,25 @@ class _ListPageState extends State<ListPage> {
                                                         isPressed
                                                             ? FirebaseFirestore.instance.collection('user').doc(docs[index]['userUID']).update({
                                                                 'profile.heart': docs[index]['profile']['heart'] - 1,
-                                                                'profile.isPressedList': FieldValue.arrayRemove([_user!.uid.trim()])
+                                                                'profile.isPressedList':
+                                                                    FieldValue.arrayRemove([AuthController().authentication.currentUser!.uid.trim()])
                                                               })
                                                             : FirebaseFirestore.instance.collection('user').doc(docs[index]['userUID']).update({
                                                                 'profile.heart': docs[index]['profile']['heart'] + 1,
-                                                                'profile.isPressedList': FieldValue.arrayUnion([_user!.uid.trim()])
+                                                                'profile.isPressedList':
+                                                                    FieldValue.arrayUnion([AuthController().authentication.currentUser!.uid.trim()])
                                                               });
                                                         isPressed
-                                                            ? FirebaseFirestore.instance.collection('user').doc(_user!.uid)
+                                                            ? FirebaseFirestore.instance
+                                                                .collection('user')
+                                                                .doc(AuthController().authentication.currentUser!.uid)
                                                                 // .update({'wishList.${docs[index]['userUID']}': FieldValue.delete()})
                                                                 .update({
                                                                 'wishList': FieldValue.arrayRemove([userUID])
                                                               })
-                                                            : FirebaseFirestore.instance.collection('user').doc(_user!.uid)
+                                                            : FirebaseFirestore.instance
+                                                                .collection('user')
+                                                                .doc(AuthController().authentication.currentUser!.uid)
                                                                 // .update({'wishList.${docs[index]['userUID']}': docs[index]['userName']});
                                                                 .update({
                                                                 'wishList': FieldValue.arrayUnion([userUID])

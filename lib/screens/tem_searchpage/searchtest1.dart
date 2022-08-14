@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../controller/auth/auth_controller.dart';
 
 class SearchPage extends StatefulWidget {
   SearchPage({Key? key}) : super(key: key);
@@ -12,7 +13,6 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   final _controller = TextEditingController();
-  final _user = FirebaseAuth.instance.currentUser;
 
   @override
   void dispose() {
@@ -88,7 +88,7 @@ class _SearchPageState extends State<SearchPage> {
               itemCount: allData.length,
               itemBuilder: (context, index) {
                 List isPressedList = docs[index]['profile']['isPressedList'];
-                bool isPressed = isPressedList.contains('${_user!.uid}');
+                bool isPressed = isPressedList.contains('${AuthController.instance.authentication.currentUser!.uid}');
 
                 return Container(
                   height: 100,
