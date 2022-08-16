@@ -161,9 +161,6 @@ class FreeBoard extends StatelessWidget {
                                         StreamBuilder(
                                           stream: FirebaseFirestore.instance.collection('board_test').orderBy('time', descending: true).snapshots(),
                                           builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
-                                            if (snapshot.connectionState == ConnectionState.waiting) {
-                                              return Center(child: CircularProgressIndicator());
-                                            }
                                             List isPressedList = snapshot.data!.docs[index]['isPressedList'];
                                             return Row(
                                               children: [

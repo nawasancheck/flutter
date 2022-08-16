@@ -92,8 +92,8 @@ class FreeBoardContentState extends State<FreeBoardContent> {
                 Flexible(
                   // (글내용, 댓글) flexible
                   fit: FlexFit.loose,
-                  child: FutureBuilder(
-                    future: FirebaseFirestore.instance.collection('board_test').doc(widget.boardNum).get(),
+                  child: StreamBuilder(
+                    stream: FirebaseFirestore.instance.collection('board_test').doc(widget.boardNum).snapshots(),
                     builder: (context, AsyncSnapshot<DocumentSnapshot<Map<String, dynamic>>> snapshot) {
                       if (!snapshot.hasData) {
                         return Center(child: CircularProgressIndicator());
@@ -193,19 +193,15 @@ class FreeBoardContentState extends State<FreeBoardContent> {
                               ),
                             ),
                           ),
-                          FutureBuilder(
-                            future: FirebaseFirestore.instance
+                          StreamBuilder(
+                            stream: FirebaseFirestore.instance
                                 .collection('board_test')
                                 .doc(widget.boardNum)
                                 .collection('comment')
                                 .orderBy('time', descending: false)
-                                .get(),
+                                .snapshots(),
                             builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot2) {
                               if (!snapshot2.hasData) {
-                                return Center(child: CircularProgressIndicator());
-                              }
-
-                              if (snapshot2.connectionState == ConnectionState.waiting) {
                                 return Center(child: CircularProgressIndicator());
                               }
 
