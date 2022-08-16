@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/controller/auth/auth_controller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
@@ -16,7 +16,6 @@ class ListenerApplication extends StatefulWidget {
 }
 
 class _ListenerApplicationState extends State<ListenerApplication> {
-  final currentUser = FirebaseAuth.instance.currentUser!;
   File? imageFile;
 
   String nickname = '';
@@ -256,13 +255,17 @@ class _ListenerApplicationState extends State<ListenerApplication> {
 
               InkWell(
                   onTap: () async {
-                    if (await FirebaseFirestore.instance.collection("support_manager").doc(currentUser.uid).get().then((value) => value.exists)) {
+                    if (await FirebaseFirestore.instance
+                        .collection("support_manager")
+                        .doc(AuthController.instance.authentication.currentUser!.uid)
+                        .get()
+                        .then((value) => value.exists)) {
                       print("이미 지원했습니다.");
                       Navigator.of(context).pop();
                     } else {
                       await FirebaseFirestore.instance
                           .collection("support_manager")
-                          .doc(currentUser.uid)
+                          .doc(AuthController.instance.authentication.currentUser!.uid)
                           .set({'nickname': nickname, 'phoneNumber': phoneNumber, 'email': email, 'content': content});
                       Navigator.of(context).pop();
                     }
