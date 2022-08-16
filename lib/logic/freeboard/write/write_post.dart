@@ -51,7 +51,7 @@ class _WriteScreenState extends State<WritePost> {
                   );
                 } else {
                   Navigator.pop(context);
-                  await writePost(context);
+                  await writePost();
                 }
               },
               child: Padding(
@@ -165,7 +165,7 @@ class _WriteScreenState extends State<WritePost> {
     );
   }
 
-  Future<void> writePost(BuildContext context) async {
+  Future<void> writePost() async {
     var documentReference = await FirebaseFirestore.instance.collection('board_test').add({
       'title': title,
       'content': content,
@@ -176,6 +176,5 @@ class _WriteScreenState extends State<WritePost> {
       'user_uid': _auth.currentUser!.uid
     });
     documentReference.update({'id': documentReference.id});
-    Navigator.pop(context);
   }
 }
