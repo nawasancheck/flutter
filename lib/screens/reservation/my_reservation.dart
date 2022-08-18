@@ -66,7 +66,7 @@ class MyReservation extends StatelessWidget {
                     .orderBy('time', descending: true)
                     .snapshots(),
                 builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
-                  if (!snapshot.hasData) return CircularProgressIndicator();
+                  if (!snapshot.hasData) return Center(child: CircularProgressIndicator());
                   final docs = snapshot.data!.docs;
                   return Padding(
                     padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),

@@ -79,6 +79,9 @@ class _ChatState extends State<ChatList> {
                         .orderBy('time', descending: true)
                         .snapshots(),
                     builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+                      if (!snapshot.hasData) {
+                        return Center(child: CircularProgressIndicator());
+                      }
                       num = snapshot.data!.docs.length;
 
                       if (num == 0) {

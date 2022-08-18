@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/logic/freeboard/write/write_post.dart';
 import 'package:flutter_app/screens/freeboard/freeboard_content.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class FreeBoard extends StatelessWidget {
   const FreeBoard({Key? key}) : super(key: key);
@@ -51,7 +52,7 @@ class FreeBoard extends StatelessWidget {
                 stream: FirebaseFirestore.instance.collection('board_test').orderBy('time', descending: true).snapshots(),
                 builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
                   if (!snapshot.hasData) {
-                    return CircularProgressIndicator();
+                    return Center(child: CircularProgressIndicator());
                   }
 
                   final docs = snapshot.data!.docs;
@@ -98,7 +99,7 @@ class FreeBoard extends StatelessWidget {
                             onTap: () {
                               // 바텀네비게이션 없애기
                               //
-                              Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => FreeBoardContent(docs[index].id)));
+                              Get.to(() => FreeBoardContent(docs[index].id));
                             },
                             child: Center(
                               child: Container(
@@ -166,6 +167,9 @@ class FreeBoard extends StatelessWidget {
                                           stream: FirebaseFirestore.instance.collection('board_test').orderBy('time', descending: true).snapshots(),
                                           builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
                                             List isPressedList = snapshot.data!.docs[index]['isPressedList'];
+                                            if (!snapshot.hasData) {
+                                              return Center(child: CircularProgressIndicator());
+                                            }
                                             return Row(
                                               children: [
                                                 Icon(

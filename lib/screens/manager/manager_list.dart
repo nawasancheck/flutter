@@ -123,7 +123,7 @@ class _ManagerListScreenState extends State<ManagerListScreen> {
           stream: FirebaseFirestore.instance.collection('user').where('role', isEqualTo: 'manager').snapshots(),
           builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
             if (!snapshot.hasData) {
-              return CircularProgressIndicator();
+              return Center(child: CircularProgressIndicator());
             }
 
             final docs = snapshot.data!.docs;
