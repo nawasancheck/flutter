@@ -238,11 +238,13 @@ class _SignInState extends State<SignIn> {
             ),
             //
             */
-
+            Flexible(
+                fit: FlexFit.tight,
+                child: SizedBox()),
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 20, 0, 3),
               child: Container(
-                //   color: Colors.blue,
+                   //color: Colors.blue,
                 width: 327.w,
                 height: 40.h,
                 child: Row(
@@ -269,7 +271,7 @@ class _SignInState extends State<SignIn> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
+              padding: const EdgeInsets.fromLTRB(0, 10, 0, 15),
               child: Container(
                 width: 327.w,
                 height: 43.h,
@@ -355,12 +357,28 @@ class _SignInState extends State<SignIn> {
                 ),
               ),
             ),
-            TextButton(
-              child: Text("개인정보처리방침", style: TextStyle(fontSize: 12.sp, color: Color(0xff351313))),
-              onPressed: () async {
-                final Uri _url = Uri.parse('https://google.com');
-                await launchUrl(_url);
-              },
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextButton(
+                  child: Text("이용약관", style: TextStyle(fontSize: 12.sp, color: Color(0xff351313))),
+                  onPressed: () async {
+                    final Uri _url = Uri.parse('https://google.com');
+                    await launchUrl(_url);
+                  },
+                ),
+                TextButton(
+                  child: Text("개인정보처리방침", style: TextStyle(fontSize: 12.sp, color: Color(0xff351313))),
+                  onPressed: () async {
+                    final Uri _url = Uri.parse('https://google.com');
+                    await launchUrl(_url);
+                  },
+                ),
+              ],
+            ),
+            Container(
+              //color: Colors.green,
+              height: ScreenUtil().setHeight(100),
             ),
            
             // 처음 시작시 회원가입 하는 버튼
