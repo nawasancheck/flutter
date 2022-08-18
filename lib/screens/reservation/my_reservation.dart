@@ -50,290 +50,390 @@ class MyReservation extends StatelessWidget {
                   child: Scrollbar(
                     child: ListView(
                       children: [
-                        //
-                        //
-                        Container(),
-                        Padding(
+                        Padding(//                                            ==@@ 산책 요청중 디자인 @@==
                           padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
-                          child: Container(
+                          child: Container( //                                == 각 리스트 전체 Container==
                             color: Color(0xffffffff),
                             width: ScreenUtil().screenWidth,
-                            child: Column(
-                              children: [
-                                Row(children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 10),
-                                    child: Container(
-                                      width: 200,
-                                      height: 30,
-                                      decoration: BoxDecoration(
-                                          border: Border.all(color: Colors.grey),
-                                          color: Color(0xffe1f3f3),
-                                          borderRadius: BorderRadius.circular(10)
-                                      ),
-                                      child: Center(child: Text("년도/월/일(요일) - 산책예정")),
-                                    ),
-                                  ),
-
-                                  Flexible(
-                                    fit: FlexFit.loose,
-                                    child: Container(
-                                      height: 30,
-                                      //color: Colors.yellowAccent,
-                                    ),
-                                  ),
-
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 10),
-                                    child: Container(
-                                      width: 75,
-                                      height: 25,
-                                      decoration: BoxDecoration(
-                                        //color: Colors.greenAccent,
-                                          border: Border.all(color: Colors.grey),
-                                          borderRadius: BorderRadius.circular(20)
-                                      ),
-                                      child: Center(child: Text("예약상세")),
-                                    ),
-                                  ),
-
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 10),
-                                    child: Icon(Icons.more_vert),),
-                                ],),
-
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 10),
-                                  child: Row(children: [
-                                    Container(
-                                      height: 76.h,
-                                      width: 76.w,
-                                      decoration: BoxDecoration(
-                                        color: Colors.blueGrey,
-                                        borderRadius: BorderRadius.circular(20),
-
-                                        image: DecorationImage(
-                                            image:  AssetImage('assets/wonjae2.png',),fit: BoxFit.cover
+                            height: ScreenUtil().setHeight(130),
+                            child: Center(
+                              child: Container(//                             == 각 리스트 내 글자, 이미지 담는 Container ==
+                                                                            //   센터 조정 하기위해서 사용 
+                               // color: Colors.green,
+                                width: ScreenUtil().setWidth(360),
+                                height: ScreenUtil().setHeight(120),
+                                child: Column(
+                                  children: [
+                                    Row(children: [
+                                      Container( // 상태창 디자인 ex) 산책 요청중
+                                        width: 200,
+                                        height: 30,
+                                        decoration: BoxDecoration(
+                                           // border: Border.all(color: Colors.grey),
+                                            color: Color(0xff4aa8d8), //Colors.lightBlueAccent,
+                                            borderRadius: BorderRadius.circular(10)
                                         ),
-
-                                      ),),
-
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 10),
-                                      child: Container(
-                                        //color: Colors.lightGreenAccent,
-                                        width: 200.w,
-                                        child: Column(
-                                          mainAxisAlignment: MainAxisAlignment.start,
-                                          children: [
-                                            Row(
-                                              children: [
-                                                Text("닉네임 시간 산책",style: TextStyle(fontWeight: FontWeight.bold),),
-                                                Icon(Icons.navigate_next_sharp),
-                                              ],
+                                        child: Center(child: Text("산책 요청중",style: TextStyle(color: Colors.white),),),
+                                      ),
+                                      Flexible(
+                                        fit: FlexFit.loose,
+                                        child: Container(
+                                          height: 30,
+                                         // color: Colors.yellowAccent,
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 10),
+                                        child: InkWell(
+                                          onTap: (){
+                                            print('예약 상세 첵!!');
+                                          },
+                                          child: Container( //                  == 예약 상세 Container==
+                                            width: 75,
+                                            height: 25,
+                                            decoration: BoxDecoration(
+                                            //  color: Colors.greenAccent,
+                                                border: Border.all(color: Colors.grey),
+                                                borderRadius: BorderRadius.circular(20)
                                             ),
-                                            Row(
+                                            child: Center(child: Text("예약상세")),
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 10),
+                                        child: InkWell(
+                                            onTap: (){
+                                              print('더보기 첵!!');
+                                            },
+                                            child: Icon(Icons.more_vert)),),
+                                    ],),
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 8),
+                                      child: Row(children: [
+                                        Container( //                         == 이미지 Container ==
+                                          height: 76.h,
+                                          width: 76.w,
+                                          decoration: BoxDecoration(
+                                            color: Colors.blueGrey,
+                                            borderRadius: BorderRadius.circular(20),
+                                            image: DecorationImage(
+                                                image:  AssetImage('assets/wonjae2.png',),fit: BoxFit.cover
+                                            ),
+                                          ),),
+                                        Padding(
+                                          padding: const EdgeInsets.only(left: 10),
+                                          child: Container(                 //== 닉네임, 시간 산책 Container ==
+                                          //  color: Colors.lightGreenAccent,
+                                            width: 200.w,
+                                            child: Column(
                                               mainAxisAlignment: MainAxisAlignment.start,
                                               children: [
-                                                Text("시간 포인트P"),
-                                              ],
-                                            ),
-                                          ],),
-                                      ),
-                                    ),
-                                  ],),
-                                )
-                              ],
+                                                Row(
+                                                  children: [
+                                                    Text("영화가조아 60분 산책",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18.sp),),
+                                                    Icon(Icons.navigate_next_sharp,color: Colors.grey,),
+                                                  ],
+                                                ),
+                                              ],),
+                                          ),
+                                        ),
+                                      ],),
+                                    )
+                                  ],
+                                ),
+                              ),
                             ),
                           ),
                         ),
                         //
-                        //
-                        Padding(
+                        Padding(//                                            ==@@ 산책 취소 디자인 @@==
                           padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
-                          child: Container(
+                          child: Container( //                                == 각 리스트 전체 Container==
                             color: Color(0xffffffff),
                             width: ScreenUtil().screenWidth,
-                            child: Column(
-                              children: [
-                                Row(children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 10),
-                                    child: Container(
-                                      width: 200,
-                                      height: 30,
-                                      decoration: BoxDecoration(
-                                          border: Border.all(color: Colors.grey),
-                                          color: Colors.grey[200],
-                                          borderRadius: BorderRadius.circular(10)
-                                      ),
-                                      child: Center(child: Text("년도/월/일(요일) - 산책예정")),
-                                    ),
-                                  ),
-
-                                  Flexible(
-                                    fit: FlexFit.loose,
-                                    child: Container(
-                                      height: 30,
-                                      //color: Colors.yellowAccent,
-                                    ),
-                                  ),
-
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 10),
-                                    child: Container(
-                                      width: 75,
-                                      height: 25,
-                                      decoration: BoxDecoration(
-                                        //color: Colors.greenAccent,
-                                          border: Border.all(color: Colors.grey),
-                                          borderRadius: BorderRadius.circular(20)
-                                      ),
-                                      child: Center(child: Text("예약상세")),
-                                    ),
-                                  ),
-
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 10),
-                                    child: Icon(Icons.more_vert),),
-                                ],),
-
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 10),
-                                  child: Row(children: [
-                                    Container(
-                                      height: 76.h,
-                                      width: 76.w,
-                                      decoration: BoxDecoration(
-                                        color: Colors.blueGrey,
-                                        borderRadius: BorderRadius.circular(20),
-
-                                        image: DecorationImage(
-                                            image:  AssetImage('assets/Im Yejun.png',),fit: BoxFit.cover
+                            height: ScreenUtil().setHeight(130),
+                            child: Center(
+                              child: Container(//                             == 각 리스트 내 글자, 이미지 담는 Container ==
+                                //   센터 조정 하기위해서 사용
+                                // color: Colors.green,
+                                width: ScreenUtil().setWidth(360),
+                                height: ScreenUtil().setHeight(120),
+                                child: Column(
+                                  children: [
+                                    Row(children: [
+                                      Container( // 상태창 디자인 ex) 산책 요청중
+                                        width: 200,
+                                        height: 30,
+                                        decoration: BoxDecoration(
+                                          // border: Border.all(color: Colors.grey),
+                                            color: Color(0xffdb4455), //Colors.lightBlueAccent,
+                                            borderRadius: BorderRadius.circular(10)
                                         ),
-
-                                      ),),
-
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 10),
-                                      child: Container(
-                                        //color: Colors.lightGreenAccent,
-                                        width: 200.w,
-                                        child: Column(
-                                          mainAxisAlignment: MainAxisAlignment.start,
-                                          children: [
-                                            Row(
-                                              children: [
-                                                Text("닉네임 시간 산책",style: TextStyle(fontWeight: FontWeight.bold),),
-                                                Icon(Icons.navigate_next_sharp),
-                                              ],
+                                        child: Center(child: Text("산책 취소",style: TextStyle(color: Colors.white),),),
+                                      ),
+                                      Flexible(
+                                        fit: FlexFit.loose,
+                                        child: Container(
+                                          height: 30,
+                                          // color: Colors.yellowAccent,
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 10),
+                                        child: InkWell(
+                                          onTap: (){
+                                            print('예약 상세 첵!!');
+                                          },
+                                          child: Container( //                  == 예약 상세 Container==
+                                            width: 75,
+                                            height: 25,
+                                            decoration: BoxDecoration(
+                                              //  color: Colors.greenAccent,
+                                                border: Border.all(color: Colors.grey),
+                                                borderRadius: BorderRadius.circular(20)
                                             ),
-                                            Row(
+                                            child: Center(child: Text("예약상세")),
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 10),
+                                        child: InkWell(
+                                            onTap: (){
+                                              print('더보기 첵!!');
+                                            },
+                                            child: Icon(Icons.more_vert)),),
+                                    ],),
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 8),
+                                      child: Row(children: [
+                                        Container( //                         == 이미지 Container ==
+                                          height: 76.h,
+                                          width: 76.w,
+                                          decoration: BoxDecoration(
+                                            color: Colors.blueGrey,
+                                            borderRadius: BorderRadius.circular(20),
+                                            image: DecorationImage(
+                                                image:  AssetImage('assets/Im Yejun.png',),fit: BoxFit.cover
+                                            ),
+                                          ),),
+                                        Padding(
+                                          padding: const EdgeInsets.only(left: 10),
+                                          child: Container(                 //== 닉네임, 시간 산책 Container ==
+                                            //  color: Colors.lightGreenAccent,
+                                            width: 200.w,
+                                            child: Column(
                                               mainAxisAlignment: MainAxisAlignment.start,
                                               children: [
-                                                Text("시간 포인트P"),
-                                              ],
-                                            ),
-                                          ],),
-                                      ),
-                                    ),
-                                  ],),
-                                )
-                              ],
+                                                Row(
+                                                  children: [
+                                                    Text("클래식조아 60분 산책",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18.sp),),
+                                                    Icon(Icons.navigate_next_sharp,color: Colors.grey,),
+                                                  ],
+                                                ),
+                                              ],),
+                                          ),
+                                        ),
+                                      ],),
+                                    )
+                                  ],
+                                ),
+                              ),
                             ),
                           ),
                         ),
-                        Padding(
+                        //
+                        Padding(//                                            ==@@ 산책 예정 디자인 @@==
                           padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
-                          child: Container(
+                          child: Container( //                                == 각 리스트 전체 Container==
                             color: Color(0xffffffff),
                             width: ScreenUtil().screenWidth,
-                            child: Column(
-                              children: [
-                                Row(children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 10),
-                                    child: Container(
-                                      width: 200,
-                                      height: 30,
-                                      decoration: BoxDecoration(
-                                          border: Border.all(color: Colors.grey),
-                                          color: Colors.grey[200],
-                                          borderRadius: BorderRadius.circular(10)
-                                      ),
-                                      child: Center(child: Text("년도/월/일(요일) - 산책예정")),
-                                    ),
-                                  ),
-
-                                  Flexible(
-                                    fit: FlexFit.loose,
-                                    child: Container(
-                                      height: 30,
-                                      //color: Colors.yellowAccent,
-                                    ),
-                                  ),
-
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 10),
-                                    child: Container(
-                                      width: 75,
-                                      height: 25,
-                                      decoration: BoxDecoration(
-                                        //color: Colors.greenAccent,
-                                          border: Border.all(color: Colors.grey),
-                                          borderRadius: BorderRadius.circular(20)
-                                      ),
-                                      child: Center(child: Text("예약상세")),
-                                    ),
-                                  ),
-
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 10),
-                                    child: Icon(Icons.more_vert),),
-                                ],),
-
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 10),
-                                  child: Row(children: [
-                                    Container(
-                                      height: 76.h,
-                                      width: 76.w,
-                                      decoration: BoxDecoration(
-                                        color: Colors.blueGrey,
-                                        borderRadius: BorderRadius.circular(20),
-
-                                        image: DecorationImage(
-                                            image:  AssetImage('assets/jinkyo.png',),fit: BoxFit.cover
+                            height: ScreenUtil().setHeight(130),
+                            child: Center(
+                              child: Container(//                             == 각 리스트 내 글자, 이미지 담는 Container ==
+                                //   센터 조정 하기위해서 사용
+                                // color: Colors.green,
+                                width: ScreenUtil().setWidth(360),
+                                height: ScreenUtil().setHeight(120),
+                                child: Column(
+                                  children: [
+                                    Row(children: [
+                                      Container( // 상태창 디자인 ex) 산책 요청중
+                                        width: 200,
+                                        height: 30,
+                                        decoration: BoxDecoration(
+                                          // border: Border.all(color: Colors.grey),
+                                            color: Color(0xff008d62), //Colors.lightBlueAccent,
+                                            borderRadius: BorderRadius.circular(10)
                                         ),
-
-                                      ),),
-
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 10),
-                                      child: Container(
-                                        //color: Colors.lightGreenAccent,
-                                        width: 200.w,
-                                        child: Column(
-                                          mainAxisAlignment: MainAxisAlignment.start,
-                                          children: [
-                                            Row(
-                                              children: [
-                                                Text("닉네임 시간 산책",style: TextStyle(fontWeight: FontWeight.bold),),
-                                                Icon(Icons.navigate_next_sharp),
-                                              ],
+                                        child: Center(child: Text("산책 예정",style: TextStyle(color: Colors.white),),),
+                                      ),
+                                      Flexible(
+                                        fit: FlexFit.loose,
+                                        child: Container(
+                                          height: 30,
+                                          // color: Colors.yellowAccent,
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 10),
+                                        child: InkWell(
+                                          onTap: (){
+                                            print('예약 상세 첵!!');
+                                          },
+                                          child: Container( //                  == 예약 상세 Container==
+                                            width: 75,
+                                            height: 25,
+                                            decoration: BoxDecoration(
+                                              //  color: Colors.greenAccent,
+                                                border: Border.all(color: Colors.grey),
+                                                borderRadius: BorderRadius.circular(20)
                                             ),
-                                            Row(
+                                            child: Center(child: Text("예약상세")),
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 10),
+                                        child: InkWell(
+                                            onTap: (){
+                                              print('더보기 첵!!');
+                                            },
+                                            child: Icon(Icons.more_vert)),),
+                                    ],),
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 8),
+                                      child: Row(children: [
+                                        Container( //                         == 이미지 Container ==
+                                          height: 76.h,
+                                          width: 76.w,
+                                          decoration: BoxDecoration(
+                                            color: Colors.blueGrey,
+                                            borderRadius: BorderRadius.circular(20),
+                                            image: DecorationImage(
+                                                image:  AssetImage('assets/jinkyo.png',),fit: BoxFit.cover
+                                            ),
+                                          ),),
+                                        Padding(
+                                          padding: const EdgeInsets.only(left: 10),
+                                          child: Container(                 //== 닉네임, 시간 산책 Container ==
+                                            //  color: Colors.lightGreenAccent,
+                                            width: 200.w,
+                                            child: Column(
                                               mainAxisAlignment: MainAxisAlignment.start,
                                               children: [
-                                                Text("시간 포인트P"),
-                                              ],
-                                            ),
-                                          ],),
+                                                Row(
+                                                  children: [
+                                                    Text("먹는게조아 60분 산책",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18.sp),),
+                                                    Icon(Icons.navigate_next_sharp,color: Colors.grey,),
+                                                  ],
+                                                ),
+                                              ],),
+                                          ),
+                                        ),
+                                      ],),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        //
+                        Padding(//                                            ==@@ 산책 완료 디자인 @@==
+                          padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
+                          child: Container( //                                == 각 리스트 전체 Container==
+                            color: Color(0xffffffff),
+                            width: ScreenUtil().screenWidth,
+                            height: ScreenUtil().setHeight(130),
+                            child: Center(
+                              child: Container(//                             == 각 리스트 내 글자, 이미지 담는 Container ==
+                                //   센터 조정 하기위해서 사용
+                                // color: Colors.green,
+                                width: ScreenUtil().setWidth(360),
+                                height: ScreenUtil().setHeight(120),
+                                child: Column(
+                                  children: [
+                                    Row(children: [
+                                      Container( // 상태창 디자인 ex) 산책 요청중
+                                        width: 200,
+                                        height: 30,
+                                        decoration: BoxDecoration(
+                                          // border: Border.all(color: Colors.grey),
+                                            color: Colors.grey[350], //Colors.lightBlueAccent,
+                                            borderRadius: BorderRadius.circular(10)
+                                        ),
+                                        child: Center(child: Text("산책 완료",style: TextStyle(color: Colors.black),),),
                                       ),
-                                    ),
-                                  ],),
-                                )
-                              ],
+                                      Flexible(
+                                        fit: FlexFit.loose,
+                                        child: Container(
+                                          height: 30,
+                                          // color: Colors.yellowAccent,
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 10),
+                                        child: InkWell(
+                                          onTap: (){
+                                            print('예약 상세 첵!!');
+                                          },
+                                          child: Container( //                  == 예약 상세 Container==
+                                            width: 75,
+                                            height: 25,
+                                            decoration: BoxDecoration(
+                                              //  color: Colors.greenAccent,
+                                                border: Border.all(color: Colors.grey),
+                                                borderRadius: BorderRadius.circular(20)
+                                            ),
+                                            child: Center(child: Text("예약상세")),
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 10),
+                                        child: InkWell(
+                                            onTap: (){
+                                              print('더보기 첵!!');
+                                            },
+                                            child: Icon(Icons.more_vert)),),
+                                    ],),
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 8),
+                                      child: Row(children: [
+                                        Container( //                         == 이미지 Container ==
+                                          height: 76.h,
+                                          width: 76.w,
+                                          decoration: BoxDecoration(
+                                            color: Colors.blueGrey,
+                                            borderRadius: BorderRadius.circular(20),
+                                            image: DecorationImage(
+                                                image:  AssetImage('assets/sangjune.png',),fit: BoxFit.cover
+                                            ),
+                                          ),),
+                                        Padding(
+                                          padding: const EdgeInsets.only(left: 10),
+                                          child: Container(                 //== 닉네임, 시간 산책 Container ==
+                                            //  color: Colors.lightGreenAccent,
+                                            width: 200.w,
+                                            child: Column(
+                                              mainAxisAlignment: MainAxisAlignment.start,
+                                              children: [
+                                                Row(
+                                                  children: [
+                                                    Text("창업조아 60분 산책",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18.sp),),
+                                                    Icon(Icons.navigate_next_sharp,color: Colors.grey,),
+                                                  ],
+                                                ),
+                                              ],),
+                                          ),
+                                        ),
+                                      ],),
+                                    )
+                                  ],
+                                ),
+                              ),
                             ),
                           ),
                         ),
