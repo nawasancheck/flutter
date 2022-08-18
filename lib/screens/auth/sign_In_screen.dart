@@ -29,6 +29,10 @@ class SignInScreen extends StatelessWidget {
                 child: Text("나와산책", style: TextStyle(color: Color(0xff000000), fontSize: 32.sp, fontWeight: FontWeight.bold)),
               ),
             ),
+            Flexible(
+              fit: FlexFit.tight,
+              child: SizedBox(),
+            ),
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 20, 0, 3),
               child: Container(
@@ -96,7 +100,7 @@ class SignInScreen extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
+              padding: const EdgeInsets.fromLTRB(0, 10, 0, 15),
               child: Container(
                 width: 327.w,
                 height: 43.h,
@@ -114,12 +118,28 @@ class SignInScreen extends StatelessWidget {
                 ),
               ),
             ),
-            TextButton(
-              child: Text("개인정보처리방침", style: TextStyle(fontSize: 12.sp, color: Color(0xff351313))),
-              onPressed: () async {
-                final Uri _url = Uri.parse('https://google.com');
-                await launchUrl(_url);
-              },
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextButton(
+                  child: Text("이용약관", style: TextStyle(fontSize: 12.sp, color: Color(0xff351313))),
+                  onPressed: () async {
+                    final Uri _url = Uri.parse('https://google.com');
+                    await launchUrl(_url);
+                  },
+                ),
+                TextButton(
+                  child: Text("개인정보처리방침", style: TextStyle(fontSize: 12.sp, color: Color(0xff351313))),
+                  onPressed: () async {
+                    final Uri _url = Uri.parse('https://google.com');
+                    await launchUrl(_url);
+                  },
+                ),
+              ],
+            ),
+            Container(
+              //color: Colors.green,
+              height: ScreenUtil().setHeight(100),
             ),
           ],
         ),

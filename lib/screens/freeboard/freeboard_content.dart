@@ -270,8 +270,7 @@ class FreeBoardContentState extends State<FreeBoardContent> {
                                   ),
                                   ListView.builder(
                                     // 댓글 부분
-                                    physics: NeverScrollableScrollPhysics(),
-                                    // listview 안 listview 쓰는 경우 스크롤 자연스럽게
+                                    physics: NeverScrollableScrollPhysics(), // listview 안 listview 쓰는 경우 스크롤 자연스럽게
                                     shrinkWrap: true,
                                     itemCount: docs2.length,
                                     itemBuilder: (context, index) {

@@ -27,7 +27,7 @@ class FreeBoard extends StatelessWidget {
         actions: [
           IconButton(
             icon: Icon(
-              Icons.add, //EvaIcons.plus,
+              Icons.edit,
               color: Colors.black,
             ),
             onPressed: () {
@@ -45,7 +45,7 @@ class FreeBoard extends StatelessWidget {
             child: Container(
               // body의 전체 화면 , 게시판 리스트 나열 되는 Container
               width: ScreenUtil().screenWidth,
-              height: ScreenUtil().setHeight(110),
+              height: ScreenUtil().setHeight(200),
               color: Color(0xffececec),
               child: StreamBuilder(
                 stream: FirebaseFirestore.instance.collection('board_test').orderBy('time', descending: true).snapshots(),
@@ -86,7 +86,7 @@ class FreeBoard extends StatelessWidget {
                       return Padding(
                         padding: const EdgeInsets.fromLTRB(3, 3, 3, 5),
                         child: Container(
-                          height: ScreenUtil().setHeight(90),
+                          height: ScreenUtil().setHeight(110), // 변경 history 1. 90
                           width: ScreenUtil().screenWidth,
                           decoration: BoxDecoration(
                             color: Colors.white,
@@ -103,10 +103,14 @@ class FreeBoard extends StatelessWidget {
                             child: Center(
                               child: Container(
                                 // 리스트 안 내용 크기 컨테이너
-                                height: ScreenUtil().setHeight(90),
+                                height: ScreenUtil().setHeight(70), // 변경 history 1. 90 , 2. 60
+                                // 내용 가운데 오도록 하기 위해서 60으로 조정
                                 width: ScreenUtil().setWidth(360),
                                 // color: Colors.green,
-                                child: Column(
+                                child: ListView(
+                                  // Render 할 경우 일시적으로 OverFlow 발생해서 Column => ListView로 변경
+                                  shrinkWrap: true,
+                                  physics: NeverScrollableScrollPhysics(),
                                   children: [
                                     Row(
                                       children: [
@@ -181,13 +185,13 @@ class FreeBoard extends StatelessWidget {
                                         ),
                                         Icon(
                                           EvaIcons.messageCircleOutline,
-                                          color: Colors.blue,
+                                          color: Color(0xff4d9391),
                                         ),
                                         Text(
                                           "$comments",
                                           style: TextStyle(
                                             fontSize: 15.sp,
-                                            color: Colors.blue,
+                                            color: Color(0xff4d9391),
                                           ),
                                         ),
                                       ],
