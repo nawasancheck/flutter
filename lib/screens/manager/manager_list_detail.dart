@@ -75,151 +75,24 @@ class ManagerDetailPage extends StatelessWidget {
                                       )),
                                   Text(
                                     "${docs['profile']['area']}" + " / " + "${docs['profile']['year']}" + "대",
-                                    style: TextStyle(fontSize: 14.sp, color: Colors.grey, fontWeight: FontWeight.bold),
+                                    style: TextStyle(fontSize: 15.sp, color: Colors.grey, fontWeight: FontWeight.bold),
                                   ),
-                                  Container(
-                                    height: ScreenUtil().setHeight(0),
-                                  ),
-                                  Row(children: [
-                                    Icon(
-                                      Icons.star,
-                                      color: Colors.yellow,
-                                      size: 25,
-                                    ),
-                                    Container(width: ScreenUtil().setWidth(5)),
-                                    Text(
-                                      "${docs['profile']['star']}",
-                                      style: TextStyle(
-                                        fontSize: 14.sp,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    Text(
-                                      "/10",
-                                      style: TextStyle(
-                                        fontSize: 10.sp,
-                                        color: Colors.grey,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.pop(context, 'pop');
-                                      },
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            "후기 ",
-                                            style: TextStyle(
-                                              fontSize: 12.sp,
-                                              color: Colors.lightBlue,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                          Text(
-                                            "0",
-                                            style: TextStyle(
-                                              fontSize: 16.sp,
-                                              color: Colors.lightBlue,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                          Text(
-                                            "개",
-                                            style: TextStyle(
-                                              fontSize: 12.sp,
-                                              color: Colors.lightBlue,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                          Container(width: ScreenUtil().setWidth(5)),
-                                          Icon(
-                                            Icons.arrow_forward_ios_rounded,
-                                            color: Colors.lightBlue,
-                                            size: 14,
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ]),
-                                  Row(
-                                    children: [
-                                      Text(
-                                        "시간별 포인트",
-                                        style: TextStyle(
-                                          fontSize: 12.sp,
-                                          color: Colors.grey,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      Text(" 30분",
-                                          style: TextStyle(
-                                            fontSize: 12.sp,
-                                            color: Colors.grey,
-                                            fontWeight: FontWeight.bold,
-                                          )),
-                                      Text(" ${docs['profile']['price1']} P",
-                                          style: TextStyle(
-                                            fontSize: 12.sp,
-                                            color: Colors.pink[700],
-                                            fontWeight: FontWeight.bold,
-                                          )),
-                                      Text(" / 60분",
-                                          style: TextStyle(
-                                            fontSize: 12.sp,
-                                            color: Colors.grey,
-                                            fontWeight: FontWeight.bold,
-                                          )),
-                                      Text(" ${docs['profile']['price2']} P",
-                                          style: TextStyle(
-                                            fontSize: 12.sp,
-                                            color: Colors.pink[700],
-                                            fontWeight: FontWeight.bold,
-                                          )),
-                                      Text(" / 90분",
-                                          style: TextStyle(
-                                            fontSize: 12.sp,
-                                            color: Colors.grey,
-                                            fontWeight: FontWeight.bold,
-                                          )),
-                                      Text(" ${docs['profile']['price3']} P",
-                                          style: TextStyle(
-                                            fontSize: 12.sp,
-                                            color: Colors.pink[700],
-                                            fontWeight: FontWeight.bold,
-                                          )),
-                                    ],
-                                  ),
-                                  Container(
-                                    height: ScreenUtil().setHeight(10),
-                                  ),
-                                  Row(
-                                    children: [
-                                      Text("MBTI",
-                                          style: TextStyle(
-                                            fontSize: 14.sp,
-                                            color: Colors.grey,
-                                            fontWeight: FontWeight.bold,
-                                          )),
-                                      Text("  ${docs['profile']['MBTI']}",
-                                          style: TextStyle(
-                                            fontSize: 14.sp,
-                                            fontWeight: FontWeight.bold,
-                                          )),
-                                    ],
-                                  ),
+
+
+
+
+
                                   Row(
                                     children: [
                                       Text("관심분야",
                                           style: TextStyle(
-                                            fontSize: 14.sp,
+                                            fontSize: 15.sp,
                                             color: Colors.grey,
                                             fontWeight: FontWeight.bold,
                                           )),
                                       Text("  ${docs['profile']['like']}",
                                           style: TextStyle(
-                                            fontSize: 14.sp,
+                                            fontSize: 15.sp,
                                             fontWeight: FontWeight.bold,
                                           )),
                                     ],
@@ -230,11 +103,11 @@ class ManagerDetailPage extends StatelessWidget {
                             height: ScreenUtil().setHeight(10),
                           ),
                           Padding(
-                            padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                            padding: const EdgeInsets.fromLTRB(5, 0, 5, 10),
                             child: Card(
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(16),
-                                side: BorderSide(color: Colors.blue.shade300, width: 2),
+                                side: BorderSide(color: Color(0xff93e3e6), width: 2),
                               ),
                               color: Colors.white,
                               child: Padding(
@@ -252,39 +125,7 @@ class ManagerDetailPage extends StatelessWidget {
                                     ),
                                     Text(docs['profile']['description'],
                                         style: TextStyle(
-                                          fontSize: 13.sp,
-                                          color: Colors.grey,
-                                          fontWeight: FontWeight.bold,
-                                        ))
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-                            child: Card(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(16),
-                                side: BorderSide(color: Colors.blue.shade300, width: 2),
-                              ),
-                              color: Colors.white,
-                              child: Padding(
-                                padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text("'" + docs['profile']['title'] + "' 매니져의 추천 코스 !",
-                                        style: TextStyle(
                                           fontSize: 15.sp,
-                                          fontWeight: FontWeight.bold,
-                                        )),
-                                    Container(
-                                      height: ScreenUtil().setHeight(7),
-                                    ),
-                                    Text("${docs['profile']['course']}",
-                                        style: TextStyle(
-                                          fontSize: 13.sp,
                                           color: Colors.grey,
                                           fontWeight: FontWeight.bold,
                                         ))
@@ -324,7 +165,7 @@ class ManagerDetailPage extends StatelessWidget {
                                 decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(20),
-                                  border: Border.all(color: Colors.blue.shade300, style: BorderStyle.solid, width: 2.sp),
+                                  border: Border.all(color: Color(0xff93e3e6), style: BorderStyle.solid, width: 2.sp),
                                 ),
                                 child: Icon(
                                   EvaIcons.messageCircleOutline,
@@ -388,7 +229,7 @@ class ManagerDetailPage extends StatelessWidget {
                                 decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(20),
-                                  border: Border.all(color: Colors.blue.shade300, style: BorderStyle.solid, width: 2.sp),
+                                  border: Border.all(color: Color(0xff93e3e6), style: BorderStyle.solid, width: 2.sp),
                                 ),
                                 child: isPressed
                                     ? Icon(
