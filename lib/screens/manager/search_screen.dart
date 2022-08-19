@@ -23,8 +23,6 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
-    String search = '';
-
     return GestureDetector(
       // 여백화면 클릭시 TextField 비활성화
       onTap: () {
@@ -43,11 +41,12 @@ class _SearchPageState extends State<SearchPage> {
                 controller: _controller,
                 decoration: InputDecoration(
                   hintText: '리스너 검색',
-                  suffixIcon: InkWell(child: Icon(Icons.more_vert), onTap: () {}),
+                  suffixIcon: InkWell(
+                      child: Icon(Icons.more_vert),
+                      onTap: () {
+                        print(_controller.text);
+                      }),
                 ),
-                onChanged: (value) {
-                  search = value;
-                },
               ),
             ),
           ),
@@ -56,7 +55,9 @@ class _SearchPageState extends State<SearchPage> {
               padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
               child: InkWell(
                 child: Icon(Icons.search),
-                onTap: () {},
+                onTap: () {
+                  setState(() {});
+                },
               ),
             )
           ],
@@ -77,14 +78,14 @@ class _SearchPageState extends State<SearchPage> {
                 return Text('null');
               }
 
-              final List allData = docs.where((doc) => doc.data()['profile']['like'].contains(search)).toList();
+              final List allData = docs.where((doc) => doc.data()['profile']['like'].contains(_controller.text)).toList();
 
+              print(allData.length);
               return ListView.builder(
                 shrinkWrap: true,
                 itemCount: allData.length,
                 itemBuilder: (context, index) {
                   List isPressedList = docs[index]['profile']['isPressedList'];
-                  bool isPressed = isPressedList.contains('${AuthController.instance.authentication.currentUser!.uid}');
 
                   return Container(
                     height: 100,
