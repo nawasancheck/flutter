@@ -2,16 +2,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../controller/auth/auth_controller.dart';
-
-class SearchPage extends StatefulWidget {
-  SearchPage({Key? key}) : super(key: key);
+class ManagerSearchPage extends StatefulWidget {
+  ManagerSearchPage({Key? key}) : super(key: key);
 
   @override
-  State<SearchPage> createState() => _SearchPageState();
+  State<ManagerSearchPage> createState() => _ManagerSearchPageState();
 }
 
-class _SearchPageState extends State<SearchPage> {
+class _ManagerSearchPageState extends State<ManagerSearchPage> {
   final _controller = TextEditingController();
 
   @override
@@ -41,11 +39,7 @@ class _SearchPageState extends State<SearchPage> {
                 controller: _controller,
                 decoration: InputDecoration(
                   hintText: '리스너 검색',
-                  suffixIcon: InkWell(
-                      child: Icon(Icons.more_vert),
-                      onTap: () {
-                        print(_controller.text);
-                      }),
+                  suffixIcon: InkWell(child: Icon(Icons.more_vert), onTap: () {}),
                 ),
               ),
             ),
@@ -80,7 +74,6 @@ class _SearchPageState extends State<SearchPage> {
 
               final List allData = docs.where((doc) => doc.data()['profile']['like'].contains(_controller.text)).toList();
 
-              print(allData.length);
               return ListView.builder(
                 shrinkWrap: true,
                 itemCount: allData.length,

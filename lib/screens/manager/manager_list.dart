@@ -4,7 +4,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/controller/auth/auth_controller.dart';
 import 'package:flutter_app/screens/manager/manager_list_detail.dart';
-import 'package:flutter_app/screens/manager/search_screen.dart';
+import 'package:flutter_app/screens/manager/manager_search_screen.dart';
 import 'package:flutter_app/terms/terms_of_service.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -97,7 +97,7 @@ class _ManagerListScreenState extends State<ManagerListScreen> {
             color: Color(0xff525252),
             icon: Icon(Icons.search),
             onPressed: () {
-              Get.to(() => SearchPage());
+              Get.to(() => ManagerSearchPage());
             },
           ),
           IconButton(
