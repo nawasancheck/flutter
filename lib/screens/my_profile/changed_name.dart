@@ -23,7 +23,7 @@ class _ChangedNameState extends State<ChangedName> {
           "닉네임 변경",
           style: TextStyle(color: Color(0xff324755), fontWeight: FontWeight.bold),
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: Color(0xff93e3e6),
         iconTheme: IconThemeData(
           color: Color(0xff324755),
         ),

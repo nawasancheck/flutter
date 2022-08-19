@@ -28,8 +28,7 @@ class Profile extends StatelessWidget {
           title: Text(
             "더보기",
             style: TextStyle(
-                fontSize: 17.sp,
-                color: Colors.grey,
+                color: Color(0xff324755),
                 fontWeight: FontWeight.bold),
           ),
         ),
@@ -67,15 +66,15 @@ class Profile extends StatelessWidget {
                   ),
                 ),
                 ListTile(
-                    tileColor: Color(0xff4472c4),
+                    tileColor: Color(0xffffffff),
                     onTap: () {
                       Navigator.of(context, rootNavigator: true).push(
                           MaterialPageRoute(builder: (_) => ListenerProfile()));
                     },
                     leading: Icon(
-                      EvaIcons.person,
+                      EvaIcons.personOutline,
                       size: 30,
-                      color: Color(0xffffffff),
+                      color: Color(0xfff5c462),
                     ),
                     trailing: Icon(
                       EvaIcons.arrowIosForward,
@@ -86,11 +85,11 @@ class Profile extends StatelessWidget {
                         child: Text('리스너 프로필관리',
                             style: TextStyle(
                                 fontSize: 19.sp,
-                                color: Color(0xffffffff),
+                                color: Color(0xff878787),
                                 fontWeight: FontWeight.bold)))
                 ),
                 ListTile(
-                    tileColor: Color(0xff4472c4),
+                    tileColor: Color(0xffffffff),
                     onTap: () {
                       Navigator.of(context, rootNavigator: true).push(
                           MaterialPageRoute(builder: (_) => WishList()));
@@ -98,7 +97,7 @@ class Profile extends StatelessWidget {
                     leading: Icon(
                       EvaIcons.heart,
                       size: 30,
-                      color: Color(0xffffffff),
+                      color: Color(0xfff5c462),
                     ),
                     trailing: Icon(
                       EvaIcons.arrowIosForward,
@@ -109,7 +108,7 @@ class Profile extends StatelessWidget {
                         child: Text('찜목록',
                             style: TextStyle(
                                 fontSize: 19.sp,
-                                color: Color(0xffffffff),
+                                color: Color(0xff878787),
                                 fontWeight: FontWeight.bold)))
                 ),
                 ListTile(

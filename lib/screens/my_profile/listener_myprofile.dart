@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/screens/homepage.dart';
 import 'package:flutter_app/screens/my_profile/listener_profile.dart';
 import 'package:flutter_app/screens/my_profile/profile.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,23 +10,22 @@ import 'dart:io';
 import 'package:uuid/uuid.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
-class ListenerApplication extends StatefulWidget {
-  const ListenerApplication({Key? key}) : super(key: key);
+class ListenerMyProfile extends StatefulWidget {
+  const ListenerMyProfile({Key? key}) : super(key: key);
 
   @override
-  _ListenerApplicationState createState() => _ListenerApplicationState();
+  _ListenerMyProfileState createState() => _ListenerMyProfileState();
 }
 
-class _ListenerApplicationState extends State<ListenerApplication> {
+class _ListenerMyProfileState extends State<ListenerMyProfile> {
   final currentUser = FirebaseAuth.instance.currentUser!;
   File? imageFile;
 
-  String nickname = '';
-  String area = '';
-  String interests = '';
-  String content = '';
-  String listenerMame = '';
-  String phoneNumber = '';
+  //
+  // String nickname = '';
+  // String area = '';
+  // String interests = '';
+  // String content = '';
 
   Future getImage() async {
     ImagePicker _picker = ImagePicker();
@@ -58,7 +56,7 @@ class _ListenerApplicationState extends State<ListenerApplication> {
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
         title: Text(
-          "리스너 지원 1차",
+          "리스너프로필관리",
           style:
           TextStyle(color: Color(0xff324755), fontWeight: FontWeight.bold),
         ),
@@ -153,7 +151,7 @@ class _ListenerApplicationState extends State<ListenerApplication> {
                           ),
                         ),
                         onChanged: (value) {
-                          nickname = value.trim();
+                          // nickname = value.trim();
                         },
                       ),
                     ),
@@ -212,7 +210,7 @@ class _ListenerApplicationState extends State<ListenerApplication> {
                           ),
                         ),
                         onChanged: (value) {
-                          area = value.trim();
+                          // area = value.trim();
                         },
                       ),
                     ),
@@ -251,7 +249,7 @@ class _ListenerApplicationState extends State<ListenerApplication> {
                           ),
                         ),
                         onChanged: (value) {
-                          interests = value.trim();
+                          // interests = value.trim();
                         },
                       ),
                     ),
@@ -287,86 +285,10 @@ class _ListenerApplicationState extends State<ListenerApplication> {
                             color: Color(0xffc4c4c4),
                           ),
                         ),
-                        maxLines: 3,
+                        maxLines: 5,
                         minLines: 1,
                         onChanged: (value) {
-                          content = value.trim();
-                        },
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: ScreenUtil().setHeight(10)),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 3),
-                    child: Center(
-                      child: Container(
-                        //             color: Colors.blue,
-                        width: ScreenUtil().setWidth(360),
-                        height: ScreenUtil().setHeight(25),
-                        child: Text(
-                          "성함",
-                          style: TextStyle(
-                              color: Color(0xff000000),
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Center(
-                    child: Container(
-                      color: Colors.white,
-                      width: ScreenUtil().setWidth(360),
-                      height: ScreenUtil().setHeight(40),
-                      child: TextField(
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          labelText: '홍길동',
-                          labelStyle: TextStyle(
-                            fontSize: 14.sp,
-                            color: Color(0xffc4c4c4),
-                          ),
-                        ),
-                        onChanged: (value) {
-                          listenerMame = value.trim();
-                        },
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: ScreenUtil().setHeight(10)),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 3),
-                    child: Center(
-                      child: Container(
-                        //             color: Colors.blue,
-                        width: ScreenUtil().setWidth(360),
-                        height: ScreenUtil().setHeight(25),
-                        child: Text(
-                          "연락처",
-                          style: TextStyle(
-                              color: Color(0xff000000),
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Center(
-                    child: Container(
-                      color: Colors.white,
-                      width: ScreenUtil().setWidth(360),
-                      height: ScreenUtil().setHeight(40),
-                      child: TextField(
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          labelText: '010-1234-5678',
-                          labelStyle: TextStyle(
-                            fontSize: 14.sp,
-                            color: Color(0xffc4c4c4),
-                          ),
-                        ),
-                        onChanged: (value) {
-                          phoneNumber = value.trim();
+                          // content = value.trim();
                         },
                       ),
                     ),
@@ -374,18 +296,19 @@ class _ListenerApplicationState extends State<ListenerApplication> {
                   Flexible(fit: FlexFit.tight, child: SizedBox()),
 
                   InkWell(
-                      onTap: () async {
-                        await FirebaseFirestore.instance
-                            .collection("support_manager")
-                            .doc(currentUser.uid)
-                            .set({
-                          'nickname': nickname,
-                          'area': area,
-                          'interests': interests,
-                          'content': content,
-                          'listenerName': listenerMame,
-                          'phoneNumber': phoneNumber
-                        });
+                    // onTap: () async {
+                    //   await FirebaseFirestore.instance
+                    //       .collection("support_manager")
+                    //       .doc(currentUser.uid)
+                    //       .set({
+                    //     'nickname': nickname,
+                    //     'area': area,
+                    //     'interests': interests,
+                    //     'content': content,
+                    //   });
+                    //   Navigator.of(context).pop();
+                    // },
+                      onTap: () {
                         showDialog(
                             context: context,
                             barrierDismissible: false,
@@ -394,7 +317,10 @@ class _ListenerApplicationState extends State<ListenerApplication> {
                                 content: Container(
                                   padding: EdgeInsets.only(top: 30),
                                   child: Text(
-                                    "지원이 완료되었습니다!",
+                                    "수정요청이\n"
+                                        "완료되었습니다.\n"
+                                        "자사의 검토 후 반영될\n"
+                                        "예정입니다.\n",
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
@@ -402,10 +328,9 @@ class _ListenerApplicationState extends State<ListenerApplication> {
                                   Center(
                                     child: FlatButton(
                                         onPressed: () {
-                                          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (BuildContext context) => HomePage()), (route) => false);
-                                          Navigator.of(context, rootNavigator: true).push(
-                                              MaterialPageRoute(
-                                                  builder: (_) => Profile()));
+                                          Navigator.pushNamedAndRemoveUntil(context, '/', (_) => false);
+                                          Navigator.push(context, MaterialPageRoute(builder: (context) => Profile()));
+                                          Navigator.push(context, MaterialPageRoute(builder: (context) => ListenerProfile()));
                                         },
                                         child: Container(
                                           decoration: BoxDecoration(
@@ -432,12 +357,13 @@ class _ListenerApplicationState extends State<ListenerApplication> {
                           padding: const EdgeInsets.all(8.0),
                           child: Center(
                               child: Text(
-                                "제출하기",
+                                "수정요청",
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 13.sp),
                               )),
                         ),
                       )),
+
                   // 이전 제출하기 버튼
                   /*Container(
                     color: Colors.yellow,
@@ -481,7 +407,7 @@ class _ListenerApplicationState extends State<ListenerApplication> {
                       );},),
                   ),
                    */
-                  SizedBox(height: ScreenUtil().setHeight(10)),
+                  SizedBox(height: ScreenUtil().setHeight(60)),
                 ],
               )),
         ),

@@ -36,7 +36,7 @@ class _NoticePageState extends State<NoticePage> {
           style:
               TextStyle(color: Color(0xff324755), fontWeight: FontWeight.bold),
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: Color(0xff93e3e6),
         iconTheme: IconThemeData(
           color: Color(0xff324755),
         ),
