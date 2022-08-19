@@ -175,20 +175,17 @@ class FreeBoardContentState extends State<FreeBoardContent> {
                           SizedBox(
                             height: ScreenUtil().setHeight(10),
                           ),
-                          Flexible(
-                            fit: FlexFit.loose,
-                            child: Center(
-                              child: Container(
-                                // 글 내용
-                                //     color: Colors.red,
-                                width: ScreenUtil().setWidth(360),
-                                //height: ScreenUtil().setHeight(100),
-                                child: Text(
-                                  '${docs['content']}',
-                                  style: TextStyle(
-                                    color: Color(0xff8e8594),
-                                    fontSize: 18.sp,
-                                  ),
+                          Center(
+                            child: Container(
+                              // 글 내용
+                              //     color: Colors.red,
+                              width: ScreenUtil().setWidth(360),
+                              //height: ScreenUtil().setHeight(100),
+                              child: Text(
+                                '${docs['content']}',
+                                style: TextStyle(
+                                  color: Color(0xff8e8594),
+                                  fontSize: 18.sp,
                                 ),
                               ),
                             ),
@@ -275,119 +272,105 @@ class FreeBoardContentState extends State<FreeBoardContent> {
                                     itemCount: docs2.length,
                                     itemBuilder: (context, index) {
                                       var time = docs2[index]['time'].toDate();
-                                      var ampm = '';
-                                      var writeTime = '';
+                                      var writeTime2 = '';
 
-                                      if (time.hour <= 12) {
-                                        ampm = '오전';
-                                      } else {
-                                        ampm = '오후';
-                                      }
-
-                                      writeTime = ' ${time.month}/${time.day} ${time.hour}:${time.minute}';
+                                      writeTime2 = ' ${time.month}/${time.day} ${time.hour}:${time.minute}';
 
                                       return Center(
-                                        child: Flexible(
-                                          fit: FlexFit.loose,
-                                          child: Container(
-                                            //       color: Colors.purple,
-                                            width: ScreenUtil().setWidth(360),
-                                            // height: ScreenUtil().setHeight(120),
-                                            child: Column(
-                                              children: [
-                                                Row(
-                                                  children: [
-                                                    Container(
-                                                      width: ScreenUtil().setWidth(30),
-                                                      height: ScreenUtil().setHeight(30),
-                                                      decoration: BoxDecoration(
-                                                        shape: BoxShape.circle,
-                                                        color: Colors.grey[400],
-                                                      ),
-                                                      child: Icon(
-                                                        EvaIcons.personOutline,
-                                                        size: 20.sp,
-                                                        color: Colors.white,
-                                                      ),
+                                        child: Container(
+                                          //       color: Colors.purple,
+                                          width: ScreenUtil().setWidth(360),
+                                          // height: ScreenUtil().setHeight(120),
+                                          child: Column(
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  Container(
+                                                    width: ScreenUtil().setWidth(30),
+                                                    height: ScreenUtil().setHeight(30),
+                                                    decoration: BoxDecoration(
+                                                      shape: BoxShape.circle,
+                                                      color: Colors.grey[400],
                                                     ),
-                                                    Text("   ${docs2[index]['userName']}"),
-                                                    Flexible(fit: FlexFit.tight, child: Container()),
-                                                    Container(
-                                                      decoration: BoxDecoration(
-                                                          //color: Color(0xffe1f3f3),
-                                                          borderRadius: BorderRadius.circular(3)),
-                                                      child: Row(
-                                                        children: [
-                                                          PopupMenuButton(
-                                                            itemBuilder: (context) {
-                                                              return [
-                                                                PopupMenuItem<int>(
-                                                                  value: 0,
-                                                                  child: Text('댓글 삭제'), // 자신이 쓴 글이 맞은 경우 삭제
-                                                                ),
-                                                              ];
-                                                            },
-                                                            onSelected: (value) {
-                                                              if (value == 0) {
-                                                                showDialog(
-                                                                    context: context,
-                                                                    barrierDismissible: false,
-                                                                    // 바깥영역 터치시 닫힐지 여부
-                                                                    builder: (BuildContext context) {
-                                                                      return AlertDialog(
-                                                                        title: Text("팝업 메세지"),
-                                                                        content: Text('해당 댓글을 삭제 하시겠습니까?'),
-                                                                        actions: [
-                                                                          FlatButton(
-                                                                              onPressed: () {
-                                                                                Navigator.of(context).pop(); // 팝업창 나가기
-                                                                              },
-                                                                              child: Text('Okay')),
-                                                                          FlatButton(
-                                                                              onPressed: () {
-                                                                                Navigator.of(context).pop(); // 팝업창 나가기
-                                                                              },
-                                                                              child: Text('Cancel')),
-                                                                        ],
-                                                                      );
-                                                                    });
-                                                              }
-                                                            },
-                                                          )
-                                                          /* InkWell(
-                                                              onTap:(){
-                                                              },
-                                                              child: Icon(
-                                                                EvaIcons
-                                                                    .moreVertical,
-                                                                color:
-                                                                    Colors.grey,
+                                                    child: Icon(
+                                                      EvaIcons.personOutline,
+                                                      size: 20.sp,
+                                                      color: Colors.white,
+                                                    ),
+                                                  ),
+                                                  Text("   ${docs2[index]['userName']}"),
+                                                  Container(
+                                                    decoration: BoxDecoration(
+                                                        //color: Color(0xffe1f3f3),
+                                                        borderRadius: BorderRadius.circular(3)),
+                                                    child: Row(
+                                                      children: [
+                                                        PopupMenuButton(
+                                                          itemBuilder: (context) {
+                                                            return [
+                                                              PopupMenuItem<int>(
+                                                                value: 0,
+                                                                child: Text('댓글 삭제'), // 자신이 쓴 글이 맞은 경우 삭제
                                                               ),
-                                                            ),*/
-                                                        ],
-                                                      ),
+                                                            ];
+                                                          },
+                                                          onSelected: (value) {
+                                                            if (value == 0) {
+                                                              showDialog(
+                                                                  context: context,
+                                                                  barrierDismissible: false,
+                                                                  // 바깥영역 터치시 닫힐지 여부
+                                                                  builder: (BuildContext context) {
+                                                                    return AlertDialog(
+                                                                      title: Text("팝업 메세지"),
+                                                                      content: Text('해당 댓글을 삭제 하시겠습니까?'),
+                                                                      actions: [
+                                                                        FlatButton(
+                                                                            onPressed: () {
+                                                                              Navigator.of(context).pop(); // 팝업창 나가기
+                                                                            },
+                                                                            child: Text('Okay')),
+                                                                        FlatButton(
+                                                                            onPressed: () {
+                                                                              Navigator.of(context).pop(); // 팝업창 나가기
+                                                                            },
+                                                                            child: Text('Cancel')),
+                                                                      ],
+                                                                    );
+                                                                  });
+                                                            }
+                                                          },
+                                                        )
+                                                        /* InkWell(
+                                                            onTap:(){
+                                                            },
+                                                            child: Icon(
+                                                              EvaIcons
+                                                                  .moreVertical,
+                                                              color:
+                                                                  Colors.grey,
+                                                            ),
+                                                          ),*/
+                                                      ],
                                                     ),
-                                                  ],
-                                                ),
-                                                SizedBox(
-                                                  height: ScreenUtil().setHeight(5),
-                                                ),
-                                                Row(
-                                                  children: [
-                                                    Text(" ${docs2[index]['text']}"),
-                                                  ],
-                                                ),
-                                                Row(
-                                                  children: [
-                                                    Text("$writeTime"),
-                                                  ],
-                                                ),
-                                                Divider(
-                                                  //indent: 20, endIndent: 20,
-                                                  thickness: 1,
-                                                )
-                                              ],
-                                            ),
+                                                  ),
+                                                ],
+                                              ),
+                                              Row(
+                                                children: [
+                                                  Text(" ${docs2[index]['text']}"),
+                                                ],
+                                              ),
+                                              Row(
+                                                children: [
+                                                  Text("$writeTime2"),
+                                                ],
+                                              ),
+                                              Divider(
+                                                //indent: 20, endIndent: 20,
+                                                thickness: 1,
+                                              )
+                                            ],
                                           ),
                                         ),
                                       );

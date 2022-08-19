@@ -63,7 +63,6 @@ class FreeBoard extends StatelessWidget {
                     shrinkWrap: true,
                     itemCount: docs.length,
                     itemBuilder: (context, index) {
-                      int comments = docs[index]['comments'];
                       var time = docs[index]['time'].toDate();
                       var ampm = '';
                       var writeTime = '';
@@ -163,36 +162,27 @@ class FreeBoard extends StatelessWidget {
                                             width: 10,
                                           ),
                                         ),
-                                        StreamBuilder(
-                                          stream: FirebaseFirestore.instance.collection('board_test').orderBy('time', descending: true).snapshots(),
-                                          builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
-                                            List isPressedList = snapshot.data!.docs[index]['isPressedList'];
-                                            if (!snapshot.hasData) {
-                                              return Center(child: CircularProgressIndicator());
-                                            }
-                                            return Row(
-                                              children: [
-                                                Icon(
-                                                  EvaIcons.heartOutline,
-                                                  color: Colors.redAccent,
-                                                ),
-                                                Text(
-                                                  "${isPressedList.length}" + " ",
-                                                  style: TextStyle(
-                                                    fontSize: 15.sp,
-                                                    color: Colors.redAccent,
-                                                  ),
-                                                ),
-                                              ],
-                                            );
-                                          },
+                                        Row(
+                                          children: [
+                                            Icon(
+                                              EvaIcons.heartOutline,
+                                              color: Colors.redAccent,
+                                            ),
+                                            Text(
+                                              "${docs[index]['isPressedList'].length}" + " ",
+                                              style: TextStyle(
+                                                fontSize: 15.sp,
+                                                color: Colors.redAccent,
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                         Icon(
                                           EvaIcons.messageCircleOutline,
                                           color: Color(0xff4d9391),
                                         ),
                                         Text(
-                                          "$comments",
+                                          "${docs[index]['comments']}",
                                           style: TextStyle(
                                             fontSize: 15.sp,
                                             color: Color(0xff4d9391),
