@@ -85,8 +85,6 @@ class _SearchPageState extends State<SearchPage> {
                 shrinkWrap: true,
                 itemCount: allData.length,
                 itemBuilder: (context, index) {
-                  List isPressedList = docs[index]['profile']['isPressedList'];
-
                   return Container(
                     height: 100,
                     width: ScreenUtil().screenWidth,

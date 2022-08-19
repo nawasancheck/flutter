@@ -239,8 +239,10 @@ class _NewMessageState extends State<NewMessage> {
               if (_userEnterMessage.trim().isEmpty) {
               } else {
                 if (myRole == 1) {
+                  _controller.clear();
                   userSend();
                 } else {
+                  _controller.clear();
                   managerSend();
                 }
               }

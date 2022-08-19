@@ -1,10 +1,7 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/screens/my_profile/charge_point.dart';
 import 'package:flutter_app/screens/my_profile/customer_service.dart';
 import 'package:flutter_app/screens/my_profile/frequently_asked_questions.dart';
-import 'package:flutter_app/screens/my_profile/listener_application.dart';
 import 'package:flutter_app/screens/my_profile/listener_profile.dart';
 import 'package:flutter_app/screens/my_profile/my_profile.dart';
 import 'package:flutter_app/screens/my_profile/notice_page.dart';
@@ -16,20 +13,22 @@ class Profile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _user = FirebaseAuth.instance.currentUser;
     return Scaffold(
         backgroundColor: Color(0xffffffff),
         appBar: AppBar(
-          iconTheme: IconThemeData(color: Color(0xff324755),),
+          iconTheme: IconThemeData(
+            color: Color(0xff324755),
+          ),
           centerTitle: true,
           elevation: 2.0,
-          toolbarHeight: 50,
           backgroundColor: Colors.white,
           title: Text(
             "더보기",
             style: TextStyle(
-                color: Color(0xff324755),
-                fontWeight: FontWeight.bold),
+              color: Color(0xff324755),
+              fontSize: 20.sp,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
         body: ListView(children: [
@@ -44,8 +43,7 @@ class Profile extends StatelessWidget {
                 ListTile(
                   tileColor: Color(0xffffffff),
                   onTap: () {
-                    Navigator.of(context, rootNavigator: true).push(
-                        MaterialPageRoute(builder: (_) => MyProfile()));
+                    Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => MyProfile()));
                   },
                   leading: Icon(
                     EvaIcons.person,
@@ -58,18 +56,13 @@ class Profile extends StatelessWidget {
                   ),
                   title: Transform.translate(
                     offset: Offset(-15, 0),
-                    child: Text('프로필',
-                        style: TextStyle(
-                            fontSize: 19.sp,
-                            color: Color(0xff878787),
-                            fontWeight: FontWeight.bold)),
+                    child: Text('프로필', style: TextStyle(fontSize: 19.sp, color: Color(0xff878787), fontWeight: FontWeight.bold)),
                   ),
                 ),
                 ListTile(
                     tileColor: Color(0xffffffff),
                     onTap: () {
-                      Navigator.of(context, rootNavigator: true).push(
-                          MaterialPageRoute(builder: (_) => ListenerProfile()));
+                      Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => ListenerProfile()));
                     },
                     leading: Icon(
                       EvaIcons.personOutline,
@@ -82,17 +75,11 @@ class Profile extends StatelessWidget {
                     ),
                     title: Transform.translate(
                         offset: Offset(-15, 0),
-                        child: Text('리스너 프로필관리',
-                            style: TextStyle(
-                                fontSize: 19.sp,
-                                color: Color(0xff878787),
-                                fontWeight: FontWeight.bold)))
-                ),
+                        child: Text('리스너 프로필관리', style: TextStyle(fontSize: 19.sp, color: Color(0xff878787), fontWeight: FontWeight.bold)))),
                 ListTile(
                     tileColor: Color(0xffffffff),
                     onTap: () {
-                      Navigator.of(context, rootNavigator: true).push(
-                          MaterialPageRoute(builder: (_) => WishList()));
+                      Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => WishList()));
                     },
                     leading: Icon(
                       EvaIcons.heart,
@@ -105,17 +92,11 @@ class Profile extends StatelessWidget {
                     ),
                     title: Transform.translate(
                         offset: Offset(-15, 0),
-                        child: Text('찜목록',
-                            style: TextStyle(
-                                fontSize: 19.sp,
-                                color: Color(0xff878787),
-                                fontWeight: FontWeight.bold)))
-                ),
+                        child: Text('찜목록', style: TextStyle(fontSize: 19.sp, color: Color(0xff878787), fontWeight: FontWeight.bold)))),
                 ListTile(
                   tileColor: Color(0xffffffff),
                   onTap: () {
-                    Navigator.of(context, rootNavigator: true).push(
-                        MaterialPageRoute(builder: (_) => CustomerService()));
+                    Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => CustomerService()));
                   },
                   leading: Icon(
                     EvaIcons.phoneCall,
@@ -128,17 +109,12 @@ class Profile extends StatelessWidget {
                   ),
                   title: Transform.translate(
                       offset: Offset(-15, 0),
-                      child: Text('나와산책에 연락하기',
-                          style: TextStyle(
-                              fontSize: 19.sp,
-                              color: Color(0xff878787),
-                              fontWeight: FontWeight.bold))),
+                      child: Text('나와산책에 연락하기', style: TextStyle(fontSize: 19.sp, color: Color(0xff878787), fontWeight: FontWeight.bold))),
                 ),
                 ListTile(
                   tileColor: Color(0xffffffff),
                   onTap: () {
-                    Navigator.of(context, rootNavigator: true).push(
-                        MaterialPageRoute(builder: (_) => NoticePage()));
+                    Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => NoticePage()));
                   },
                   leading: Icon(
                     EvaIcons.bulb,
@@ -151,18 +127,12 @@ class Profile extends StatelessWidget {
                   ),
                   title: Transform.translate(
                       offset: Offset(-15, 0),
-                      child: Text('공지사항',
-                          style: TextStyle(
-                              fontSize: 19.sp,
-                              color: Color(0xff878787),
-                              fontWeight: FontWeight.bold))),
+                      child: Text('공지사항', style: TextStyle(fontSize: 19.sp, color: Color(0xff878787), fontWeight: FontWeight.bold))),
                 ),
                 ListTile(
                   tileColor: Color(0xffffffff),
                   onTap: () {
-                    Navigator.of(context, rootNavigator: true).push(
-                        MaterialPageRoute(
-                            builder: (_) => FrequentlyAskedQuestions()));
+                    Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => FrequentlyAskedQuestions()));
                   },
                   leading: Icon(
                     EvaIcons.questionMarkCircle,
@@ -175,16 +145,11 @@ class Profile extends StatelessWidget {
                   ),
                   title: Transform.translate(
                       offset: Offset(-15, 0),
-                      child: Text('자주묻는 질문',
-                          style: TextStyle(
-                              fontSize: 19.sp,
-                              color: Color(0xff878787),
-                              fontWeight: FontWeight.bold))),
+                      child: Text('자주묻는 질문', style: TextStyle(fontSize: 19.sp, color: Color(0xff878787), fontWeight: FontWeight.bold))),
                 ),
               ],
             ).toList(),
           ),
-        ])
-    );
+        ]));
   }
 }

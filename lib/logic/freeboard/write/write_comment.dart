@@ -3,8 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../screens/freeboard/freeboard_content.dart';
-
 class WriteComment extends StatefulWidget {
   final String boardNum;
 
@@ -21,10 +19,9 @@ class _WriteCommentState extends State<WriteComment> {
 
   @override
   Widget build(BuildContext context) {
-    FreeBoardContentState? parent = context.findAncestorStateOfType<FreeBoardContentState>(); // dependOnInheritedWidgetOfExactType 사용 알아보기
-
     void _writeComment() async {
       _commentController.clear();
+      FocusScope.of(context).unfocus();
       var sn = await FirebaseFirestore.instance.collection('board_test').doc(widget.boardNum).get();
 
       await FirebaseFirestore.instance.collection('board_test').doc(widget.boardNum).collection('comment').add({
@@ -35,7 +32,6 @@ class _WriteCommentState extends State<WriteComment> {
       });
 
       FirebaseFirestore.instance.collection('board_test').doc(widget.boardNum).update({'comments': sn['comments'] + 1});
-      parent?.setState(() {});
     }
 
     return Container(
