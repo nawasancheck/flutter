@@ -100,7 +100,6 @@ class _ListenerMyProfileState extends State<ListenerMyProfile> {
                   InkWell(
                     onTap: () async {
                       imageUrl = await getImage();
-                      print(imageUrl);
                     },
                     child: Column(
                       children: [
@@ -320,11 +319,11 @@ class _ListenerMyProfileState extends State<ListenerMyProfile> {
                                 actions: [
                                   Center(
                                     child: FlatButton(
-                                        onPressed: () {
+                                        onPressed: () async {
                                           Navigator.pushNamedAndRemoveUntil(context, '/', (_) => false);
                                           Navigator.push(context, MaterialPageRoute(builder: (context) => Profile()));
                                           Navigator.push(context, MaterialPageRoute(builder: (context) => ListenerProfile()));
-                                          FirebaseFirestore.instance
+                                          await FirebaseFirestore.instance
                                               .collection('user')
                                               .doc(AuthController.instance.authentication.currentUser!.uid)
                                               .update({

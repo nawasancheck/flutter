@@ -17,15 +17,8 @@ class MyProfile extends StatefulWidget {
 }
 
 class _MyProfileState extends State<MyProfile> {
-
-
   @override
   Widget build(BuildContext context) {
-
-    void initState(){
-      super.initState();
-    }
-
     final _user = FirebaseAuth.instance.currentUser;
 
     return Scaffold(
@@ -33,8 +26,7 @@ class _MyProfileState extends State<MyProfile> {
       appBar: AppBar(
         title: Text(
           "프로필",
-          style:
-          TextStyle(color: Color(0xff324755), fontWeight: FontWeight.bold),
+          style: TextStyle(color: Color(0xff324755), fontWeight: FontWeight.bold),
         ),
         backgroundColor: Color(0xff93e3e6),
         iconTheme: IconThemeData(
@@ -87,14 +79,12 @@ class _MyProfileState extends State<MyProfile> {
                   Container(
                     width: ScreenUtil().setWidth(350),
                     height: ScreenUtil().setHeight(50),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(4)),
+                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(4)),
                     child: ListTile(
                       title: Transform.translate(
                         child: Text(
                           "닉네임",
-                          style:
-                          TextStyle(fontSize: 21.sp, color: Colors.black),
+                          style: TextStyle(fontSize: 21.sp, color: Colors.black),
                         ),
                         offset: Offset(-15, 0),
                       ),
@@ -102,17 +92,20 @@ class _MyProfileState extends State<MyProfile> {
                           style: TextStyle(
                             fontSize: 21.sp,
                             color: Colors.grey,
-                          )
-                      ),
+                          )),
                       onTap: () {
-                        Navigator.of(context, rootNavigator: true).push(
-                            MaterialPageRoute(builder: (_) => ChangedName())
-                        );
+                        Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => ChangedName()));
                       },
                       visualDensity: VisualDensity(vertical: -4),
                     ),
                   ),
-                  Divider(thickness: 1, height: ScreenUtil().setHeight(10), color: Colors.grey, indent: 10, endIndent: 10,),
+                  Divider(
+                    thickness: 1,
+                    height: ScreenUtil().setHeight(10),
+                    color: Colors.grey,
+                    indent: 10,
+                    endIndent: 10,
+                  ),
                   // Container(
                   //   width: ScreenUtil().setWidth(350),
                   //   height: ScreenUtil().setHeight(50),
@@ -144,18 +137,16 @@ class _MyProfileState extends State<MyProfile> {
                   Container(
                     width: ScreenUtil().setWidth(350),
                     height: ScreenUtil().setHeight(50),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(4)),
+                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(4)),
                     child: ListTile(
                       title: Transform.translate(
                         child: Text(
                           "이메일",
-                          style:
-                          TextStyle(fontSize: 21.sp, color: Colors.black),
+                          style: TextStyle(fontSize: 21.sp, color: Colors.black),
                         ),
                         offset: Offset(-15, 0),
                       ),
-                      trailing: Text('${_user.email}',
+                      trailing: Text('${_user.providerData.first.email}',
                           style: TextStyle(
                             fontSize: 21.sp,
                             color: Colors.black,
@@ -163,7 +154,13 @@ class _MyProfileState extends State<MyProfile> {
                       visualDensity: VisualDensity(vertical: -4),
                     ),
                   ),
-                  Divider(thickness: 1, height: ScreenUtil().setHeight(10), color: Colors.grey, indent: 10, endIndent: 10,),
+                  Divider(
+                    thickness: 1,
+                    height: ScreenUtil().setHeight(10),
+                    color: Colors.grey,
+                    indent: 10,
+                    endIndent: 10,
+                  ),
                   Container(
                     width: ScreenUtil().setWidth(380),
                     height: ScreenUtil().setHeight(50),
@@ -171,8 +168,7 @@ class _MyProfileState extends State<MyProfile> {
                       title: Transform.translate(
                         child: Text(
                           "비밀번호 변경",
-                          style: TextStyle(
-                              fontSize: 17.sp, color: Color(0xff878787)),
+                          style: TextStyle(fontSize: 17.sp, color: Color(0xff878787)),
                         ),
                         offset: Offset(220, 0),
                       ),
@@ -181,9 +177,7 @@ class _MyProfileState extends State<MyProfile> {
                         color: Color(0xff878787),
                       ),
                       onTap: () {
-                        Navigator.of(context, rootNavigator: true).push(
-                            MaterialPageRoute(
-                                builder: (_) => PasswordResetScreen()));
+                        Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => PasswordResetScreen()));
                       },
                     ),
                   )
@@ -206,8 +200,7 @@ class _MyProfileState extends State<MyProfile> {
                   ),
                   onTap: () {
                     signOut();
-                    Navigator.of(context, rootNavigator: true).pop(
-                        MaterialPageRoute(builder: (_) => SignInScreen()));
+                    Navigator.of(context, rootNavigator: true).pop(MaterialPageRoute(builder: (_) => SignInScreen()));
                   },
                 ))
           ],
@@ -216,7 +209,6 @@ class _MyProfileState extends State<MyProfile> {
     );
   }
 }
-
 
 Future<void> signOut() async {
   await Firebase.initializeApp();
