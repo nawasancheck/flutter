@@ -55,16 +55,16 @@ class AuthController extends GetxController {
   Future<UserCredential> signInWithKakao() async {
     final viewModel = KakaoViewModel(KakaoLogin());
     final firebaseAuthDataSource = FirebaseAuthRemoteDataSource();
-    kakao.User? user;
-    await viewModel.signInWithKakao();
+    final userCredential = await viewModel.signInWithKakao();
 
-    user = await kakao.UserApi.instance.me();
     final token = await firebaseAuthDataSource.createCustomToken(
       {
-        'uid': user.id.toString(),
-        'displayName': user.kakaoAccount!.profile!.nickname,
-        'email': user.kakaoAccount!.email,
-        'photoURL': user.kakaoAccount!.profile!.profileImageUrl
+        'uid': userCredential!.user!.uid,
+        'displayName': userCredential.user!.displayName,
+        'email': userCredential.user!.email,
+        'photoURL': userCredential.user!.photoURL == null
+            ? "https://developers.kakao.com/docs/static/image/ko/m/kakaotalk-social.png"
+            : userCredential.user!.photoURL
       },
     );
     return FirebaseAuth.instance.signInWithCustomToken(token);

@@ -1,4 +1,3 @@
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:http/http.dart' as http;
 
 class FirebaseAuthRemoteDataSource {
