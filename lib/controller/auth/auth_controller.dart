@@ -72,10 +72,14 @@ class AuthController extends GetxController {
       await FirebaseFirestore.instance.collection('user').doc(userCredential.user!.uid).set(
         {
           'userName': userCredential.user!.displayName,
-          'email': userCredential.user!.email,
+          'email': userCredential.user!.providerData.first.email,
           'role': 'client',
           'userUID': userCredential.user!.uid,
-          'profile': {'isPressList': [], 'title': userCredential.user!.displayName, 'imageUrl': 'assets/logo.png'},
+          'profile': {
+            'isPressList': [],
+            'title': userCredential.user!.displayName,
+            'imageUrl': userCredential.user!.providerData.first.photoURL,
+          },
           'wishList': []
         },
       );
