@@ -101,7 +101,7 @@ class _ManagerListScreenState extends State<ManagerListScreen> {
               Navigator.push(context, MaterialPageRoute(builder: (context) => SearchPage()));
             },
           ),
-          SearchManager(), // 기존에 있던 하드코딩으로 구동하는 Manager Search 기능
+          //SearchManager(), // 기존에 있던 하드코딩으로 구동하는 Manager Search 기능
           IconButton(
             icon: Icon(
               EvaIcons.bellOutline,

@@ -183,11 +183,12 @@ class MyReservation extends StatelessWidget {
                   );
                 },
               ),
+              //                                                   @@ 리스너용 리스트
               new Container(
                 color: Color(0xffececec),
                 child: Center(
                   child: Text(
-                    "예약 내역이 없습니다~",
+                    "예약 내역이~",
                     style: TextStyle(fontSize: 20.sp),
                   ),
                 ),
