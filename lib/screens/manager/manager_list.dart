@@ -156,7 +156,7 @@ class _ManagerListScreenState extends State<ManagerListScreen> {
                             height: ScreenUtil().setHeight(126),
                             width: ScreenUtil().setWidth(132),
                             decoration: ShapeDecoration(
-                                image: DecorationImage(image: AssetImage(docs[index]['profile']['imageUrl']), fit: BoxFit.cover),
+                                image: DecorationImage(image: NetworkImage(docs[index]['profile']['imageUrl']), fit: BoxFit.cover),
                                 shape: RoundedRectangleBorder(borderRadius: BorderRadiusDirectional.circular(15))),
                           ),
                           Container(

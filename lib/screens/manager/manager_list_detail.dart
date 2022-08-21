@@ -51,9 +51,13 @@ class ManagerDetailPage extends StatelessWidget {
                           height: ScreenUtil().setHeight(408.h),
                           decoration: BoxDecoration(border: Border.all(color: Colors.white)),
                           child: ShaderMask(
-                            child: Image.asset(
-                              docs['profile']['imageUrl'],
-                              fit: BoxFit.cover,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  fit: BoxFit.cover,
+                                  image: NetworkImage(docs['profile']['imageUrl']),
+                                ),
+                              ),
                             ),
                             shaderCallback: (Rect bounds) {
                               return LinearGradient(
@@ -172,7 +176,7 @@ class ManagerDetailPage extends StatelessWidget {
                         padding: const EdgeInsets.fromLTRB(6, 0, 6, 0),
                         child: InkWell(
                           onTap: () {
-                            Get.to(() => ReserveScreen(opponentUID, docs['profile']['title']));
+                            Get.to(() => ReserveScreen(opponentUID, docs['profile']['title'], docs['profile']['imageUrl']));
                           },
                           child: Container(
                               height: 76.h,

@@ -152,7 +152,7 @@ class _ChatState extends State<ChatList> {
                                                   width: 57.w,
                                                   decoration: BoxDecoration(
                                                       image: DecorationImage(
-                                                          image: AssetImage(docs?['profile']['imageUrl']), fit: BoxFit.cover, scale: 57),
+                                                          image: NetworkImage(docs?['profile']['imageUrl']), fit: BoxFit.cover, scale: 57),
                                                       shape: BoxShape.circle)),
                                               Container(
                                                 //                 color: Colors.purple,

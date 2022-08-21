@@ -76,6 +76,7 @@ class _MyReservationState extends State<MyReservation> {
               builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
                 if (!snapshot.hasData) return Center(child: CircularProgressIndicator());
                 final docs = snapshot.data!.docs;
+
                 return Padding(
                   padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
                   child: ListView.builder(
@@ -151,7 +152,7 @@ class _MyReservationState extends State<MyReservation> {
                                     color: Colors.blueGrey,
                                     borderRadius: BorderRadius.circular(20),
                                     image: DecorationImage(
-                                        image: AssetImage(
+                                        image: NetworkImage(
                                           docs[index]['managerImageUrl'],
                                         ),
                                         fit: BoxFit.cover),
