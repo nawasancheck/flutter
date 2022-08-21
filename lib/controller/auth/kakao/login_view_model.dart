@@ -7,20 +7,26 @@ class KakaoViewModel {
   final firebaseAuthDataSource = FirebaseAuthRemoteDataSource();
   final SocialLogin _socialLogin;
   kakao.User? user;
+  bool isLogged = false;
 
   KakaoViewModel(this._socialLogin);
 
-  Future<UserCredential> signInWithKakao() async {
-    user = await kakao.UserApi.instance.me();
-    final token = await firebaseAuthDataSource.createCustomToken(
-      ({
-        'uid': user!.id.toString(),
-        'displayName': user!.kakaoAccount!.profile!.nickname,
-        'email': user!.kakaoAccount!.email,
-        'photoURL': user!.kakaoAccount!.profile!.profileImageUrl
-      }),
-    );
-    return FirebaseAuth.instance.signInWithCustomToken(token);
+  Future<UserCredential?> signInWithKakao() async {
+    isLogged = await _socialLogin.login();
+    if (isLogged) {
+      user = await kakao.UserApi.instance.me();
+
+      final token = await firebaseAuthDataSource.createCustomToken(
+        ({
+          'uid': user!.id.toString(),
+          'displayName': user!.kakaoAccount!.profile!.nickname,
+          'email': user!.kakaoAccount!.email,
+          'photoURL': user!.kakaoAccount!.profile!.profileImageUrl
+        }),
+      );
+      return FirebaseAuth.instance.signInWithCustomToken(token);
+    }
+    return null;
   }
 
   Future<void> logout() async {

@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_app/controller/auth/kakao/firebase_auth_remote_data_source.dart';
+import 'package:flutter_app/controller/auth/kakao/kakao_login.dart';
+import 'package:flutter_app/controller/auth/kakao/login_view_model.dart';
 import 'package:flutter_app/screens/auth/sign_In_screen.dart';
 import 'package:flutter_app/screens/homepage.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
@@ -51,8 +53,10 @@ class AuthController extends GetxController {
   }
 
   Future<UserCredential> signInWithKakao() async {
+    final viewModel = KakaoViewModel(KakaoLogin());
     final firebaseAuthDataSource = FirebaseAuthRemoteDataSource();
     kakao.User? user;
+    await viewModel.signInWithKakao();
 
     user = await kakao.UserApi.instance.me();
     final token = await firebaseAuthDataSource.createCustomToken(

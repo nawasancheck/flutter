@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/controller/auth/auth_controller.dart';
@@ -106,7 +107,8 @@ class _ManagerListScreenState extends State<ManagerListScreen> {
               color: Color(0xff525252),
             ),
             onPressed: () async {
-              Get.to(() => TermsOfService());
+              FirebaseAuth.instance.signOut();
+              // Get.to(() => TermsOfService());
               //await FirebaseAuth.instance.signOut();  임시 로그아웃 버튼
             },
           )
@@ -127,7 +129,6 @@ class _ManagerListScreenState extends State<ManagerListScreen> {
             if (docs.length == 0) {
               return Text('null');
             }
-            String search = '영화';
 
             return ListView.builder(
               shrinkWrap: true,
