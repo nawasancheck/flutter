@@ -116,36 +116,8 @@ class _NewMessageState extends State<NewMessage> {
         });
   }
 
-  void _sendMessage() async {
-    _controller.clear();
-
-    DocumentReference<Map<String, dynamic>> docs1 =
-        await FirebaseFirestore.instance.collection("chat").doc(currentUser.uid).collection(widget.opponentUID).add({
-      'text': _userEnterMessage,
-      'fakeText': _userEnterMessage,
-      'time': Timestamp.now().toDate(),
-      'sendUID': currentUser.uid,
-      'receiverUID': widget.opponentUID,
-      'type': 'text'
-    });
-    docs1.update({'id': docs1.id});
-
-    DocumentReference<Map<String, dynamic>> docs2 =
-        await FirebaseFirestore.instance.collection("chat").doc(widget.opponentUID).collection(currentUser.uid).add({
-      'text': _userEnterMessage,
-      'fakeText': _userEnterMessage,
-      'time': Timestamp.now().toDate(),
-      'sendUID': currentUser.uid,
-      'receiverUID': widget.opponentUID,
-      'type': 'text'
-    });
-    docs2.update({'id': docs1.id});
-
-    createList();
-  }
-
   void _sendImage(String text, String type) {
-    FirebaseFirestore.instance.collection("chat").doc(currentUser.uid).collection(widget.opponentUID).add({
+    FirebaseFirestore.instance.collection("chat_user").doc(currentUser.uid).collection(widget.opponentUID).add({
       'text': text,
       'fakeText': '사진',
       'time': Timestamp.now().toDate(),
@@ -154,7 +126,7 @@ class _NewMessageState extends State<NewMessage> {
       'type': type,
     });
 
-    FirebaseFirestore.instance.collection("chat").doc(widget.opponentUID).collection(currentUser.uid).add({
+    FirebaseFirestore.instance.collection("chat_manager").doc(widget.opponentUID).collection(currentUser.uid).add({
       'text': text,
       'fakeText': '사진',
       'time': Timestamp.now().toDate(),
