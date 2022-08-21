@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/controller/auth/auth_controller.dart';
 import 'package:flutter_app/screens/my_profile/listener_profile.dart';
 import 'package:flutter_app/screens/my_profile/profile.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,6 +21,7 @@ class ListenerMyProfile extends StatefulWidget {
 class _ListenerMyProfileState extends State<ListenerMyProfile> {
   final currentUser = FirebaseAuth.instance.currentUser!;
   File? imageFile;
+  String imageUrl = '';
 
   //
   // String nickname = '';
@@ -27,27 +29,28 @@ class _ListenerMyProfileState extends State<ListenerMyProfile> {
   // String interests = '';
   // String content = '';
 
-  Future getImage() async {
+  Future<String> getImage() async {
     ImagePicker _picker = ImagePicker();
 
-    await _picker.pickImage(source: ImageSource.gallery).then((xFile) {
+    await _picker.pickImage(source: ImageSource.gallery).then((xFile) async {
       if (xFile != null) {
         imageFile = File(xFile.path);
-        uploadImage();
+        imageUrl = await uploadImage();
       }
     });
+
+    return imageUrl;
   }
 
-  Future uploadImage() async {
+  Future<String> uploadImage() async {
     String fileName = Uuid().v1();
-    var ref =
-    FirebaseStorage.instance.ref().child('images').child("$fileName.jpg");
+    var ref = FirebaseStorage.instance.ref().child('images').child("$fileName.jpg");
 
     var uploadTask = await ref.putFile(imageFile!);
 
     String imageUrl = await uploadTask.ref.getDownloadURL();
 
-    // _sendImage(imageUrl, 'image');
+    return imageUrl;
   }
 
   @override
@@ -57,8 +60,7 @@ class _ListenerMyProfileState extends State<ListenerMyProfile> {
       appBar: AppBar(
         title: Text(
           "리스너프로필관리",
-          style:
-          TextStyle(color: Color(0xff324755), fontWeight: FontWeight.bold),
+          style: TextStyle(color: Color(0xff324755), fontWeight: FontWeight.bold),
         ),
         backgroundColor: Colors.white,
         iconTheme: IconThemeData(
@@ -96,7 +98,10 @@ class _ListenerMyProfileState extends State<ListenerMyProfile> {
                     ]),
                   ),
                   InkWell(
-                    onTap: () => getImage(),
+                    onTap: () async {
+                      imageUrl = await getImage();
+                      print(imageUrl);
+                    },
                     child: Column(
                       children: [
                         Container(
@@ -128,10 +133,7 @@ class _ListenerMyProfileState extends State<ListenerMyProfile> {
                         height: ScreenUtil().setHeight(25),
                         child: Text(
                           "닉네임",
-                          style: TextStyle(
-                              color: Color(0xff000000),
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.bold),
+                          style: TextStyle(color: Color(0xff000000), fontSize: 16.sp, fontWeight: FontWeight.bold),
                         ),
                       ),
                     ),
@@ -187,10 +189,7 @@ class _ListenerMyProfileState extends State<ListenerMyProfile> {
                         height: ScreenUtil().setHeight(25),
                         child: Text(
                           "지역",
-                          style: TextStyle(
-                              color: Color(0xff000000),
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.bold),
+                          style: TextStyle(color: Color(0xff000000), fontSize: 16.sp, fontWeight: FontWeight.bold),
                         ),
                       ),
                     ),
@@ -226,10 +225,7 @@ class _ListenerMyProfileState extends State<ListenerMyProfile> {
                         height: ScreenUtil().setHeight(25),
                         child: Text(
                           "관심분야",
-                          style: TextStyle(
-                              color: Color(0xff000000),
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.bold),
+                          style: TextStyle(color: Color(0xff000000), fontSize: 16.sp, fontWeight: FontWeight.bold),
                         ),
                       ),
                     ),
@@ -264,10 +260,7 @@ class _ListenerMyProfileState extends State<ListenerMyProfile> {
                         height: ScreenUtil().setHeight(25),
                         child: Text(
                           "간단소개",
-                          style: TextStyle(
-                              color: Color(0xff000000),
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.bold),
+                          style: TextStyle(color: Color(0xff000000), fontSize: 16.sp, fontWeight: FontWeight.bold),
                         ),
                       ),
                     ),
@@ -296,18 +289,18 @@ class _ListenerMyProfileState extends State<ListenerMyProfile> {
                   Flexible(fit: FlexFit.tight, child: SizedBox()),
 
                   InkWell(
-                    // onTap: () async {
-                    //   await FirebaseFirestore.instance
-                    //       .collection("support_manager")
-                    //       .doc(currentUser.uid)
-                    //       .set({
-                    //     'nickname': nickname,
-                    //     'area': area,
-                    //     'interests': interests,
-                    //     'content': content,
-                    //   });
-                    //   Navigator.of(context).pop();
-                    // },
+                      // onTap: () async {
+                      //   await FirebaseFirestore.instance
+                      //       .collection("support_manager")
+                      //       .doc(currentUser.uid)
+                      //       .set({
+                      //     'nickname': nickname,
+                      //     'area': area,
+                      //     'interests': interests,
+                      //     'content': content,
+                      //   });
+                      //   Navigator.of(context).pop();
+                      // },
                       onTap: () {
                         showDialog(
                             context: context,
@@ -318,9 +311,9 @@ class _ListenerMyProfileState extends State<ListenerMyProfile> {
                                   padding: EdgeInsets.only(top: 30),
                                   child: Text(
                                     "수정요청이\n"
-                                        "완료되었습니다.\n"
-                                        "자사의 검토 후 반영될\n"
-                                        "예정입니다.\n",
+                                    "완료되었습니다.\n"
+                                    "자사의 검토 후 반영될\n"
+                                    "예정입니다.\n",
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
@@ -331,6 +324,12 @@ class _ListenerMyProfileState extends State<ListenerMyProfile> {
                                           Navigator.pushNamedAndRemoveUntil(context, '/', (_) => false);
                                           Navigator.push(context, MaterialPageRoute(builder: (context) => Profile()));
                                           Navigator.push(context, MaterialPageRoute(builder: (context) => ListenerProfile()));
+                                          FirebaseFirestore.instance
+                                              .collection('user')
+                                              .doc(AuthController.instance.authentication.currentUser!.uid)
+                                              .update({
+                                            'profile.imageUrl': imageUrl,
+                                          });
                                         },
                                         child: Container(
                                           decoration: BoxDecoration(
@@ -351,16 +350,13 @@ class _ListenerMyProfileState extends State<ListenerMyProfile> {
                           width: 360.sp,
                           height: 40.sp,
                           decoration: BoxDecoration(
-                              color: Color(0xffe1f3f3),
-                              borderRadius: BorderRadius.circular(5),
-                              border: Border.all(color: Colors.grey, width: 1)),
+                              color: Color(0xffe1f3f3), borderRadius: BorderRadius.circular(5), border: Border.all(color: Colors.grey, width: 1)),
                           padding: const EdgeInsets.all(8.0),
                           child: Center(
                               child: Text(
-                                "수정요청",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 13.sp),
-                              )),
+                            "수정요청",
+                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13.sp),
+                          )),
                         ),
                       )),
 
@@ -441,8 +437,7 @@ class _GenderState extends State<Gender> {
           dropdownValueGender = newValue!;
         });
       },
-      items: <String>['성별', '남자', '여자']
-          .map<DropdownMenuItem<String>>((String value) {
+      items: <String>['성별', '남자', '여자'].map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
           value: value,
           child: Text(value),
@@ -477,8 +472,7 @@ class _AgeState extends State<Age> {
           dropdownValueAge = newValue!;
         });
       },
-      items: <String>['20', '30', '40', '50', '60']
-          .map<DropdownMenuItem<String>>((String value) {
+      items: <String>['20', '30', '40', '50', '60'].map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
           value: value,
           child: Text(value),
