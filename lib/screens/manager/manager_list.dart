@@ -107,8 +107,7 @@ class _ManagerListScreenState extends State<ManagerListScreen> {
               color: Color(0xff525252),
             ),
             onPressed: () async {
-              FirebaseAuth.instance.signOut();
-              // Get.to(() => TermsOfService());
+              Get.to(()=> TermsOfService());
               //await FirebaseAuth.instance.signOut();  임시 로그아웃 버튼
             },
           )
