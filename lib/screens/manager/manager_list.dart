@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/controller/auth/auth_controller.dart';
 import 'package:flutter_app/screens/manager/manager_list_detail.dart';
-import 'package:flutter_app/screens/manager/manager_search_screen.dart';
+import 'package:flutter_app/screens/manager/search_manager.dart';
+import 'package:flutter_app/screens/tem_searchpage/searchtest1.dart';
 import 'package:flutter_app/terms/terms_of_service.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -98,17 +98,18 @@ class _ManagerListScreenState extends State<ManagerListScreen> {
             color: Color(0xff525252),
             icon: Icon(Icons.search),
             onPressed: () {
-              Get.to(() => ManagerSearchPage());
+              Navigator.push(context, MaterialPageRoute(builder: (context) => SearchPage()));
             },
           ),
+          //SearchManager(), // 기존에 있던 하드코딩으로 구동하는 Manager Search 기능
           IconButton(
             icon: Icon(
               EvaIcons.bellOutline,
               color: Color(0xff525252),
+              size: 20.16.sp,
             ),
             onPressed: () async {
-              FirebaseAuth.instance.signOut();
-              // Get.to(() => TermsOfService());
+              Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => TermsOfService()));
               //await FirebaseAuth.instance.signOut();  임시 로그아웃 버튼
             },
           )
@@ -129,6 +130,10 @@ class _ManagerListScreenState extends State<ManagerListScreen> {
             if (docs.length == 0) {
               return Text('null');
             }
+            String search = '영화';
+
+            final List allData = docs.where((doc) => doc.data()['profile']['like'].contains(search)).toList();
+            // print(allData[0]['profile']['like']);
 
             return ListView.builder(
               shrinkWrap: true,
@@ -157,7 +162,7 @@ class _ManagerListScreenState extends State<ManagerListScreen> {
                             height: ScreenUtil().setHeight(126),
                             width: ScreenUtil().setWidth(132),
                             decoration: ShapeDecoration(
-                                image: DecorationImage(image: NetworkImage(docs[index]['profile']['imageUrl']), fit: BoxFit.cover),
+                                image: DecorationImage(image: AssetImage(docs[index]['profile']['imageUrl']), fit: BoxFit.cover),
                                 shape: RoundedRectangleBorder(borderRadius: BorderRadiusDirectional.circular(15))),
                           ),
                           Container(
