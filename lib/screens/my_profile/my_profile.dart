@@ -146,7 +146,8 @@ class _MyProfileState extends State<MyProfile> {
                         ),
                         offset: Offset(-15, 0),
                       ),
-                      trailing: Text('${_user.providerData.first.email}',
+                      // trailing: Text('${_user.providerData.first.email}',
+                      trailing: Text('TEST',
                           style: TextStyle(
                             fontSize: 21.sp,
                             color: Colors.black,
