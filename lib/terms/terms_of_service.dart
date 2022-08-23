@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-//import 'package:flutter_app/screens/reservation/reserve_status.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class TermsOfService extends StatefulWidget {
@@ -110,8 +109,7 @@ class _TermsOfServiceState extends State<TermsOfService> {
                     style: ElevatedButton.styleFrom(primary: Color(0xff93e3e6),),
                     child: Container(width:140,child: Center(child: Text('확인'))),
                     onPressed: (){
-                      //Navigator.push(context,MaterialPageRoute(builder: (_)=>ReserveStatus()));
-                    },
+                       },
                   ),
                 ],
               ),

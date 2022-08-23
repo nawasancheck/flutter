@@ -3,7 +3,7 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/screens/chatting/in_chat_screen_user.dart';
-import 'package:flutter_app/screens/reservation/reserve_screen.dart';
+import 'package:flutter_app/screens/reservation/do_reserve/reserve_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
