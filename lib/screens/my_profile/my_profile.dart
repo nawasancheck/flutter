@@ -146,8 +146,7 @@ class _MyProfileState extends State<MyProfile> {
                         ),
                         offset: Offset(-15, 0),
                       ),
-                      // trailing: Text('${_user.providerData.first.email}',
-                      trailing: Text('TEST',
+                      trailing: Text('${_user.providerData.first.email}',
                           style: TextStyle(
                             fontSize: 21.sp,
                             color: Colors.black,
@@ -162,26 +161,6 @@ class _MyProfileState extends State<MyProfile> {
                     indent: 10,
                     endIndent: 10,
                   ),
-                  Container(
-                    width: ScreenUtil().setWidth(380),
-                    height: ScreenUtil().setHeight(50),
-                    child: ListTile(
-                      title: Transform.translate(
-                        child: Text(
-                          "비밀번호 변경",
-                          style: TextStyle(fontSize: 17.sp, color: Color(0xff878787)),
-                        ),
-                        offset: Offset(220, 0),
-                      ),
-                      trailing: Icon(
-                        EvaIcons.arrowIosDownwardOutline,
-                        color: Color(0xff878787),
-                      ),
-                      onTap: () {
-                        Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => PasswordResetScreen()));
-                      },
-                    ),
-                  )
                 ],
               ),
             ),
