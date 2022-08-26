@@ -3,7 +3,10 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/controller/auth/auth_controller.dart';
+import 'package:flutter_app/screens/reservation/my_reservation/manager/request_confirmation.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 
 import '../../../model/reserve_status.dart';
@@ -92,7 +95,10 @@ class _MyReservationState extends State<MyReservation> {
                         return Container(
                           width: ScreenUtil().screenWidth,
                           height: ScreenUtil().setHeight(150),
-                          color: Colors.white,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            border: Border.all(color: Colors.grey, width: 0.5),
+                          ),
                           child: Center(
                             //                                  예약리스트 컨텐츠 크기
                             child: Container(
@@ -141,10 +147,10 @@ class _MyReservationState extends State<MyReservation> {
                                         ),
                                       ),
                                       Padding(
-                                        padding: const EdgeInsets.only(top: 10),
+                                        padding: const EdgeInsets.fromLTRB(10,10,0,0),
                                         child: InkWell(
                                             onTap: () {
-                                              print('더보기 첵!!');
+                                              print('지우기 첵!!');
                                               FirebaseFirestore.instance
                                                   .collection('client_reserve')
                                                   .doc(AuthController.instance.authentication.currentUser!.uid)
@@ -152,7 +158,7 @@ class _MyReservationState extends State<MyReservation> {
                                                   .doc(docs[index]['id'])
                                                   .update({'status': '산책취소'});
                                             },
-                                            child: Icon(Icons.more_vert)),
+                                            child: Icon(Icons.delete_outline,color: Colors.grey,)),
                                       ),
                                     ],
                                   ),
@@ -284,6 +290,7 @@ class _MyReservationState extends State<MyReservation> {
                                             height: ScreenUtil().setHeight(60),
                                             child: ElevatedButton(
                                               onPressed: (){
+                                                Get.to(() => RequestConfirm());
 
                                               },
                                               child:Text('요청 확인', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp),
