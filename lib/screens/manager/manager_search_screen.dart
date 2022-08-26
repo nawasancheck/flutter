@@ -1,6 +1,12 @@
+import 'dart:ui';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+
+import 'manager_list_detail.dart';
 
 class ManagerSearchPage extends StatefulWidget {
   ManagerSearchPage({Key? key}) : super(key: key);
@@ -38,8 +44,11 @@ class _ManagerSearchPageState extends State<ManagerSearchPage> {
                 maxLines: 1,
                 controller: _controller,
                 decoration: InputDecoration(
-                  hintText: '리스너 검색',
-                  suffixIcon: InkWell(child: Icon(Icons.more_vert), onTap: () {}),
+                  hintText: '관심분야를 입력해주세요',
+                  suffixIcon: InkWell(child: Icon(Icons.clear), onTap: () {
+                    _controller.clear();
+                    setState(() {});
+                  }),
                 ),
               ),
             ),
@@ -63,6 +72,7 @@ class _ManagerSearchPageState extends State<ManagerSearchPage> {
           child: StreamBuilder(
             stream: FirebaseFirestore.instance.collection('user').where('role', isEqualTo: 'manager').snapshots(),
             builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+
               if (!snapshot.hasData) {
                 return CircularProgressIndicator();
               }
@@ -72,22 +82,75 @@ class _ManagerSearchPageState extends State<ManagerSearchPage> {
                 return Text('null');
               }
 
-              final List allData = docs.where((doc) => doc.data()['profile']['like'].contains(_controller.text)).toList();
+              final List allDataLike = docs.where((doc) => doc.data()['profile']['like'].contains(_controller.text)).toList();
 
               return ListView.builder(
                 shrinkWrap: true,
-                itemCount: allData.length,
+                itemCount: allDataLike.length,
                 itemBuilder: (context, index) {
-                  return Container(
-                    height: 100,
-                    width: ScreenUtil().screenWidth,
-                    child: Center(
-                      child: Container(
-                        height: ScreenUtil().setHeight(70),
-                        width: ScreenUtil().setWidth(70),
-                        decoration: ShapeDecoration(
-                            image: DecorationImage(image: AssetImage(allData[index]['profile']['imageUrl']), fit: BoxFit.cover),
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadiusDirectional.circular(15))),
+                                                                 // 관심분야 글자수 제한 위한 변수
+                  int likelength = allDataLike[index]['profile']['like'].length;
+                  
+                  return InkWell(
+                    onTap: (){ Get.to(() => ManagerDetailPage(allDataLike[index]['userUID'])); },
+                    child: Container(                            // 각 리스트 전체 Container
+                      height: ScreenUtil().setHeight(100),       // 리스트 전체크기
+                      width: ScreenUtil().screenWidth,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border.all(width: 0.5,color: Colors.grey),
+                      ),
+                      child: Center(
+                        child: Container(                        // 리스트 컨텐츠 가운데 조정 Container
+                          //color: Colors.greenAccent,
+                          width: ScreenUtil().setWidth(360),
+                          height: ScreenUtil().setHeight(80),
+                          child: Row(
+                            children: [
+                              Container(
+                                height: ScreenUtil().setHeight(70),
+                                width: ScreenUtil().setWidth(70),
+                                decoration: BoxDecoration(
+                                    image: DecorationImage(image: NetworkImage(allDataLike[index]['profile']['imageUrl']), fit: BoxFit.cover),
+                                    shape: BoxShape.circle),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left:8.0),
+                                child: Container(
+                                  width: ScreenUtil().setWidth(280),
+                                  //color: Colors.green,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            " " + allDataLike[index]['profile']['title'],
+                                            style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold, color: Color(0xff241332)),
+                                          ),
+                                        ],
+                                      ),
+
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        children: [
+                                          likelength  > 16 == true ?                  // like 글자수 제한 16
+                                            Text(" " + " 관심분야 - ${allDataLike[index]['profile']['like'].substring(0, 16)}",
+                                                style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold, color: Color(0xff737373)))
+                                          :
+                                            Text(" " + " 관심분야 - ${allDataLike[index]['profile']['like']}",
+                                              style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold, color: Color(0xff737373))),
+                                        ],
+                                      ),
+
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
                     ),
                   );
