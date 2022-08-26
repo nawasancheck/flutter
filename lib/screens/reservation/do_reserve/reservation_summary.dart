@@ -11,55 +11,51 @@ class ReservationSummary extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+     /* appBar: AppBar(
         backgroundColor: Color(0xff93e3e6),
         title: Text("요청 확인"),
         centerTitle: true,
-      ),
+      )*/
       body: Container(
         color: Color(0xffececec),
         width: ScreenUtil().screenWidth,
         height: ScreenUtil().screenHeight,
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
               margin: EdgeInsets.only(top: 150),
               //color: Colors.yellow,
             ),
-            Container(
-              width: ScreenUtil().setWidth(350),
-              height: ScreenUtil().setHeight(200),
-              decoration: BoxDecoration(
-                //color: Colors.blue,
-                  borderRadius: BorderRadius.circular(15),
-                  border: Border.all(color: Colors.white),
-                  color: Color(0xff93e3e6)
-              ),
-              child: Center(
-                child: Text(
-                  "산책 요청이 완료되었습니다.\n"
-                      "\n"
-                      "리스너가 확인할 때까지 \n"
-                      "조금만 기다려주세요!",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontSize: 17.sp,
-                      color: Colors.white,
-                      height: 1.5
+            Center(
+              child: Container(
+                width: ScreenUtil().setWidth(350),
+                height: ScreenUtil().setHeight(200),
+                decoration: BoxDecoration(
+                  //color: Colors.blue,
+                    borderRadius: BorderRadius.circular(15),
+                    border: Border.all(color: Colors.white),
+                    color: Color(0xff93e3e6)
+                ),
+                child: Center(
+                  child: Text(
+                    "산책 요청이 완료되었습니다.\n"
+                        "\n"
+                        "리스너가 확인할 때까지 \n"
+                        "조금만 기다려주세요!",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: 17.sp,
+                        color: Colors.white,
+                        height: 1.5
+                    ),
                   ),
                 ),
               ),
             ),
             Container(
-              // color: Colors.yellow,
+              //color: Colors.yellow,
               height: ScreenUtil().setHeight(15),
-            ),
-            Flexible(
-              fit: FlexFit.tight,
-              child: Container(
-                // color: Colors.yellow,
-                height: ScreenUtil().setHeight(15),
-              ),
             ),
             Padding(
               padding: const EdgeInsets.only(bottom: 70),
