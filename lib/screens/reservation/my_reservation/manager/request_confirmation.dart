@@ -1,15 +1,15 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/controller/auth/auth_controller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-
-
-
-
-
-
 class RequestConfirm extends StatelessWidget {
-  const RequestConfirm({Key? key}) : super(key: key);
+  final String clientName;
+  final String docsId;
+  final String clientUid;
+  final String clientRserveUid;
+  const RequestConfirm(this.clientName, this.docsId, this.clientUid, this.clientRserveUid, {Key? key, required  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,7 @@ class RequestConfirm extends StatelessWidget {
                   color: Colors.yellow,
                   child: Column(children: [
                     Text('산책요청이 도착했습니다.\n.'),
-                    Text('패쇼니조아\n',style: TextStyle(fontSize: 18.sp),),
+                    Text('$clientName\n',style: TextStyle(fontSize: 18.sp),),
                     Text('고객이 요청한 날짜, 시간, 장소를 확인해주세요.'),
                     ElevatedButton(onPressed: (){
                     }, child: Text('메세지 보내기')),
@@ -88,9 +88,46 @@ class RequestConfirm extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ElevatedButton(onPressed: (){}, child: Text('수락'),),
+              ElevatedButton(onPressed: (){
+                print(clientUid);
+                FirebaseFirestore.instance
+                    .collection('client_reserve')
+                    .doc(
+                    clientUid)
+                    .collection('reserve')
+                    .doc(clientRserveUid)
+                    .update({'status': '수락'});
+                FirebaseFirestore.instance
+                    .collection('reserve')
+                    .doc(AuthController
+                    .instance
+                    .authentication
+                    .currentUser!
+                    .uid)
+                    .collection('reserve')
+                    .doc(docsId)
+                    .update({'status': '수락'});
+              }, child: Text('수락'),),
               SizedBox(width: 20,),
-              ElevatedButton(onPressed: (){}, child: Text('거절'),),
+              ElevatedButton(onPressed: (){
+                FirebaseFirestore.instance
+                    .collection('client_reserve')
+                    .doc(
+                    clientUid)
+                    .collection('reserve')
+                    .doc(clientRserveUid)
+                    .update({'status': '거절'});
+                FirebaseFirestore.instance
+                    .collection('reserve')
+                    .doc(AuthController
+                    .instance
+                    .authentication
+                    .currentUser!
+                    .uid)
+                    .collection('reserve')
+                    .doc(docsId)
+                    .update({'status': '거절'});
+              }, child: Text('거절'),),
             ],),
         ],),
       ),

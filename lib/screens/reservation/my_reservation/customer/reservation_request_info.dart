@@ -35,7 +35,7 @@ class ReservationRequestInfo extends StatelessWidget {
               Container(
                 height: ScreenUtil().setHeight(190),
                 width: ScreenUtil().setWidth(180),
-                color: Colors.yellow,
+                //color: Colors.yellow,
                 child: Column(children: [
                   Text('산책요청중입니다\n.'),
                   Text('패쇼니조아\n',style: TextStyle(fontSize: 18.sp),),
@@ -54,7 +54,7 @@ class ReservationRequestInfo extends StatelessWidget {
           Container(
             height: ScreenUtil().setHeight(200),
             width: ScreenUtil().setWidth(360),
-            color: Colors.grey,
+            //color: Colors.grey,
             child: Column(children: [
               ElevatedButton(onPressed: (){
                 Navigator.push(context, MaterialPageRoute(builder: (_)=>CancelReservation()));
@@ -68,6 +68,8 @@ class ReservationRequestInfo extends StatelessWidget {
                 ElevatedButton(onPressed: (){}, child: Text('프로필보기'),),
               ],),
               Container(
+                height: ScreenUtil().setHeight(100),
+                width: ScreenUtil().setWidth(360),
                 decoration: BoxDecoration(
                   border: Border.all(),
                 ),

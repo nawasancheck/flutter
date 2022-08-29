@@ -156,6 +156,7 @@ class _ReserveScreenState extends State<ReserveScreen> {
                               border: Border.all(
                                   color: Colors.black45
                               ),
+<<<<<<< HEAD
                             ),
                             child: InkWell(
                                 onTap: () {
@@ -203,6 +204,55 @@ class _ReserveScreenState extends State<ReserveScreen> {
                                   });
                                 }
                             ),
+=======
+                            ),
+                            child: InkWell(
+                                onTap: () {
+                                  Future<TimeOfDay?> selectedTime = showTimePicker(
+                                    context: context,
+                                    initialTime: TimeOfDay.now(),
+                                  );
+
+                                  selectedTime.then((timeOfDay) {
+                                    setState(() {
+                                      _selectedTime = '${timeOfDay?.hour}시 ${timeOfDay?.minute}분';
+                                    });
+                                  });
+                                },
+                                child: Text(getText1())
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 30,),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(EvaIcons.pinOutline),
+                              Text(" 장소 ",
+                                style: TextStyle(fontSize: 19.sp),),
+                            ],
+                          ),
+                          Container(
+                            margin: EdgeInsets.only(left: 20, right: 20, bottom: 17),
+                            child: TextField(
+                                maxLines: 3,
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  contentPadding: EdgeInsets.symmetric(vertical: 20, horizontal:20),
+                                  hintText: "만날 장소를 적어주세요!",
+                                  hintMaxLines: 3,
+                                ),
+                                onChanged: (value) {
+                                  setState(() {
+                                    place = value.trim();
+                                  });
+                                }
+                            ),
+>>>>>>> frontend_jinkyo
                           )
                         ],
                       ),
@@ -238,14 +288,6 @@ class _ReserveScreenState extends State<ReserveScreen> {
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                     color: Color(0xff93e3e6),
                     onPressed: () async {
-                      // await FirebaseFirestore.instance.collection("reserve").doc(managerUID).collection(currentUser.uid).add({
-                      //   'wantTime': wantTime,
-                      //   'requests': requests,
-                      //   'time': Timestamp.now().toDate(),
-                      //   'client': currentUser.uid,
-                      //   'status': status.toString()
-                      // });
-
                       DocumentReference<Map<String, dynamic>> docs2 =
                       await FirebaseFirestore.instance.collection("client_reserve").doc(currentUser.uid).collection('reserve').add({
                         'wantTime': wantTime,
@@ -260,6 +302,19 @@ class _ReserveScreenState extends State<ReserveScreen> {
                         'managerName': widget.managerName,
                       });
                       docs2.update({'id': docs2.id});
+                      DocumentReference<Map<String, dynamic>> docs1 = await FirebaseFirestore.instance.collection("reserve").doc(widget.managerUID).collection('reserve').add({
+                        'wantTime': wantTime,
+                        'requests': requests,
+                        'time': Timestamp.now().toDate(),
+                        'client': "이름",
+                        'clientUid': currentUser.uid,
+                        'status': '산책예약',
+                        'managerUid': widget.managerUID,
+                        'managerImageUrl': widget.managerImageUrl,
+                        'managerName': widget.managerName,
+                        'clientReserveUid': docs2.id
+                      });
+                      docs1.update({'id': docs1.id});
                       Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => ReservationSummary()));
                     },
                     child: Text("산책 요청하기"))
