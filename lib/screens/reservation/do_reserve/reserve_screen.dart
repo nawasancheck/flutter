@@ -156,7 +156,6 @@ class _ReserveScreenState extends State<ReserveScreen> {
                               border: Border.all(
                                   color: Colors.black45
                               ),
-<<<<<<< HEAD
                             ),
                             child: InkWell(
                                 onTap: () {
@@ -204,55 +203,6 @@ class _ReserveScreenState extends State<ReserveScreen> {
                                   });
                                 }
                             ),
-=======
-                            ),
-                            child: InkWell(
-                                onTap: () {
-                                  Future<TimeOfDay?> selectedTime = showTimePicker(
-                                    context: context,
-                                    initialTime: TimeOfDay.now(),
-                                  );
-
-                                  selectedTime.then((timeOfDay) {
-                                    setState(() {
-                                      _selectedTime = '${timeOfDay?.hour}시 ${timeOfDay?.minute}분';
-                                    });
-                                  });
-                                },
-                                child: Text(getText1())
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 30,),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(EvaIcons.pinOutline),
-                              Text(" 장소 ",
-                                style: TextStyle(fontSize: 19.sp),),
-                            ],
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(left: 20, right: 20, bottom: 17),
-                            child: TextField(
-                                maxLines: 3,
-                                decoration: InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  contentPadding: EdgeInsets.symmetric(vertical: 20, horizontal:20),
-                                  hintText: "만날 장소를 적어주세요!",
-                                  hintMaxLines: 3,
-                                ),
-                                onChanged: (value) {
-                                  setState(() {
-                                    place = value.trim();
-                                  });
-                                }
-                            ),
->>>>>>> frontend_jinkyo
                           )
                         ],
                       ),
