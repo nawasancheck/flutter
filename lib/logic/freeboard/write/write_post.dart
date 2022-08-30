@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/controller/auth/auth_controller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
@@ -14,7 +14,6 @@ class WritePost extends StatefulWidget {
 class _WriteScreenState extends State<WritePost> {
   String title = '';
   String content = '';
-  final _auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -174,11 +173,11 @@ class _WriteScreenState extends State<WritePost> {
     var documentReference = await FirebaseFirestore.instance.collection('board_test').add({
       'title': title,
       'content': content,
-      'userName': _auth.currentUser!.displayName,
+      'userName': AuthController.instance.authentication.currentUser!.displayName,
       'time': Timestamp.now().toDate(),
       'isPressedList': FieldValue.arrayUnion([]),
       'comments': 0,
-      'user_uid': _auth.currentUser!.uid
+      'user_uid': AuthController.instance.authentication.currentUser!.uid
     });
     documentReference.update({'id': documentReference.id});
   }

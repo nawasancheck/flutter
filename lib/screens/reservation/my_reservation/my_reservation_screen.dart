@@ -1,14 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/controller/auth/auth_controller.dart';
 import 'package:flutter_app/screens/reservation/my_reservation/manager/request_confirmation.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-
-import '../../../model/reserve_status.dart';
 import 'customer/reservation_request_info.dart';
 
 class MyReservation extends StatefulWidget {
@@ -20,12 +16,7 @@ class _MyReservationState extends State<MyReservation> {
   final List<int> numbers = <int>[1, 2, 3, 4, 5, 6, 7];
 
   // 고객용
-  final Map<String, Color> colorList = {
-    "산책취소": Color(0xfff05d60),
-    "산책예약": Color(0xff4aa8d8),
-    '산책예정': Color(0xfff20835e),
-    '산책완료': Colors.grey
-  };
+  final Map<String, Color> colorList = {"산책취소": Color(0xfff05d60), "산책예약": Color(0xff4aa8d8), '산책예정': Color(0xfff20835e), '산책완료': Colors.grey};
 
   // 리스너용  "산책요청": Color(0xff4aa8d8), '산책예정':Color(0xfff20835e), '산책완료': Colors.grey
   @override
@@ -41,8 +32,7 @@ class _MyReservationState extends State<MyReservation> {
             //indicatorColor: Colors.greenAccent,
             indicatorSize: TabBarIndicatorSize.label,
             indicator: BoxDecoration(
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(10), topRight: Radius.circular(10)),
+              borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
               color: Color(0xffe1f3f3),
             ),
             tabs: [
@@ -61,10 +51,7 @@ class _MyReservationState extends State<MyReservation> {
           backgroundColor: Colors.white,
           title: Text(
             "나와산책",
-            style: TextStyle(
-                color: Color(0xff324755),
-                fontSize: 20.sp,
-                fontWeight: FontWeight.bold),
+            style: TextStyle(color: Color(0xff324755), fontSize: 20.sp, fontWeight: FontWeight.bold),
           ),
           //centerTitle: true,
           actions: [
@@ -87,16 +74,12 @@ class _MyReservationState extends State<MyReservation> {
               child: StreamBuilder(
                 stream: FirebaseFirestore.instance
                     .collection('client_reserve')
-                    .doc(
-                        AuthController.instance.authentication.currentUser!.uid)
+                    .doc(AuthController.instance.authentication.currentUser!.uid)
                     .collection('reserve')
                     .orderBy('time', descending: true)
                     .snapshots(),
-                builder: (context,
-                    AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
-                        snapshot) {
-                  if (!snapshot.hasData)
-                    return Center(child: CircularProgressIndicator());
+                builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+                  if (!snapshot.hasData) return Center(child: CircularProgressIndicator());
                   final docs = snapshot.data!.docs;
                   return Padding(
                     padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
@@ -129,14 +112,9 @@ class _MyReservationState extends State<MyReservation> {
                                             // border: Border.all(color: Colors.grey),
                                             color: Color(0xff4aa8d8),
                                             //Colors.lightBlueAccent,
-                                            borderRadius:
-                                                BorderRadius.circular(10)),
+                                            borderRadius: BorderRadius.circular(10)),
                                         child: Center(
-                                          child: Text(
-                                              "년도/월/일(요일) - " +
-                                                  docs[index]['status'],
-                                              style: TextStyle(
-                                                  color: Colors.white)),
+                                          child: Text("년도/월/일(요일) - " + docs[index]['status'], style: TextStyle(color: Colors.white)),
                                         ),
                                       ),
                                       Flexible(
@@ -150,11 +128,7 @@ class _MyReservationState extends State<MyReservation> {
                                         padding: const EdgeInsets.only(top: 10),
                                         child: InkWell(
                                           onTap: () {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (_) =>
-                                                        ReservationRequestInfo()));
+                                            Navigator.push(context, MaterialPageRoute(builder: (_) => ReservationRequestInfo()));
                                           },
                                           child: Container(
                                             //                  == 예약 상세 Container==
@@ -162,39 +136,28 @@ class _MyReservationState extends State<MyReservation> {
                                             height: 25,
                                             decoration: BoxDecoration(
                                                 // color: Colors.greenAccent,
-                                                border: Border.all(
-                                                    color: Colors.grey),
-                                                borderRadius:
-                                                    BorderRadius.circular(20)),
+                                                border: Border.all(color: Colors.grey),
+                                                borderRadius: BorderRadius.circular(20)),
                                             child: Center(child: Text("예약상세")),
                                           ),
                                         ),
                                       ),
                                       Padding(
-                                        padding: const EdgeInsets.fromLTRB(
-                                            10, 10, 0, 0),
+                                        padding: const EdgeInsets.fromLTRB(10, 10, 0, 0),
                                         child: InkWell(
                                             onTap: () {
                                               print('지우기 첵!!');
                                               FirebaseFirestore.instance
                                                   .collection('client_reserve')
-                                                  .doc(AuthController
-                                                      .instance
-                                                      .authentication
-                                                      .currentUser!
-                                                      .uid)
+                                                  .doc(AuthController.instance.authentication.currentUser!.uid)
                                                   .collection('reserve')
                                                   .doc(docs[index]['id'])
                                                   .update({'status': '산책취소'});
                                               FirebaseFirestore.instance
                                                   .collection('reserve')
-                                                  .doc(AuthController
-                                                  .instance
-                                                  .authentication
-                                                  .currentUser!
-                                                  .uid)
+                                                  .doc(docs[index]['managerUid'])
                                                   .collection('reserve')
-                                                  .doc(docs[index]['id'])
+                                                  .doc(docs[index]['managerReserveUid'])
                                                   .update({'status': '산책취소'});
                                             },
                                             child: Icon(
@@ -214,31 +177,23 @@ class _MyReservationState extends State<MyReservation> {
                                           width: 76.w,
                                           decoration: BoxDecoration(
                                             color: Colors.blueGrey,
-                                            borderRadius:
-                                                BorderRadius.circular(20),
+                                            borderRadius: BorderRadius.circular(20),
                                             image: DecorationImage(
-                                                image: AssetImage(
-                                                  docs[index]
-                                                      ['managerImageUrl'],
+                                                image: NetworkImage(
+                                                  docs[index]['managerImageUrl'],
                                                 ),
                                                 fit: BoxFit.cover),
                                           ),
                                         ),
                                         Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 10),
+                                          padding: const EdgeInsets.only(left: 10),
                                           child: Container(
                                             //== 닉네임, 시간 산책 Container ==
                                             //  color: Colors.lightGreenAccent,
                                             width: 230.w,
                                             child: Text(
-                                              docs[index]['managerName'] +
-                                                  " " +
-                                                  docs[index]['wantTime'] +
-                                                  '분 산책',
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 18.sp),
+                                              docs[index]['managerName'] + " " + docs[index]['wantTime'] + '분 산책',
+                                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.sp),
                                             ),
                                           ),
                                         ),
@@ -277,134 +232,99 @@ class _MyReservationState extends State<MyReservation> {
                       width: ScreenUtil().setWidth(360),
                       height: ScreenUtil().setHeight(140),
                       child: StreamBuilder(
-                          stream: FirebaseFirestore.instance
-                              .collection('reserve')
-                              .doc(AuthController
-                                  .instance.authentication.currentUser!.uid)
-                              .collection('reserve')
-                              .orderBy('time', descending: true)
-                              .snapshots(),
-                          builder: (context,
-                              AsyncSnapshot<
-                                      QuerySnapshot<Map<String, dynamic>>>
-                                  snapshot) {
-                            if (!snapshot.hasData)
-                              return Center(
-                                  child: CircularProgressIndicator());
-                            final docs = snapshot.data!.docs;
+                        stream: FirebaseFirestore.instance
+                            .collection('reserve')
+                            .doc(AuthController.instance.authentication.currentUser!.uid)
+                            .collection('reserve')
+                            .orderBy('time', descending: true)
+                            .snapshots(),
+                        builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+                          if (!snapshot.hasData) return Center(child: CircularProgressIndicator());
+                          final docs = snapshot.data!.docs;
 
-                            return ListView.builder(
-                                itemCount: docs.length,
-                                itemBuilder:
-                                    (BuildContext context, int index) {
-                                  return Column(
+                          return ListView.builder(
+                            itemCount: docs.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return Column(
+                                children: [
+                                  // 상태창 디자인 ex) 산책 요청
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
-                                      // 상태창 디자인 ex) 산책 요청
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: [
-                                          Container(
-                                            width: 200,
-                                            height: 30,
-                                            decoration: BoxDecoration(
-                                                // border: Border.all(color: Colors.grey),
-                                                color: Color(0xff4aa8d8),
-                                                //Colors.lightBlueAccent,
-                                                borderRadius:
-                                                    BorderRadius.circular(
-                                                        10)),
-                                            child: Center(
-                                              child: Text(docs[index]['status'],
-                                                  style: TextStyle(
-                                                      color: Colors.white)),
-                                            ),
-                                          ),
-                                        ],
+                                      Container(
+                                        width: 200,
+                                        height: 30,
+                                        decoration: BoxDecoration(
+                                            // border: Border.all(color: Colors.grey),
+                                            color: Color(0xff4aa8d8),
+                                            //Colors.lightBlueAccent,
+                                            borderRadius: BorderRadius.circular(10)),
+                                        child: Center(
+                                          child: Text(docs[index]['status'], style: TextStyle(color: Colors.white)),
+                                        ),
                                       ),
-                                      Padding(
-                                        padding:
-                                            const EdgeInsets.only(top: 8),
-                                        child: Row(
+                                    ],
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 8),
+                                    child: Row(
+                                      children: [
+                                        Container(
+                                          width: ScreenUtil().setWidth(76),
+                                          height: ScreenUtil().setHeight(76),
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: Colors.grey[400],
+                                          ),
+                                          child: Icon(
+                                            EvaIcons.personOutline,
+                                            size: 60.sp,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                        Row(
                                           children: [
-                                            Container(
-                                              width:
-                                                  ScreenUtil().setWidth(76),
-                                              height:
-                                                  ScreenUtil().setHeight(76),
-                                              decoration: BoxDecoration(
-                                                shape: BoxShape.circle,
-                                                color: Colors.grey[400],
-                                              ),
-                                              child: Icon(
-                                                EvaIcons.personOutline,
-                                                size: 60.sp,
-                                                color: Colors.white,
+                                            Padding(
+                                              padding: const EdgeInsets.only(left: 10),
+                                              child: Container(
+                                                //== 닉네임, 시간 산책 Container ==
+                                                color: Colors.lightGreenAccent,
+                                                width: ScreenUtil().setWidth(150),
+                                                height: ScreenUtil().setHeight(60),
+                                                child: Text(
+                                                  docs[index]['client'] + " " + docs[index]['wantTime'] + '분 산책',
+                                                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp),
+                                                ),
                                               ),
                                             ),
-                                            Row(
-                                              children: [
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          left: 10),
-                                                  child: Container(
-                                                    //== 닉네임, 시간 산책 Container ==
-                                                    color: Colors
-                                                        .lightGreenAccent,
-                                                    width: ScreenUtil()
-                                                        .setWidth(150),
-                                                    height: ScreenUtil()
-                                                        .setHeight(60),
-                                                    child: Text(
-                                                      // docs[index]['managerName'] + " " + docs[index]['wantTime'] +
-                                                      // '분 산책',
-                                                      docs[index]['client'] +
-                                                          " " +
-                                                          docs[index]['wantTime'] +
-                                                          '분 산책',
-                                                      style: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontSize: 16.sp),
-                                                    ),
+                                            Padding(
+                                              padding: const EdgeInsets.only(left: 10),
+                                              child: Container(
+                                                color: Colors.blueAccent,
+                                                width: ScreenUtil().setWidth(100),
+                                                height: ScreenUtil().setHeight(60),
+                                                child: ElevatedButton(
+                                                  onPressed: () {
+                                                    Get.to(() => RequestConfirm(docs[index]));
+                                                  },
+                                                  child: Text(
+                                                    '요청 확인',
+                                                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp),
                                                   ),
                                                 ),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          left: 10),
-                                                  child: Container(
-                                                    color: Colors.blueAccent,
-                                                    width: ScreenUtil()
-                                                        .setWidth(100),
-                                                    height: ScreenUtil()
-                                                        .setHeight(60),
-                                                    child: ElevatedButton(
-                                                      onPressed: () {
-                                                        Get.to(() =>
-                                                            RequestConfirm(docs[index]['client'], docs[index]['id'], docs[index]['clientUid'], docs[index]['clientReserveUid']));
-                                                      },
-                                                      child: Text(
-                                                        '요청 확인',
-                                                        style: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold,
-                                                            fontSize: 16.sp),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
+                                              ),
                                             ),
                                           ],
                                         ),
-                                      )
-                                    ],
-                                  );
-                                });
-                          }),
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              );
+                            },
+                          );
+                        },
+                      ),
                     ),
                   ),
                 ),

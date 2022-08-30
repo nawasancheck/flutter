@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/controller/auth/auth_controller.dart';
 import 'package:flutter_app/screens/chatting/in_chat_screen_user.dart';
 import 'package:flutter_app/screens/reservation/do_reserve/reserve_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,7 +9,6 @@ import 'package:get/get.dart';
 
 class ManagerDetailPage extends StatelessWidget {
   final String opponentUID;
-  final _user = FirebaseAuth.instance.currentUser;
 
   ManagerDetailPage(this.opponentUID);
 
@@ -35,7 +34,7 @@ class ManagerDetailPage extends StatelessWidget {
           }
 
           List isPressedList = docs['profile']['isPressedList'];
-          bool isPressed = isPressedList.contains('${_user!.uid}');
+          bool isPressed = isPressedList.contains('${AuthController.instance.authentication.currentUser!.uid}');
 
           return Container(
             child: Column(
@@ -199,20 +198,20 @@ class ManagerDetailPage extends StatelessWidget {
                             isPressed
                                 ? FirebaseFirestore.instance.collection('user').doc(docs['userUID']).update({
                                     'profile.heart': docs['profile']['heart'] - 1,
-                                    'profile.isPressedList': FieldValue.arrayRemove([_user!.uid])
+                                    'profile.isPressedList': FieldValue.arrayRemove([AuthController.instance.authentication.currentUser!.uid])
                                   })
                                 : FirebaseFirestore.instance.collection('user').doc(docs['userUID']).update({
                                     'profile.heart': docs['profile']['heart'] + 1,
-                                    'profile.isPressedList': FieldValue.arrayUnion([_user!.uid])
+                                    'profile.isPressedList': FieldValue.arrayUnion([AuthController.instance.authentication.currentUser!.uid])
                                   });
 
                             isPressed
-                                ? FirebaseFirestore.instance.collection('user').doc(_user!.uid)
+                                ? FirebaseFirestore.instance.collection('user').doc(AuthController.instance.authentication.currentUser!.uid)
                                     // .update({'wishList.${docs['userUID']}': FieldValue.delete()})
                                     .update({
                                     'wishList': FieldValue.arrayRemove([docs['userUID']])
                                   })
-                                : FirebaseFirestore.instance.collection('user').doc(_user!.uid)
+                                : FirebaseFirestore.instance.collection('user').doc(AuthController.instance.authentication.currentUser!.uid)
                                     // .update({'wishList.${docs['userUID']}': docs['userName']});
                                     .update({
                                     'wishList': FieldValue.arrayUnion([docs['userUID']])

@@ -1,9 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/controller/auth/auth_controller.dart';
 import 'package:flutter_app/screens/reservation/do_reserve/reservation_summary.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class ReserveScreen extends StatefulWidget {
@@ -18,8 +19,6 @@ class ReserveScreen extends StatefulWidget {
 }
 
 class _ReserveScreenState extends State<ReserveScreen> {
-  final currentUser = FirebaseAuth.instance.currentUser!;
-
   String? wantTime;
 
   late String requests;
@@ -30,20 +29,18 @@ class _ReserveScreenState extends State<ReserveScreen> {
   String? _selectedTime;
   String? place;
 
-  String getText(){
-    if(_selectedDate == null){
+  String getText() {
+    if (_selectedDate == null) {
       return '날짜를 선택해주세요!';
-    }
-    else{
+    } else {
       return DateFormat('yyyy-MM-dd').format(_selectedDate!);
     }
   }
 
-  String getText1(){
-    if(_selectedTime == null){
+  String getText1() {
+    if (_selectedTime == null) {
       return '시간을 선택해주세요!';
-    }
-    else{
+    } else {
       return '$_selectedTime';
     }
   }
@@ -57,7 +54,7 @@ class _ReserveScreenState extends State<ReserveScreen> {
       lastDate: DateTime(DateTime.now().year + 3),
     );
 
-    if(pickedDate == null) return;
+    if (pickedDate == null) return;
 
     setState(() => _selectedDate = pickedDate);
   }
@@ -96,18 +93,20 @@ class _ReserveScreenState extends State<ReserveScreen> {
                       children: checkList1
                           .map<Widget>(
                             (String v) => Container(
-                          margin: EdgeInsets.only(left: 80, right: 80),
-                          padding: EdgeInsets.only(top: 5),
-                          child: CheckboxListTile(
-                            onChanged: (bool? check) => setState(() => this.wantTime = v),
-                            title: Text.rich(TextSpan(text: v, children: <TextSpan>[TextSpan(text: "분")])),
-                            value: this.wantTime == v ? true : false,
-                          ),
-                        ),
-                      )
+                              margin: EdgeInsets.only(left: 80, right: 80),
+                              padding: EdgeInsets.only(top: 5),
+                              child: CheckboxListTile(
+                                onChanged: (bool? check) => setState(() => this.wantTime = v),
+                                title: Text.rich(TextSpan(text: v, children: <TextSpan>[TextSpan(text: "분")])),
+                                value: this.wantTime == v ? true : false,
+                              ),
+                            ),
+                          )
                           .toList()),
                 ),
-                SizedBox(height: 30,),
+                SizedBox(
+                  height: 30,
+                ),
                 Container(
                   child: Column(
                     children: [
@@ -118,17 +117,17 @@ class _ReserveScreenState extends State<ReserveScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Icon(EvaIcons.calendarOutline),
-                              Text(" 날짜 ",
-                                style: TextStyle(fontSize: 19.sp),),
+                              Text(
+                                " 날짜 ",
+                                style: TextStyle(fontSize: 19.sp),
+                              ),
                             ],
                           ),
                           Container(
                             margin: EdgeInsets.only(top: 20),
                             padding: EdgeInsets.all(5),
                             decoration: BoxDecoration(
-                              border: Border.all(
-                                  color: Colors.black45
-                              ),
+                              border: Border.all(color: Colors.black45),
                             ),
                             child: InkWell(
                               onTap: () => _pickDateDialog(context),
@@ -137,7 +136,9 @@ class _ReserveScreenState extends State<ReserveScreen> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 30,),
+                      SizedBox(
+                        height: 30,
+                      ),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
@@ -145,17 +146,17 @@ class _ReserveScreenState extends State<ReserveScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Icon(EvaIcons.clockOutline),
-                              Text(" 시간 ",
-                                style: TextStyle(fontSize: 19.sp),),
+                              Text(
+                                " 시간 ",
+                                style: TextStyle(fontSize: 19.sp),
+                              ),
                             ],
                           ),
                           Container(
                             margin: EdgeInsets.only(top: 20),
                             padding: EdgeInsets.all(5),
                             decoration: BoxDecoration(
-                              border: Border.all(
-                                  color: Colors.black45
-                              ),
+                              border: Border.all(color: Colors.black45),
                             ),
                             child: InkWell(
                                 onTap: () {
@@ -170,12 +171,13 @@ class _ReserveScreenState extends State<ReserveScreen> {
                                     });
                                   });
                                 },
-                                child: Text(getText1())
-                            ),
+                                child: Text(getText1())),
                           ),
                         ],
                       ),
-                      SizedBox(height: 30,),
+                      SizedBox(
+                        height: 30,
+                      ),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
@@ -183,8 +185,10 @@ class _ReserveScreenState extends State<ReserveScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Icon(EvaIcons.pinOutline),
-                              Text(" 장소 ",
-                                style: TextStyle(fontSize: 19.sp),),
+                              Text(
+                                " 장소 ",
+                                style: TextStyle(fontSize: 19.sp),
+                              ),
                             ],
                           ),
                           Container(
@@ -193,7 +197,7 @@ class _ReserveScreenState extends State<ReserveScreen> {
                                 maxLines: 3,
                                 decoration: InputDecoration(
                                   border: OutlineInputBorder(),
-                                  contentPadding: EdgeInsets.symmetric(vertical: 20, horizontal:20),
+                                  contentPadding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
                                   hintText: "만날 장소를 적어주세요!",
                                   hintMaxLines: 3,
                                 ),
@@ -201,12 +205,13 @@ class _ReserveScreenState extends State<ReserveScreen> {
                                   setState(() {
                                     place = value.trim();
                                   });
-                                }
-                            ),
+                                }),
                           )
                         ],
                       ),
-                      SizedBox(height: 20,),
+                      SizedBox(
+                        height: 20,
+                      ),
                       Container(
                           margin: EdgeInsets.only(left: 20, right: 20, bottom: 17),
                           child: Column(
@@ -219,7 +224,7 @@ class _ReserveScreenState extends State<ReserveScreen> {
                                   maxLines: 3,
                                   decoration: InputDecoration(
                                     border: OutlineInputBorder(),
-                                    contentPadding: EdgeInsets.symmetric(vertical: 20, horizontal:20),
+                                    contentPadding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
                                     hintText: "그 밖에 요청사항을 적어주세요!",
                                     hintMaxLines: 3,
                                   ),
@@ -229,8 +234,7 @@ class _ReserveScreenState extends State<ReserveScreen> {
                                     });
                                   })
                             ],
-                          )
-                      ),
+                          )),
                     ],
                   ),
                 ),
@@ -238,8 +242,15 @@ class _ReserveScreenState extends State<ReserveScreen> {
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                     color: Color(0xff93e3e6),
                     onPressed: () async {
-                      DocumentReference<Map<String, dynamic>> docs2 =
-                      await FirebaseFirestore.instance.collection("client_reserve").doc(currentUser.uid).collection('reserve').add({
+                      late String? clientName;
+                      clientName = AuthController.instance.authentication.currentUser!.displayName;
+                      clientName ?? AuthController.instance.authentication.currentUser!.providerData.first.displayName;
+
+                      DocumentReference<Map<String, dynamic>> docs1 = await FirebaseFirestore.instance
+                          .collection("client_reserve")
+                          .doc(AuthController.instance.authentication.currentUser!.uid)
+                          .collection('reserve')
+                          .add({
                         'wantTime': wantTime,
                         'selectDate': _selectedDate,
                         'selectTime': _selectedTime,
@@ -251,21 +262,30 @@ class _ReserveScreenState extends State<ReserveScreen> {
                         'managerImageUrl': widget.managerImageUrl,
                         'managerName': widget.managerName,
                       });
-                      docs2.update({'id': docs2.id});
-                      DocumentReference<Map<String, dynamic>> docs1 = await FirebaseFirestore.instance.collection("reserve").doc(widget.managerUID).collection('reserve').add({
+                      DocumentReference<Map<String, dynamic>> docs2 =
+                          await FirebaseFirestore.instance.collection("reserve").doc(widget.managerUID).collection('reserve').add({
                         'wantTime': wantTime,
+                        'selectDate': _selectedDate,
+                        'selectTime': _selectedTime,
+                        'place': place,
                         'requests': requests,
                         'time': Timestamp.now().toDate(),
-                        'client': "이름",
-                        'clientUid': currentUser.uid,
+                        'client': clientName,
+                        'clientUid': AuthController.instance.authentication.currentUser!.uid,
                         'status': '산책예약',
                         'managerUid': widget.managerUID,
                         'managerImageUrl': widget.managerImageUrl,
                         'managerName': widget.managerName,
-                        'clientReserveUid': docs2.id
+                        'clientReserveUid': docs1.id
                       });
-                      docs1.update({'id': docs1.id});
-                      Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => ReservationSummary()));
+                      docs1.update({
+                        'id': docs1.id,
+                        'managerReserveUid': docs2.id,
+                      });
+                      docs2.update({
+                        'id': docs2.id,
+                      });
+                      Get.to(() => ReservationSummary());
                     },
                     child: Text("산책 요청하기"))
               ],

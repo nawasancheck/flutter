@@ -45,17 +45,18 @@ class _WriteCommentState extends State<WriteComment> {
               maxLines: null,
               controller: _commentController,
               decoration: InputDecoration(
-                  labelText: '댓글 쓰기',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                labelText: '댓글 쓰기',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                ),
+                suffixIcon: IconButton(
+                  onPressed: _userEnterMessage.trim().isEmpty ? null : _writeComment,
+                  icon: Icon(
+                    Icons.send,
+                    color: Color(0xffBF6F6F),
                   ),
-                  suffixIcon: IconButton(
-                    onPressed: _userEnterMessage.trim().isEmpty ? null : _writeComment,
-                    icon: Icon(
-                      Icons.send,
-                      color: Color(0xffBF6F6F),
-                    ),
-                  )),
+                ),
+              ),
               onChanged: (value) {
                 // onChanged가 실행되면 값이 value에 들어온다.
                 setState(() {

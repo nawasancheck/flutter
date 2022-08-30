@@ -105,7 +105,7 @@ class _WishListState extends State<WishList> {
 
                                     Container(
                                       decoration: ShapeDecoration(
-                                          image: DecorationImage(image: AssetImage(docs['profile']['imageUrl']), fit: BoxFit.cover),
+                                          image: DecorationImage(image: NetworkImage(docs['profile']['imageUrl']), fit: BoxFit.cover),
                                           shape: RoundedRectangleBorder(borderRadius: BorderRadiusDirectional.circular(15))),
                                       height: ScreenUtil().setHeight(107),
                                       width: ScreenUtil().setWidth(94),

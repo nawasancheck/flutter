@@ -24,40 +24,29 @@ dependencies:
   flutter:
     sdk: flutter
 
-
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
+  google_fonts: ^3.0.1
   eva_icons_flutter: ^3.0.2
-  custom_navigation_bar: ^0.8.2
   flutter_screenutil: ^5.0.3
-  carousel_slider: ^4.0.0
-  search_page: ^2.0.0+1
-  syncfusion_flutter_calendar: ^19.4.52
   firebase_core: ^1.11.0
-  firebase_auth: ^3.3.5
-  firebase_messaging: ^12.0.1
   firebase_storage: ^10.2.7
-  cloud_firestore: ^3.1.6
-  image_picker: ^0.8.5+3
+  firebase_auth: ^3.3.5
   google_sign_in: ^5.2.3
   flutter_facebook_auth: ^3.5.7
+  kakao_flutter_sdk_user: ^1.2.1
+  cloud_firestore: ^3.1.6
+  image_picker: ^0.8.5+3
   uuid: ^3.0.6
   intl: ^0.17.0
-  provider: ^6.0.3
-  get:
-  url_launcher:
-  kakao_flutter_sdk_user: ^1.2.1
-  json_annotation: ^4.6.0
-  google_fonts: ^3.0.1
+  get: ^4.6.5
+  url_launcher: ^6.1.5
   flutter_native_splash: ^2.1.6
-  shared_preferences:
+  shared_preferences: ^2.0.15
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
-  build_runner: ^2.2.0
-  json_serializable: ^6.3.1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -72,21 +61,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-     - assets/hyunho.png
-     - assets/sangjune.png
-     - assets/jinkyo.png
-     - assets/Im Yejun.png
-     - assets/Kim Eunse.png
-     - assets/Kim Jeongu.png
-     - assets/jinkyo.jpg
-     - assets/wonjae2.png
-     - assets/course.png
-     - assets/seulgi.png
-     - assets/seungheon.png
-     - assets/junghyun.png
-     - assets/huijeong.png
      - assets/logo.png
-     - assets/logo1.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 

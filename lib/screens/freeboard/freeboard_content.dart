@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/controller/auth/auth_controller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../logic/freeboard/write/write_comment.dart';
@@ -16,8 +16,6 @@ class FreeBoardContent extends StatefulWidget {
 }
 
 class FreeBoardContentState extends State<FreeBoardContent> {
-  final _currentUser = FirebaseAuth.instance.currentUser;
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -101,7 +99,7 @@ class FreeBoardContentState extends State<FreeBoardContent> {
 
                       var docs = snapshot.data!;
                       List isPressedList = docs['isPressedList'];
-                      bool isPressed = isPressedList.contains('${_currentUser!.uid}');
+                      bool isPressed = isPressedList.contains('${AuthController.instance.authentication.currentUser!.uid}');
 
                       var time = docs['time'].toDate();
                       var ampm = '';
@@ -229,10 +227,12 @@ class FreeBoardContentState extends State<FreeBoardContent> {
                                               setState(() {
                                                 isPressed
                                                     ? FirebaseFirestore.instance.collection('board_test').doc(widget.boardNum).update({
-                                                        'isPressedList': FieldValue.arrayRemove([_currentUser!.uid.trim()])
+                                                        'isPressedList':
+                                                            FieldValue.arrayRemove([AuthController.instance.authentication.currentUser!.uid.trim()])
                                                       })
                                                     : FirebaseFirestore.instance.collection('board_test').doc(widget.boardNum).update({
-                                                        'isPressedList': FieldValue.arrayUnion([_currentUser!.uid.trim()])
+                                                        'isPressedList':
+                                                            FieldValue.arrayUnion([AuthController.instance.authentication.currentUser!.uid.trim()])
                                                       });
                                               });
                                             }),
