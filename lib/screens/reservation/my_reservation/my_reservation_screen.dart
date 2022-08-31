@@ -128,9 +128,8 @@ class _MyReservationState extends State<MyReservation> {
                                         padding: const EdgeInsets.only(top: 10),
                                         child: InkWell(
                                           onTap: () {
-                                                            // 바텀네비게이션 지우기
-                                            Navigator.of(context, rootNavigator:true).push(MaterialPageRoute(builder: (_)=>ReservationRequestInfo()));
-                                          },
+                                            Get.to(()=>ReservationRequestInfo());
+                                             },
                                           child: Container(
                                             //                  == 예약 상세 Container==
                                             width: 75,
