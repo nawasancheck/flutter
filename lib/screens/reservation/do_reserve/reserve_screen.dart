@@ -256,11 +256,11 @@ class _ReserveScreenState extends State<ReserveScreen> {
                         'selectTime': _selectedTime,
                         'place': place,
                         'requests': requests,
-                        'time': Timestamp.now().toDate(),
+                        'reserveTime': Timestamp.now().toDate(),
                         'managerUid': widget.managerUID,
-                        'status': '산책예약',
+                        'status': '산책 예약',
                         'managerImageUrl': widget.managerImageUrl,
-                        'managerName': widget.managerName,
+                        'managerTitle': widget.managerName,
                       });
                       DocumentReference<Map<String, dynamic>> docs2 =
                           await FirebaseFirestore.instance.collection("reserve").doc(widget.managerUID).collection('reserve').add({
@@ -269,13 +269,13 @@ class _ReserveScreenState extends State<ReserveScreen> {
                         'selectTime': _selectedTime,
                         'place': place,
                         'requests': requests,
-                        'time': Timestamp.now().toDate(),
+                        'reserveTime': Timestamp.now().toDate(),
                         'client': clientName,
                         'clientUid': AuthController.instance.authentication.currentUser!.uid,
-                        'status': '산책예약',
+                        'status': '산책 예약',
                         'managerUid': widget.managerUID,
                         'managerImageUrl': widget.managerImageUrl,
-                        'managerName': widget.managerName,
+                        'managerTitle': widget.managerName,
                         'clientReserveUid': docs1.id
                       });
                       docs1.update({

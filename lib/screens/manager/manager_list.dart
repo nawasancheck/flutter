@@ -83,9 +83,6 @@ class _ManagerListScreenState extends State<ManagerListScreen> {
         ),
         actions: [
           IconButton(
-            // Firebase 연동 Manager Search 기능 @@@ 개발 필요 @@@@@@@
-            // Icon 클릭시 SearchPage로 가도록 설정 됨
-            // SearchPage 경로 = Screen/tem_searchpage/searchtest1
             color: Color(0xff525252),
             icon: Icon(Icons.search),
             onPressed: () {
@@ -99,7 +96,6 @@ class _ManagerListScreenState extends State<ManagerListScreen> {
             ),
             onPressed: () async {
               Get.to(() => TermsOfService());
-              //await FirebaseAuth.instance.signOut();  임시 로그아웃 버튼
             },
           )
         ],
@@ -116,13 +112,10 @@ class _ManagerListScreenState extends State<ManagerListScreen> {
             }
 
             final docs = snapshot.data!.docs;
+
             if (docs.length == 0) {
               return Text('null');
             }
-            //String search = '영화';
-
-            // final List allData = docs.where((doc) => doc.data()['profile']['like'].contains(search)).toList();
-            // print(allData[0]['profile']['like']);
 
             return ListView.builder(
               shrinkWrap: true,
@@ -136,7 +129,7 @@ class _ManagerListScreenState extends State<ManagerListScreen> {
                   child: InkWell(
                     onTap: () {
                       // 바텀네비게이션 없애기
-                      Get.to(() => ManagerDetailPage(docs[index]['userUID']));
+                      Get.to(() => ManagerDetailPage(docs[index]['profile']['managerUid']));
                     },
                     child: Card(
                       //color: Colors.green,

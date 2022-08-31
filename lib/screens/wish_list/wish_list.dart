@@ -61,8 +61,6 @@ class _WishListState extends State<WishList> {
               }
 
               List wishList = snapshot.data!.data()?['wishList'];
-              // Map wishMap = snapshot.data!.data()?['wishList'];
-              // List wishList = wishMap.keys.toList();
 
               return Container(
                 child: Container(
