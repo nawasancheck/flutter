@@ -1,17 +1,25 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/screens/chatting/in_chat_screen_user.dart';
+import 'package:flutter_app/screens/manager/manager_list_detail.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'cancel_reservation.dart';
 
-
-
 class ReservationRequestInfo extends StatelessWidget {
-  const ReservationRequestInfo({Key? key}) : super(key: key);
+  final QueryDocumentSnapshot<Map<String, dynamic>> information;
+  final Map<String, String> statusMap = {
+    '산책 요청': '리스너가 고객님의 요청을 확인중입니다.',
+    '산책 취소': '산책이 취소 되었습니다.',
+    '산책 거절': '리스너가 고객님의 요청을 거절하였습니다.',
+    '산책 예정': '산책이 예약되었습니다.',
+  };
+  ReservationRequestInfo(this.information, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final time = information['selectDate'].toDate();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -54,7 +62,7 @@ class ReservationRequestInfo extends StatelessWidget {
                                 Row(
                                   children: [
                                     Text('예약상태: ',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15.sp, color: Colors.grey),),
-                                    Text('산책 요청중입니다.',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15.sp, color: Color(0xff324755),),),
+                                    Text(information['status'],style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15.sp, color: Color(0xff324755),),),
                                   ],
                                 ),
                                 Padding(
@@ -62,12 +70,12 @@ class ReservationRequestInfo extends StatelessWidget {
                                   child: Row(
                                     children: [
                                       Text('리스너: ',style: TextStyle(fontSize: 15.sp,fontWeight: FontWeight.bold, color: Colors.grey,),),
-                                      Text('패쇼니조아',style: TextStyle(fontSize: 15.sp,fontWeight: FontWeight.bold, color: Color(0xff324755),),),
+                                      Text('${information['managerTitle']}',style: TextStyle(fontSize: 15.sp,fontWeight: FontWeight.bold, color: Color(0xff324755),),),
                                     ],
                                   ),
                                 ),
                                 Expanded(child: SizedBox(height: 1,)),
-                                Text('리스너가 고객님의 요청을 확인중입니다.',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15.sp, color: Color(0xff324755),),)
+                                Text(statusMap[information['status']].toString(),style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15.sp, color: Color(0xff324755),),)
                               ],),
                             ),
                             Container(                  // 리스너 이미지 Container
@@ -97,7 +105,7 @@ class ReservationRequestInfo extends StatelessWidget {
                               InkWell(                           // 예약 취소 버튼
                                 onTap: (){
                                   // 바텀 네비게이션 지우기
-                                  Get.to(() => CancelReservation());
+                                  Get.to(() => CancelReservation(information));
                                 },
                                 child: Container(
                                   width: ScreenUtil().setWidth(70),
@@ -125,6 +133,7 @@ class ReservationRequestInfo extends StatelessWidget {
                         children: [
                           InkWell(                            // 메세지 보내기 버튼
                             onTap: (){
+                              Get.to(() => ChatScreenUser(information['managerUid'], information['managerTitle'], 1));
                             },
                             child: Container(
                               width: ScreenUtil().setWidth(170),
@@ -146,6 +155,7 @@ class ReservationRequestInfo extends StatelessWidget {
                         SizedBox(width: 20,),
                           InkWell(                              // 프로필 보기 버튼
                             onTap: (){
+                              Get.to(() => ManagerDetailPage(information['managerUid']));
                             },
                             child: Container(
                               width: ScreenUtil().setWidth(170),
@@ -184,12 +194,12 @@ class ReservationRequestInfo extends StatelessWidget {
                                 ),
                                 child: Center(child: Text('요청내용',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold ,color: Color(0xff324755),),)),
                               ),
-                              Text('날짜: 2022.06.30',style: TextStyle(fontSize: 15),),
-                              Text('시간: 18시 30분',style: TextStyle(fontSize: 15),),
-                              Text('장소: 정발산역 1번 출구',style: TextStyle(fontSize: 15),),
+                              Text('날짜: ${time.year}년 ${time.month}월 ${time.day}일',style: TextStyle(fontSize: 15),),
+                              Text('시간: ${information['selectTime']}',style: TextStyle(fontSize: 15),),
+                              Text('장소: ${information['place']}',style: TextStyle(fontSize: 15),),
                               Padding(
                                 padding: const EdgeInsets.all(10.0),
-                                child: Text('컨텐츠내용컨텐츠내용컨텐츠내용컨텐츠내용컨텐츠내용컨텐츠내용컨텐츠내용컨텐츠내용컨텐츠내용컨텐츠내용컨텐츠내용컨텐츠내용컨텐츠내용컨텐츠내용컨텐츠내용컨텐츠내용컨텐츠내용컨텐츠내용컨텐츠내용컨텐츠내용컨텐츠내용컨텐츠내용',style: TextStyle(fontSize: 15),),
+                                child: Text(information['requests'],style: TextStyle(fontSize: 15),),
                               ),
                             ],
                           ),

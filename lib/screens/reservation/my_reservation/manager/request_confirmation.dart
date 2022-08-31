@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 class RequestConfirm extends StatelessWidget {
   final QueryDocumentSnapshot<Map<String, dynamic>> information;
 
+
   const RequestConfirm(
     this.information, {
     Key? key,
@@ -17,6 +18,8 @@ class RequestConfirm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final time = information['selectDate'].toDate();
+
     return Scaffold(
       appBar: AppBar(
         title: Text('예약 요청 확인'),
@@ -41,7 +44,7 @@ class RequestConfirm extends StatelessWidget {
                       color: Colors.yellow,
                       child: Column(
                         children: [
-                          Text('산책요청이 도착했습니다.\n.'),
+                          Text('산책요청이 도착했습니다.\n'),
                           Text(
                             '${information['client']}\n',
                             style: TextStyle(fontSize: 18.sp),
@@ -88,7 +91,7 @@ class RequestConfirm extends StatelessWidget {
                     child: Column(
                       children: [
                         Text('고객 요청내용: ${information['requests']}'),
-                        Text('날짜: 2022.06.30'),
+                        Text('날짜: ${time.year}년 ${time.month}월 ${time.day}일'),
                         Text('시간:${information['selectTime']}'),
                         Text('장소: ${information['place']}'),
                       ],
@@ -105,21 +108,20 @@ class RequestConfirm extends StatelessWidget {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    print(information['clientUid']);
                     FirebaseFirestore.instance
                         .collection('client_reserve')
                         .doc(information['clientUid'])
                         .collection('reserve')
                         .doc(information['clientReserveUid'])
-                        .update({'status': '수락'});
+                        .update({'status': '산책 예정'});
                     FirebaseFirestore.instance
                         .collection('reserve')
                         .doc(AuthController.instance.authentication.currentUser!.uid)
                         .collection('reserve')
                         .doc(information['id'])
-                        .update({'status': '수락'});
+                        .update({'status': '산책 예정'});
                   },
-                  child: Text('수락'),
+                  child: Text('수락하기'),
                 ),
                 SizedBox(
                   width: 20,
@@ -130,16 +132,16 @@ class RequestConfirm extends StatelessWidget {
                         .collection('client_reserve')
                         .doc(information['clientUid'])
                         .collection('reserve')
-                        .doc(information['clientUid'])
-                        .update({'status': '거절'});
+                        .doc(information['clientReserveUid'])
+                        .update({'status': '산책 거절'});
                     FirebaseFirestore.instance
                         .collection('reserve')
                         .doc(AuthController.instance.authentication.currentUser!.uid)
                         .collection('reserve')
                         .doc(information['id'])
-                        .update({'status': '거절'});
+                        .update({'status': '산책 거절'});
                   },
-                  child: Text('거절'),
+                  child: Text('거절하기'),
                 ),
               ],
             ),

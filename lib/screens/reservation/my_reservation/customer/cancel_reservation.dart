@@ -1,11 +1,16 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/controller/auth/auth_controller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CancelReservation extends StatelessWidget {
-  const CancelReservation({Key? key}) : super(key: key);
+  final QueryDocumentSnapshot<Map<String, dynamic>> information;
+
+  const CancelReservation(this.information, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final reserveTime = information['reserveTime'].toDate();
     return GestureDetector(        // TextField 입력 도중 여백 터치시 TextField 중단
       onTap: (){
         FocusScope.of(context).unfocus();
@@ -48,7 +53,7 @@ class CancelReservation extends StatelessWidget {
                           ),
                           Row(
                             children: [
-                              Text('예약일시: 2022년 02월 12일 23:47 = 예약신청한 시간',style: TextStyle(color: Color(0xff909090),fontSize: 14, fontWeight: FontWeight.bold),),
+                              Text('예약일시: ${reserveTime.year}년 ${reserveTime.month}월 ${reserveTime.day}일 ${reserveTime.hour}:${reserveTime.minute} = 예약신청한 시간',style: TextStyle(color: Color(0xff909090),fontSize: 14, fontWeight: FontWeight.bold),),
                             ],
                           ),
                           Padding(
@@ -91,7 +96,18 @@ class CancelReservation extends StatelessWidget {
               ),
               InkWell(                                       // 산책 예약 취소 버튼
                 onTap: (){
-                  print('산책 예약 취소!');
+                  FirebaseFirestore.instance
+                      .collection('client_reserve')
+                      .doc(AuthController.instance.authentication.currentUser!.uid)
+                      .collection('reserve')
+                      .doc(information['id'])
+                      .update({'status': '산책 취소'});
+                  FirebaseFirestore.instance
+                      .collection('reserve')
+                      .doc(information['managerUid'])
+                      .collection('reserve')
+                      .doc(information['managerReserveUid'])
+                      .update({'status': '산책 취소'});
                 },
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
