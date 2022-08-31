@@ -81,7 +81,7 @@ class AuthController extends GetxController {
           'profile': {
             'isPressList': [],
             'title': userCredential.user!.displayName,
-            'imageUrl': userCredential.user!.providerData.first.photoURL,
+            'imageUrl': 'https://firebasestorage.googleapis.com/v0/b/nawasancheck.appspot.com/o/images%2Flogo.png?alt=media&token=d310c32d-a9e6-4ff2-b3a6-516544e3cedf',
           },
           'wishList': []
         },
