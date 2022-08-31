@@ -1,12 +1,7 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-
 import 'cancel_reservation.dart';
-
-
 
 
 
@@ -18,7 +13,6 @@ class ReservationRequestInfo extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-
         title: Text('예약상세',style: TextStyle( color: Color(0xff324755),
           fontSize: 20.sp,
           fontWeight: FontWeight.bold,),),
@@ -28,7 +22,7 @@ class ReservationRequestInfo extends StatelessWidget {
           IconButton(onPressed: (){}, icon: Icon(EvaIcons.bellOffOutline))
         ],
       ),
-      body: Container(                                         // body Container
+      body: Container(                                  // body Container 회색배경
         height: ScreenUtil().screenHeight,
         width: ScreenUtil().screenWidth,
         color: Color(0xffececec),
@@ -36,21 +30,21 @@ class ReservationRequestInfo extends StatelessWidget {
           children: [
             Material(
               elevation: 3,
-              child: Container(                               // 컨텐츠 Container
+              child: Container(                       // 컨텐츠 Container 흰색 배경
                 height: ScreenUtil().setHeight(550),
                 width: ScreenUtil().screenWidth,
                 color: Colors.white,
                 child: Column(children: [
                   Padding(
                     padding: const EdgeInsets.fromLTRB(0, 20, 0, 10),
-                    child: Container(
+                    child: Container(   // 예약상태, 리스너 사진, 예약 취소 Container
                       height: ScreenUtil().setHeight(170),
                       width: ScreenUtil().setWidth(360),
-          //            color: Colors.greenAccent,
+         //            color: Colors.greenAccent,
                       child: Column(
                         children: [
                           Row(children: [
-                            Container(
+                            Container(         // 예약 상태, 리스너 닉네임 Container
                               height: ScreenUtil().setHeight(130),
                               width: ScreenUtil().setWidth(230),
           //                    color: Colors.yellow,
@@ -65,8 +59,8 @@ class ReservationRequestInfo extends StatelessWidget {
                                   padding: const EdgeInsets.only(top: 5.0),
                                   child: Row(
                                     children: [
-                                      Text('리스너: ',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.bold, color: Colors.grey,),),
-                                      Text('패쇼니조아',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.bold, color: Color(0xff324755),),),
+                                      Text('리스너: ',style: TextStyle(fontSize: 15.sp,fontWeight: FontWeight.bold, color: Colors.grey,),),
+                                      Text('패쇼니조아',style: TextStyle(fontSize: 15.sp,fontWeight: FontWeight.bold, color: Color(0xff324755),),),
                                     ],
                                   ),
                                 ),
@@ -74,7 +68,7 @@ class ReservationRequestInfo extends StatelessWidget {
                                 Text('리스너가 고객님의 요청을 확인중입니다.',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15.sp, color: Color(0xff324755),),)
                               ],),
                             ),
-                            Container(
+                            Container(                  // 리스너 이미지 Container
                               height: ScreenUtil().setHeight(130),
                               width: ScreenUtil().setWidth(130),
                               color: Colors.white,
@@ -98,9 +92,9 @@ class ReservationRequestInfo extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              InkWell(
+                              InkWell(                           // 예약 취소 버튼
                                 onTap: (){
-                                  // 바텀 네비게이션 안보이게
+                                  // 바텀 네비게이션 지우기
                                   Navigator.of(context, rootNavigator:true).push(MaterialPageRoute(builder: (_)=>CancelReservation()));
                                   //Navigator.push(context, MaterialPageRoute(builder: (_)=>CancelReservation()));
                                   //Get.to(()=>CancelReservation());
@@ -110,9 +104,9 @@ class ReservationRequestInfo extends StatelessWidget {
                                   height: ScreenUtil().setHeight(30),
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(20),
-                                    border: Border.all(color: Colors.grey,width: 1.5),
+                                    border: Border.all(color: Color(0xff909090), width: 1.5),
                                   ),
-                                  child: Center(child: Text('예약취소',style: TextStyle(fontSize:12, color: Color(0xfff05d60), fontWeight: FontWeight.bold),)),
+                                  child: Center(child: Text('예약취소',style: TextStyle(fontSize:13, color: Color(0xfff05d60), fontWeight: FontWeight.bold),)),
                                 ),
                               ),
                             ],
@@ -121,8 +115,7 @@ class ReservationRequestInfo extends StatelessWidget {
                       )
                     ),
                   ),
-
-                  Container(
+                  Container(         // 메세지 보내기, 프로필 보기, 요청내용 Container
                     height: ScreenUtil().setHeight(330),
                     width: ScreenUtil().setWidth(360),
                    // color: Colors.orangeAccent,
@@ -130,7 +123,7 @@ class ReservationRequestInfo extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          InkWell(
+                          InkWell(                            // 메세지 보내기 버튼
                             onTap: (){
                             },
                             child: Container(
@@ -138,7 +131,7 @@ class ReservationRequestInfo extends StatelessWidget {
                               height: ScreenUtil().setHeight(40),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20),
-                                border: Border.all(color: Colors.grey,width: 2),
+                                border: Border.all(color: Color(0xff909090), width: 2),
                               ),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -151,7 +144,7 @@ class ReservationRequestInfo extends StatelessWidget {
                             ),
                           ),
                         SizedBox(width: 20,),
-                          InkWell(
+                          InkWell(                              // 프로필 보기 버튼
                             onTap: (){
                             },
                             child: Container(
@@ -159,7 +152,7 @@ class ReservationRequestInfo extends StatelessWidget {
                               height: ScreenUtil().setHeight(40),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20),
-                                border: Border.all(color: Colors.grey,width: 2),
+                                border: Border.all(color: Color(0xff909090), width: 2),
                               ),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -183,19 +176,19 @@ class ReservationRequestInfo extends StatelessWidget {
                           ),
                           child: Column(
                             children: [
-                              Container(               // only 요청사항 Container
+                              Container(               // only 요청내용 Container
                                 height: ScreenUtil().setHeight(50),
                                 width: ScreenUtil().setWidth(360),
                                 decoration: BoxDecoration(
                                   border: Border.all(width: 0.7,color: Colors.grey),
                                 ),
-                                child: Center(child: Text('요청내용',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),)),
+                                child: Center(child: Text('요청내용',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold ,color: Color(0xff324755),),)),
                               ),
                               Text('날짜: 2022.06.30',style: TextStyle(fontSize: 15),),
                               Text('시간: 18시 30분',style: TextStyle(fontSize: 15),),
                               Text('장소: 정발산역 1번 출구',style: TextStyle(fontSize: 15),),
                               Padding(
-                                padding: const EdgeInsets.all(5.0),
+                                padding: const EdgeInsets.all(10.0),
                                 child: Text('컨텐츠내용컨텐츠내용컨텐츠내용컨텐츠내용컨텐츠내용컨텐츠내용컨텐츠내용컨텐츠내용컨텐츠내용컨텐츠내용컨텐츠내용컨텐츠내용컨텐츠내용컨텐츠내용컨텐츠내용컨텐츠내용컨텐츠내용컨텐츠내용컨텐츠내용컨텐츠내용컨텐츠내용컨텐츠내용',style: TextStyle(fontSize: 15),),
                               ),
                             ],
@@ -219,7 +212,7 @@ class ReservationRequestInfo extends StatelessWidget {
                     height: ScreenUtil().setHeight(60),
                     width: ScreenUtil().screenWidth,
                     color: Colors.white,
-                    child: Center(child: Text('산책완료',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),)),
+                    child: Center(child: Text('산책완료',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 21, color: Color(0xff324755),),)),
                   ),
                 ),
               ),
