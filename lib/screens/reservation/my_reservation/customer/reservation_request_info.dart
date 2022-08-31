@@ -1,6 +1,8 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'cancel_reservation.dart';
 
 
@@ -13,7 +15,7 @@ class ReservationRequestInfo extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: Text('예약상세',style: TextStyle( color: Color(0xff324755),
+        title: Text('예약 상세',style: TextStyle( color: Color(0xff324755),
           fontSize: 20.sp,
           fontWeight: FontWeight.bold,),),
         centerTitle: true,
@@ -26,7 +28,7 @@ class ReservationRequestInfo extends StatelessWidget {
         height: ScreenUtil().screenHeight,
         width: ScreenUtil().screenWidth,
         color: Color(0xffececec),
-        child: Column(
+        child: ListView(
           children: [
             Material(
               elevation: 3,
@@ -95,9 +97,7 @@ class ReservationRequestInfo extends StatelessWidget {
                               InkWell(                           // 예약 취소 버튼
                                 onTap: (){
                                   // 바텀 네비게이션 지우기
-                                  Navigator.of(context, rootNavigator:true).push(MaterialPageRoute(builder: (_)=>CancelReservation()));
-                                  //Navigator.push(context, MaterialPageRoute(builder: (_)=>CancelReservation()));
-                                  //Get.to(()=>CancelReservation());
+                                  Get.to(() => CancelReservation());
                                 },
                                 child: Container(
                                   width: ScreenUtil().setWidth(70),
@@ -106,7 +106,7 @@ class ReservationRequestInfo extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(20),
                                     border: Border.all(color: Color(0xff909090), width: 1.5),
                                   ),
-                                  child: Center(child: Text('예약취소',style: TextStyle(fontSize:13, color: Color(0xfff05d60), fontWeight: FontWeight.bold),)),
+                                  child: Center(child: Text('예약 취소',style: TextStyle(fontSize:13, color: Color(0xfff05d60), fontWeight: FontWeight.bold),)),
                                 ),
                               ),
                             ],
@@ -212,7 +212,7 @@ class ReservationRequestInfo extends StatelessWidget {
                     height: ScreenUtil().setHeight(60),
                     width: ScreenUtil().screenWidth,
                     color: Colors.white,
-                    child: Center(child: Text('산책완료',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 21, color: Color(0xff324755),),)),
+                    child: Center(child: Text('산책 완료',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 21, color: Color(0xff324755),),)),
                   ),
                 ),
               ),
