@@ -178,22 +178,25 @@ class ReservationRequestInfo extends StatelessWidget {
                       SizedBox(height: 10,),
                       Material(
                         elevation: 5,
+                        borderRadius: BorderRadius.circular(10),
                         child: Container(        // 요청사항 상세내용 전체 Container
                           height: ScreenUtil().setHeight(270),
                           width: ScreenUtil().setWidth(360),
                           decoration: BoxDecoration(
                             border: Border.all(color: Colors.grey),
+                            borderRadius: BorderRadius.circular(10)
                           ),
                           child: Column(
                             children: [
                               Container(               // only 요청내용 Container
                                 height: ScreenUtil().setHeight(50),
                                 width: ScreenUtil().setWidth(360),
-                                decoration: BoxDecoration(
-                                  border: Border.all(width: 0.7,color: Colors.grey),
-                                ),
-                                child: Center(child: Text('요청내용',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold ,color: Color(0xff324755),),)),
+                                child: Center(child: Padding(
+                                  padding: const EdgeInsets.only(top: 6.0),
+                                  child: Text('요청내용',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold ,color: Color(0xff324755),),),
+                                )),
                               ),
+                              Divider(color: Colors.grey, thickness: 1,),
                               Text('날짜: ${time.year}년 ${time.month}월 ${time.day}일',style: TextStyle(fontSize: 15),),
                               Text('시간: ${information['selectTime']}',style: TextStyle(fontSize: 15),),
                               Text('장소: ${information['place']}',style: TextStyle(fontSize: 15),),

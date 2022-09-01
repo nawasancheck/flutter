@@ -103,7 +103,7 @@ class FreeBoard extends StatelessWidget {
                             child: Center(
                               child: Container(
                                 // 리스트 안 내용 크기 컨테이너
-                                height: ScreenUtil().setHeight(70), // 변경 history 1. 90 , 2. 60
+                                height: ScreenUtil().setHeight(80), // 변경 history 1. 90 , 2. 60
                                 // 내용 가운데 오도록 하기 위해서 60으로 조정
                                 width: ScreenUtil().setWidth(360),
                                 // color: Colors.green,
@@ -115,14 +115,19 @@ class FreeBoard extends StatelessWidget {
                                     Row(
                                       children: [
                                         if (docs[index]['title'].length < 25) // 제목 글자 수 제한 25자
-                                          Text(docs[index]['title']),
+                                          Text(docs[index]['title'],
+                                            style: TextStyle(fontSize: 17.sp, fontWeight: FontWeight.bold),),
                                         if (docs[index]['title'].length >= 25) // 제목 글자 수 제한 25자
                                           Text(
                                             docs[index]['title'].substring(0, 25) + "...",
                                             // 아직 contentTitle이 활성화 안된듯?
-                                            style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
+                                            style: TextStyle(fontSize: 17.sp, fontWeight: FontWeight.bold),
                                           ),
                                       ],
+                                    ),
+                                    Container(            // 컨텐츠 내용, 작성날짜 사이 조정 Container
+                                      height:ScreenUtil().setHeight(3),
+                                      //   color: Colors.red,
                                     ),
                                     Row(
                                       children: [
@@ -141,6 +146,10 @@ class FreeBoard extends StatelessWidget {
                                             ),
                                           ),
                                       ],
+                                    ),
+                                    Container(            // 컨텐츠 내용, 작성날짜 사이 조정 Container
+                                      height:ScreenUtil().setHeight(8),
+                                   //   color: Colors.red,
                                     ),
                                     Row(
                                       children: [

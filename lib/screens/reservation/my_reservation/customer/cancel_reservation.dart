@@ -17,7 +17,7 @@ class CancelReservation extends StatelessWidget {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text('예약 취소',style: TextStyle(color: Color(0xff324755), fontWeight: FontWeight.bold),),
+          title: Text('예약 취소',style: TextStyle(fontSize: 20.sp, color: Color(0xff324755), fontWeight: FontWeight.bold),),
           iconTheme: IconThemeData(color:  Color(0xff324755),),
           centerTitle: true,
           backgroundColor: Colors.white,
