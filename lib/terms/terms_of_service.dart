@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -172,7 +174,14 @@ class _TermsOfServiceState extends State<TermsOfService> {
                     style: ElevatedButton.styleFrom(primary: Color(0xff93e3e6),),
                     child: Container(width:140,child: Center(child: Text('확인'))),
                     onPressed: (){
-                       },
+                      // 픽셀 사이즈 구하기
+                      print('displaySize : ${MediaQuery.of(context).size}');
+                      print('displayHeight : ${MediaQuery.of(context).size.height}');
+                      print('displayWidth : ${MediaQuery.of(context).size.width}');
+                      print('devicePixelRatio : ${MediaQuery.of(context).devicePixelRatio}');
+                      print('statusBarHeight : ${MediaQuery.of(context).padding.top}');
+
+                    },
                   ),
                 ],
               ),
