@@ -116,12 +116,12 @@ class FreeBoard extends StatelessWidget {
                                       children: [
                                         if (docs[index]['title'].length < 25) // 제목 글자 수 제한 25자
                                           Text(docs[index]['title'],
-                                            style: TextStyle(fontSize: 17.sp, fontWeight: FontWeight.bold),),
+                                            style: TextStyle(fontSize: 17.sp, fontWeight: FontWeight.bold,color: Color(0xff324755),),),
                                         if (docs[index]['title'].length >= 25) // 제목 글자 수 제한 25자
                                           Text(
                                             docs[index]['title'].substring(0, 25) + "...",
                                             // 아직 contentTitle이 활성화 안된듯?
-                                            style: TextStyle(fontSize: 17.sp, fontWeight: FontWeight.bold),
+                                            style: TextStyle(fontSize: 17.sp, fontWeight: FontWeight.bold,color: Color(0xff737373)),
                                           ),
                                       ],
                                     ),
@@ -135,14 +135,14 @@ class FreeBoard extends StatelessWidget {
                                           Text(
                                             docs[index]['content'],
                                             style: TextStyle(
-                                              fontSize: 15.sp,
+                                              fontSize: 15.sp,color: Color(0xff737373),
                                             ),
                                           ),
                                         if (docs[index]['content'].length >= 35)
                                           Text(
                                             docs[index]['content'].substring(0, 35) + "...",
                                             style: TextStyle(
-                                              fontSize: 15.sp,
+                                              fontSize: 15.sp,color: Color(0xff737373),
                                             ),
                                           ),
                                       ],
@@ -156,13 +156,13 @@ class FreeBoard extends StatelessWidget {
                                         Text(
                                           "$writeTime",
                                           style: TextStyle(
-                                            fontSize: 15.sp,
+                                            fontSize: 15.sp,color: Color(0xff909090),
                                           ),
                                         ),
                                         Text(
                                           '  ' + docs[index]['userName'],
                                           style: TextStyle(
-                                            fontSize: 15.sp,
+                                            fontSize: 15.sp,color: Color(0xff737373),
                                           ),
                                         ),
                                         Flexible(
