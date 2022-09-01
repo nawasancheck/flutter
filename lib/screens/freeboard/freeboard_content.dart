@@ -83,7 +83,7 @@ class FreeBoardContentState extends State<FreeBoardContent> {
           ),
           body: Container(
             // 배경색 위한 Container
-            color: Color(0xffececec),
+            color: Colors.white,
             child: Column(
               // (글내용, 댓글) + 댓글입력
               children: [
