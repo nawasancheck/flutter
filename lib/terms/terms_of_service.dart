@@ -17,7 +17,7 @@ class _TermsOfServiceState extends State<TermsOfService> {
   @override
   Widget build(BuildContext context) {
     // 상태바 높이 변수
-    final double statusBarHeight = MediaQuery.of(context).padding.top;
+    //final double statusBarHeight = MediaQuery.of(context).padding.top;
     return Scaffold(
       appBar: PreferredSize(// AppBar 없애기
         preferredSize: Size.fromHeight(0)
