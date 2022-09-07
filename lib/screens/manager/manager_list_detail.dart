@@ -16,6 +16,10 @@ class ManagerDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: Text("리스너 소개", style: TextStyle(color: Color(0xff324755),
+          fontSize: 20.sp,
+          fontWeight: FontWeight.bold,),),
+          centerTitle: true,
         backgroundColor: Color(0xffffffff),
         iconTheme: IconThemeData(
           color: Color(0xff324755),
