@@ -50,7 +50,7 @@ class _MyReservationState extends State<MyReservation> {
           ),
           backgroundColor: Colors.white,
           title: Text(
-            "나와산책",
+            "나의 예약",
             style: TextStyle(color: Color(0xff324755), fontSize: 20.sp, fontWeight: FontWeight.bold),
           ),
           //centerTitle: true,

@@ -63,9 +63,12 @@ class _ReserveScreenState extends State<ReserveScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xff93e3e6),
-        title: Text("산책 예약"),
+        backgroundColor: Colors.white,
+        title: Text("산책 예약", style: TextStyle(color: Color(0xff324755),
+          fontSize: 20.sp,
+          fontWeight: FontWeight.bold,),),
         centerTitle: true,
+        iconTheme: IconThemeData(color: Colors.black),
       ),
       body: GestureDetector(
         onTap: () {
@@ -73,6 +76,7 @@ class _ReserveScreenState extends State<ReserveScreen> {
         },
         child: SingleChildScrollView(
           child: Container(
+            color: Colors.yellow,
             padding: EdgeInsets.only(top: 10),
             child: Column(
               children: [
@@ -89,10 +93,12 @@ class _ReserveScreenState extends State<ReserveScreen> {
                   ],
                 ),
                 Container(
+                  color: Colors.red,
                   child: Column(
                       children: checkList1
                           .map<Widget>(
                             (String v) => Container(
+                              color: Colors.green,
                               margin: EdgeInsets.only(left: 80, right: 80),
                               padding: EdgeInsets.only(top: 5),
                               child: CheckboxListTile(
@@ -134,6 +140,7 @@ class _ReserveScreenState extends State<ReserveScreen> {
                               child: Text(getText()),
                             ),
                           ),
+                          Container(),
                         ],
                       ),
                       SizedBox(
