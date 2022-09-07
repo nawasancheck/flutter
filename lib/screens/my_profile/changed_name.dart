@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/controller/auth/auth_controller.dart';
-import 'package:flutter_app/main.dart';
-import 'package:flutter_app/screens/my_profile/my_profile.dart';
-import 'package:flutter_app/screens/my_profile/profile.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
+
 
 class ChangedName extends StatefulWidget {
   const ChangedName({Key? key}) : super(key: key);
