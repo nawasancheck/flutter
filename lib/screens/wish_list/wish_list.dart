@@ -220,7 +220,7 @@ class _WishListState extends State<WishList> {
                                                                   child: Container(
                                                                     width: 78.w,
                                                                     height: 28.h,
-                                                                    child: FlatButton(
+                                                                    child: MaterialButton(
                                                                       onPressed: () {
                                                                         Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(
                                                                             builder: (context) =>
@@ -241,7 +241,7 @@ class _WishListState extends State<WishList> {
                                                                   child: Container(
                                                                     width: ScreenUtil().setWidth(78),
                                                                     height: 28.h,
-                                                                    child: FlatButton(
+                                                                    child: MaterialButton(
                                                                       onPressed: () {},
                                                                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
                                                                       color: Color(0xff74c8cb),

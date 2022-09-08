@@ -36,27 +36,22 @@ class _HomePageState extends State<HomePage> {
             return CupertinoTabView(builder: (context) {
               return CupertinoPageScaffold(child: ManagerListScreen());
             });
-            break;
           case 1:
             return CupertinoTabView(builder: (context) {
               return CupertinoPageScaffold(child: FreeBoard());
             });
-            break;
           case 2:
             return CupertinoTabView(builder: (context) {
               return CupertinoPageScaffold(child: ChatList());
             });
-            break;
           case 3:
             return CupertinoTabView(builder: (context) {
               return CupertinoPageScaffold(child: MyReservation());
             });
-            break;
           case 4:
             return CupertinoTabView(builder: (context) {
               return CupertinoPageScaffold(child: Profile());
             });
-            break;
           default:
             return const CupertinoTabView();
         }

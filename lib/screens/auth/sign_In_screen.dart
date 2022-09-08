@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/controller/auth/auth_controller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -78,7 +77,7 @@ class _SignInScreenState extends State<SignInScreen> {
               child: Container(
                 width: 327.w,
                 height: 43.h,
-                child: FlatButton(
+                child: MaterialButton(
                   onPressed: () async {
                     try {
                       await AuthController.instance.authentication.signInWithEmailAndPassword(email: _userEmail, password: _userPassword);
@@ -138,7 +137,7 @@ class _SignInScreenState extends State<SignInScreen> {
               child: Container(
                 width: 327.w,
                 height: 43.h,
-                child: FlatButton(
+                child: MaterialButton(
                   onPressed: () async {
                     UserCredential userCredential = await AuthController.instance.signInWithGoogle();
                     await AuthController.instance.checkAuthDataInDB(userCredential);
@@ -157,7 +156,7 @@ class _SignInScreenState extends State<SignInScreen> {
               child: Container(
                 width: 327.w,
                 height: 43.h,
-                child: FlatButton(
+                child: MaterialButton(
                   onPressed: () async {
                     UserCredential userCredential = await AuthController.instance.signInWithFacebook();
                     await AuthController.instance.checkAuthDataInDB(userCredential);
@@ -177,7 +176,7 @@ class _SignInScreenState extends State<SignInScreen> {
               child: Container(
                 width: 327.w,
                 height: 43.h,
-                child: FlatButton(
+                child: MaterialButton(
                   onPressed: () async {
                     UserCredential userCredential = await AuthController.instance.signInWithKakao();
                     await AuthController.instance.checkAuthDataInDB(userCredential);

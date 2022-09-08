@@ -50,14 +50,14 @@ class ReservationRequestInfo extends StatelessWidget {
                     child: Container(   // 예약상태, 리스너 사진, 예약 취소 Container
                       height: ScreenUtil().setHeight(170),
                       width: ScreenUtil().setWidth(360),
-         //            color: Colors.greenAccent,
+                     //color: Colors.greenAccent,
                       child: Column(
                         children: [
                           Row(children: [
                             Container(         // 예약 상태, 리스너 닉네임 Container
                               height: ScreenUtil().setHeight(130),
                               width: ScreenUtil().setWidth(230),
-          //                    color: Colors.yellow,
+                              //color: Colors.yellow,
                               child: Column(children: [
                                 Row(
                                   children: [
@@ -102,19 +102,22 @@ class ReservationRequestInfo extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              InkWell(                           // 예약 취소 버튼
-                                onTap: (){
-                                  // 바텀 네비게이션 지우기
-                                  Get.to(() => CancelReservation(information));
-                                },
-                                child: Container(
-                                  width: ScreenUtil().setWidth(70),
-                                  height: ScreenUtil().setHeight(30),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20),
-                                    border: Border.all(color: Color(0xff909090), width: 1.5),
+                              Padding(
+                                padding: const EdgeInsets.all(1.0),
+                                child: InkWell(                           // 예약 취소 버튼
+                                  onTap: (){
+                                    // 바텀 네비게이션 지우기
+                                    Get.to(() => CancelReservation(information));
+                                  },
+                                  child: Container(
+                                    width: ScreenUtil().setWidth(70),
+                                    height: ScreenUtil().setHeight(30),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      border: Border.all(color: Color(0xff909090), width: 1.5),
+                                    ),
+                                    child: Center(child: Text('예약 취소',style: TextStyle(fontSize:13, color: Color(0xfff05d60), fontWeight: FontWeight.bold),)),
                                   ),
-                                  child: Center(child: Text('예약 취소',style: TextStyle(fontSize:13, color: Color(0xfff05d60), fontWeight: FontWeight.bold),)),
                                 ),
                               ),
                             ],
@@ -197,9 +200,9 @@ class ReservationRequestInfo extends StatelessWidget {
                                 )),
                               ),
                               Divider(color: Colors.grey, thickness: 1,),
-                              Text('날짜: ${time.year}년 ${time.month}월 ${time.day}일',style: TextStyle(fontSize: 15),),
-                              Text('시간: ${information['selectTime']}',style: TextStyle(fontSize: 15),),
-                              Text('장소: ${information['place']}',style: TextStyle(fontSize: 15),),
+                              Text('산책 예정 날짜: ${time.year}년 ${time.month}월 ${time.day}일',style: TextStyle(fontSize: 15),),
+                              Text('산책 시작 시간: ${information['selectTime']}',style: TextStyle(fontSize: 15),),
+                              Text('산책 장소: ${information['place']}',style: TextStyle(fontSize: 15),),
                               Padding(
                                 padding: const EdgeInsets.all(10.0),
                                 child: Text(information['requests'],style: TextStyle(fontSize: 15),),

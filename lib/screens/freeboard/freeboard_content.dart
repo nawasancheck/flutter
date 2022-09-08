@@ -58,7 +58,7 @@ class FreeBoardContentState extends State<FreeBoardContent> {
                             title: Text("팝업 메세지"),
                             content: Text('해당 글을 삭제 하시겠습니까?'),
                             actions: [
-                              FlatButton(
+                              MaterialButton(
                                   onPressed: () async {
                                     Navigator.of(context).pop(); // 팝업창 나가기
 
@@ -68,7 +68,7 @@ class FreeBoardContentState extends State<FreeBoardContent> {
                                     freeboardData.delete();
                                   },
                                   child: Text('Okay')),
-                              FlatButton(
+                              MaterialButton(
                                   onPressed: () {
                                     Navigator.of(context).pop(); // 팝업창 나가기
                                   },
@@ -325,12 +325,12 @@ class FreeBoardContentState extends State<FreeBoardContent> {
                                                                       title: Text("팝업 메세지"),
                                                                       content: Text('해당 댓글을 삭제 하시겠습니까?'),
                                                                       actions: [
-                                                                        FlatButton(
+                                                                        MaterialButton(
                                                                             onPressed: () {
                                                                               Navigator.of(context).pop(); // 팝업창 나가기
                                                                             },
                                                                             child: Text('Okay')),
-                                                                        FlatButton(
+                                                                        MaterialButton(
                                                                             onPressed: () {
                                                                               Navigator.of(context).pop(); // 팝업창 나가기
                                                                             },

@@ -76,6 +76,7 @@ class _ReserveScreenState extends State<ReserveScreen> {
         },
         child: SingleChildScrollView(
           child: Container(
+            width: ScreenUtil().setWidth(360),
             color: Colors.yellow,
             padding: EdgeInsets.only(top: 10),
             child: Column(
@@ -245,7 +246,7 @@ class _ReserveScreenState extends State<ReserveScreen> {
                     ],
                   ),
                 ),
-                FlatButton(
+                MaterialButton(
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                     color: Color(0xff93e3e6),
                     onPressed: () async {
