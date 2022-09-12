@@ -66,6 +66,7 @@ class FreeBoardContentState extends State<FreeBoardContent> {
                                     var freeboardData = await FirebaseFirestore.instance.collection("board_test").doc(widget.boardNum);
 
                                     freeboardData.delete();
+                                    Navigator.pop(context);
                                   },
                                   child: Text('Okay')),
                               MaterialButton(
