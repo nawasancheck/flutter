@@ -185,19 +185,24 @@ class _NewMessageState extends State<NewMessage> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: Colors.white,
       margin: EdgeInsets.only(top: 8),
       padding: EdgeInsets.all(8),
       child: Row(
         children: [
           IconButton(
-            icon: Icon(Icons.image),
+            icon: Icon(Icons.camera_alt_outlined),
             onPressed: () => getImage(),
           ),
           Expanded(
             child: TextField(
               maxLines: null,
               controller: _controller,
-              decoration: InputDecoration(labelText: 'Send a message...'),
+              decoration: InputDecoration(labelText: 'Send a message...',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                ),
+              ),
               onChanged: (value) {
                 // onChanged가 실행되면 값이 value에 들어온다.
                 setState(() {
@@ -221,7 +226,7 @@ class _NewMessageState extends State<NewMessage> {
             },
             // 좌우의 공백을 제거하고 비어있다면 null로 실행 X, 괄호가 있으면 값 리턴, 없으면 참조만
             icon: Icon(Icons.send),
-            color: Colors.blue,
+            color: Color(0xff74c8cb),
           )
         ],
       ),
