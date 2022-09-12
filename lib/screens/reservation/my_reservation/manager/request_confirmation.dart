@@ -22,92 +22,124 @@ class RequestConfirm extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('예약 요청 확인'),
+        backgroundColor: Colors.white,
+        title: Text('예약 요청 확인',style: TextStyle( color: Color(0xff324755),
+          fontSize: 20.sp,
+          fontWeight: FontWeight.bold,),),
         centerTitle: true,
-        actions: [IconButton(onPressed: () {}, icon: Icon(EvaIcons.bellOffOutline))],
+        iconTheme: IconThemeData(color: Color(0xff324755), ),
+        actions: [
+          IconButton(onPressed: (){}, icon: Icon(EvaIcons.bellOffOutline))
+        ],
       ),
       body: Container(
         height: ScreenUtil().screenHeight,
         width: ScreenUtil().screenWidth,
-        color: Colors.white,
-        child: Column(
+        color: Color(0xffececec),
+        child: ListView(
           children: [
-            Container(
-                height: ScreenUtil().setHeight(200),
-                width: ScreenUtil().setWidth(360),
-                //color: Colors.greenAccent,
-                child: Row(
-                  children: [
-                    Container(
-                      height: ScreenUtil().setHeight(190),
-                      width: ScreenUtil().setWidth(180),
-                      color: Colors.yellow,
+            Material(
+              elevation: 3,
+              child: Container(                       // 컨텐츠 Container 흰색 배경
+                height: ScreenUtil().setHeight(550),
+                width: ScreenUtil().screenWidth,
+                color: Colors.white,
+                child: Column(children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 20, 0, 10),
+                    child: Container(
+                        height: ScreenUtil().setHeight(150),
+                        width: ScreenUtil().setWidth(360),
+                        //color: Colors.greenAccent,
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text('예약상태: ',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15.sp, color: Colors.grey),),
+                                Text('산책요청',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15.sp, color: Color(0xff324755),),),
+                              ],
+                            ),
+                            SizedBox(height: 5,),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text('요청자: ',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15.sp, color: Colors.grey),),
+                                Text('${information['client']}',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15.sp, color: Color(0xff324755),),),
+                              ],
+                            ),
+                            SizedBox(height: 5,),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text('고객이 요청한 날짜, 시간, 장소를 확인해주세요.',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15.sp, color: Colors.grey),),
+                              ],
+                            ),
+                            SizedBox(height: 20,),
+                            InkWell(                            // 메세지 보내기 버튼
+                              onTap: (){
+                                Get.to(() => ChatScreenManager(information['clientUid'], information['client'], 2));
+                              },
+                              child: Container(
+                                width: ScreenUtil().setWidth(358),
+                                height: ScreenUtil().setHeight(50),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  border: Border.all(color: Color(0xff909090), width: 2),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(EvaIcons.messageSquareOutline,color: Colors.grey,),
+                                    SizedBox(width: 8),
+                                    Text('메세지 보내기',style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold),),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        )),
+                  ),
+                  Material(
+                    elevation: 5,
+                    borderRadius: BorderRadius.circular(10),
+                    child: Container(        // 요청사항 상세내용 전체 Container
+                      height: ScreenUtil().setHeight(300),
+                      width: ScreenUtil().setWidth(360),
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey),
+                          borderRadius: BorderRadius.circular(10)
+                      ),
                       child: Column(
                         children: [
-                          Text('산책요청이 도착했습니다.\n'),
-                          Text(
-                            '${information['client']}\n',
-                            style: TextStyle(fontSize: 18.sp),
+                          Container(               // only 요청내용 Container
+                            height: ScreenUtil().setHeight(50),
+                            width: ScreenUtil().setWidth(360),
+                            child: Center(child: Padding(
+                              padding: const EdgeInsets.only(top: 6.0),
+                              child: Text('요청내용',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold ,color: Color(0xff324755),),),
+                            )),
                           ),
-                          Text('고객이 요청한 날짜, 시간, 장소를 확인해주세요.'),
-                          ElevatedButton(
-                            onPressed: () {
-                              Get.to(() => ChatScreenManager(information['clientUid'], information['client'], 2));
-                            },
-                            child: Text('메세지 보내기'),
+                          Divider(color: Colors.grey, thickness: 1,),
+                          Text('고객 요청내용: ${information['requests']}',style: TextStyle(fontSize: 15),),
+                          Text('날짜: ${time.year}년 ${time.month}월 ${time.day}일',style: TextStyle(fontSize: 15),),
+                          Text('시간:${information['selectTime']}',style: TextStyle(fontSize: 15),),
+                          Text('장소: ${information['place']}',style: TextStyle(fontSize: 15),),
+                          Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Text(information['requests'],style: TextStyle(fontSize: 15),),
                           ),
                         ],
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(50.0),
-                      child: Container(
-                        // 고객은 익명 -> 사진 없음
-                        width: ScreenUtil().setWidth(76),
-                        height: ScreenUtil().setHeight(76),
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.grey[400],
-                        ),
-                        child: Icon(
-                          EvaIcons.personOutline,
-                          size: 60.sp,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ],
-                )),
-            Container(
-              height: ScreenUtil().setHeight(200),
-              width: ScreenUtil().setWidth(360),
-              color: Colors.grey,
-              child: Column(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(),
-                    ),
-                    child: Column(
-                      children: [
-                        Text('고객 요청내용: ${information['requests']}'),
-                        Text('날짜: ${time.year}년 ${time.month}월 ${time.day}일'),
-                        Text('시간:${information['selectTime']}'),
-                        Text('장소: ${information['place']}'),
-                      ],
-                    ),
                   ),
-                ],
+                ],),
               ),
             ),
-            SizedBox(
-              height: 100,
-            ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ElevatedButton(
-                  onPressed: () {
+                InkWell(                                              // 산책완료 버튼
+                  onTap: (){
                     FirebaseFirestore.instance
                         .collection('client_reserve')
                         .doc(information['clientUid'])
@@ -121,13 +153,21 @@ class RequestConfirm extends StatelessWidget {
                         .doc(information['id'])
                         .update({'status': '산책 예정'});
                   },
-                  child: Text('수락하기'),
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
+                    child: Material(
+                      elevation: 3,
+                      child: Container(
+                        height: ScreenUtil().setHeight(60),
+                        width: ScreenUtil().setWidth(196.35),
+                        color: Colors.white,
+                        child: Center(child: Text('수락하기',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 21, color: Color(0xff324755),),)),
+                      ),
+                    ),
+                  ),
                 ),
-                SizedBox(
-                  width: 20,
-                ),
-                ElevatedButton(
-                  onPressed: () {
+                InkWell(                                              // 산책완료 버튼
+                  onTap: (){
                     FirebaseFirestore.instance
                         .collection('client_reserve')
                         .doc(information['clientUid'])
@@ -141,7 +181,18 @@ class RequestConfirm extends StatelessWidget {
                         .doc(information['id'])
                         .update({'status': '산책 거절'});
                   },
-                  child: Text('거절하기'),
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
+                    child: Material(
+                      elevation: 3,
+                      child: Container(
+                        height: ScreenUtil().setHeight(60),
+                        width: ScreenUtil().setWidth(196.35),
+                        color: Colors.white,
+                        child: Center(child: Text('거절하기',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 21, color: Color(0xff324755),),)),
+                      ),
+                    ),
+                  ),
                 ),
               ],
             ),
