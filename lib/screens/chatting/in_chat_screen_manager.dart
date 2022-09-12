@@ -16,16 +16,24 @@ class ChatScreenManager extends StatefulWidget {
 class _ChatScreenManagerState extends State<ChatScreenManager> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.opponentName),
-      ),
-      body: Container(
-        child: Column(
-          children: [
-            Expanded(child: MessagesManager(widget.opponentUID)),
-            NewMessage(widget.opponentUID, widget.opponentName, widget.myRole),
-          ],
+    return GestureDetector(
+      onTap: (){
+        FocusScope.of(context).unfocus();
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(widget.opponentName),
+          iconTheme: IconThemeData(color: Colors.black),
+          backgroundColor: Colors.white,
+        ),
+        body: Container(
+            color: Color(0xffececec),
+          child: Column(
+            children: [
+              Expanded(child: MessagesManager(widget.opponentUID)),
+              NewMessage(widget.opponentUID, widget.opponentName, widget.myRole),
+            ],
+          ),
         ),
       ),
     );
