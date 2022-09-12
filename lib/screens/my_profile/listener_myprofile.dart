@@ -318,7 +318,7 @@ class _ListenerMyProfileState extends State<ListenerMyProfile> {
                                 ),
                                 actions: [
                                   Center(
-                                    child: FlatButton(
+                                    child: MaterialButton(
                                         onPressed: () async {
                                           Navigator.pushNamedAndRemoveUntil(context, '/', (_) => false);
                                           Navigator.push(context, MaterialPageRoute(builder: (context) => Profile()));

@@ -1,13 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/screens/homepage.dart';
 import 'package:flutter_app/screens/my_profile/listener_application.dart';
 import 'package:flutter_app/screens/my_profile/listener_myprofile.dart';
-import 'package:flutter_app/screens/my_profile/profile.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
-import 'package:get/get.dart';
 
 class ListenerProfile extends StatefulWidget {
   const ListenerProfile({Key? key}) : super(key: key);
@@ -81,7 +78,7 @@ class _ListenerProfileState extends State<ListenerProfile> {
                                   ),
                                   actions: [
                                     Center(
-                                      child: FlatButton(
+                                      child: MaterialButton(
                                           onPressed: () {
                                             Navigator.of(context).pop();
                                           },
@@ -146,7 +143,7 @@ class _ListenerProfileState extends State<ListenerProfile> {
                                   ),
                                   actions: [
                                     Center(
-                                      child: FlatButton(
+                                      child: MaterialButton(
                                           onPressed: () {
                                             Navigator.of(context).pop();
                                           },
@@ -210,7 +207,7 @@ class _ListenerProfileState extends State<ListenerProfile> {
                                       ),
                                       actions: [
                                         Center(
-                                          child: FlatButton(
+                                          child: MaterialButton(
                                               onPressed: () {
                                                 Navigator.of(context).pop();
                                               },

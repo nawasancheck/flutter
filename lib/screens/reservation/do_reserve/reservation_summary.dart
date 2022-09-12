@@ -1,7 +1,4 @@
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/main.dart';
 import 'package:flutter_app/screens/homepage.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -62,7 +59,7 @@ class ReservationSummary extends StatelessWidget {
               child: Container(
                 width: ScreenUtil().setWidth(200),
                 height: ScreenUtil().setHeight(50),
-                child: FlatButton(
+                child: MaterialButton(
                     color: Color(0xff93e3e6),
                     onPressed: () {
                       Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (BuildContext context) => HomePage()), (route) => false);

@@ -123,13 +123,13 @@ class ReservationRequestInfo extends StatelessWidget {
                             ],
                           ),
                         ],
-                      )
+                      ),
                     ),
                   ),
                   Container(         // 메세지 보내기, 프로필 보기, 요청내용 Container
                     height: ScreenUtil().setHeight(330),
                     width: ScreenUtil().setWidth(360),
-                   // color: Colors.orangeAccent,
+                    //color: Colors.orangeAccent,
                     child: Column(children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -232,7 +232,7 @@ class ReservationRequestInfo extends StatelessWidget {
                   ),
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),

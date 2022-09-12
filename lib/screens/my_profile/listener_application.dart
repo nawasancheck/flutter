@@ -399,7 +399,7 @@ class _ListenerApplicationState extends State<ListenerApplication> {
                                 ),
                                 actions: [
                                   Center(
-                                    child: FlatButton(
+                                    child: MaterialButton(
                                         onPressed: () {
                                           Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (BuildContext context) => HomePage()), (route) => false);
                                           Navigator.of(context, rootNavigator: true).push(

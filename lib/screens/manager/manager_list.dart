@@ -16,10 +16,10 @@ class ManagerListScreen extends StatefulWidget {
 }
 
 class _ManagerListScreenState extends State<ManagerListScreen> {
-  String dropDownValue = '통합채널';
+  String dropDownValue = '전체보기';
 
   var items = [
-    '통합채널',
+    '전체보기',
     '강동구',
     '송파구',
     '광진구',
