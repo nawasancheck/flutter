@@ -90,7 +90,7 @@ class _MyReservationState extends State<MyReservation> {
                         final reserveTime = docs[index]['reserveTime'].toDate();
                         return Container(
                           width: ScreenUtil().screenWidth,
-                          height: ScreenUtil().setHeight(150),
+                          height: ScreenUtil().setHeight(140),
                           decoration: BoxDecoration(
                             color: Colors.white,
                             border: Border.all(color: Colors.grey, width: 0.5),
@@ -100,7 +100,7 @@ class _MyReservationState extends State<MyReservation> {
                             child: Container(
                               //color: Colors.white,
                               width: ScreenUtil().setWidth(360),
-                              height: ScreenUtil().setHeight(140),
+                              height: ScreenUtil().setHeight(130),
                               child: Column(
                                 children: [
                                   Row(
@@ -228,86 +228,111 @@ class _MyReservationState extends State<MyReservation> {
                       itemBuilder: (BuildContext context, int index) {
                         return Container(
                           width: ScreenUtil().screenWidth,
-                          height: ScreenUtil().setHeight(150),
+                          height: ScreenUtil().setHeight(140),
                           decoration: BoxDecoration(
                             color: Colors.white,
                             border: Border.all(color: Colors.grey, width: 0.5),
                           ),
-                          child: Column(
-                            children: [
-                              // 상태창 디자인 ex) 산책 요청
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
+                          child: Center(
+                            child: Container(
+                              //color: Colors.yellow,
+                              width: ScreenUtil().setWidth(360),
+                              height: ScreenUtil().setHeight(120),
+                              child: Column(
                                 children: [
-                                  Container(
-                                    width: 200,
-                                    height: 30,
-                                    decoration: BoxDecoration(
-                                        // border: Border.all(color: Colors.grey),
-                                        color: Color(0xff4aa8d8),
-                                        //Colors.lightBlueAccent,
-                                        borderRadius: BorderRadius.circular(10)),
-                                    child: Center(
-                                      child: Text(docs[index]['status'], style: TextStyle(color: Colors.white)),
-                                    ),
+                                  // 상태창 디자인 ex) 산책 요청
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        width: 200,
+                                        height: 30,
+                                        decoration: BoxDecoration(
+                                            // border: Border.all(color: Colors.grey),
+                                            color: Color(0xff4aa8d8),
+                                            //Colors.lightBlueAccent,
+                                            borderRadius: BorderRadius.circular(10)),
+                                        child: Center(
+                                          child: Text(docs[index]['status'], style: TextStyle(color: Colors.white)),
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ],
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 8),
-                                child: Row(
-                                  children: [
-                                    Container(
-                                      width: ScreenUtil().setWidth(76),
-                                      height: ScreenUtil().setHeight(76),
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: Colors.grey[400],
-                                      ),
-                                      child: Icon(
-                                        EvaIcons.personOutline,
-                                        size: 60.sp,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                    Row(
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 8),
+                                    child: Row(
                                       children: [
-                                        Padding(
-                                          padding: const EdgeInsets.only(left: 10),
-                                          child: Container(
-                                            //== 닉네임, 시간 산책 Container ==
-                                            color: Colors.lightGreenAccent,
-                                            width: ScreenUtil().setWidth(150),
-                                            height: ScreenUtil().setHeight(60),
-                                            child: Text(
-                                              docs[index]['client'] + " " + docs[index]['wantTime'] + '분 산책',
-                                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp),
-                                            ),
+                                        Container(
+                                          width: ScreenUtil().setWidth(76),
+                                          height: ScreenUtil().setHeight(76),
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: Colors.grey[400],
+                                          ),
+                                          child: Icon(
+                                            EvaIcons.personOutline,
+                                            size: 60.sp,
+                                            color: Colors.white,
                                           ),
                                         ),
-                                        Padding(
-                                          padding: const EdgeInsets.only(left: 10),
-                                          child: Container(
-                                            color: Colors.blueAccent,
-                                            width: ScreenUtil().setWidth(100),
-                                            height: ScreenUtil().setHeight(60),
-                                            child: ElevatedButton(
-                                              onPressed: () {
-                                                Get.to(() => RequestConfirm(docs[index]));
-                                              },
-                                              child: Text(
-                                                '요청 확인',
-                                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp),
+                                        Row(
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsets.only(left: 10),
+                                              child: Container(
+                                                //== 닉네임, 시간 산책 Container ==
+                                                //color: Colors.lightGreenAccent,
+                                                width: ScreenUtil().setWidth(150),
+                                                height: ScreenUtil().setHeight(60),
+                                                child: Column(children: [
+                                                  Row(children: [
+                                                    Text('요청자: ',
+                                                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.sp, color: Colors.grey)),
+                                                    Text(
+                                                      docs[index]['client'], style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp, color: Color(0xff324755),),),
+                                                  ],),
+                                                  Row(children: [
+                                                    Text('요청 시간: ',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.sp, color: Colors.grey),
+                                                  ),
+                                                    Text(docs[index]['wantTime'] + '분', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp,color: Color(0xff324755),),
+                                                    ),
+                                                  ],),
+                                                ],)
                                               ),
                                             ),
-                                          ),
+                                            Padding(
+                                              padding: const EdgeInsets.only(left: 10),
+                                              child: Container(
+                                                width: ScreenUtil().setWidth(100),
+                                                height: ScreenUtil().setHeight(60),
+                                                child: GestureDetector(
+                                                  onTap: () {
+                                                    Get.to(() => RequestConfirm(docs[index]));
+                                                  },
+                                                  child: Container(
+                                                   // color: Color(0xffe1f3f3),
+                                                    decoration: BoxDecoration(
+                                                      borderRadius: BorderRadius.circular(10),
+                                                      border: Border.all(width: 1.5, color: Colors.grey)
+                                                    ),
+                                                    child: Center(
+                                                      child: Text(
+                                                        '요청 확인',
+                                                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp,color: Color(0xff324755),),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ],
                                     ),
-                                  ],
-                                ),
-                              )
-                            ],
+                                  )
+                                ],
+                              ),
+                            ),
                           ),
                         );
                       },
