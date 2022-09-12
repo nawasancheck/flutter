@@ -1,7 +1,11 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
+import 'package:uuid/uuid.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class NoticePage extends StatefulWidget {
   const NoticePage({Key? key}) : super(key: key);
@@ -32,7 +36,7 @@ class _NoticePageState extends State<NoticePage> {
           style:
               TextStyle(color: Color(0xff324755), fontWeight: FontWeight.bold),
         ),
-        backgroundColor: Color(0xff93e3e6),
+        backgroundColor: Color(0xffffffff),
         iconTheme: IconThemeData(
           color: Color(0xff324755),
         ),
@@ -45,7 +49,7 @@ class _NoticePageState extends State<NoticePage> {
           padding: EdgeInsets.only(left: 5, right: 5),
           shrinkWrap: true,
           children: ListTile.divideTiles(
-            color: Color(0xff878787),
+            color: Color(0x00878787),
             context: context,
             tiles: [
               ListTile(
@@ -54,6 +58,7 @@ class _NoticePageState extends State<NoticePage> {
                 trailing: Icon(
                   EvaIcons.arrowIosDownwardOutline,
                   size: 25,
+                  color: Color(0x4D848484),
                 ),
                 title: Transform.translate(
                   offset: Offset(10, 0),
@@ -113,6 +118,7 @@ class _NoticePageState extends State<NoticePage> {
                 trailing: Icon(
                   EvaIcons.arrowIosDownwardOutline,
                   size: 25,
+                  color: Color(0x4D848484),
                 ),
                 title: Transform.translate(
                   offset: Offset(10, 0),
@@ -172,6 +178,7 @@ class _NoticePageState extends State<NoticePage> {
                 trailing: Icon(
                   EvaIcons.arrowIosDownwardOutline,
                   size: 25,
+                  color: Color(0x4D848484),
                 ),
                 title: Transform.translate(
                   offset: Offset(10, 0),
@@ -231,6 +238,7 @@ class _NoticePageState extends State<NoticePage> {
                 trailing: Icon(
                   EvaIcons.arrowIosDownwardOutline,
                   size: 25,
+                  color: Color(0x4D848484),
                 ),
                 title: Transform.translate(
                   offset: Offset(10, 0),
@@ -290,6 +298,7 @@ class _NoticePageState extends State<NoticePage> {
                 trailing: Icon(
                   EvaIcons.arrowIosDownwardOutline,
                   size: 25,
+                  color: Color(0x4D848484),
                 ),
                 title: Transform.translate(
                   offset: Offset(10, 0),
@@ -349,6 +358,7 @@ class _NoticePageState extends State<NoticePage> {
                 trailing: Icon(
                   EvaIcons.arrowIosDownwardOutline,
                   size: 25,
+                  color: Color(0x4D848484),
                 ),
                 title: Transform.translate(
                   offset: Offset(10, 0),
@@ -408,6 +418,7 @@ class _NoticePageState extends State<NoticePage> {
                 trailing: Icon(
                   EvaIcons.arrowIosDownwardOutline,
                   size: 25,
+                  color: Color(0x4D848484),
                 ),
                 title: Transform.translate(
                   offset: Offset(10, 0),
@@ -467,6 +478,7 @@ class _NoticePageState extends State<NoticePage> {
                 trailing: Icon(
                   EvaIcons.arrowIosDownwardOutline,
                   size: 25,
+                  color: Color(0x4D848484),
                 ),
                 title: Transform.translate(
                   offset: Offset(10, 0),

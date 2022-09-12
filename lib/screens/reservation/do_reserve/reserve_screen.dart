@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/controller/auth/auth_controller.dart';
+import 'package:flutter_app/screens/homepage.dart';
 import 'package:flutter_app/screens/reservation/do_reserve/reservation_summary.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -313,7 +314,40 @@ class _ReserveScreenState extends State<ReserveScreen> {
                         docs2.update({
                           'id': docs2.id,
                         });
-                        Get.to(() => ReservationSummary());
+                        showDialog(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (BuildContext ctx) {
+                              return AlertDialog(
+                                content: Container(
+                                  padding: EdgeInsets.only(top: 30),
+                                  child: Text(
+                                    "산책 요청이 완료되었습니다.\n"
+                                    "\n"
+                                    "리스너가 확인할 때까지\n"
+                                    "조금만 기다려주세요!",
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                                actions: [
+                                  Center(
+                                    child: FlatButton(
+                                        onPressed: () {
+                                          Get.to(() => HomePage());
+                                        },
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            color: Color(0xff93e3e6),
+                                          ),
+                                          child: Center(child: Text("확인")),
+                                          width: 60,
+                                          height: 30,
+                                        )),
+                                  )
+                                ],
+                              );
+                            }
+                        );
                       },
                       child: Container(
                         width: ScreenUtil().setWidth(360),
@@ -332,7 +366,6 @@ class _ReserveScreenState extends State<ReserveScreen> {
                         ),
                       ),
                     ),
-
                   ],
                 ),
               ),

@@ -1,5 +1,11 @@
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
+import 'package:uuid/uuid.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class CustomerService extends StatefulWidget {
   const CustomerService({Key? key}) : super(key: key);
@@ -19,7 +25,7 @@ class _CustomerServiceState extends State<CustomerService> {
             style: TextStyle(
                 color: Color(0xff324755), fontWeight: FontWeight.bold),
           ),
-          backgroundColor: Color(0xff93e3e6),
+          backgroundColor: Color(0xffffffff),
           iconTheme: IconThemeData(
             color: Color(0xff324755),
           ),
@@ -35,13 +41,15 @@ class _CustomerServiceState extends State<CustomerService> {
                 width: ScreenUtil().setWidth(320),
                 height: ScreenUtil().setHeight(100),
                 decoration: BoxDecoration(
-                  border: Border.all(),
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(5),
+                  border: Border.all(color: Color(0xff93e3e6), style: BorderStyle.solid, width: 2.sp),
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "나와산책 Ver 1.0",
+                      "현재 버전: 나와산책 Ver 1.0",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                       ),
@@ -50,43 +58,40 @@ class _CustomerServiceState extends State<CustomerService> {
                 ),
               ),
               Container(
-                width: ScreenUtil().screenWidth,
-                height: 80,
-                child: Divider(color: Colors.grey, thickness: 2),
+                child: SizedBox(height: 80,),
               ),
               Container(
                 child: Row(
                   children: [
                     Container(
-                      margin: EdgeInsets.only(left: 37, right: 20),
-                      width: ScreenUtil().setWidth(220),
-                      height: ScreenUtil().setHeight(40),
+                      margin: EdgeInsets.only(left: 40),
+                      width: ScreenUtil().setWidth(320),
+                      height: ScreenUtil().setHeight(50),
                       decoration: BoxDecoration(
-                        border: Border.all(),
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(5),
+                        border: Border.all(color: Color(0xff93e3e6), style: BorderStyle.solid, width: 2.sp),
                       ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Text(
-                            "나와산책 Ver 1.0",
+                            "나와산책에게 연락하기",
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                             ),
                           ),
+                          InkWell(
+                            onTap: () {},
+                            child: Text(
+                              "채팅하기",
+                              style: TextStyle(color: Color(0xff12C9B4)),
+                            ),
+                          )
                         ],
                       ),
                     ),
-                    Container(
-                        child: ElevatedButton(
-                      onPressed: () {},
-                      child: Text(
-                        "채팅하기",
-                        style: TextStyle(color: Colors.amber),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.black,
-                      ),
-                    ))
                   ],
                 ),
               ),
@@ -94,13 +99,17 @@ class _CustomerServiceState extends State<CustomerService> {
                 height: 15,
               ),
               Container(
+                margin: EdgeInsets.only(left: 10),
                 width: ScreenUtil().setWidth(320),
-                height: ScreenUtil().setHeight(40),
+                height: ScreenUtil().setHeight(50),
                 decoration: BoxDecoration(
-                  border: Border.all(),
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(5),
+                  border: Border.all(color: Color(0xff93e3e6), style: BorderStyle.solid, width: 2.sp),
                 ),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
                       "이메일문의: nawa@naver.com",

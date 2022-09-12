@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/controller/auth/auth_controller.dart';
+import 'package:flutter_app/screens/homepage.dart';
+import 'package:flutter_app/screens/my_profile/my_profile.dart';
+import 'package:flutter_app/screens/my_profile/profile.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
+import 'package:get/get.dart';
 
 class ChangedName extends StatefulWidget {
   const ChangedName({Key? key}) : super(key: key);
@@ -22,7 +25,7 @@ class _ChangedNameState extends State<ChangedName> {
           "닉네임 변경",
           style: TextStyle(color: Color(0xff324755), fontWeight: FontWeight.bold),
         ),
-        backgroundColor: Color(0xff93e3e6),
+        backgroundColor: Color(0xffffffff),
         iconTheme: IconThemeData(
           color: Color(0xff324755),
         ),
@@ -54,7 +57,7 @@ class _ChangedNameState extends State<ChangedName> {
               child: TextField(
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  labelStyle: TextStyle(
+                  hintStyle: TextStyle(
                     fontSize: 14.sp,
                     color: Color(0xffc4c4c4),
                   ),

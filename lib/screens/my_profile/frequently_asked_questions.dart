@@ -1,6 +1,8 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 
 class FrequentlyAskedQuestions extends StatefulWidget {
   const FrequentlyAskedQuestions({Key? key}) : super(key: key);
@@ -32,7 +34,7 @@ class _FrequentlyAskedQuestionsState extends State<FrequentlyAskedQuestions> {
           style:
               TextStyle(color: Color(0xff324755), fontWeight: FontWeight.bold),
         ),
-        backgroundColor: Color(0xff93e3e6),
+        backgroundColor: Color(0xffffffff),
         iconTheme: IconThemeData(
           color: Color(0xff324755),
         ),
@@ -45,7 +47,7 @@ class _FrequentlyAskedQuestionsState extends State<FrequentlyAskedQuestions> {
           padding: EdgeInsets.only(left: 5, right: 5),
           shrinkWrap: true,
           children: ListTile.divideTiles(
-            color: Color(0xff878787),
+            color: Color(0x00878787),
             context: context,
             tiles: [
               ListTile(
@@ -54,6 +56,7 @@ class _FrequentlyAskedQuestionsState extends State<FrequentlyAskedQuestions> {
                 trailing: Icon(
                   EvaIcons.arrowIosDownwardOutline,
                   size: 25,
+                  color: Color(0x4D848484),
                 ),
                 title: Transform.translate(
                     offset: Offset(10, 0),
@@ -99,6 +102,7 @@ class _FrequentlyAskedQuestionsState extends State<FrequentlyAskedQuestions> {
                 trailing: Icon(
                   EvaIcons.arrowIosDownwardOutline,
                   size: 25,
+                  color: Color(0x4D848484),
                 ),
                 title: Transform.translate(
                     offset: Offset(10, 0),
@@ -144,6 +148,7 @@ class _FrequentlyAskedQuestionsState extends State<FrequentlyAskedQuestions> {
                 trailing: Icon(
                   EvaIcons.arrowIosDownwardOutline,
                   size: 25,
+                  color: Color(0x4D848484),
                 ),
                 title: Transform.translate(
                     offset: Offset(10, 0),
@@ -189,6 +194,7 @@ class _FrequentlyAskedQuestionsState extends State<FrequentlyAskedQuestions> {
                 trailing: Icon(
                   EvaIcons.arrowIosDownwardOutline,
                   size: 25,
+                  color: Color(0x4D848484),
                 ),
                 title: Transform.translate(
                     offset: Offset(10, 0),
@@ -234,6 +240,7 @@ class _FrequentlyAskedQuestionsState extends State<FrequentlyAskedQuestions> {
                 trailing: Icon(
                   EvaIcons.arrowIosDownwardOutline,
                   size: 25,
+                  color: Color(0x4D848484),
                 ),
                 title: Transform.translate(
                     offset: Offset(10, 0),
@@ -279,6 +286,7 @@ class _FrequentlyAskedQuestionsState extends State<FrequentlyAskedQuestions> {
                 trailing: Icon(
                   EvaIcons.arrowIosDownwardOutline,
                   size: 25,
+                  color: Color(0x4D848484),
                 ),
                 title: Transform.translate(
                     offset: Offset(10, 0),
@@ -324,6 +332,7 @@ class _FrequentlyAskedQuestionsState extends State<FrequentlyAskedQuestions> {
                 trailing: Icon(
                   EvaIcons.arrowIosDownwardOutline,
                   size: 25,
+                  color: Color(0x4D848484),
                 ),
                 title: Transform.translate(
                     offset: Offset(10, 0),
@@ -369,6 +378,7 @@ class _FrequentlyAskedQuestionsState extends State<FrequentlyAskedQuestions> {
                 trailing: Icon(
                   EvaIcons.arrowIosDownwardOutline,
                   size: 25,
+                  color: Color(0x4D848484),
                 ),
                 title: Transform.translate(
                     offset: Offset(10, 0),

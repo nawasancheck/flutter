@@ -32,14 +32,30 @@ class Profile extends StatelessWidget {
           ),
         ),
         body: ListView(children: [
-          Container(height: ScreenUtil().setHeight(10)),
           ListView(
             // padding: EdgeInsets.only(left: 5),
             shrinkWrap: true,
             children: ListTile.divideTiles(
-              color: Colors.black87,
+              color: Color(0x00ffffff),
               context: context,
               tiles: [
+                Container(
+                  color: Color(0x3312C9B4),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(left: 20),
+                          child: Text("계정",
+                            style: TextStyle(fontWeight: FontWeight.bold,
+                            color: Color(0xFF848484)),
+                          ),
+                      )
+                    ],
+                  ),
+                  height: 50,
+                ),
                 ListTile(
                   tileColor: Color(0xffffffff),
                   onTap: () {
@@ -48,11 +64,12 @@ class Profile extends StatelessWidget {
                   leading: Icon(
                     EvaIcons.person,
                     size: 30,
-                    color: Color(0xfff5c462),
+                    color: Color(0xff1597D3),
                   ),
                   trailing: Icon(
                     EvaIcons.arrowIosForward,
                     size: 25,
+                    color: Color(0x4D848484),
                   ),
                   title: Transform.translate(
                     offset: Offset(-15, 0),
@@ -67,15 +84,33 @@ class Profile extends StatelessWidget {
                     leading: Icon(
                       EvaIcons.personOutline,
                       size: 30,
-                      color: Color(0xfff5c462),
+                      color: Color(0xff1597D3),
                     ),
                     trailing: Icon(
                       EvaIcons.arrowIosForward,
                       size: 25,
+                      color: Color(0x4D848484),
                     ),
                     title: Transform.translate(
                         offset: Offset(-15, 0),
                         child: Text('리스너 프로필관리', style: TextStyle(fontSize: 19.sp, color: Color(0xff878787), fontWeight: FontWeight.bold)))),
+                Container(
+                  color: Color(0x3312C9B4),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(left: 20),
+                        child: Text("찜",
+                          style: TextStyle(fontWeight: FontWeight.bold,
+                              color: Color(0xFF848484)),
+                        ),
+                      )
+                    ],
+                  ),
+                  height: 50,
+                ),
                 ListTile(
                     tileColor: Color(0xffffffff),
                     onTap: () {
@@ -84,15 +119,33 @@ class Profile extends StatelessWidget {
                     leading: Icon(
                       EvaIcons.heart,
                       size: 30,
-                      color: Color(0xfff5c462),
+                      color: Color(0xffF43E16),
                     ),
                     trailing: Icon(
                       EvaIcons.arrowIosForward,
                       size: 25,
+                      color: Color(0x4D848484),
                     ),
                     title: Transform.translate(
                         offset: Offset(-15, 0),
                         child: Text('찜목록', style: TextStyle(fontSize: 19.sp, color: Color(0xff878787), fontWeight: FontWeight.bold)))),
+                Container(
+                  color: Color(0x3312C9B4),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(left: 20),
+                        child: Text("고객 지원",
+                          style: TextStyle(fontWeight: FontWeight.bold,
+                              color: Color(0xFF848484)),
+                        ),
+                      )
+                    ],
+                  ),
+                  height: 50,
+                ),
                 ListTile(
                   tileColor: Color(0xffffffff),
                   onTap: () {
@@ -101,11 +154,12 @@ class Profile extends StatelessWidget {
                   leading: Icon(
                     EvaIcons.phoneCall,
                     size: 30,
-                    color: Color(0xfff5c462),
+                    color: Color(0xffEAE717),
                   ),
                   trailing: Icon(
                     EvaIcons.arrowIosForward,
                     size: 25,
+                    color: Color(0x4D848484),
                   ),
                   title: Transform.translate(
                       offset: Offset(-15, 0),
@@ -119,11 +173,12 @@ class Profile extends StatelessWidget {
                   leading: Icon(
                     EvaIcons.bulb,
                     size: 30,
-                    color: Color(0xfff5c462),
+                    color: Color(0xff82ED17),
                   ),
                   trailing: Icon(
                     EvaIcons.arrowIosForward,
                     size: 25,
+                    color: Color(0x4D848484),
                   ),
                   title: Transform.translate(
                       offset: Offset(-15, 0),
@@ -137,11 +192,12 @@ class Profile extends StatelessWidget {
                   leading: Icon(
                     EvaIcons.questionMarkCircle,
                     size: 30,
-                    color: Color(0xfff5c462),
+                    color: Color(0xffC4137D),
                   ),
                   trailing: Icon(
                     EvaIcons.arrowIosForward,
                     size: 25,
+                    color: Color(0x4D848484),
                   ),
                   title: Transform.translate(
                       offset: Offset(-15, 0),

@@ -1,3 +1,4 @@
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +25,7 @@ class _MyProfileState extends State<MyProfile> {
           "프로필",
           style: TextStyle(color: Color(0xff324755), fontWeight: FontWeight.bold),
         ),
-        backgroundColor: Color(0xff93e3e6),
+        backgroundColor: Color(0xffffffff),
         iconTheme: IconThemeData(
           color: Color(0xff324755),
         ),
@@ -72,17 +73,43 @@ class _MyProfileState extends State<MyProfile> {
                   //     ],
                   //   ),
                   // ),
+              // decoration: BoxDecoration(
+              // shape: BoxShape.circle,
+              //   color: Colors.grey[400],
+              // ),
+              // child: Icon(
+              //   EvaIcons.personOutline,
+              //   size: 60.sp,
+              //   color: Colors.white,
                   Container(
-                    width: ScreenUtil().setWidth(350),
+                    width: ScreenUtil().setWidth(100),
+                    height: ScreenUtil().setHeight(100),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.grey[400],
+                    ),
+                    child: Icon(
+                      EvaIcons.personOutline,
+                      size: 60.sp,
+                      color: Colors.white,
+                    ),
+                  ),
+                  Container(height: ScreenUtil().setHeight(10)),
+                  Container(
+                    width: ScreenUtil().setWidth(380),
                     height: ScreenUtil().setHeight(50),
-                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(4)),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(5),
+                      border: Border.all(color: Color(0xff93e3e6), style: BorderStyle.solid, width: 2.sp),
+                    ),
                     child: ListTile(
                       title: Transform.translate(
                         child: Text(
                           "닉네임",
                           style: TextStyle(fontSize: 21.sp, color: Colors.black),
                         ),
-                        offset: Offset(-15, 0),
+                        offset: Offset(-2, 0),
                       ),
                       trailing: Text('${_user!.displayName}',
                           style: TextStyle(
@@ -92,15 +119,8 @@ class _MyProfileState extends State<MyProfile> {
                       onTap: () {
                         Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => ChangedName()));
                       },
-                      visualDensity: VisualDensity(vertical: -4),
+                      visualDensity: VisualDensity(vertical: -3),
                     ),
-                  ),
-                  Divider(
-                    thickness: 1,
-                    height: ScreenUtil().setHeight(10),
-                    color: Colors.grey,
-                    indent: 10,
-                    endIndent: 10,
                   ),
                   // Container(
                   //   width: ScreenUtil().setWidth(350),
@@ -130,17 +150,22 @@ class _MyProfileState extends State<MyProfile> {
                   //     ],
                   //   ),
                   // ),
+                  Container(height: ScreenUtil().setHeight(10)),
                   Container(
-                    width: ScreenUtil().setWidth(350),
+                    width: ScreenUtil().setWidth(380),
                     height: ScreenUtil().setHeight(50),
-                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(4)),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(5),
+                      border: Border.all(color: Color(0xff93e3e6), style: BorderStyle.solid, width: 2.sp),
+                    ),
                     child: ListTile(
                       title: Transform.translate(
                         child: Text(
                           "이메일",
                           style: TextStyle(fontSize: 21.sp, color: Colors.black),
                         ),
-                        offset: Offset(-15, 0),
+                        offset: Offset(-2, 0),
                       ),
                       // trailing: Text('${_user.providerData.first.email}',
                       trailing: Text('TEST',
@@ -148,20 +173,13 @@ class _MyProfileState extends State<MyProfile> {
                             fontSize: 21.sp,
                             color: Colors.black,
                           )),
-                      visualDensity: VisualDensity(vertical: -4),
+                      visualDensity: VisualDensity(vertical: -3),
                     ),
-                  ),
-                  Divider(
-                    thickness: 1,
-                    height: ScreenUtil().setHeight(10),
-                    color: Colors.grey,
-                    indent: 10,
-                    endIndent: 10,
                   ),
                 ],
               ),
             ),
-            SizedBox(height: ScreenUtil().setHeight(200)),
+            SizedBox(height: ScreenUtil().setHeight(300)),
             Container(
                 width: ScreenUtil().setWidth(350),
                 height: ScreenUtil().setHeight(50),
@@ -173,7 +191,7 @@ class _MyProfileState extends State<MyProfile> {
                         color: Color(0xff878787),
                       ),
                     ),
-                    offset: Offset(-15, 0),
+                    offset: Offset(280, 0),
                   ),
                   onTap: () {
                     signOut();
