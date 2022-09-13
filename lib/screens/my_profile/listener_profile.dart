@@ -1,13 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/screens/homepage.dart';
 import 'package:flutter_app/screens/my_profile/listener_application.dart';
 import 'package:flutter_app/screens/my_profile/listener_myprofile.dart';
-import 'package:flutter_app/screens/my_profile/profile.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
-import 'package:get/get.dart';
+
 
 class ListenerProfile extends StatefulWidget {
   const ListenerProfile({Key? key}) : super(key: key);
@@ -48,19 +46,19 @@ class _ListenerProfileState extends State<ListenerProfile> {
                       leading: Icon(
                         EvaIcons.emailOutline,
                         size: 30,
-                        color: Color(0xfff5c462),
+                        color: Color(0xff878787),
                       ),
                       title: Text(
                         "리스너 지원하기",
                         style: TextStyle(
-                            fontSize: 17.sp,
-                            color: Color(0xff878787),
+                            fontSize: 18.sp,
+                            color: Color(0xff909090),
                             fontWeight: FontWeight.bold),
                       ),
                       trailing: Icon(
                         EvaIcons.arrowIosForward,
                         size: 25,
-                        color: Color(0x4D848484),
+                        color: Color(0xff878787),
                       ),
                       onTap: () async {
                         if (await FirebaseFirestore.instance
@@ -78,6 +76,7 @@ class _ListenerProfileState extends State<ListenerProfile> {
                                     child: Text(
                                       "이미 지원하였습니다.",
                                       textAlign: TextAlign.center,
+                                      style: TextStyle(fontSize: 16.sp),
                                     ),
                                   ),
                                   actions: [
@@ -88,9 +87,9 @@ class _ListenerProfileState extends State<ListenerProfile> {
                                           },
                                           child: Container(
                                             decoration: BoxDecoration(
-                                              color: Color(0xff93e3e6),
+                                              color: Color(0xff74BABC),
                                             ),
-                                            child: Center(child: Text("확인")),
+                                            child: Center(child: Text("확인", style: TextStyle(color: Colors.white),)),
                                             width: 60,
                                             height: 30,
                                           )),
@@ -113,19 +112,19 @@ class _ListenerProfileState extends State<ListenerProfile> {
                       leading: Icon(
                         EvaIcons.personOutline,
                         size: 30,
-                        color: Color(0xfff5c462),
+                        color: Color(0xff878787),
                       ),
                       title: Text(
                         "리스너 프로필관리",
                         style: TextStyle(
-                            fontSize: 17.sp,
-                            color: Color(0xff878787),
+                            fontSize: 18.sp,
+                            color: Color(0xff909090),
                             fontWeight: FontWeight.bold),
                       ),
                       trailing: Icon(
                         EvaIcons.arrowIosForward,
                         size: 25,
-                        color: Color(0x4D848484),
+                        color: Color(0xff909090),
                       ),
                       onTap: () async {
                         if (await FirebaseFirestore.instance
@@ -144,6 +143,7 @@ class _ListenerProfileState extends State<ListenerProfile> {
                                       "지원하기를 먼저\n"
                                       "클릭해주세요!",
                                       textAlign: TextAlign.center,
+                                      style: TextStyle(fontSize: 16.sp),
                                     ),
                                   ),
                                   actions: [
@@ -154,9 +154,9 @@ class _ListenerProfileState extends State<ListenerProfile> {
                                           },
                                           child: Container(
                                             decoration: BoxDecoration(
-                                              color: Color(0xff93e3e6),
+                                              color: Color(0xff74BABC),
                                             ),
-                                            child: Center(child: Text("확인")),
+                                            child: Center(child: Text("확인",style: TextStyle(color: Colors.white),)),
                                             width: 60,
                                             height: 30,
                                           )),

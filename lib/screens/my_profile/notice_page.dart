@@ -2,10 +2,7 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:image_picker/image_picker.dart';
-import 'dart:io';
-import 'package:uuid/uuid.dart';
-import 'package:firebase_storage/firebase_storage.dart';
+
 
 class NoticePage extends StatefulWidget {
   const NoticePage({Key? key}) : super(key: key);

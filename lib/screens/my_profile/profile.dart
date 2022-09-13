@@ -31,181 +31,177 @@ class Profile extends StatelessWidget {
             ),
           ),
         ),
-        body: ListView(children: [
-          ListView(
-            // padding: EdgeInsets.only(left: 5),
-            shrinkWrap: true,
-            children: ListTile.divideTiles(
-              color: Color(0x00ffffff),
-              context: context,
-              tiles: [
-                Container(
-                  color: Color(0x3312C9B4),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        margin: EdgeInsets.only(left: 20),
+        body: SafeArea(
+          child: ListView(children: [
+            ListView(
+              // padding: EdgeInsets.only(left: 5),
+              shrinkWrap: true,
+              children: ListTile.divideTiles(
+                color: Color(0x00ffffff),
+                context: context,
+                tiles: [
+                  Container(
+                    width: ScreenUtil().screenWidth,
+                    height: ScreenUtil().setHeight(40),
+                    color: Color(0xff74BABC),
+                    child: Center(
+                      child: Container(
+                        width: ScreenUtil().setWidth(360),
+                        //color:Colors.green,
                           child: Text("계정",
-                            style: TextStyle(fontWeight: FontWeight.bold,
-                            color: Color(0xFF848484)),
+                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp,
+                            color: Colors.white),
                           ),
-                      )
-                    ],
+                      ),
+                    ),
                   ),
-                  height: 50,
-                ),
-                ListTile(
-                  tileColor: Color(0xffffffff),
-                  onTap: () {
-                    Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => MyProfile()));
-                  },
-                  leading: Icon(
-                    EvaIcons.person,
-                    size: 30,
-                    color: Color(0xff1597D3),
-                  ),
-                  trailing: Icon(
-                    EvaIcons.arrowIosForward,
-                    size: 25,
-                    color: Color(0x4D848484),
-                  ),
-                  title: Transform.translate(
-                    offset: Offset(-15, 0),
-                    child: Text('프로필', style: TextStyle(fontSize: 19.sp, color: Color(0xff878787), fontWeight: FontWeight.bold)),
-                  ),
-                ),
-                ListTile(
+                  ListTile(
                     tileColor: Color(0xffffffff),
                     onTap: () {
-                      Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => ListenerProfile()));
+                      Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => MyProfile()));
                     },
                     leading: Icon(
-                      EvaIcons.personOutline,
+                      EvaIcons.person,
                       size: 30,
-                      color: Color(0xff1597D3),
+                      color: Color(0xff878787),
                     ),
                     trailing: Icon(
                       EvaIcons.arrowIosForward,
                       size: 25,
-                      color: Color(0x4D848484),
+                      color: Color(0xff909090)
                     ),
                     title: Transform.translate(
-                        offset: Offset(-15, 0),
-                        child: Text('리스너 프로필관리', style: TextStyle(fontSize: 19.sp, color: Color(0xff878787), fontWeight: FontWeight.bold)))),
-                Container(
-                  color: Color(0x3312C9B4),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        margin: EdgeInsets.only(left: 20),
+                      offset: Offset(-15, 0),
+                      child: Text('프로필', style: TextStyle(fontSize: 18.sp, color: Color(0xff909090), fontWeight: FontWeight.bold)),
+                    ),
+                  ),
+                  ListTile(
+                      tileColor: Color(0xffffffff),
+                      onTap: () {
+                        Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => ListenerProfile()));
+                      },
+                      leading: Icon(
+                        EvaIcons.personOutline,
+                        size: 30,
+                        color: Color(0xff878787),
+                      ),
+                      trailing: Icon(
+                        EvaIcons.arrowIosForward,
+                        size: 25,
+                        color: Color(0xff909090)
+                      ),
+                      title: Transform.translate(
+                          offset: Offset(-15, 0),
+                          child: Text('리스너 프로필관리', style: TextStyle(fontSize: 18.sp, color: Color(0xff909090), fontWeight: FontWeight.bold)))),
+                  Container(
+                    width: ScreenUtil().screenWidth,
+                    height: ScreenUtil().setHeight(40),
+                    color: Color(0xff74BABC),
+                    child: Center(
+                      child: Container(
+                        width: ScreenUtil().setWidth(360),
+                        //color:Colors.green,
                         child: Text("찜",
-                          style: TextStyle(fontWeight: FontWeight.bold,
-                              color: Color(0xFF848484)),
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp,
+                              color: Colors.white),
                         ),
-                      )
-                    ],
+                      ),
+                    ),
                   ),
-                  height: 50,
-                ),
-                ListTile(
+                  ListTile(
+                      tileColor: Color(0xffffffff),
+                      onTap: () {
+                        Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => WishList()));
+                      },
+                      leading: Icon(
+                        EvaIcons.heartOutline,
+                        size: 30,
+                        color: Color(0xff878787),
+                      ),
+                      trailing: Icon(
+                        EvaIcons.arrowIosForward,
+                        size: 25,
+                        color: Color(0xff909090)
+                      ),
+                      title: Transform.translate(
+                          offset: Offset(-15, 0),
+                          child: Text('찜목록', style: TextStyle(fontSize: 18.sp, color: Color(0xff909090), fontWeight: FontWeight.bold)))),
+                  Container(
+                    width: ScreenUtil().screenWidth,
+                    height: ScreenUtil().setHeight(40),
+                    color: Color(0xff74BABC),
+                    child: Center(
+                      child: Container(
+                        width: ScreenUtil().setWidth(360),
+                        //color:Colors.green,
+                        child: Text("고객지원",
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp,
+                              color: Colors.white),
+                        ),
+                      ),
+                    ),
+                  ),
+                  ListTile(
                     tileColor: Color(0xffffffff),
                     onTap: () {
-                      Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => WishList()));
+                      Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => CustomerService()));
                     },
                     leading: Icon(
-                      EvaIcons.heart,
+                      EvaIcons.phoneCallOutline,
                       size: 30,
-                      color: Color(0xffF43E16),
+                      color: Color(0xff878787),
                     ),
                     trailing: Icon(
                       EvaIcons.arrowIosForward,
                       size: 25,
-                      color: Color(0x4D848484),
+                      color: Color(0xff909090)
                     ),
                     title: Transform.translate(
                         offset: Offset(-15, 0),
-                        child: Text('찜목록', style: TextStyle(fontSize: 19.sp, color: Color(0xff878787), fontWeight: FontWeight.bold)))),
-                Container(
-                  color: Color(0x3312C9B4),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        margin: EdgeInsets.only(left: 20),
-                        child: Text("고객 지원",
-                          style: TextStyle(fontWeight: FontWeight.bold,
-                              color: Color(0xFF848484)),
-                        ),
-                      )
-                    ],
+                        child: Text('고객센터', style: TextStyle(fontSize: 18.sp, color: Color(0xff909090), fontWeight: FontWeight.bold))),
                   ),
-                  height: 50,
-                ),
-                ListTile(
-                  tileColor: Color(0xffffffff),
-                  onTap: () {
-                    Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => CustomerService()));
-                  },
-                  leading: Icon(
-                    EvaIcons.phoneCall,
-                    size: 30,
-                    color: Color(0xffEAE717),
+                  ListTile(
+                    tileColor: Color(0xffffffff),
+                    onTap: () {
+                      Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => NoticePage()));
+                    },
+                    leading: Icon(
+                      EvaIcons.bulbOutline,
+                      size: 30,
+                      color: Color(0xff878787),
+                    ),
+                    trailing: Icon(
+                      EvaIcons.arrowIosForward,
+                      size: 25,
+                      color: Color(0xff909090)
+                    ),
+                    title: Transform.translate(
+                        offset: Offset(-15, 0),
+                        child: Text('공지사항', style: TextStyle(fontSize: 18.sp, color: Color(0xff909090), fontWeight: FontWeight.bold))),
                   ),
-                  trailing: Icon(
-                    EvaIcons.arrowIosForward,
-                    size: 25,
-                    color: Color(0x4D848484),
+                  ListTile(
+                    tileColor: Color(0xffffffff),
+                    onTap: () {
+                      Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => FrequentlyAskedQuestions()));
+                    },
+                    leading: Icon(
+                      EvaIcons.questionMarkCircleOutline,
+                      size: 30,
+                      color: Color(0xff878787),
+                    ),
+                    trailing: Icon(
+                      EvaIcons.arrowIosForward,
+                      size: 25,
+                      color: Color(0xff909090)
+                    ),
+                    title: Transform.translate(
+                        offset: Offset(-15, 0),
+                        child: Text('자주묻는 질문', style: TextStyle(fontSize: 18.sp, color: Color(0xff909090), fontWeight: FontWeight.bold))),
                   ),
-                  title: Transform.translate(
-                      offset: Offset(-15, 0),
-                      child: Text('나와산책에 연락하기', style: TextStyle(fontSize: 19.sp, color: Color(0xff878787), fontWeight: FontWeight.bold))),
-                ),
-                ListTile(
-                  tileColor: Color(0xffffffff),
-                  onTap: () {
-                    Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => NoticePage()));
-                  },
-                  leading: Icon(
-                    EvaIcons.bulb,
-                    size: 30,
-                    color: Color(0xff82ED17),
-                  ),
-                  trailing: Icon(
-                    EvaIcons.arrowIosForward,
-                    size: 25,
-                    color: Color(0x4D848484),
-                  ),
-                  title: Transform.translate(
-                      offset: Offset(-15, 0),
-                      child: Text('공지사항', style: TextStyle(fontSize: 19.sp, color: Color(0xff878787), fontWeight: FontWeight.bold))),
-                ),
-                ListTile(
-                  tileColor: Color(0xffffffff),
-                  onTap: () {
-                    Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => FrequentlyAskedQuestions()));
-                  },
-                  leading: Icon(
-                    EvaIcons.questionMarkCircle,
-                    size: 30,
-                    color: Color(0xffC4137D),
-                  ),
-                  trailing: Icon(
-                    EvaIcons.arrowIosForward,
-                    size: 25,
-                    color: Color(0x4D848484),
-                  ),
-                  title: Transform.translate(
-                      offset: Offset(-15, 0),
-                      child: Text('자주묻는 질문', style: TextStyle(fontSize: 19.sp, color: Color(0xff878787), fontWeight: FontWeight.bold))),
-                ),
-              ],
-            ).toList(),
-          ),
-        ]));
+                ],
+              ).toList(),
+            ),
+          ]),
+        ));
   }
 }

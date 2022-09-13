@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/controller/auth/auth_controller.dart';
-import 'package:flutter_app/screens/homepage.dart';
-import 'package:flutter_app/screens/my_profile/my_profile.dart';
-import 'package:flutter_app/screens/my_profile/profile.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
+
 
 class ChangedName extends StatefulWidget {
   const ChangedName({Key? key}) : super(key: key);
@@ -18,74 +15,109 @@ class _ChangedNameState extends State<ChangedName> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        title: Text(
-          "닉네임 변경",
-          style: TextStyle(color: Color(0xff324755), fontWeight: FontWeight.bold),
+    return GestureDetector(
+      onTap: (){
+        FocusScope.of(context).unfocus();
+      },
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        appBar: AppBar(
+          title: Text(
+            "닉네임 변경",
+            style: TextStyle(color: Color(0xff324755), fontWeight: FontWeight.bold),
+          ),
+          backgroundColor: Color(0xffffffff),
+          iconTheme: IconThemeData(
+            color: Color(0xff324755),
+          ),
+          centerTitle: true,
         ),
-        backgroundColor: Color(0xffffffff),
-        iconTheme: IconThemeData(
-          color: Color(0xff324755),
-        ),
-        centerTitle: true,
-      ),
-      body: Container(
-        width: ScreenUtil().screenWidth,
-        height: ScreenUtil().screenHeight,
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 50, 0, 30),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 0, 0, 3),
-              child: Container(
-                width: 327.w,
-                height: 25.h,
-                child: Text(
-                  "닉네임 변경",
-                  style: TextStyle(color: Color(0xff000000), fontSize: 16.sp),
-                ),
-              ),
-            ),
-            Container(
-              color: Colors.white,
-              width: ScreenUtil().setWidth(327),
-              height: ScreenUtil().setHeight(48),
-              child: TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintStyle: TextStyle(
-                    fontSize: 14.sp,
-                    color: Color(0xffc4c4c4),
+        body: SafeArea(
+          child: Container(
+            width: ScreenUtil().screenWidth,
+            height: ScreenUtil().screenHeight,
+            child: Column(
+              children: [
+                // 공백 채움
+                Container(height: ScreenUtil().setHeight(80),),
+                // 닉네임 변경 text
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
+                  child: Container(
+                    width: ScreenUtil().setWidth(360),
+                    height: ScreenUtil().setHeight(25),
+                    child: Text(
+                      "닉네임 변경",
+                      style: TextStyle(color: Color(0xff000000), fontSize: 16.sp),
+                    ),
                   ),
-                  hintText: "변경할 닉네임을 입력하세요",
                 ),
-                onChanged: (value) {
-                  setState(() {
-                    name = value.trim();
-                  });
-                },
-              ),
-            ),
-            SizedBox(height: ScreenUtil().setHeight(100)),
-            Container(
-              width: ScreenUtil().setWidth(100),
-              height: ScreenUtil().setHeight(40),
-              child: MaterialButton(
-                color: Color(0xff74BABC),
-                onPressed: () {
-                  AuthController.instance.authentication.currentUser!.updateDisplayName(name);
-                },
-                child: Text(
-                  "변경",
-                  style: TextStyle(color: Colors.white),
+                // 닉네임 변경 textfield
+                Container(
+                  color: Colors.white,
+                  width: ScreenUtil().setWidth(360),
+                  height: ScreenUtil().setHeight(40),
+                  child: TextField(
+                    textAlign: TextAlign.start,
+                    textAlignVertical: TextAlignVertical.center,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      hintStyle: TextStyle(
+                        height: 0.5,
+                        //backgroundColor: Colors.green,
+                        fontSize: 15.sp,
+                        color: Color(0xffc4c4c4),
+                      ),
+                      hintText: "변경할 닉네임을 입력하세요",
+                    ),
+                    onChanged: (value) {
+                      setState(() {
+                        name = value.trim();
+                      });
+                    },
+                  ),
                 ),
-              ),
+                // 공백 채움
+                SizedBox(height: ScreenUtil().setHeight(100)),
+                // 닉네임 변경 버튼
+                Container(
+                  width: ScreenUtil().setWidth(360),
+                  height: ScreenUtil().setHeight(40),
+                  child: MaterialButton(
+                    color: Color(0xff74BABC),
+                    onPressed: () {
+                      showDialog(
+                          context: context,
+                          barrierDismissible: false,
+                          // 바깥영역 터치시 닫힐지 여부
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text("팝업 메세지"),
+                              content: Text('닉네임을 변경 하시겠습니까?'),
+                              actions: [
+                                MaterialButton(
+                                    onPressed: () {
+                                      AuthController.instance.authentication.currentUser!.updateDisplayName(name);
+                                    },
+                                    child: Text('Okay')),
+                                MaterialButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop(); // 팝업창 나가기
+                                    },
+                                    child: Text('Cancel')),
+                              ],
+                            );
+                          });
+                      },
+                    child: Text(
+                      "변경",
+                      style: TextStyle(color: Colors.white, fontSize: 16.sp),
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );

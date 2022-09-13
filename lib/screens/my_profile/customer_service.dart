@@ -31,134 +31,287 @@ class _CustomerServiceState extends State<CustomerService> {
           ),
           centerTitle: true,
         ),
-        body: Container(
-          width: ScreenUtil().screenWidth,
-          height: ScreenUtil().screenHeight,
-          child: Column(
-            children: [
-              Container(
-                margin: EdgeInsets.only(top: 30),
-                width: ScreenUtil().setWidth(320),
-                height: ScreenUtil().setHeight(100),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(5),
-                  border: Border.all(color: Color(0xff93e3e6), style: BorderStyle.solid, width: 2.sp),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "현재 버전: 나와산책 Ver 1.0",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
+        body: SafeArea(
+          child: Container(
+            //color: Colors.yellow,
+            width: ScreenUtil().screenWidth,
+            height: ScreenUtil().screenHeight,
+            child: Column(
+              children: [
+                // 앱 정보
+                Container(
+                  width: ScreenUtil().screenWidth,
+                  height: ScreenUtil().setHeight(40),
+                  decoration: BoxDecoration(
+                    color: Color(0xff74BABC),
+                    border: Border(
+                        bottom: BorderSide(width: 0.8, color: Colors.grey[350]!)
                     ),
-                  ],
-                ),
-              ),
-              Container(
-                child: SizedBox(height: 80,),
-              ),
-              Container(
-                child: Row(
-                  children: [
-                    Container(
-                      margin: EdgeInsets.only(left: 40),
-                      width: ScreenUtil().setWidth(320),
-                      height: ScreenUtil().setHeight(50),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(5),
-                        border: Border.all(color: Color(0xff93e3e6), style: BorderStyle.solid, width: 2.sp),
-                      ),
+                  ),
+                  child: Center(
+                    child: Container(
+                      width: ScreenUtil().setWidth(360),
                       child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
-                            "나와산책에게 연락하기",
+                            "앱 정보",
                             style: TextStyle(
-                              fontWeight: FontWeight.bold,
+                              fontSize: 18.sp,
+                              color: Colors.white,
                             ),
                           ),
-                          InkWell(
-                            onTap: () {},
-                            child: Text(
-                              "채팅하기",
-                              style: TextStyle(color: Color(0xff12C9B4)),
-                            ),
-                          )
                         ],
                       ),
                     ),
-                  ],
+                  ),
                 ),
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              Container(
-                margin: EdgeInsets.only(left: 10),
-                width: ScreenUtil().setWidth(320),
-                height: ScreenUtil().setHeight(50),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(5),
-                  border: Border.all(color: Color(0xff93e3e6), style: BorderStyle.solid, width: 2.sp),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "이메일문의: nawa@naver.com",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
+
+                // 앱 version
+                Container(
+                  width: ScreenUtil().screenWidth,
+                  height: ScreenUtil().setHeight(40),
+                  decoration: BoxDecoration(
+                    border: Border(
+                        bottom: BorderSide(width: 0.8, color: Colors.grey[350]!)
+                    ),
+                  ),
+                  child: Center(
+                    child: Container(
+                      width: ScreenUtil().setWidth(360),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text('version:  ',
+                            style: TextStyle(
+                              fontSize: 16.sp,
+                              color: Color(0xff909090),
+                            ),),
+                          // todo 버전 입력 하드코딩으로 되어있음
+                          Text(
+                            "나와산책 Ver 1.0",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16.sp,
+                              color: Color(0xff324755),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                  ],
+                  ),
                 ),
-              ),
-              SizedBox(
-                height: 250,
-              ),
-              Container(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Container(
-                      width: ScreenUtil().setWidth(180),
-                      height: ScreenUtil().setHeight(30),
-                      child: OutlinedButton(
-                        onPressed: () {},
-                        child: Text("이용약관",
-                        style: TextStyle(
-                          color: Colors.grey
-                        ),),
-                        style: ElevatedButton.styleFrom(
-                          padding: EdgeInsets.only(bottom: 0),
+
+                // 나와산책과 연락하기
+                Container(
+                  width: ScreenUtil().screenWidth,
+                  height: ScreenUtil().setHeight(40),
+                  decoration: BoxDecoration(
+                    color: Color(0xff74BABC),
+                    border: Border(
+                        bottom: BorderSide(width: 0.8, color: Colors.grey[350]!)
+                    ),
+                  ),
+                  child: Center(
+                    child: Container(
+                      width: ScreenUtil().setWidth(360),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            "나와산책과 연락하기",
+                            style: TextStyle(
+                              fontSize: 18.sp,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+
+                // 이메일 문의
+                Container(
+                  width: ScreenUtil().screenWidth,
+                  height: ScreenUtil().setHeight(40),
+                  decoration: BoxDecoration(
+                    border: Border(
+                        bottom: BorderSide(width: 0.8, color: Colors.grey[350]!)
+                    ),
+                  ),
+                  child: Center(
+                    child: Container(
+                      width: ScreenUtil().setWidth(360),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            "이메일문의: ",
+                            style: TextStyle(
+                              fontSize: 16.sp,
+                              color: Color(0xff909090),
+                            ),
+                          ),
+                          Text(
+                            "nawa@naver.com",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16.sp,
+                              color: Color(0xff324755),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+
+                // todo 나와산책 마스터 계정과 채팅하는 기능
+                InkWell(
+                  onTap: (){},
+                  child: Container(
+                    width: ScreenUtil().screenWidth,
+                    height: ScreenUtil().setHeight(40),
+                    decoration: BoxDecoration(
+                      //color: Color(0xff74BABC),
+                      border: Border(
+                        bottom: BorderSide(width: 0.8, color: Colors.grey[350]!)
+                      ),
+                    ),
+                    child: Center(
+                      child: Container(
+                        width: ScreenUtil().setWidth(360),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              "채팅하기",
+                              style: TextStyle(
+                                fontSize: 16.sp,
+                                color: Color(0xff324755),
+                              ),
+                            ),
+                            Expanded(
+                                child: SizedBox(width: 1,)),
+                            Transform.translate
+                              (child: Icon(EvaIcons.arrowIosForward),
+                              offset: Offset(0, 2),
+                            ),
+
+                          ],
                         ),
                       ),
                     ),
-                    Container(
-                      width: ScreenUtil().setWidth(180),
-                      height: ScreenUtil().setHeight(30),
-                      child: OutlinedButton(
-                        onPressed: () {},
-                        child: Text("개인정보취급방침",
-                          style: TextStyle(
-                              color: Colors.grey
-                          ),),
-                        style: ElevatedButton.styleFrom(
-                          padding: EdgeInsets.only(bottom: 0),
+                  ),
+                ),
+
+                // 약관 보기
+                Container(
+                  width: ScreenUtil().screenWidth,
+                  height: ScreenUtil().setHeight(40),
+                  decoration: BoxDecoration(
+                    color: Color(0xff74BABC),
+                    border: Border(
+                        bottom: BorderSide(width: 0.8, color: Colors.grey[350]!)
+                    ),
+                  ),
+                  child: Center(
+                    child: Container(
+                      width: ScreenUtil().setWidth(360),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            "약관 보기",
+                            style: TextStyle(
+                              fontSize: 18.sp,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+
+                // todo 이용약관 버튼 활성화
+                InkWell(
+                  onTap: (){},
+                  child: Container(
+                    width: ScreenUtil().screenWidth,
+                    height: ScreenUtil().setHeight(40),
+                    decoration: BoxDecoration(
+                      //color: Color(0xff74BABC),
+                      border: Border(
+                          bottom: BorderSide(width: 0.8, color: Colors.grey[350]!)
+                      ),
+                    ),
+                    child: Center(
+                      child: Container(
+                        width: ScreenUtil().setWidth(360),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              "이용약관",
+                              style: TextStyle(
+                                fontSize: 16.sp,
+                                color: Color(0xff324755),
+                              ),
+                            ),
+                            Expanded(
+                                child: SizedBox(width: 1,)),
+                            Transform.translate
+                              (child: Icon(EvaIcons.arrowIosForward),
+                              offset: Offset(0, 2),
+                            ),
+                          ],
                         ),
                       ),
-                    )
-                  ],
+                    ),
+                  ),
                 ),
-              )
-            ],
+
+                // todo 개인정보취급방침 버튼 활성화
+                InkWell(
+                  onTap: (){},
+                  child: Container(
+                    width: ScreenUtil().screenWidth,
+                    height: ScreenUtil().setHeight(40),
+                    decoration: BoxDecoration(
+                      //color: Color(0xff74BABC),
+                      border: Border(
+                          bottom: BorderSide(width: 0.8, color: Colors.grey[350]!)
+                      ),
+                    ),
+                    child: Center(
+                      child: Container(
+                        width: ScreenUtil().setWidth(360),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              "개인정보취급방침",
+                              style: TextStyle(
+                                fontSize: 16.sp,
+                                color: Color(0xff324755),
+                              ),
+                            ),
+                            Expanded(
+                                child: SizedBox(width: 1,)),
+                            Transform.translate
+                              (child: Icon(EvaIcons.arrowIosForward),
+                              offset: Offset(0, 2),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ));
   }

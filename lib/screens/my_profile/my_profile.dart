@@ -31,174 +31,144 @@ class _MyProfileState extends State<MyProfile> {
         ),
         centerTitle: true,
       ),
-      body: Container(
-        child: Column(
-          children: [
-            Container(height: ScreenUtil().setHeight(20)),
-            Container(
-              child: Column(
-                children: [
-                  // Container(
-                  //   width: ScreenUtil().setWidth(350),
-                  //   height: ScreenUtil().setHeight(50),
-                  //   decoration: BoxDecoration(
-                  //       borderRadius: BorderRadius.circular(4),
-                  //       color: Colors.blue),
-                  //   child: Row(
-                  //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //     children: [
-                  //       Container(
-                  //           child: Text(
-                  //         "닉네임",
-                  //         style:
-                  //             TextStyle(fontSize: 21.sp, color: Colors.white),
-                  //       )),
-                  //       Spacer(),
-                  //       Container(
-                  //           child: InkWell(
-                  //             child: Text(
-                  //               '${_user!.displayName}',
-                  //               style: TextStyle(
-                  //                 fontSize: 21.sp,
-                  //                 color: Colors.white,
-                  //               ),
-                  //             ),
-                  //             onTap: () {
-                  //               Navigator.of(context, rootNavigator: true).push(
-                  //                   MaterialPageRoute(builder: (_) => ChangedName()));
-                  //             },
-                  //           ),
-                  //       ),
-                  //       Container(height: ScreenUtil().setHeight(5)),
-                  //     ],
-                  //   ),
-                  // ),
-              // decoration: BoxDecoration(
-              // shape: BoxShape.circle,
-              //   color: Colors.grey[400],
-              // ),
-              // child: Icon(
-              //   EvaIcons.personOutline,
-              //   size: 60.sp,
-              //   color: Colors.white,
-                  Container(
-                    width: ScreenUtil().setWidth(100),
-                    height: ScreenUtil().setHeight(100),
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.grey[400],
-                    ),
-                    child: Icon(
-                      EvaIcons.personOutline,
-                      size: 60.sp,
-                      color: Colors.white,
-                    ),
-                  ),
-                  Container(height: ScreenUtil().setHeight(10)),
-                  Container(
-                    width: ScreenUtil().setWidth(380),
-                    height: ScreenUtil().setHeight(50),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(5),
-                      border: Border.all(color: Color(0xff93e3e6), style: BorderStyle.solid, width: 2.sp),
-                    ),
-                    child: ListTile(
-                      title: Transform.translate(
-                        child: Text(
-                          "닉네임",
-                          style: TextStyle(fontSize: 21.sp, color: Colors.black),
-                        ),
-                        offset: Offset(-2, 0),
+      body: SafeArea(
+        child: Container(
+          child: Column(
+            children: [
+              Container(height: ScreenUtil().setHeight(20)),
+              Container(
+                child: Column(
+                  children: [
+                    Container(                                // 프로필 익명 아이콘
+                      width: ScreenUtil().setWidth(100),
+                      height: ScreenUtil().setHeight(100),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.white,
+                        border: Border.all(width: 5, color: Colors.grey[350]!)
                       ),
-                      trailing: Text('${_user!.displayName}',
-                          style: TextStyle(
-                            fontSize: 21.sp,
-                            color: Colors.grey,
-                          )),
-                      onTap: () {
-                        Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => ChangedName()));
-                      },
-                      visualDensity: VisualDensity(vertical: -3),
-                    ),
-                  ),
-                  // Container(
-                  //   width: ScreenUtil().setWidth(350),
-                  //   height: ScreenUtil().setHeight(50),
-                  //   decoration: BoxDecoration(
-                  //       borderRadius: BorderRadius.circular(4),
-                  //       color: Colors.blue),
-                  //   child: Row(
-                  //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //     children: [
-                  //       Container(
-                  //           child: Text(
-                  //         "이메일",
-                  //         style: TextStyle(
-                  //           fontSize: 21.sp,
-                  //           color: Colors.white,
-                  //         ),
-                  //       )),
-                  //       Spacer(),
-                  //       Container(
-                  //         child: Text("${_user.email}",
-                  //             style: TextStyle(
-                  //               fontSize: 21.sp,
-                  //               color: Colors.white,
-                  //             )),
-                  //       ),
-                  //     ],
-                  //   ),
-                  // ),
-                  Container(height: ScreenUtil().setHeight(10)),
-                  Container(
-                    width: ScreenUtil().setWidth(380),
-                    height: ScreenUtil().setHeight(50),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(5),
-                      border: Border.all(color: Color(0xff93e3e6), style: BorderStyle.solid, width: 2.sp),
-                    ),
-                    child: ListTile(
-                      title: Transform.translate(
-                        child: Text(
-                          "이메일",
-                          style: TextStyle(fontSize: 21.sp, color: Colors.black),
-                        ),
-                        offset: Offset(-2, 0),
+                      child: Icon(
+                        EvaIcons.personOutline,
+                        size: 50.sp,
+                        color: Color(0xff324755),
                       ),
-                      // trailing: Text('${_user.providerData.first.email}',
-                      trailing: Text('TEST',
-                          style: TextStyle(
-                            fontSize: 21.sp,
-                            color: Colors.black,
-                          )),
-                      visualDensity: VisualDensity(vertical: -3),
                     ),
-                  ),
-                ],
+
+                    Container(height: ScreenUtil().setHeight(10)),
+
+                    Card(                                       // 닉네임 변경 버튼
+                      color: Color(0xff74BABC),
+                      elevation: 3,
+                      child: Container(
+                        width: ScreenUtil().setWidth(360),
+                        height: ScreenUtil().setHeight(40),
+                        child: ListTile(
+                          title: Transform.translate(
+                            child: Text(
+                              "닉네임",
+                              style: TextStyle(fontSize: 16.sp, color: Colors.white),
+                            ),
+                            offset: Offset(2, -2),
+                          ),
+                          trailing: Transform.translate(
+                            child: Wrap(
+                              spacing: 5,
+                              children: [ Text('${_user!.displayName}',
+                                  style: TextStyle(
+                                    fontSize: 18.sp,
+                                    color: Colors.white,
+                                  )),
+                                Transform.translate(
+                                  offset: Offset(0,2),
+                                    child: Icon(EvaIcons.arrowIosForward, color: Colors.white,)),
+                              ]
+                            ),
+                            offset: Offset(-2, -2),
+                          ),
+                          onTap: () {                        // 닉네임 변경으로 이동
+                            Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => ChangedName()));
+                          },
+                          visualDensity: VisualDensity(vertical: -3),
+                        ),
+                      ),
+                    ),
+
+                    Container(height: ScreenUtil().setHeight(10)),
+
+                    Container(                                // 사용자 이메일 표시
+                      width: ScreenUtil().setWidth(360),
+                      height: ScreenUtil().setHeight(40),
+                      child: ListTile(
+                        title: Transform.translate(
+                          child: Text(
+                            "이메일",
+                            style: TextStyle(fontSize: 16.sp, color: Color(0xff909090),),
+                          ),
+                          offset: Offset(2, 0),
+                        ),
+                        // trailing: Text('${_user.providerData.first.email}',
+                        // todo 하드코딩 되어 있음 / 이메일 연결 필요
+                        trailing: Transform.translate(
+                          child: Text('TEST',
+                              style: TextStyle(
+                                fontSize: 18.sp,
+                                color: Color(0xff324755),
+                              )),
+                          offset: Offset(-2, 0),
+                        ),
+                        visualDensity: VisualDensity(vertical: -3),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            SizedBox(height: ScreenUtil().setHeight(300)),
-            Container(
-                width: ScreenUtil().setWidth(350),
-                height: ScreenUtil().setHeight(50),
-                child: ListTile(
-                  title: Transform.translate(
-                    child: Text(
-                      "로그아웃",
-                      style: TextStyle(
-                        color: Color(0xff878787),
-                      ),
-                    ),
-                    offset: Offset(280, 0),
+
+              Container(                                              // Divider
+                  child: Divider(thickness: 1.8,),
+                width: ScreenUtil().setWidth(360),
+              ),
+
+              Container(height: ScreenUtil().setHeight(10)),
+
+              Container(                                          // 로그아웃 버튼
+                width: ScreenUtil().setWidth(360),
+                height: ScreenUtil().setHeight(40),
+                child: OutlinedButton(
+                  style: OutlinedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    side: BorderSide(color: Color(0xff74BABC),)
                   ),
-                  onTap: () {
-                    signOut();
-                    Navigator.of(context, rootNavigator: true).pop(MaterialPageRoute(builder: (_) => SignInScreen()));
-                  },
-                ))
-          ],
+                  onPressed: () {
+                    showDialog(
+                        context: context,
+                        barrierDismissible: true, // 바깥영역 터치시 닫힐지 여부
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: Text("팝업 메세지"),
+                            content: Text('로그아웃 하시겠습니까?'),
+                            actions: [
+                              MaterialButton(
+                                  onPressed: () {
+                                    signOut();
+                                    Navigator.of(context, rootNavigator: true).pop(MaterialPageRoute(builder: (_) => SignInScreen()));
+                                  //  Navigator.of(context).pop(); // 팝업창 나가기
+                                  },
+                                  child: Text('Okay')),
+                              MaterialButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop(); // 팝업창 나가기
+                                  },
+                                  child: Text('Cancel')),
+                            ],
+                          );
+                        });
+                    },
+                  child: Text("로그아웃",
+                    style: TextStyle(fontSize: 16.sp, color: Color(0xff324755),),
+                ),),
+              ),
+            ],
+          ),
         ),
       ),
     );
