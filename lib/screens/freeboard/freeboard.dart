@@ -105,100 +105,107 @@ class FreeBoard extends StatelessWidget {
                               child: Center(
                                 child: Container(
                                   // 리스트 안 내용 크기 컨테이너
-                                  height: ScreenUtil().setHeight(80), // 변경 history 1. 90 , 2. 60
-                                  width: ScreenUtil().setWidth(360),
-                                   //color: Colors.green,
+                                  height: ScreenUtil().setHeight(84), // 변경 history 1. 90 , 2. 60
+                                  width: ScreenUtil().setWidth(342),
+                                  //color: Colors.green,
                                   child: ListView(
                                     // Render 할 경우 일시적으로 OverFlow 발생해서 Column => ListView로 변경
                                     shrinkWrap: true,
                                     physics: NeverScrollableScrollPhysics(),
                                     children: [
-                                      Row(
-                                        children: [
-                                          if (docs[index]['title'].length < 25) // 제목 글자 수 제한 25자
-                                            Text(docs[index]['title'],
-                                              style: TextStyle(fontSize: 17.sp, fontWeight: FontWeight.bold,color: Color(0xff324755),),),
-                                          if (docs[index]['title'].length >= 25) // 제목 글자 수 제한 25자
-                                            Text(
+                                      Padding(
+                                        padding: const EdgeInsets.only(left: 1),
+                                        child: Row(
+                                          children: [
+                                            //  게시판 제목 표시 제한 25자
+                                            docs[index]['title'].length < 25 == true ?  Text(docs[index]['title'],
+                                              style: TextStyle(fontSize: 17.sp, fontWeight: FontWeight.bold,color: Color(0xff324755),),)
+                                                : Text(
                                               docs[index]['title'].substring(0, 25) + "...",
-                                              // 아직 contentTitle이 활성화 안된듯?
-                                              style: TextStyle(fontSize: 17.sp, fontWeight: FontWeight.bold,color: Color(0xff737373)),
+                                              style: TextStyle(fontSize: 17.sp, fontWeight: FontWeight.bold,color: Color(0xff324755)),
                                             ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
                                       Container(            // 컨텐츠 내용, 작성날짜 사이 조정 Container
                                         height:ScreenUtil().setHeight(3),
                                         //   color: Colors.red,
                                       ),
-                                      Row(
-                                        children: [
-                                          if (docs[index]['content'].length < 35) // 프리보드 리스트 글내용 표소 35자 까지.
-                                            Text(
-                                              docs[index]['content'],
-                                              style: TextStyle(
-                                                fontSize: 15.sp,color: Color(0xff737373),
+                                      Padding(
+                                        padding: const EdgeInsets.only(left: 1),
+                                        child: Row(
+                                          children: [
+                                            if (docs[index]['content'].length < 35) // 프리보드 리스트 글내용 표소 35자 까지.
+                                              Text(
+                                                docs[index]['content'],
+                                                style: TextStyle(
+                                                  fontSize: 15.sp,color: Color(0xff737373),
+                                                ),
                                               ),
-                                            ),
-                                          if (docs[index]['content'].length >= 35)
-                                            Text(
-                                              docs[index]['content'].substring(0, 35) + "...",
-                                              style: TextStyle(
-                                                fontSize: 15.sp,color: Color(0xff737373),
+                                            if (docs[index]['content'].length >= 35)
+                                              Text(
+                                                docs[index]['content'].substring(0, 35) + "...",
+                                                style: TextStyle(
+                                                  fontSize: 15.sp,color: Color(0xff737373),
+                                                ),
                                               ),
-                                            ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
                                       Container(            // 컨텐츠 내용, 작성날짜 사이 조정 Container
                                         height:ScreenUtil().setHeight(8),
                                      //   color: Colors.red,
                                       ),
-                                      Row(
-                                        children: [
-                                          Text(
-                                            "$writeTime",
-                                            style: TextStyle(
-                                              fontSize: 15.sp,color: Color(0xff909090),
-                                            ),
-                                          ),
-                                          Text(
-                                            '  ' + docs[index]['userName'],
-                                            style: TextStyle(
-                                              fontSize: 15.sp,color: Color(0xff737373),
-                                            ),
-                                          ),
-                                          Flexible(
-                                            fit: FlexFit.tight,
-                                            child: SizedBox(
-                                              width: 10,
-                                            ),
-                                          ),
-                                          Row(
-                                            children: [
-                                              Icon(
-                                                EvaIcons.heartOutline,
-                                                color: Colors.redAccent,
+                                      Padding(
+                                        padding: const EdgeInsets.fromLTRB(1, 0, 1, 1),
+                                        child: Row(
+                                          children: [
+                                            Text(
+                                              "$writeTime",
+                                              style: TextStyle(
+                                                fontSize: 15.sp,color: Color(0xff909090),
                                               ),
-                                              Text(
-                                                "${docs[index]['isPressedList'].length}" + " ",
-                                                style: TextStyle(
-                                                  fontSize: 15.sp,
+                                            ),
+                                            Text(
+                                              '  ' + docs[index]['userName'],
+                                              style: TextStyle(
+                                                fontSize: 15.sp,color: Color(0xff737373),
+                                              ),
+                                            ),
+                                            Flexible(
+                                              fit: FlexFit.tight,
+                                              child: SizedBox(
+                                                width: 10,
+                                              ),
+                                            ),
+                                            Row(
+                                              children: [
+                                                Icon(
+                                                  EvaIcons.heartOutline,
                                                   color: Colors.redAccent,
                                                 ),
-                                              ),
-                                            ],
-                                          ),
-                                          Icon(
-                                            EvaIcons.messageCircleOutline,
-                                            color: Color(0xff4d9391),
-                                          ),
-                                          Text(
-                                            "${docs[index]['comments']}",
-                                            style: TextStyle(
-                                              fontSize: 15.sp,
+                                                Text(
+                                                  "${docs[index]['isPressedList'].length}" + " ",
+                                                  style: TextStyle(
+                                                    fontSize: 15.sp,
+                                                    color: Colors.redAccent,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Icon(
+                                              EvaIcons.messageCircleOutline,
                                               color: Color(0xff4d9391),
                                             ),
-                                          ),
-                                        ],
+                                            Text(
+                                              "${docs[index]['comments']}",
+                                              style: TextStyle(
+                                                fontSize: 15.sp,
+                                                color: Color(0xff4d9391),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ],
                                   ),
