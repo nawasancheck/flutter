@@ -89,15 +89,6 @@ class _ManagerListScreenState extends State<ManagerListScreen> {
               Get.to(() => ManagerSearchPage());
             },
           ),
-          IconButton(
-            icon: Icon(
-              EvaIcons.bellOutline,
-              color: Color(0xff525252),
-            ),
-            onPressed: () async {
-              Get.to(() => TermsOfService());
-            },
-          )
         ],
       ),
       body: SafeArea(
