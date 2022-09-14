@@ -104,10 +104,8 @@ class _MyProfileState extends State<MyProfile> {
                           ),
                           offset: Offset(2, 0),
                         ),
-                        // trailing: Text('${_user.providerData.first.email}',
-                        // todo 하드코딩 되어 있음 / 이메일 연결 필요
                         trailing: Transform.translate(
-                          child: Text('TEST',
+                          child: Text('${_user.providerData.first.email ?? _user.email}',
                               style: TextStyle(
                                 fontSize: 18.sp,
                                 color: Color(0xff324755),
