@@ -1,10 +1,13 @@
 
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class TermsOfService extends StatefulWidget {
-  const TermsOfService({Key? key}) : super(key: key);
+  UserCredential userCredential;
+  TermsOfService(this.userCredential, {Key? key}) : super(key: key);
 
   @override
   State<TermsOfService> createState() => _TermsOfServiceState();
@@ -173,7 +176,7 @@ class _TermsOfServiceState extends State<TermsOfService> {
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(primary: Color(0xff93e3e6),),
                     child: Container(width:140,child: Center(child: Text('확인'))),
-                    onPressed: (){
+                    onPressed: () async {
                       // 픽셀 사이즈 구하기
                       print('displaySize : ${MediaQuery.of(context).size}');
                       print('displayHeight : ${MediaQuery.of(context).size.height}');
@@ -181,6 +184,20 @@ class _TermsOfServiceState extends State<TermsOfService> {
                       print('devicePixelRatio : ${MediaQuery.of(context).devicePixelRatio}');
                       print('statusBarHeight : ${MediaQuery.of(context).padding.top}');
 
+                      await FirebaseFirestore.instance.collection('user').doc(widget.userCredential.user!.uid).set(
+                        {
+                          'userName': widget.userCredential.user!.displayName,
+                          'email': widget.userCredential.user!.providerData.first.email,
+                          'role': 'client',
+                          'userUID': widget.userCredential.user!.uid,
+                          'profile': {
+                            'isPressList': [],
+                            'title': widget.userCredential.user!.displayName,
+                            'imageUrl': 'https://firebasestorage.googleapis.com/v0/b/nawasancheck.appspot.com/o/images%2Flogo.png?alt=media&token=d310c32d-a9e6-4ff2-b3a6-516544e3cedf',
+                          },
+                          'wishList': []
+                        },
+                      );
                     },
                   ),
                 ],
