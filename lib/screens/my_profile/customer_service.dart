@@ -1,7 +1,9 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/screens/chatting/in_chat_screen_user.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:uuid/uuid.dart';
@@ -169,9 +171,10 @@ class _CustomerServiceState extends State<CustomerService> {
                   ),
                 ),
 
-                // todo 나와산책 마스터 계정과 채팅하는 기능
                 InkWell(
-                  onTap: (){},
+                  onTap: (){
+                    Get.to(() => ChatScreenUser('drc8WQBF4DaNFajiA89tuIbBfzE2', '나와산책 마스터', 1));
+                  },
                   child: Container(
                     width: ScreenUtil().screenWidth,
                     height: ScreenUtil().setHeight(40),
