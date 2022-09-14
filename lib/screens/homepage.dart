@@ -20,7 +20,7 @@ class _HomePageState extends State<HomePage> {
       // CupertinoTapScaffold : ios 디자인
       tabBar: CupertinoTabBar(
         // BottomNavigationBar
-        activeColor: Color(0xff93e3e6),
+        activeColor: Color(0xff74BABC),
         inactiveColor: Color(0xff909090),
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: "홈"),

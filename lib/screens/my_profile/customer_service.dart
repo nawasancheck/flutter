@@ -43,7 +43,7 @@ class _CustomerServiceState extends State<CustomerService> {
                   width: ScreenUtil().screenWidth,
                   height: ScreenUtil().setHeight(40),
                   decoration: BoxDecoration(
-                    color: Color(0xff74BABC),
+                    color: Color(0xffe1f3f3),
                     border: Border(
                         bottom: BorderSide(width: 0.8, color: Colors.grey[350]!)
                     ),
@@ -58,7 +58,8 @@ class _CustomerServiceState extends State<CustomerService> {
                             "앱 정보",
                             style: TextStyle(
                               fontSize: 18.sp,
-                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xff324755),
                             ),
                           ),
                         ],
@@ -107,7 +108,7 @@ class _CustomerServiceState extends State<CustomerService> {
                   width: ScreenUtil().screenWidth,
                   height: ScreenUtil().setHeight(40),
                   decoration: BoxDecoration(
-                    color: Color(0xff74BABC),
+                    color: Color(0xffe1f3f3),
                     border: Border(
                         bottom: BorderSide(width: 0.8, color: Colors.grey[350]!)
                     ),
@@ -122,7 +123,8 @@ class _CustomerServiceState extends State<CustomerService> {
                             "나와산책과 연락하기",
                             style: TextStyle(
                               fontSize: 18.sp,
-                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xff324755),
                             ),
                           ),
                         ],
@@ -211,7 +213,7 @@ class _CustomerServiceState extends State<CustomerService> {
                   width: ScreenUtil().screenWidth,
                   height: ScreenUtil().setHeight(40),
                   decoration: BoxDecoration(
-                    color: Color(0xff74BABC),
+                    color: Color(0xffe1f3f3),
                     border: Border(
                         bottom: BorderSide(width: 0.8, color: Colors.grey[350]!)
                     ),
@@ -226,7 +228,8 @@ class _CustomerServiceState extends State<CustomerService> {
                             "약관 보기",
                             style: TextStyle(
                               fontSize: 18.sp,
-                              color: Colors.white,
+                              color: Color(0xff324755),
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
                         ],

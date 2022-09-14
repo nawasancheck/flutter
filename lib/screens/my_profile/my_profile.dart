@@ -66,7 +66,7 @@ class _MyProfileState extends State<MyProfile> {
                           title: Transform.translate(
                             child: Text(
                               "닉네임",
-                              style: TextStyle(fontSize: 16.sp, color: Colors.white),
+                              style: TextStyle(fontSize: 16.sp, color: Colors.white,),
                             ),
                             offset: Offset(2, -2),
                           ),
@@ -78,9 +78,7 @@ class _MyProfileState extends State<MyProfile> {
                                     fontSize: 18.sp,
                                     color: Colors.white,
                                   )),
-                                Transform.translate(
-                                  offset: Offset(0,2),
-                                    child: Icon(EvaIcons.arrowIosForward, color: Colors.white,)),
+                                Icon(EvaIcons.arrowIosForward, color: Colors.white,),
                               ]
                             ),
                             offset: Offset(-2, -2),

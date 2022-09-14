@@ -10,7 +10,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Profile extends StatelessWidget {
   const Profile({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +33,6 @@ class Profile extends StatelessWidget {
         body: SafeArea(
           child: ListView(children: [
             ListView(
-              // padding: EdgeInsets.only(left: 5),
               shrinkWrap: true,
               children: ListTile.divideTiles(
                 color: Color(0x00ffffff),
@@ -43,14 +41,14 @@ class Profile extends StatelessWidget {
                   Container(
                     width: ScreenUtil().screenWidth,
                     height: ScreenUtil().setHeight(40),
-                    color: Color(0xff74BABC),
+                    color: Color(0xffe1f3f3),
                     child: Center(
                       child: Container(
                         width: ScreenUtil().setWidth(360),
                         //color:Colors.green,
                           child: Text("계정",
                             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp,
-                            color: Colors.white),
+                            color: Color(0xff324755),),
                           ),
                       ),
                     ),
@@ -96,14 +94,14 @@ class Profile extends StatelessWidget {
                   Container(
                     width: ScreenUtil().screenWidth,
                     height: ScreenUtil().setHeight(40),
-                    color: Color(0xff74BABC),
+                    color: Color(0xffe1f3f3),
                     child: Center(
                       child: Container(
                         width: ScreenUtil().setWidth(360),
                         //color:Colors.green,
                         child: Text("찜",
                           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp,
-                              color: Colors.white),
+                              color: Color(0xff324755),),
                         ),
                       ),
                     ),
@@ -129,14 +127,14 @@ class Profile extends StatelessWidget {
                   Container(
                     width: ScreenUtil().screenWidth,
                     height: ScreenUtil().setHeight(40),
-                    color: Color(0xff74BABC),
+                    color: Color(0xffe1f3f3),
                     child: Center(
                       child: Container(
                         width: ScreenUtil().setWidth(360),
                         //color:Colors.green,
                         child: Text("고객지원",
                           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp,
-                              color: Colors.white),
+                              color: Color(0xff324755),),
                         ),
                       ),
                     ),
@@ -202,6 +200,7 @@ class Profile extends StatelessWidget {
               ).toList(),
             ),
           ]),
-        ));
+        ),
+    );
   }
 }
