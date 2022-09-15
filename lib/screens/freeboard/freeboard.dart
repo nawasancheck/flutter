@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/logic/freeboard/write/write_post.dart';
 import 'package:flutter_app/screens/freeboard/freeboard_content.dart';
@@ -100,7 +101,7 @@ class FreeBoard extends StatelessWidget {
                               decoration: BoxDecoration(
                                  color: Colors.white,
                                 border: Border(
-                                    bottom: BorderSide(color: Colors.grey[350]!, style: BorderStyle.solid, width: 1.5 )),
+                                    bottom: BorderSide(color: Colors.grey[350]!, style: BorderStyle.solid, width: 1.2)),
                               ),
                               child: Center(
                                 child: Container(
@@ -182,26 +183,34 @@ class FreeBoard extends StatelessWidget {
                                               children: [
                                                 Icon(
                                                   EvaIcons.heartOutline,
-                                                  color: Colors.redAccent,
+                                                  color: Color(0xffDC143C),
+                                                  size: 19.sp,
                                                 ),
-                                                Text(
-                                                  "${docs[index]['isPressedList'].length}" + " ",
-                                                  style: TextStyle(
-                                                    fontSize: 15.sp,
-                                                    color: Colors.redAccent,
+                                                Transform.translate(
+                                                  offset: Offset(1,2),
+                                                  child: Text(
+                                                    "${docs[index]['isPressedList'].length}" + "  ",
+                                                    style: TextStyle(
+                                                      fontSize: 15.sp,
+                                                      color: Color(0xffFF738C),
+                                                    ),
                                                   ),
                                                 ),
                                               ],
                                             ),
                                             Icon(
                                               EvaIcons.messageCircleOutline,
-                                              color: Color(0xff4d9391),
+                                              color: Color(0xff74BABC),
+                                              size: 19.sp,
                                             ),
-                                            Text(
-                                              "${docs[index]['comments']}",
-                                              style: TextStyle(
-                                                fontSize: 15.sp,
-                                                color: Color(0xff4d9391),
+                                            Transform.translate(
+                                              offset: Offset(1.5,3),
+                                              child: Text(
+                                                "${docs[index]['comments']}",
+                                                style: TextStyle(
+                                                  fontSize: 15.sp,
+                                                  color: Color(0xff74BABC),
+                                                ),
                                               ),
                                             ),
                                           ],
