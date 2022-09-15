@@ -6,6 +6,8 @@ import 'package:flutter_app/screens/chatting/in_chat_screen_manager.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../../homepage.dart';
+
 class RequestConfirm extends StatelessWidget {
   final QueryDocumentSnapshot<Map<String, dynamic>> information;
 
@@ -140,18 +142,40 @@ class RequestConfirm extends StatelessWidget {
               children: [
                 InkWell(                                              // 산책완료 버튼
                   onTap: (){
-                    FirebaseFirestore.instance
-                        .collection('client_reserve')
-                        .doc(information['clientUid'])
-                        .collection('reserve')
-                        .doc(information['clientReserveUid'])
-                        .update({'status': '산책 예정'});
-                    FirebaseFirestore.instance
-                        .collection('reserve')
-                        .doc(AuthController.instance.authentication.currentUser!.uid)
-                        .collection('reserve')
-                        .doc(information['id'])
-                        .update({'status': '산책 예정'});
+                    showDialog(
+                        context: context,
+                        barrierDismissible: false,
+                        // 바깥영역 터치시 닫힐지 여부
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: Text("팝업 메세지"),
+                            content: Text('해당 산책 요청을 수락하시겠습니까?'),
+                            actions: [
+                              MaterialButton(
+                                  onPressed: () { FirebaseFirestore.instance
+                                      .collection('client_reserve')
+                                      .doc(information['clientUid'])
+                                      .collection('reserve')
+                                      .doc(information['clientReserveUid'])
+                                      .update({'status': '산책 예정'});
+                                  FirebaseFirestore.instance
+                                      .collection('reserve')
+                                      .doc(AuthController.instance.authentication.currentUser!.uid)
+                                      .collection('reserve')
+                                      .doc(information['id'])
+                                      .update({'status': '산책 예정'});
+                                    Get.offAll(() => HomePage());
+                                    //Navigator.of(context).pop(); // 팝업창 나가기
+                                  },
+                                  child: Text('Okay')),
+                              MaterialButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop(); // 팝업창 나가기
+                                  },
+                                  child: Text('Cancel')),
+                            ],
+                          );
+                        });
                   },
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
@@ -168,18 +192,40 @@ class RequestConfirm extends StatelessWidget {
                 ),
                 InkWell(                                              // 산책완료 버튼
                   onTap: (){
-                    FirebaseFirestore.instance
-                        .collection('client_reserve')
-                        .doc(information['clientUid'])
-                        .collection('reserve')
-                        .doc(information['clientReserveUid'])
-                        .update({'status': '산책 거절'});
-                    FirebaseFirestore.instance
-                        .collection('reserve')
-                        .doc(AuthController.instance.authentication.currentUser!.uid)
-                        .collection('reserve')
-                        .doc(information['id'])
-                        .update({'status': '산책 거절'});
+                    showDialog(
+                        context: context,
+                        barrierDismissible: false,
+                        // 바깥영역 터치시 닫힐지 여부
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: Text("팝업 메세지"),
+                            content: Text('해당 산책 요청을 거절하시겠습니까?'),
+                            actions: [
+                              MaterialButton(
+                                  onPressed: () { FirebaseFirestore.instance
+                                      .collection('client_reserve')
+                                      .doc(information['clientUid'])
+                                      .collection('reserve')
+                                      .doc(information['clientReserveUid'])
+                                      .update({'status': '산책 거절'});
+                                  FirebaseFirestore.instance
+                                      .collection('reserve')
+                                      .doc(AuthController.instance.authentication.currentUser!.uid)
+                                      .collection('reserve')
+                                      .doc(information['id'])
+                                      .update({'status': '산책 거절'});
+                                    Get.offAll(() => HomePage());
+                                    //Navigator.of(context).pop(); // 팝업창 나가기
+                                  },
+                                  child: Text('Okay')),
+                              MaterialButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop(); // 팝업창 나가기
+                                  },
+                                  child: Text('Cancel')),
+                            ],
+                          );
+                        });
                   },
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),

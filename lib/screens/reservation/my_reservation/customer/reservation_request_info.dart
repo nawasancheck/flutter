@@ -5,6 +5,7 @@ import 'package:flutter_app/screens/chatting/in_chat_screen_user.dart';
 import 'package:flutter_app/screens/manager/manager_list_detail.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import '../../../homepage.dart';
 import 'cancel_reservation.dart';
 
 class ReservationRequestInfo extends StatelessWidget {
@@ -216,9 +217,31 @@ class ReservationRequestInfo extends StatelessWidget {
                 ],),
               ),
             ),
+            // todo 산책완료 버튼 활성화, 산책 예약된 상태 이후에 활성화
             InkWell(                                              // 산책완료 버튼
               onTap: (){
-                print('산책 완료!');
+                showDialog(
+                    context: context,
+                    barrierDismissible: false,
+                    // 바깥영역 터치시 닫힐지 여부
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: Text("팝업 메세지"),
+                        content: Text('산책을 완료하시겠습니까?\n산책을 완료하고 Okay 버튼을 눌러주세요.'),
+                        actions: [
+                          MaterialButton(
+                              onPressed: () {
+                                Get.offAll(() => HomePage()); // 팝업창 나가기
+                              },
+                              child: Text('Okay')),
+                          MaterialButton(
+                              onPressed: () {
+                                Navigator.of(context).pop(); // 팝업창 나가기
+                              },
+                              child: Text('Cancel')),
+                        ],
+                      );
+                    });
               },
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),

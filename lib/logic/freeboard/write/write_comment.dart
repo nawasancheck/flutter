@@ -43,6 +43,7 @@ class _WriteCommentState extends State<WriteComment> {
             width: ScreenUtil().setWidth(360), // 원래 Width : 360
             child: TextField(
               maxLines: null,
+              maxLength: 200,
               controller: _commentController,
               decoration: InputDecoration(
                 labelText: '댓글 쓰기',

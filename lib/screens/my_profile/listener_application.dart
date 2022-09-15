@@ -46,7 +46,7 @@ class _ListenerApplicationState extends State<ListenerApplication> {
 
     var uploadTask = await ref.putFile(imageFile!);
 
-    String imageUrl = await uploadTask.ref.getDownloadURL();
+    //String imageUrl = await uploadTask.ref.getDownloadURL();
 
     // _sendImage(imageUrl, 'image');
   }
@@ -510,7 +510,7 @@ class _ListenerApplicationState extends State<ListenerApplication> {
                                       ),
                                       actions: [
                                         Center(
-                                          child: FlatButton(
+                                          child: MaterialButton(
                                               onPressed: () {
                                                 Navigator.pushAndRemoveUntil(
                                                     context,

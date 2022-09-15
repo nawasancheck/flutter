@@ -13,12 +13,13 @@ class MyReservation extends StatefulWidget {
 }
 
 class _MyReservationState extends State<MyReservation> {
-  final List<int> numbers = <int>[1, 2, 3, 4, 5, 6, 7];
+  //final List<int> numbers = <int>[1, 2, 3, 4, 5, 6, 7];
 
   // 고객용
-  final Map<String, Color> colorList = {"산책취소": Color(0xfff05d60), "산책예약": Color(0xff4aa8d8), '산책예정': Color(0xfff20835e), '산책완료': Colors.grey};
+  final Map<String, Color> colorListCustomer = { "산책 요청": Color(0xffe1f3f3), '산책 예정': Color(0xff74BABC), '산책 완료': Colors.grey, "산책 취소": Color(0xffFF738C),  "산책 거절": Color(0xffFDFD96),};
 
-  // 리스너용  "산책요청": Color(0xff4aa8d8), '산책예정':Color(0xfff20835e), '산책완료': Colors.grey
+  // 리스너용
+  final Map<String, Color> colorListManager = {'산책 요청': Color(0xffe1f3f3), "산책 예정": Color(0xff74BABC),  '산책 완료': Colors.grey, '산책 취소': Color(0xffFF738C), '산책 거절': Color(0xffFDFD96), };
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -110,12 +111,13 @@ class _MyReservationState extends State<MyReservation> {
                                         width: 200,
                                         height: 30,
                                         decoration: BoxDecoration(
-                                            // border: Border.all(color: Colors.grey),
-                                            color: Color(0xff4aa8d8),
-                                            //Colors.lightBlueAccent,
+
+                                            color: colorListCustomer["${docs[index]['status']}"],
                                             borderRadius: BorderRadius.circular(10)),
                                         child: Center(
-                                          child: Text("${reserveTime.year}년/${reserveTime.month}월/${reserveTime.day}일 - " + docs[index]['status'], style: TextStyle(color: Colors.white)),
+                                         //child: Text("${colorList[docs[index]['status']]}")
+                                           child: Text(docs[index]['status'], style: TextStyle(color: Colors.black))
+                                          ,
                                         ),
                                       ),
                                       Flexible(
@@ -178,11 +180,22 @@ class _MyReservationState extends State<MyReservation> {
                                           padding: const EdgeInsets.only(left: 10),
                                           child: Container(
                                             //== 닉네임, 시간 산책 Container ==
-                                            //  color: Colors.lightGreenAccent,
+                                            //color: Colors.lightGreenAccent,
                                             width: 230.w,
-                                            child: Text(
-                                              docs[index]['managerTitle'] + " " + docs[index]['wantTime'] + '분 산책',
-                                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.sp),
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  docs[index]['managerTitle'] + " " + docs[index]['wantTime'] + '분',
+                                                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp),
+                                                ),
+                                                Row(
+                                                  children: [
+                                                    Text("주문 시간: ",style: TextStyle(fontSize: 14.sp , color: Color(0xff737373),),),
+                                                    Text("${reserveTime.year}년/${reserveTime.month}월/${reserveTime.day}일",style: TextStyle(fontSize: 14.sp , color: Color(0xff737373)),),
+                                                  ],
+                                                ),
+                                              ],
                                             ),
                                           ),
                                         ),
@@ -249,11 +262,11 @@ class _MyReservationState extends State<MyReservation> {
                                         height: 30,
                                         decoration: BoxDecoration(
                                             // border: Border.all(color: Colors.grey),
-                                            color: Color(0xff4aa8d8),
+                                            color: colorListManager["${docs[index]['status']}"],
                                             //Colors.lightBlueAccent,
                                             borderRadius: BorderRadius.circular(10)),
                                         child: Center(
-                                          child: Text(docs[index]['status'], style: TextStyle(color: Colors.white)),
+                                          child: Text(docs[index]['status'], style: TextStyle(color: Colors.black)),
                                         ),
                                       ),
                                     ],

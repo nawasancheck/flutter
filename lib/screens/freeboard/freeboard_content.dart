@@ -209,20 +209,27 @@ class FreeBoardContentState extends State<FreeBoardContent> {
                                     height: ScreenUtil().setHeight(5),
                                   ),
                                   Container(
-                                    //color: Color(0xffe1f3f3),
                                     width: ScreenUtil().setWidth(360),
                                     height: ScreenUtil().setHeight(30),
+                                    decoration: BoxDecoration(
+                                    //color: Color(0xffe1f3f3),
+                                      border: Border(
+                                        bottom: BorderSide(width: 1, color: Colors.grey[400]!)
+                                      )
+                                    ),
                                     child: Row(
                                       children: [
                                         InkWell(
                                             child: isPressed
                                                 ? Icon(
                                                     EvaIcons.heart,
-                                                    color: Colors.redAccent,
+                                                    color: Color(0xffDC143C),
+                                                    size: 21.sp,
                                                   )
                                                 : Icon(
                                                     EvaIcons.heartOutline,
-                                                    color: Colors.redAccent,
+                                                    color: Color(0xffDC143C),
+                                                    size: 21.sp,
                                                   ),
                                             onTap: () {
                                               setState(() {
@@ -237,31 +244,33 @@ class FreeBoardContentState extends State<FreeBoardContent> {
                                                       });
                                               });
                                             }),
-                                        Text(
-                                          " ${docs['isPressedList'].length}  ",
-                                          style: TextStyle(
-                                            fontSize: 15.sp,
-                                            color: Colors.redAccent,
+                                        Transform.translate(
+                                          offset: Offset(-2,2),
+                                          child: Text(
+                                            " ${docs['isPressedList'].length}  ",
+                                            style: TextStyle(
+                                              fontSize: 15.sp,
+                                              color: Color(0xff0FF738C),
+                                            ),
                                           ),
                                         ),
                                         Icon(
                                           EvaIcons.messageCircleOutline,
-                                          color: Color(0xff4d9391),
+                                          color: Color(0xff74BABC),
+                                          size: 21.sp,
                                         ),
-                                        Text(
-                                          " ${docs2.length}  ",
-                                          style: TextStyle(
-                                            fontSize: 15.sp,
-                                            color: Color(0xff4d9391),
+                                        Transform.translate(
+                                          offset: Offset(-0.4,2),
+                                          child: Text(
+                                            " ${docs2.length}  ",
+                                            style: TextStyle(
+                                              fontSize: 15.sp,
+                                              color: Color(0xff74BABC),
+                                            ),
                                           ),
                                         ),
                                       ],
                                     ),
-                                  ),
-                                  Divider(
-                                    indent: 16.35,
-                                    endIndent: 16.35,
-                                    thickness: 1,
                                   ),
                                   SizedBox(
                                     height: ScreenUtil().setHeight(10),
@@ -278,100 +287,107 @@ class FreeBoardContentState extends State<FreeBoardContent> {
                                       writeTime2 = ' ${time.month}/${time.day} ${time.hour}:${time.minute}';
 
                                       return Center(
-                                        child: Container(
-                                          //       color: Colors.purple,
-                                          width: ScreenUtil().setWidth(360),
-                                          // height: ScreenUtil().setHeight(120),
-                                          child: Column(
-                                            children: [
-                                              Row(
-                                                children: [
-                                                  Container(
-                                                    width: ScreenUtil().setWidth(30),
-                                                    height: ScreenUtil().setHeight(30),
-                                                    decoration: BoxDecoration(
-                                                      shape: BoxShape.circle,
-                                                      color: Colors.grey[400],
-                                                    ),
-                                                    child: Icon(
-                                                      EvaIcons.personOutline,
-                                                      size: 20.sp,
-                                                      color: Colors.white,
-                                                    ),
-                                                  ),
-                                                  Text("   ${docs2[index]['userName']}"),
-                                                  Container(
-                                                    decoration: BoxDecoration(
-                                                        //color: Color(0xffe1f3f3),
-                                                        borderRadius: BorderRadius.circular(3)),
+                                        child: Expanded(
+                                          child: Container(
+                                            width: ScreenUtil().setWidth(360),
+                                            //height: ScreenUtil().setHeight(100),
+                                            decoration: BoxDecoration(
+                                                //color: Colors.purple,
+                                              border: Border(
+                                                bottom : BorderSide(width: 1, color: Colors.grey[400]!)
+                                              )
+                                            ),
+                                            child: Column(
+                                              children: [
+                                                Padding(
+                                                  padding: const EdgeInsets.fromLTRB(0,10,0,0),
+                                                  child: Container(
+                                                   // color:Colors.green,
+                                                    height: ScreenUtil().setHeight(32),
                                                     child: Row(
                                                       children: [
-                                                        PopupMenuButton(
-                                                          itemBuilder: (context) {
-                                                            return [
-                                                              PopupMenuItem<int>(
-                                                                value: 0,
-                                                                child: Text('댓글 삭제'), // 자신이 쓴 글이 맞은 경우 삭제
-                                                              ),
-                                                            ];
-                                                          },
-                                                          onSelected: (value) {
-                                                            if (value == 0) {
-                                                              showDialog(
-                                                                  context: context,
-                                                                  barrierDismissible: false,
-                                                                  // 바깥영역 터치시 닫힐지 여부
-                                                                  builder: (BuildContext context) {
-                                                                    return AlertDialog(
-                                                                      title: Text("팝업 메세지"),
-                                                                      content: Text('해당 댓글을 삭제 하시겠습니까?'),
-                                                                      actions: [
-                                                                        MaterialButton(
-                                                                            onPressed: () {
-                                                                              Navigator.of(context).pop(); // 팝업창 나가기
-                                                                            },
-                                                                            child: Text('Okay')),
-                                                                        MaterialButton(
-                                                                            onPressed: () {
-                                                                              Navigator.of(context).pop(); // 팝업창 나가기
-                                                                            },
-                                                                            child: Text('Cancel')),
-                                                                      ],
-                                                                    );
-                                                                  });
-                                                            }
-                                                          },
-                                                        )
-                                                        /* InkWell(
-                                                            onTap:(){
+                                                        Container(
+                                                          width: ScreenUtil().setWidth(30),
+                                                          height: ScreenUtil().setHeight(30),
+                                                          decoration: BoxDecoration(
+                                                            shape: BoxShape.circle,
+                                                            color: Colors.grey[400],
+                                                          ),
+                                                          child: Icon(
+                                                            EvaIcons.personOutline,
+                                                            size: 20.sp,
+                                                            color: Colors.white,
+                                                          ),
+                                                        ),
+                                                        Text("   ${docs2[index]['userName']}",style: TextStyle(color: Color(0xff324755), fontSize: 14.sp),),
+                                                        Transform.translate(
+                                                          offset: Offset(-10,-3),
+                                                          child: PopupMenuButton(
+                                                            itemBuilder: (context) {
+                                                              return [
+                                                                PopupMenuItem<int>(
+                                                                  value: 0,
+                                                                  child: Text('댓글 삭제'), // 자신이 쓴 글이 맞은 경우 삭제
+                                                                ),
+                                                              ];
                                                             },
-                                                            child: Icon(
-                                                              EvaIcons
-                                                                  .moreVertical,
-                                                              color:
-                                                                  Colors.grey,
-                                                            ),
-                                                          ),*/
+                                                            onSelected: (value) {
+                                                              if (value == 0) {
+                                                                showDialog(
+                                                                    context: context,
+                                                                    barrierDismissible: false,
+                                                                    // 바깥영역 터치시 닫힐지 여부
+                                                                    builder: (BuildContext context) {
+                                                                      return AlertDialog(
+                                                                        title: Text("팝업 메세지"),
+                                                                        content: Text('해당 댓글을 삭제 하시겠습니까?'),
+                                                                        actions: [
+                                                                          MaterialButton(
+                                                                              onPressed: () {
+                                                                                Navigator.of(context).pop(); // 팝업창 나가기
+                                                                              },
+                                                                              child: Text('Okay')),
+                                                                          MaterialButton(
+                                                                              onPressed: () {
+                                                                                Navigator.of(context).pop(); // 팝업창 나가기
+                                                                              },
+                                                                              child: Text('Cancel')),
+                                                                        ],
+                                                                      );
+                                                                    });
+                                                              }
+                                                            },
+                                                          ),
+                                                        ),
                                                       ],
                                                     ),
                                                   ),
-                                                ],
-                                              ),
-                                              Row(
-                                                children: [
-                                                  Text(" ${docs2[index]['text']}"),
-                                                ],
-                                              ),
-                                              Row(
-                                                children: [
-                                                  Text("$writeTime2"),
-                                                ],
-                                              ),
-                                              Divider(
-                                                //indent: 20, endIndent: 20,
-                                                thickness: 1,
-                                              )
-                                            ],
+                                                ),
+                                                // todo 댓글 길이 조정 나중에 할 예정 (임시)
+                                                docs2[index]['text'].length<50 ? Row(
+                                                  mainAxisAlignment: MainAxisAlignment.start,
+                                                  children: [
+                                                    Text(" ${docs2[index]['text']}",style: TextStyle(fontSize: 14.sp, color: Color(0xff737373)),),
+                                                  ],
+                                                )
+                                                :
+                                                Column(
+                                                  mainAxisAlignment: MainAxisAlignment.start,
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(" ${docs2[index]['text']}",style: TextStyle(fontSize: 14.sp, color: Color(0xff737373),),)
+                                                  ],
+                                                ),
+                                                Padding(
+                                                  padding: const EdgeInsets.fromLTRB(0, 10, 0, 26),
+                                                  child: Row(
+                                                    children: [
+                                                      Text("$writeTime2"),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                         ),
                                       );

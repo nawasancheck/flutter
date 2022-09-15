@@ -137,7 +137,7 @@ class _MyProfileState extends State<MyProfile> {
                   onPressed: () {
                     showDialog(
                         context: context,
-                        barrierDismissible: true, // 바깥영역 터치시 닫힐지 여부
+                        barrierDismissible: false, // 바깥영역 터치시 닫힐지 여부
                         builder: (BuildContext context) {
                           return AlertDialog(
                             title: Text("팝업 메세지"),

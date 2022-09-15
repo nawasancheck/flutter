@@ -2,6 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/controller/auth/auth_controller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+
+import '../../../homepage.dart';
 
 class CancelReservation extends StatelessWidget {
   final QueryDocumentSnapshot<Map<String, dynamic>> information;
@@ -96,18 +100,41 @@ class CancelReservation extends StatelessWidget {
               ),
               InkWell(                                       // 산책 예약 취소 버튼
                 onTap: (){
-                  FirebaseFirestore.instance
-                      .collection('client_reserve')
-                      .doc(AuthController.instance.authentication.currentUser!.uid)
-                      .collection('reserve')
-                      .doc(information['id'])
-                      .update({'status': '산책 취소'});
-                  FirebaseFirestore.instance
-                      .collection('reserve')
-                      .doc(information['managerUid'])
-                      .collection('reserve')
-                      .doc(information['managerReserveUid'])
-                      .update({'status': '산책 취소'});
+                  showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      // 바깥영역 터치시 닫힐지 여부
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text("팝업 메세지"),
+                          content: Text('산책 예약을 취소하시겠습니까?'),
+                          actions: [
+                            MaterialButton(
+                                onPressed: () {
+                                  FirebaseFirestore.instance
+                                      .collection('client_reserve')
+                                      .doc(AuthController.instance.authentication.currentUser!.uid)
+                                      .collection('reserve')
+                                      .doc(information['id'])
+                                      .update({'status': '산책 취소'});
+                                  FirebaseFirestore.instance
+                                      .collection('reserve')
+                                      .doc(information['managerUid'])
+                                      .collection('reserve')
+                                      .doc(information['managerReserveUid'])
+                                      .update({'status': '산책 취소'});
+                                  Get.offAll(() => HomePage());
+                                  //Navigator.of(context).pop(); // 팝업창 나가기
+                                },
+                                child: Text('Okay')),
+                            MaterialButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop(); // 팝업창 나가기
+                                },
+                                child: Text('Cancel')),
+                          ],
+                        );
+                      });
                 },
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),

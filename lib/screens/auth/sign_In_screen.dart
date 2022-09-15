@@ -4,7 +4,6 @@ import 'package:flutter_app/controller/auth/auth_controller.dart';
 import 'package:flutter_app/screens/auth/super_login.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -15,8 +14,8 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
-  String _userEmail = '';
-  String _userPassword = '';
+  //String _userEmail = '';
+  //String _userPassword = '';
 
   @override
   Widget build(BuildContext context) {
