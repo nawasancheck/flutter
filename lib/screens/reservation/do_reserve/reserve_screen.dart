@@ -3,7 +3,6 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/controller/auth/auth_controller.dart';
 import 'package:flutter_app/screens/homepage.dart';
-import 'package:flutter_app/screens/reservation/do_reserve/reservation_summary.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -103,16 +102,16 @@ class _ReserveScreenState extends State<ReserveScreen> {
                           children: checkList1
                               .map<Widget>(
                                 (String v) => Container(
-                                  //color: Colors.green,
-                                  //margin: EdgeInsets.only(left: 80, right: 80),
-                                  padding: EdgeInsets.only(top: 5),
-                                  child: CheckboxListTile(
-                                    onChanged: (bool? check) => setState(() => this.wantTime = v),
-                                    title: Text.rich(TextSpan(text: v, children: <TextSpan>[TextSpan(text: "분")])),
-                                    value: this.wantTime == v ? true : false,
-                                  ),
-                                ),
-                              )
+                              //color: Colors.green,
+                              //margin: EdgeInsets.only(left: 80, right: 80),
+                              padding: EdgeInsets.only(top: 5),
+                              child: CheckboxListTile(
+                                onChanged: (bool? check) => setState(() => this.wantTime = v),
+                                title: Text.rich(TextSpan(text: v, children: <TextSpan>[TextSpan(text: "분")])),
+                                value: this.wantTime == v ? true : false,
+                              ),
+                            ),
+                          )
                               .toList()),
                     ),
                     SizedBox(
@@ -126,7 +125,7 @@ class _ReserveScreenState extends State<ReserveScreen> {
                     Row(
                       children: [
                         Container(// 날짜
-                         // color: Colors.green,
+                          // color: Colors.green,
                           width: ScreenUtil().setWidth(180),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -323,15 +322,15 @@ class _ReserveScreenState extends State<ReserveScreen> {
                                   padding: EdgeInsets.only(top: 30),
                                   child: Text(
                                     "산책 요청이 완료되었습니다.\n"
-                                    "\n"
-                                    "리스너가 확인할 때까지\n"
-                                    "조금만 기다려주세요!",
+                                        "\n"
+                                        "리스너가 확인할 때까지\n"
+                                        "조금만 기다려주세요!",
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
                                 actions: [
                                   Center(
-                                    child: FlatButton(
+                                    child: MaterialButton(
                                         onPressed: () {
                                           Get.to(() => HomePage());
                                         },
