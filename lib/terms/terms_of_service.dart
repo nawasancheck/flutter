@@ -3,7 +3,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/screens/homepage.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class TermsOfService extends StatefulWidget {
   UserCredential userCredential;
@@ -174,7 +176,8 @@ class _TermsOfServiceState extends State<TermsOfService> {
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(primary: const Color(0xff93e3e6),),
                     child: const SizedBox(width:140,child: Center(child: Text('확인'))),
-                    onPressed: () async {
+                    onPressed: (isChecked1 == true && isChecked2 == true)? () async {
+
                       // 픽셀 사이즈 구하기
                       print('displaySize : ${MediaQuery.of(context).size}');
                       print('displayHeight : ${MediaQuery.of(context).size.height}');
@@ -196,7 +199,8 @@ class _TermsOfServiceState extends State<TermsOfService> {
                           'wishList': []
                         },
                       );
-                    },
+                      Get.offAll(() => HomePage());
+                    } : null,
                   ),
                 ],
               ),
