@@ -130,7 +130,7 @@ class _WishListState extends State<WishList> {
                                                           InkWell(
                                                             child: Icon(
                                                               EvaIcons.heart,
-                                                              color: Colors.red[500],
+                                                              color: Color(0xffDC143C),
                                                               size: 20.sp,
                                                             ),
                                                             onTap: () {
