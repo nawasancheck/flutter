@@ -72,307 +72,431 @@ class _ListenerMyProfileState extends State<ListenerMyProfile> {
           ),
           centerTitle: true,
         ),
-        body: Container(
-            color: Colors.white,
-            width: ScreenUtil().screenWidth,
-            height: ScreenUtil().screenHeight,
-            child: Column(
-              children: [
-                SizedBox(height: ScreenUtil().setHeight(10)),
-                Center(
-                  child: Column(children: [
-                    Container(
-                      width: ScreenUtil().setWidth(100),
-                      height: ScreenUtil().setHeight(100),
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.white,
-                        border: Border.all(width: 5, color: Colors.grey[350]!)
-                      ),
-                      child:  Icon(
-                        EvaIcons.personOutline,
-                        size: 50.sp,
-                        color: Color(0xff324755),
-                      ),
-                    ),
-                  ]),
-                ),
-                InkWell(
-                  onTap: () async {
-                    imageUrl = await getImage();
-                  },
-                  child: Column(
-                    children: [
-                      Container(
-                        height: ScreenUtil().setHeight(30),
-                        width: ScreenUtil().setWidth(90),
-                        margin: EdgeInsets.only(left: 250),
-                        decoration: BoxDecoration(
-                          shape: BoxShape.rectangle,
-                          color: Colors.black54,
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: Container(
+              color: Colors.white,
+              width: ScreenUtil().screenWidth,
+              child: Center(
+                child: Container(
+                  //color: Colors.yellow,
+                    width: ScreenUtil().setWidth(360),
+                    height: ScreenUtil().screenHeight,
+                    child: Column(
+                      children: [
+                        SizedBox(height: ScreenUtil().setHeight(10)),
+                        Center(
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  width: ScreenUtil().setWidth(100),
+                                  height: ScreenUtil().setHeight(100),
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Colors.grey[400],
+                                  ),
+                                  child: Stack(
+                                    children: [
+                                      Container(
+                                        margin: EdgeInsets.only(left: 19, top: 5),
+                                        child: Icon(
+                                          EvaIcons.personOutline,
+                                          size: 60.sp,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      Positioned(
+                                        top: 75,
+                                        child: Container(
+                                          child: InkWell(
+                                            onTap: () => getImage(),
+                                            child: Column(
+                                              children: [
+                                                Container(
+                                                  height: ScreenUtil().setHeight(25),
+                                                  width: ScreenUtil().setWidth(100),
+                                                  decoration: BoxDecoration(
+                                                    shape: BoxShape.rectangle,
+                                                    borderRadius:
+                                                    BorderRadius.circular(15),
+                                                    border: Border.all(color: Color(0xffD3D3D3)),
+                                                    color: Color(0xff74BABC),
+                                                  ),
+                                                  child: Center(
+                                                    child: Text(
+                                                      "등록하기",
+                                                      style: TextStyle(
+                                                          color: Colors.white),
+                                                      softWrap: true,
+                                                      overflow: TextOverflow.fade,
+                                                    ),
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ]),
                         ),
-                        child: Center(
-                          child: Text(
-                            "사진 업로드",
-                            style: TextStyle(
-                              color: Colors.white,
+                        SizedBox(height: 30),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 0, 0, 3),
+                          child: Center(
+                            child: Container(
+                              //             color: Colors.blue,
+                              width: ScreenUtil().setWidth(360),
+                              height: ScreenUtil().setHeight(25),
+                              child: Text(
+                                "닉네임",
+                                style: TextStyle(
+                                    color: Color(0xff324755),
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.bold),
+                              ),
                             ),
                           ),
                         ),
-                      )
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 3),
-                  child: Center(
-                    child: Container(
-                      //             color: Colors.blue,
-                      width: ScreenUtil().setWidth(360),
-                      height: ScreenUtil().setHeight(25),
-                      child: Text(
-                        "닉네임",
-                        style: TextStyle(color: Color(0xff324755), fontSize: 16.sp, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ),
-                ),
-                Center(
-                  child: Container(
-                    color: Colors.white,
-                    width: ScreenUtil().setWidth(360),
-                    height: ScreenUtil().setHeight(40),
-                    child: TextField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Color(0xff737373),
-                              style: BorderStyle.solid,
-                              width: 1),
+                        Center(
+                          child: Container(
+                            color: Colors.white,
+                            width: ScreenUtil().setWidth(370),
+                            height: ScreenUtil().setHeight(40),
+                            child: TextField(
+                              decoration: InputDecoration(
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(5),
+                                    borderSide: BorderSide(
+                                        color: Color(0xff737373),
+                                        style: BorderStyle.solid,
+                                        width: 1),
+                                  ),
+                                  border: OutlineInputBorder(),
+                                  hintText: '닉네임을 입력해주세요 / 글자 제한수 정하기',
+                                  hintStyle: TextStyle(
+                                    fontSize: 14.sp,
+                                    color: Colors.grey[350]!,
+                                  ),
+                                  contentPadding: EdgeInsets.only(left: 10)),
+                              onChanged: (value) {
+                                // nickname = value.trim();
+                              },
+                            ),
+                          ),
                         ),
-                        labelText: '닉네임을 입력해주세요 / 글자 제한수 정하기',
-                        labelStyle: TextStyle(
-                          fontSize: 14.sp,
-                          color: Colors.grey[350]!,
-                        ),
-                      ),
-                      onChanged: (value) {
-                        // nickname = value.trim();
-                      },
-                    ),
-                  ),
-                ),
-                SizedBox(height: ScreenUtil().setHeight(10)),
-                Center(
-                  child: Container(
-                    width: ScreenUtil().setWidth(220),
-                    child: Row(
-                      children: [
-                        Text("성별: ", style: TextStyle(color: Color(0xff324755),),),
-                        Container(
-                          child: Gender(),
-                        ),
-                        Flexible(fit: FlexFit.tight, child: SizedBox()),
-                        Text("나이: ", style: TextStyle(color: Color(0xff324755),),),
-                        Container(
-                          child: Age(),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-
-                SizedBox(height: ScreenUtil().setHeight(10)),
-
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 3),
-                  child: Center(
-                    child: Container(
-                      //             color: Colors.blue,
-                      width: ScreenUtil().setWidth(360),
-                      height: ScreenUtil().setHeight(25),
-                      child: Text(
-                        "지역",
-                        style: TextStyle(color: Color(0xff324755), fontSize: 16.sp, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ),
-                ),
-                Center(
-                  child: Container(
-                    color: Colors.white,
-                    width: ScreenUtil().setWidth(360),
-                    height: ScreenUtil().setHeight(40),
-                    child: TextField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Color(0xff737373),
-                              style: BorderStyle.solid,
-                              width: 1),
-                        ),
-                        labelText: '00시 00구 / EX 서울시 은평구',
-                        labelStyle: TextStyle(
-                          fontSize: 14.sp,
-                          color: Colors.grey[350]!,
-                        ),
-                      ),
-                      onChanged: (value) {
-                        // area = value.trim();
-                      },
-                    ),
-                  ),
-                ),
-
-                SizedBox(height: ScreenUtil().setHeight(10)),
-
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 3),
-                  child: Center(
-                    child: Container(
-                      //             color: Colors.blue,
-                      width: ScreenUtil().setWidth(360),
-                      height: ScreenUtil().setHeight(25),
-                      child: Text(
-                        "관심분야",
-                        style: TextStyle(color: Color(0xff324755), fontSize: 16.sp, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ),
-                ),
-                Center(
-                  child: Container(
-                    color: Colors.white,
-                    width: ScreenUtil().setWidth(360),
-                    height: ScreenUtil().setHeight(40),
-                    child: TextField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Color(0xff737373),
-                              style: BorderStyle.solid,
-                              width: 1),
-                        ),
-                        labelText: 'EX 운동, 독서, 음악',
-                        labelStyle: TextStyle(
-                          fontSize: 14.sp,
-                          color: Colors.grey[350]!,
-                        ),
-                      ),
-                      onChanged: (value) {
-                        // interests = value.trim();
-                      },
-                    ),
-                  ),
-                ),
-                SizedBox(height: ScreenUtil().setHeight(10)),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 3),
-                  child: Center(
-                    child: Container(
-                      //             color: Colors.blue,
-                      width: ScreenUtil().setWidth(360),
-                      height: ScreenUtil().setHeight(25),
-                      child: Text(
-                        "간단소개",
-                        style: TextStyle(color: Color(0xff324755), fontSize: 16.sp, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ),
-                ),
-                Center(
-                  child: Container(
-                    color: Colors.white,
-                    width: ScreenUtil().setWidth(360),
-                    child: TextField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Color(0xff737373),
-                              style: BorderStyle.solid,
-                              width: 1),
-                        ),
-                        labelText: '고객들에게 소개될 수 있도록 자신을 소개해주세요.',
-                        labelStyle: TextStyle(
-                          fontSize: 14.sp,
-                          color: Colors.grey[350]!,
-                        ),
-                      ),
-                      maxLines: 5,
-                      minLines: 1,
-                      onChanged: (value) {
-                      },
-                    ),
-                  ),
-                ),
-
-                SizedBox(height: 25,),
-
-                InkWell(
-                    onTap: () {
-                      showDialog(
-                          context: context,
-                          barrierDismissible: false,
-                          builder: (BuildContext ctx) {
-                            return AlertDialog(
-                              content: Container(
-                                padding: EdgeInsets.only(top: 30),
-                                child: Text(
-                                  "수정요청이\n"
-                                  "완료되었습니다.\n"
-                                  "자사의 검토 후 반영될\n"
-                                  "예정입니다.\n",
-                                  textAlign: TextAlign.center,
+                        SizedBox(height: ScreenUtil().setHeight(20)),
+                        Center(
+                          child: Container(
+                            width: ScreenUtil().setWidth(320),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Container(
+                                  child: Text(
+                                    "성별: ",
+                                    style: TextStyle(
+                                        color: Color(0xff324755),
+                                        fontSize: 16.sp,
+                                        fontWeight: FontWeight.bold),
+                                  ),
                                 ),
-                              ),
-                              actions: [
-                                Center(
-                                  child: MaterialButton(
-                                      onPressed: () async {
-                                        Navigator.pushNamedAndRemoveUntil(context, '/', (_) => false);
-                                        Navigator.push(context, MaterialPageRoute(builder: (context) => Profile()));
-                                        Navigator.push(context, MaterialPageRoute(builder: (context) => ListenerProfile()));
-                                        await FirebaseFirestore.instance
-                                            .collection('user')
-                                            .doc(AuthController.instance.authentication.currentUser!.uid)
-                                            .update({
-                                          'profile.imageUrl': imageUrl,
-                                        });
-                                      },
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          color: Color(0xff93e3e6),
-                                        ),
-                                        child: Center(child: Text("확인")),
-                                        width: 60,
-                                        height: 30,
-                                      )),
-                                )
+                                Container(
+                                  width: 70,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(5),
+                                    border: Border.all(
+                                        color: Color(0xff737373),
+                                        style: BorderStyle.solid,
+                                        width: 1.sp),
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Gender(),
+                                    ],
+                                  ),
+                                ),
+                                Container(
+                                  child: Text(
+                                    "나이: ",
+                                    style: TextStyle(
+                                        color: Color(0xff324755),
+                                        fontSize: 16.sp,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                                Container(
+                                  width: 70,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(5),
+                                    border: Border.all(
+                                        color: Color(0xff737373),
+                                        style: BorderStyle.solid,
+                                        width: 1),
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Age(),
+                                    ],
+                                  ),
+                                ),
                               ],
-                            );
-                          });
-                    },
-                    splashColor: Colors.grey,
-                    child: Center(
-                      child: Container(
-                        width: 360.sp,
-                        height: 40.sp,
-                        decoration: BoxDecoration(
-                          color: Color(0xff74BABC),
-                            borderRadius: BorderRadius.circular(5),
+                            ),
+                          ),
                         ),
-                         padding: const EdgeInsets.all(8.0),
-                         child: Center(
-                            child: Text(
-                          "수정요청",
-                          style: TextStyle(fontSize: 13.sp, color: Colors.white),
-                         ),
+
+                        SizedBox(height: ScreenUtil().setHeight(20)),
+
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 0, 0, 3),
+                          child: Center(
+                            child: Container(
+                              //             color: Colors.blue,
+                              width: ScreenUtil().setWidth(360),
+                              height: ScreenUtil().setHeight(25),
+                              child: Text(
+                                "지역",
+                                style: TextStyle(
+                                    color: Color(0xff324755),
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
+                        Center(
+                          child: Container(
+                            color: Colors.white,
+                            width: ScreenUtil().setWidth(360),
+                            height: ScreenUtil().setHeight(40),
+                            child: TextField(
+                              decoration: InputDecoration(
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(5),
+                                    borderSide: BorderSide(
+                                        color: Color(0xff737373),
+                                        style: BorderStyle.solid,
+                                        width: 1),
+                                  ),
+                                  border: OutlineInputBorder(),
+                                  hintText: '00시 00구 / EX 서울시 은평구',
+                                  hintStyle: TextStyle(
+                                    fontSize: 14.sp,
+                                    color: Colors.grey[350]!,
+                                  ),
+                                  contentPadding: EdgeInsets.only(left: 10)),
+                              onChanged: (value) {
+                                // area = value.trim();
+                              },
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: ScreenUtil().setHeight(10)),
+
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 0, 0, 3),
+                          child: Center(
+                            child: Container(
+                              //             color: Colors.blue,
+                              width: ScreenUtil().setWidth(360),
+                              height: ScreenUtil().setHeight(25),
+                              child: Text(
+                                "관심분야",
+                                style: TextStyle(
+                                    color: Color(0xff324755),
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Center(
+                          child: Container(
+                            color: Colors.white,
+                            width: ScreenUtil().setWidth(360),
+                            height: ScreenUtil().setHeight(40),
+                            child: TextField(
+                              decoration: InputDecoration(
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(5),
+                                    borderSide: BorderSide(
+                                        color: Color(0xff737373),
+                                        style: BorderStyle.solid,
+                                        width: 1.sp),
+                                  ),
+                                  border: OutlineInputBorder(),
+                                  hintText: 'EX 운동, 독서, 음악',
+                                  hintStyle: TextStyle(
+                                    fontSize: 14.sp,
+                                    color: Colors.grey[350]!,
+                                  ),
+                                  contentPadding: EdgeInsets.only(left: 10)),
+                              onChanged: (value) {
+                                // interests = value.trim();
+                              },
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: ScreenUtil().setHeight(10)),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 0, 0, 3),
+                          child: Center(
+                            child: Container(
+                              //             color: Colors.blue,
+                              width: ScreenUtil().setWidth(360),
+                              height: ScreenUtil().setHeight(25),
+                              child: Text(
+                                "간단소개",
+                                style: TextStyle(
+                                    color: Color(0xff324755),
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Center(
+                          child: Container(
+                            color: Colors.white,
+                            width: ScreenUtil().setWidth(360),
+                            height: ScreenUtil().setHeight(40),
+                            child: TextField(
+                              decoration: InputDecoration(
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(5),
+                                    borderSide: BorderSide(
+                                        color: Color(0xff737373),
+                                        style: BorderStyle.solid,
+                                        width: 1),
+                                  ),
+                                  border: OutlineInputBorder(),
+                                  hintText: '고객들에게 소개될 수 있도록 자신을 소개해주세요',
+                                  hintStyle: TextStyle(
+                                    fontSize: 14.sp,
+                                    color: Colors.grey[350]!,
+                                  ),
+                                  contentPadding: EdgeInsets.only(left: 10)),
+                              maxLines: 3,
+                              minLines: 1,
+                              onChanged: (value) {
+                                // content = value.trim();
+                              },
+                            ),
+                          ),
+                        ),
+
+                        SizedBox(height: 25,),
+
+                        // InkWell(
+                        //     onTap: () async {
+                        //       await FirebaseFirestore.instance
+                        //           .collection("support_manager")
+                        //           .doc(currentUser.uid)
+                        //           .set({
+                        //         'nickname': nickname,
+                        //         'area': area,
+                        //         'interests': interests,
+                        //         'content': content,
+                        //         'listenerName': listenerMame,
+                        //         'phoneNumber': phoneNumber
+                        //       });
+                        //       showDialog(
+                        //           context: context,
+                        //           barrierDismissible: false,
+                        //           builder: (BuildContext ctx) {
+                        //             return AlertDialog(
+                        //               content: Container(
+                        //                 padding: EdgeInsets.only(top: 30),
+                        //                 child: Text(
+                        //                   "지원이 완료되었습니다!",
+                        //                   textAlign: TextAlign.center,
+                        //                 ),
+                        //               ),
+                        //               actions: [
+                        //                 Center(
+                        //                   child: MaterialButton(
+                        //                       onPressed: () {
+                        //                         Navigator.pushAndRemoveUntil(
+                        //                             context,
+                        //                             MaterialPageRoute(
+                        //                                 builder:
+                        //                                     (BuildContext context) =>
+                        //                                     HomePage()),
+                        //                                 (route) => false);
+                        //                         Navigator.of(context,
+                        //                             rootNavigator: true)
+                        //                             .push(MaterialPageRoute(
+                        //                             builder: (_) => Profile()));
+                        //                       },
+                        //                       child: Container(
+                        //                         decoration: BoxDecoration(
+                        //                           color: Color(0xff74BABC),
+                        //                         ),
+                        //                         child: Center(child: Text("확인")),
+                        //                         width: 60,
+                        //                         height: 30,
+                        //                       )),
+                        //                 )
+                        //               ],
+                        //             );
+                        //           });
+                        //     },
+                        //     splashColor: Colors.grey,
+                        //     child: Center(
+                        //       child: Container(
+                        //         width: 360.sp,
+                        //         height: 40.sp,
+                        //         decoration: BoxDecoration(
+                        //           color: Color(0xff74BABC),
+                        //           borderRadius: BorderRadius.circular(5),
+                        //           // border: Border.all(color: Colors.grey, width: 1)
+                        //         ),
+                        //         padding: const EdgeInsets.all(8.0),
+                        //         child: Center(
+                        //             child: Text(
+                        //               "제출하기",
+                        //               style: TextStyle(
+                        //                   fontWeight: FontWeight.bold, fontSize: 13.sp,
+                        //                   color: Colors.white),
+                        //             )),
+                        //       ),
+                        //     )),
+                        InkWell(
+                          onTap: () {},
+                            splashColor: Colors.grey,
+                            child: Center(
+                              child: Container(
+                                width: 360.sp,
+                                height: 40.sp,
+                                decoration: BoxDecoration(
+                                  color: Color(0xff74BABC),
+                                  borderRadius: BorderRadius.circular(5),
+                                  // border: Border.all(color: Colors.grey, width: 1)
+                                ),
+                                padding: const EdgeInsets.all(8.0),
+                                child: Center(
+                                    child: Text(
+                                      "제출하기",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold, fontSize: 13.sp,
+                                          color: Colors.white),
+                                    )),
+                              ),
+                            )
+                        ),
+                        SizedBox(height: ScreenUtil().setHeight(10)),
+                      ],
                     )),
-                SizedBox(height: ScreenUtil().setHeight(60)),
-              ],
+              ),
             ),
+          ),
         ),
       ),
     );
@@ -392,19 +516,18 @@ class _GenderState extends State<Gender> {
   @override
   Widget build(BuildContext context) {
     return DropdownButton<String>(
+      isDense: true,
       value: dropdownValueGender,
       elevation: 16,
-      style: const TextStyle(color: Color(0xff909090)),
-      underline: Container(
-        height: 2,
-        color: Color(0xff909090),
-      ),
+      style: const TextStyle(color: Color(0xff324755),),
+      underline: DropdownButtonHideUnderline(child: Container()),
       onChanged: (String? newValue) {
         setState(() {
           dropdownValueGender = newValue!;
         });
       },
-      items: <String>['성별', '남자', '여자'].map<DropdownMenuItem<String>>((String value) {
+      items: <String>['성별', '남자', '여자']
+          .map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
           value: value,
           child: Text(value),
@@ -427,19 +550,18 @@ class _AgeState extends State<Age> {
   @override
   Widget build(BuildContext context) {
     return DropdownButton<String>(
+      isDense: true,
       value: dropdownValueAge,
       elevation: 16,
-      style: const TextStyle(color: Color(0xff909090)),
-      underline: Container(
-        height: 2,
-        color: Color(0xff909090),
-      ),
+      style: const TextStyle(color: Color(0xff324755),),
+      underline: DropdownButtonHideUnderline(child: Container()),
       onChanged: (String? newValue) {
         setState(() {
           dropdownValueAge = newValue!;
         });
       },
-      items: <String>['20', '30', '40', '50', '60'].map<DropdownMenuItem<String>>((String value) {
+      items: <String>['20', '30', '40', '50', '60']
+          .map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
           value: value,
           child: Text(value),
@@ -448,3 +570,4 @@ class _AgeState extends State<Age> {
     );
   }
 }
+
