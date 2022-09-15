@@ -5,6 +5,7 @@ import 'package:flutter_app/screens/chatting/in_chat_screen_user.dart';
 import 'package:flutter_app/screens/manager/manager_list_detail.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import '../../../../controller/auth/auth_controller.dart';
 import '../../../homepage.dart';
 import 'cancel_reservation.dart';
 
@@ -231,7 +232,19 @@ class ReservationRequestInfo extends StatelessWidget {
                         actions: [
                           MaterialButton(
                               onPressed: () {
-                                Get.offAll(() => const HomePage()); // 팝업창 나가기
+                                FirebaseFirestore.instance
+                                    .collection('client_reserve')
+                                    .doc(AuthController.instance.authentication.currentUser!.uid)
+                                    .collection('reserve')
+                                    .doc(information['id'])
+                                    .update({'status': '산책 완료'});
+                                FirebaseFirestore.instance
+                                    .collection('reserve')
+                                    .doc(information['managerUid'])
+                                    .collection('reserve')
+                                    .doc(information['managerReserveUid'])
+                                    .update({'status': '산책 완료'});
+                                Get.offAll(() => HomePage()); // 팝업창 나가기
                               },
                               child: const Text('Okay')),
                           MaterialButton(

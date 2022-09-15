@@ -65,7 +65,7 @@ class _ListenerProfileState extends State<ListenerProfile> {
                             .collection("support_manager")
                             .doc(currentUser.uid)
                             .get()
-                            .then((value) => value.exists) == true) {
+                            .then((value) => value.exists) == false) {
                           showDialog(
                               context: context,
                               barrierDismissible: false,
@@ -131,7 +131,7 @@ class _ListenerProfileState extends State<ListenerProfile> {
                             .collection("support_manager")
                             .doc(currentUser.uid)
                             .get()
-                            .then((value) => value.exists == true)) {
+                            .then((value) => value.exists == false)) {
                           showDialog(
                               context: context,
                               barrierDismissible: false,

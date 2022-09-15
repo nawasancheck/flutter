@@ -286,7 +286,7 @@ class _ReserveScreenState extends State<ReserveScreen> {
                           'requests': requests,
                           'reserveTime': Timestamp.now().toDate(),
                           'managerUid': widget.managerUID,
-                          'status': '산책 예약',
+                          'status': '산책 요청',
                           'managerImageUrl': widget.managerImageUrl,
                           'managerTitle': widget.managerName,
                         });
@@ -300,7 +300,7 @@ class _ReserveScreenState extends State<ReserveScreen> {
                           'reserveTime': Timestamp.now().toDate(),
                           'client': clientName,
                           'clientUid': AuthController.instance.authentication.currentUser!.uid,
-                          'status': '산책 예약',
+                          'status': '산책 요청',
                           'managerUid': widget.managerUID,
                           'managerImageUrl': widget.managerImageUrl,
                           'managerTitle': widget.managerName,
