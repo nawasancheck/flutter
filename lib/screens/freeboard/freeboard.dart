@@ -106,7 +106,7 @@ class FreeBoard extends StatelessWidget {
                               child: Center(
                                 child: Container(
                                   // 리스트 안 내용 크기 컨테이너
-                                  height: ScreenUtil().setHeight(70), // 변경 history 1. 90 , 2. 60
+                                  height: ScreenUtil().setHeight(75), // 변경 history 1. 90 , 2. 60
                                   width: ScreenUtil().setWidth(342),
                                   //color: Colors.green,
                                   child: ListView(
@@ -129,32 +129,32 @@ class FreeBoard extends StatelessWidget {
                                         ),
                                       ),
                                       Container(            // 컨텐츠 내용, 작성날짜 사이 조정 Container
-                                        height:ScreenUtil().setHeight(3),
-                                        //   color: Colors.red,
+                                        height:ScreenUtil().setHeight(1),
+                                        //  color: Colors.red,
                                       ),
                                       Padding(
                                         padding: const EdgeInsets.only(left: 1),
                                         child: Row(
                                           children: [
-                                            // 게시판 내용 표시 제한 35자
-                                            docs[index]['content'].length < 35 == true ? Text(
+                                            // 게시판 내용 표시 제한 28자
+                                            docs[index]['content'].length < 28 == true ? Text(
                                               docs[index]['content'],
                                               style: TextStyle(
-                                                fontSize: 15.sp,color: Color(0xff737373),
+                                                fontSize: 14.sp,color: Color(0xff737373),
                                               ),
                                             )
                                                 :
                                             Text(
-                                              docs[index]['content'].substring(0, 35) + "...",
+                                              docs[index]['content'].substring(0, 28) + "...",
                                               style: TextStyle(
-                                                fontSize: 15.sp,color: Color(0xff737373),
+                                                fontSize: 14.sp,color: Color(0xff737373),
                                               ),
                                             ),
                                           ],
                                         ),
                                       ),
                                       Container(            // 컨텐츠 내용, 작성날짜 사이 조정 Container
-                                        height:ScreenUtil().setHeight(5),
+                                        height:ScreenUtil().setHeight(1),
                                         //color: Colors.red,
                                       ),
                                       Padding(
