@@ -202,7 +202,7 @@ class _ManagerListScreenState extends State<ManagerListScreen> {
                                                             child: isPressed
                                                                 ? Icon(
                                                                     EvaIcons.heart,
-                                                                    color: Colors.red[500],
+                                                                    color: Color(0xffDC143C),
                                                                     size: 18.35.sp,
                                                                   )
                                                                 : Icon(EvaIcons.heartOutline, color: Color(0xff878787), size: 18.35.h),

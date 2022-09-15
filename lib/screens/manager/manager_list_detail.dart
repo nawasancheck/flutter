@@ -179,7 +179,9 @@ class ManagerDetailPage extends StatelessWidget {
                         padding: const EdgeInsets.fromLTRB(6, 0, 6, 0),
                         child: InkWell(
                           onTap: () {
-                            Get.to(() => ReserveScreen(opponentUID, docs['profile']['title'], docs['profile']['imageUrl']));
+                            Get.to(() => ReserveScreen(
+                                opponentUID, docs['profile']['title'], docs['profile']['imageUrl'])
+                            );
                           },
                           child: Container(
                               height: 76.h,
