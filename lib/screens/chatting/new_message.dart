@@ -15,7 +15,7 @@ class NewMessage extends StatefulWidget {
   const NewMessage(this.opponentUID, this.opponentName, this.myRole, {Key? key}) : super(key: key);
 
   @override
-  State<NewMessage> createState() => _NewMessageState(myRole);
+  State<NewMessage> createState() => _NewMessageState();
 }
 
 class _NewMessageState extends State<NewMessage> {
@@ -24,7 +24,6 @@ class _NewMessageState extends State<NewMessage> {
   var _userEnterMessage = '';
 
   // 첫 메시지에 넘겨준다.
-  final int myRole;
 
   // 내가 유저
   void userSend() async {
@@ -214,7 +213,7 @@ class _NewMessageState extends State<NewMessage> {
             onPressed: () {
               if (_userEnterMessage.trim().isEmpty) {
               } else {
-                if (myRole == 1) {
+                if (widget.myRole == 1) {
                   _controller.clear();
                   userSend();
                 } else {
@@ -231,6 +230,4 @@ class _NewMessageState extends State<NewMessage> {
       ),
     );
   }
-
-  _NewMessageState(this.myRole);
 }

@@ -8,10 +8,10 @@ class WritePost extends StatefulWidget {
   const WritePost({Key? key}) : super(key: key);
 
   @override
-  _WriteScreenState createState() => _WriteScreenState();
+  State<WritePost> createState() => _WritePostState();
 }
 
-class _WriteScreenState extends State<WritePost> {
+class _WritePostState extends State<WritePost> {
   String title = '';
   String content = '';
 

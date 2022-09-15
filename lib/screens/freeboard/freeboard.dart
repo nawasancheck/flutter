@@ -167,7 +167,7 @@ class FreeBoard extends StatelessWidget {
                                               ),
                                             ),
                                             Text(
-                                              '  ' + docs[index]['userName'],
+                                              '  ${docs[index]['userName']}',
                                               style: TextStyle(
                                                 fontSize: 15.sp,color: const Color(0xff737373),
                                               ),

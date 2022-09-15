@@ -14,7 +14,7 @@ class ListenerApplication extends StatefulWidget {
   const ListenerApplication({Key? key}) : super(key: key);
 
   @override
-  _ListenerApplicationState createState() => _ListenerApplicationState();
+  State<ListenerApplication> createState() => _ListenerApplicationState();
 }
 
 class _ListenerApplicationState extends State<ListenerApplication> {
@@ -40,7 +40,7 @@ class _ListenerApplicationState extends State<ListenerApplication> {
   }
 
   Future uploadImage() async {
-    String fileName = Uuid().v1();
+    String fileName = const Uuid().v1();
     var ref =
         FirebaseStorage.instance.ref().child('images').child("$fileName.jpg");
 
@@ -60,13 +60,13 @@ class _ListenerApplicationState extends State<ListenerApplication> {
       child: Scaffold(
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
-          title: Text(
+          title: const Text(
             "리스너 지원 1차",
             style:
                 TextStyle(color: Color(0xff324755), fontWeight: FontWeight.bold),
           ),
           backgroundColor: Colors.white,
-          iconTheme: IconThemeData(
+          iconTheme: const IconThemeData(
             color: Color(0xff324755),
           ),
           centerTitle: true,
@@ -77,7 +77,7 @@ class _ListenerApplicationState extends State<ListenerApplication> {
               color: Colors.white,
               width: ScreenUtil().screenWidth,
               child: Center(
-                child: Container(
+                child: SizedBox(
                   //color: Colors.yellow,
                     width: ScreenUtil().setWidth(360),
                     height: ScreenUtil().screenHeight,
@@ -98,7 +98,7 @@ class _ListenerApplicationState extends State<ListenerApplication> {
                                   child: Stack(
                                     children: [
                                       Container(
-                                        margin: EdgeInsets.only(left: 19, top: 5),
+                                        margin: const EdgeInsets.only(left: 19, top: 5),
                                         child: Icon(
                                           EvaIcons.personOutline,
                                           size: 60.sp,
@@ -119,10 +119,10 @@ class _ListenerApplicationState extends State<ListenerApplication> {
                                                     shape: BoxShape.rectangle,
                                                     borderRadius:
                                                         BorderRadius.circular(15),
-                                                    border: Border.all(color: Color(0xffD3D3D3)),
-                                                    color: Color(0xff74BABC),
+                                                    border: Border.all(color: const Color(0xffD3D3D3)),
+                                                    color: const Color(0xff74BABC),
                                                   ),
-                                                  child: Center(
+                                                  child: const Center(
                                                     child: Text(
                                                       "등록하기",
                                                       style: TextStyle(
@@ -142,18 +142,18 @@ class _ListenerApplicationState extends State<ListenerApplication> {
                                 ),
                               ]),
                         ),
-                        SizedBox(height: 30),
+                        const SizedBox(height: 30),
                         Padding(
                           padding: const EdgeInsets.fromLTRB(0, 0, 0, 3),
                           child: Center(
-                            child: Container(
+                            child: SizedBox(
                               //             color: Colors.blue,
                               width: ScreenUtil().setWidth(360),
                               height: ScreenUtil().setHeight(25),
                               child: Text(
                                 "닉네임",
                                 style: TextStyle(
-                                    color: Color(0xff324755),
+                                    color: const Color(0xff324755),
                                     fontSize: 16.sp,
                                     fontWeight: FontWeight.bold),
                               ),
@@ -169,18 +169,18 @@ class _ListenerApplicationState extends State<ListenerApplication> {
                               decoration: InputDecoration(
                                   enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(5),
-                                    borderSide: BorderSide(
+                                    borderSide: const BorderSide(
                                         color: Color(0xff737373),
                                         style: BorderStyle.solid,
                                         width: 1),
                                   ),
-                                  border: OutlineInputBorder(),
+                                  border: const OutlineInputBorder(),
                                   hintText: '닉네임을 입력해주세요 / 글자 제한수 정하기',
                                   hintStyle: TextStyle(
                                     fontSize: 14.sp,
                                     color: Colors.grey[350]!,
                                   ),
-                                  contentPadding: EdgeInsets.only(left: 10)),
+                                  contentPadding: const EdgeInsets.only(left: 10)),
                               onChanged: (value) {
                                 nickname = value.trim();
                               },
@@ -189,19 +189,17 @@ class _ListenerApplicationState extends State<ListenerApplication> {
                         ),
                         SizedBox(height: ScreenUtil().setHeight(20)),
                         Center(
-                          child: Container(
+                          child: SizedBox(
                             width: ScreenUtil().setWidth(320),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                Container(
-                                  child: Text(
-                                    "성별: ",
-                                    style: TextStyle(
-                                        color: Color(0xff324755),
-                                        fontSize: 16.sp,
-                                        fontWeight: FontWeight.bold),
-                                  ),
+                                Text(
+                                  "성별: ",
+                                  style: TextStyle(
+                                      color: const Color(0xff324755),
+                                      fontSize: 16.sp,
+                                      fontWeight: FontWeight.bold),
                                 ),
                                 Container(
                                   width: 70,
@@ -209,25 +207,23 @@ class _ListenerApplicationState extends State<ListenerApplication> {
                                     color: Colors.white,
                                     borderRadius: BorderRadius.circular(5),
                                     border: Border.all(
-                                        color: Color(0xff737373),
+                                        color: const Color(0xff737373),
                                         style: BorderStyle.solid,
                                         width: 1.sp),
                                   ),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
+                                    children: const [
                                       Gender(),
                                     ],
                                   ),
                                 ),
-                                Container(
-                                  child: Text(
-                                    "나이: ",
-                                    style: TextStyle(
-                                        color: Color(0xff324755),
-                                        fontSize: 16.sp,
-                                        fontWeight: FontWeight.bold),
-                                  ),
+                                Text(
+                                  "나이: ",
+                                  style: TextStyle(
+                                      color: const Color(0xff324755),
+                                      fontSize: 16.sp,
+                                      fontWeight: FontWeight.bold),
                                 ),
                                 Container(
                                   width: 70,
@@ -235,13 +231,13 @@ class _ListenerApplicationState extends State<ListenerApplication> {
                                     color: Colors.white,
                                     borderRadius: BorderRadius.circular(5),
                                     border: Border.all(
-                                        color: Color(0xff737373),
+                                        color: const Color(0xff737373),
                                         style: BorderStyle.solid,
                                         width: 1),
                                   ),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
+                                    children: const [
                                       Age(),
                                     ],
                                   ),
@@ -256,14 +252,14 @@ class _ListenerApplicationState extends State<ListenerApplication> {
                         Padding(
                           padding: const EdgeInsets.fromLTRB(0, 0, 0, 3),
                           child: Center(
-                            child: Container(
+                            child: SizedBox(
                               //             color: Colors.blue,
                               width: ScreenUtil().setWidth(360),
                               height: ScreenUtil().setHeight(25),
                               child: Text(
                                 "지역",
                                 style: TextStyle(
-                                    color: Color(0xff324755),
+                                    color: const Color(0xff324755),
                                     fontSize: 16.sp,
                                     fontWeight: FontWeight.bold),
                               ),
@@ -279,18 +275,18 @@ class _ListenerApplicationState extends State<ListenerApplication> {
                               decoration: InputDecoration(
                                   enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(5),
-                                    borderSide: BorderSide(
+                                    borderSide: const BorderSide(
                                         color: Color(0xff737373),
                                         style: BorderStyle.solid,
                                         width: 1),
                                   ),
-                                  border: OutlineInputBorder(),
+                                  border: const OutlineInputBorder(),
                                   hintText: '00시 00구 / EX 서울시 은평구',
                                   hintStyle: TextStyle(
                                     fontSize: 14.sp,
                                     color: Colors.grey[350]!,
                                   ),
-                                  contentPadding: EdgeInsets.only(left: 10)),
+                                  contentPadding: const EdgeInsets.only(left: 10)),
                               onChanged: (value) {
                                 area = value.trim();
                               },
@@ -302,14 +298,14 @@ class _ListenerApplicationState extends State<ListenerApplication> {
                         Padding(
                           padding: const EdgeInsets.fromLTRB(0, 0, 0, 3),
                           child: Center(
-                            child: Container(
+                            child: SizedBox(
                               //             color: Colors.blue,
                               width: ScreenUtil().setWidth(360),
                               height: ScreenUtil().setHeight(25),
                               child: Text(
                                 "관심분야",
                                 style: TextStyle(
-                                    color: Color(0xff324755),
+                                    color: const Color(0xff324755),
                                     fontSize: 16.sp,
                                     fontWeight: FontWeight.bold),
                               ),
@@ -326,17 +322,17 @@ class _ListenerApplicationState extends State<ListenerApplication> {
                                   enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(5),
                                     borderSide: BorderSide(
-                                        color: Color(0xff737373),
+                                        color: const Color(0xff737373),
                                         style: BorderStyle.solid,
                                         width: 1.sp),
                                   ),
-                                  border: OutlineInputBorder(),
+                                  border: const OutlineInputBorder(),
                                   hintText: 'EX 운동, 독서, 음악',
                                   hintStyle: TextStyle(
                                     fontSize: 14.sp,
                                     color: Colors.grey[350]!,
                                   ),
-                                  contentPadding: EdgeInsets.only(left: 10)),
+                                  contentPadding: const EdgeInsets.only(left: 10)),
                               onChanged: (value) {
                                 interests = value.trim();
                               },
@@ -347,14 +343,14 @@ class _ListenerApplicationState extends State<ListenerApplication> {
                         Padding(
                           padding: const EdgeInsets.fromLTRB(0, 0, 0, 3),
                           child: Center(
-                            child: Container(
+                            child: SizedBox(
                               //             color: Colors.blue,
                               width: ScreenUtil().setWidth(360),
                               height: ScreenUtil().setHeight(25),
                               child: Text(
                                 "간단소개",
                                 style: TextStyle(
-                                    color: Color(0xff324755),
+                                    color: const Color(0xff324755),
                                     fontSize: 16.sp,
                                     fontWeight: FontWeight.bold),
                               ),
@@ -370,18 +366,18 @@ class _ListenerApplicationState extends State<ListenerApplication> {
                               decoration: InputDecoration(
                                   enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(5),
-                                    borderSide: BorderSide(
+                                    borderSide: const BorderSide(
                                         color: Color(0xff737373),
                                         style: BorderStyle.solid,
                                         width: 1),
                                   ),
-                                  border: OutlineInputBorder(),
+                                  border: const OutlineInputBorder(),
                                   hintText: '고객들에게 소개될 수 있도록 자신을 소개해주세요',
                                   hintStyle: TextStyle(
                                     fontSize: 14.sp,
                                     color: Colors.grey[350]!,
                                   ),
-                                  contentPadding: EdgeInsets.only(left: 10)),
+                                  contentPadding: const EdgeInsets.only(left: 10)),
                               maxLines: 3,
                               minLines: 1,
                               onChanged: (value) {
@@ -394,14 +390,14 @@ class _ListenerApplicationState extends State<ListenerApplication> {
                         Padding(
                           padding: const EdgeInsets.fromLTRB(0, 0, 0, 3),
                           child: Center(
-                            child: Container(
+                            child: SizedBox(
                               //             color: Colors.blue,
                               width: ScreenUtil().setWidth(360),
                               height: ScreenUtil().setHeight(25),
                               child: Text(
                                 "성함",
                                 style: TextStyle(
-                                    color: Color(0xff324755),
+                                    color: const Color(0xff324755),
                                     fontSize: 16.sp,
                                     fontWeight: FontWeight.bold),
                               ),
@@ -417,18 +413,18 @@ class _ListenerApplicationState extends State<ListenerApplication> {
                               decoration: InputDecoration(
                                   enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(5),
-                                    borderSide: BorderSide(
+                                    borderSide: const BorderSide(
                                         color: Color(0xff737373),
                                         style: BorderStyle.solid,
                                         width: 1),
                                   ),
-                                  border: OutlineInputBorder(),
+                                  border: const OutlineInputBorder(),
                                   hintText: '홍길동',
                                   hintStyle: TextStyle(
                                     fontSize: 14.sp,
                                     color: Colors.grey[350]!,
                                   ),
-                                  contentPadding: EdgeInsets.only(left: 10)),
+                                  contentPadding: const EdgeInsets.only(left: 10)),
                               onChanged: (value) {
                                 listenerMame = value.trim();
                               },
@@ -439,14 +435,14 @@ class _ListenerApplicationState extends State<ListenerApplication> {
                         Padding(
                           padding: const EdgeInsets.fromLTRB(0, 0, 0, 3),
                           child: Center(
-                            child: Container(
+                            child: SizedBox(
                               //             color: Colors.blue,
                               width: ScreenUtil().setWidth(360),
                               height: ScreenUtil().setHeight(25),
                               child: Text(
                                 "연락처",
                                 style: TextStyle(
-                                    color: Color(0xff324755),
+                                    color: const Color(0xff324755),
                                     fontSize: 16.sp,
                                     fontWeight: FontWeight.bold),
                               ),
@@ -462,18 +458,18 @@ class _ListenerApplicationState extends State<ListenerApplication> {
                               decoration: InputDecoration(
                                   enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(5),
-                                    borderSide: BorderSide(
+                                    borderSide: const BorderSide(
                                         color: Color(0xff737373),
                                         style: BorderStyle.solid,
                                         width: 1),
                                   ),
-                                  border: OutlineInputBorder(),
+                                  border: const OutlineInputBorder(),
                                   hintText: '010-1234-5678',
                                   hintStyle: TextStyle(
                                     fontSize: 14.sp,
                                     color: Colors.grey[350]!,
                                   ),
-                                  contentPadding: EdgeInsets.only(left: 10)),
+                                  contentPadding: const EdgeInsets.only(left: 10)),
                               onChanged: (value) {
                                 phoneNumber = value.trim();
                               },
@@ -481,7 +477,7 @@ class _ListenerApplicationState extends State<ListenerApplication> {
                           ),
                         ),
 
-                        SizedBox(height: 25,),
+                        const SizedBox(height: 25,),
 
                         InkWell(
                             onTap: () async {
@@ -502,8 +498,8 @@ class _ListenerApplicationState extends State<ListenerApplication> {
                                   builder: (BuildContext ctx) {
                                     return AlertDialog(
                                       content: Container(
-                                        padding: EdgeInsets.only(top: 30),
-                                        child: Text(
+                                        padding: const EdgeInsets.only(top: 30),
+                                        child: const Text(
                                           "지원이 완료되었습니다!",
                                           textAlign: TextAlign.center,
                                         ),
@@ -517,20 +513,20 @@ class _ListenerApplicationState extends State<ListenerApplication> {
                                                     MaterialPageRoute(
                                                         builder:
                                                             (BuildContext context) =>
-                                                                HomePage()),
+                                                                const HomePage()),
                                                     (route) => false);
                                                 Navigator.of(context,
                                                         rootNavigator: true)
                                                     .push(MaterialPageRoute(
-                                                        builder: (_) => Profile()));
+                                                        builder: (_) => const Profile()));
                                               },
                                               child: Container(
-                                                decoration: BoxDecoration(
+                                                decoration: const BoxDecoration(
                                                   color: Color(0xff74BABC),
                                                 ),
-                                                child: Center(child: Text("확인")),
                                                 width: 60,
                                                 height: 30,
+                                                child: const Center(child: Text("확인")),
                                               )),
                                         )
                                       ],
@@ -543,7 +539,7 @@ class _ListenerApplicationState extends State<ListenerApplication> {
                                 width: 360.sp,
                                 height: 40.sp,
                                 decoration: BoxDecoration(
-                                  color: Color(0xff74BABC),
+                                  color: const Color(0xff74BABC),
                                     borderRadius: BorderRadius.circular(5),
                                    // border: Border.all(color: Colors.grey, width: 1)
                                 ),
@@ -573,7 +569,7 @@ class Gender extends StatefulWidget {
   const Gender({Key? key}) : super(key: key);
 
   @override
-  _GenderState createState() => _GenderState();
+  State<Gender> createState() => _GenderState();
 }
 
 class _GenderState extends State<Gender> {

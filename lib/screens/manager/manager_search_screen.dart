@@ -34,8 +34,8 @@ class _ManagerSearchPageState extends State<ManagerSearchPage> {
         child: Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.white,
-            iconTheme: IconThemeData(color: Colors.grey),
-            title: Container(
+            iconTheme: const IconThemeData(color: Colors.grey),
+            title: SizedBox(
               width: ScreenUtil().setWidth(360),
               child: Center(
                 child: TextField(
@@ -44,7 +44,7 @@ class _ManagerSearchPageState extends State<ManagerSearchPage> {
                   decoration: InputDecoration(
                     hintText: '관심 있는 리스너를 찾아보세요.',
                     suffixIcon: InkWell(
-                        child: Icon(Icons.clear),
+                        child: const Icon(Icons.clear),
                         onTap: () {
                           _controller.clear();
                           setState(() {});
@@ -58,19 +58,19 @@ class _ManagerSearchPageState extends State<ManagerSearchPage> {
               unselectedLabelColor: Colors.black,
               //indicatorColor: Colors.greenAccent,
               indicatorSize: TabBarIndicatorSize.label,
-              indicator: BoxDecoration(
+              indicator: const BoxDecoration(
                 borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
                 color: Color(0xffe1f3f3),
               ),
               tabs: [
-                Container(
+                SizedBox(
                     width: ScreenUtil().setWidth(180),
-                    child: Tab(
+                    child: const Tab(
                       text: "닉네임",
                     )),
-                Container(
+                SizedBox(
                     width: ScreenUtil().setWidth(180),
-                    child: Tab(
+                    child: const Tab(
                       text: "관심분야",
                     )),
               ],
@@ -79,7 +79,7 @@ class _ManagerSearchPageState extends State<ManagerSearchPage> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
                 child: InkWell(
-                  child: Icon(Icons.search,),
+                  child: const Icon(Icons.search,),
                   onTap: () {
                     setState(() {});
                   },
@@ -89,20 +89,20 @@ class _ManagerSearchPageState extends State<ManagerSearchPage> {
           ),
           body: TabBarView(
             children: [
-              new Container(              // ########## 닉네임 검색 탭바 Container
+              Container(              // ########## 닉네임 검색 탭바 Container
                 width: ScreenUtil().screenWidth,
                 height: ScreenUtil().screenHeight,
-                color: Color(0xffececec),
+                color: const Color(0xffececec),
                 child: StreamBuilder(
                   stream: FirebaseFirestore.instance.collection('user').where('role', isEqualTo: 'manager').snapshots(),
                   builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
                     if (!snapshot.hasData) {
-                      return CircularProgressIndicator();
+                      return const CircularProgressIndicator();
                     }
 
                     final docs = snapshot.data!.docs;
-                    if (docs.length == 0) {
-                      return Text('null');
+                    if (docs.isEmpty) {
+                      return const Text('null');
                     }
 
                     final List allDataTitle = docs.where((doc) => doc.data()['profile']['title'].contains(_controller.text)).toList();
@@ -127,7 +127,7 @@ class _ManagerSearchPageState extends State<ManagerSearchPage> {
                               border: Border.all(width: 0.5, color: Colors.grey),
                             ),
                             child: Center(
-                              child: Container(
+                              child: SizedBox(
                                 // 리스트 컨텐츠 가운데 조정 Container
                                 //color: Colors.greenAccent,
                                 width: ScreenUtil().setWidth(360),
@@ -143,7 +143,7 @@ class _ManagerSearchPageState extends State<ManagerSearchPage> {
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.only(left: 8.0),
-                                      child: Container(
+                                      child: SizedBox(
                                         width: ScreenUtil().setWidth(280),
                                         //color: Colors.green,
                                         child: Column(
@@ -153,8 +153,8 @@ class _ManagerSearchPageState extends State<ManagerSearchPage> {
                                               mainAxisAlignment: MainAxisAlignment.start,
                                               children: [
                                                 Text(
-                                                  " " + allDataTitle[index]['profile']['title'],
-                                                  style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold, color: Color(0xff241332)),
+                                                  " ${allDataTitle[index]['profile']['title']}",
+                                                  style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold, color: const Color(0xff241332)),
                                                 ),
                                               ],
                                             ),
@@ -164,9 +164,9 @@ class _ManagerSearchPageState extends State<ManagerSearchPage> {
                                                 likelength > 16 == true
                                                     ? // like 글자수 제한 16
                                                 Text(" " + " 관심분야 - ${allDataTitle[index]['profile']['like'].substring(0, 16)}",
-                                                    style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold, color: Color(0xff737373)))
+                                                    style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold, color: const Color(0xff737373)))
                                                     : Text(" " + " 관심분야 - ${allDataTitle[index]['profile']['like']}",
-                                                    style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold, color: Color(0xff737373))),
+                                                    style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold, color: const Color(0xff737373))),
                                               ],
                                             ),
                                           ],
@@ -184,20 +184,20 @@ class _ManagerSearchPageState extends State<ManagerSearchPage> {
                   },
                 ),
               ),
-              new Container(            // ########## 관심 분야 검색 탭바 Container
+              Container(            // ########## 관심 분야 검색 탭바 Container
                 width: ScreenUtil().screenWidth,
                 height: ScreenUtil().screenHeight,
-                color: Color(0xffececec),
+                color: const Color(0xffececec),
                 child: StreamBuilder(
                   stream: FirebaseFirestore.instance.collection('user').where('role', isEqualTo: 'manager').snapshots(),
                   builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
                     if (!snapshot.hasData) {
-                      return CircularProgressIndicator();
+                      return const CircularProgressIndicator();
                     }
 
                     final docs = snapshot.data!.docs;
-                    if (docs.length == 0) {
-                      return Text('null');
+                    if (docs.isEmpty) {
+                      return const Text('null');
                     }
 
                     final List allDataLike = docs.where((doc) => doc.data()['profile']['like'].contains(_controller.text)).toList();
@@ -222,7 +222,7 @@ class _ManagerSearchPageState extends State<ManagerSearchPage> {
                               border: Border.all(width: 0.5, color: Colors.grey),
                             ),
                             child: Center(
-                              child: Container(
+                              child: SizedBox(
                                 // 리스트 컨텐츠 가운데 조정 Container
                                 //color: Colors.greenAccent,
                                 width: ScreenUtil().setWidth(360),
@@ -238,7 +238,7 @@ class _ManagerSearchPageState extends State<ManagerSearchPage> {
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.only(left: 8.0),
-                                      child: Container(
+                                      child: SizedBox(
                                         width: ScreenUtil().setWidth(280),
                                         //color: Colors.green,
                                         child: Column(
@@ -249,7 +249,7 @@ class _ManagerSearchPageState extends State<ManagerSearchPage> {
                                               children: [
                                                 Text(
                                                   " " + allDataLike[index]['profile']['title'],
-                                                  style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold, color: Color(0xff241332)),
+                                                  style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold, color: const Color(0xff241332)),
                                                 ),
                                               ],
                                             ),
@@ -259,9 +259,9 @@ class _ManagerSearchPageState extends State<ManagerSearchPage> {
                                                 likelength > 16 == true
                                                     ? // like 글자수 제한 16
                                                 Text(" " + " 관심분야 - ${allDataLike[index]['profile']['like'].substring(0, 16)}",
-                                                    style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold, color: Color(0xff737373)))
+                                                    style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold, color: const Color(0xff737373)))
                                                     : Text(" " + " 관심분야 - ${allDataLike[index]['profile']['like']}",
-                                                    style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold, color: Color(0xff737373))),
+                                                    style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold, color: const Color(0xff737373))),
                                               ],
                                             ),
                                           ],

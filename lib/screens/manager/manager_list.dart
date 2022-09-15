@@ -82,7 +82,7 @@ class _ManagerListScreenState extends State<ManagerListScreen> {
             color: const Color(0xff525252),
             icon: const Icon(Icons.search),
             onPressed: () {
-              Get.to(() => ManagerSearchPage());
+              Get.to(() => const ManagerSearchPage());
             },
           ),
         ],
@@ -158,7 +158,7 @@ class _ManagerListScreenState extends State<ManagerListScreen> {
                                           mainAxisAlignment: MainAxisAlignment.start,
                                           children: [
                                             Text(
-                                              " " + docs[index]['profile']['title'],
+                                              " ${docs[index]['profile']['title']}",
                                               style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold, color: const Color(0xff241332)),
                                             ),
                                             const Flexible(

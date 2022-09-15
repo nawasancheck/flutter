@@ -62,7 +62,6 @@ class FreeBoardContentState extends State<FreeBoardContent> {
                                   onPressed: () {
                                     Navigator.of(context).pop(); // 팝업창 나가기
 
-                                    print(widget.boardNum);
                                     var freeboardData = FirebaseFirestore.instance.collection("board_test").doc(widget.boardNum);
 
                                     freeboardData.delete();

@@ -25,18 +25,18 @@ class _ChangedNameState extends State<ChangedName> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          title: Text(
+          title: const Text(
             "닉네임 변경",
             style: TextStyle(color: Color(0xff324755), fontWeight: FontWeight.bold),
           ),
-          backgroundColor: Color(0xffffffff),
-          iconTheme: IconThemeData(
+          backgroundColor: const Color(0xffffffff),
+          iconTheme: const IconThemeData(
             color: Color(0xff324755),
           ),
           centerTitle: true,
         ),
         body: SafeArea(
-          child: Container(
+          child: SizedBox(
             width: ScreenUtil().screenWidth,
             height: ScreenUtil().screenHeight,
             child: Column(
@@ -46,12 +46,12 @@ class _ChangedNameState extends State<ChangedName> {
                 // 닉네임 변경 text
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
-                  child: Container(
+                  child: SizedBox(
                     width: ScreenUtil().setWidth(360),
                     height: ScreenUtil().setHeight(25),
                     child: Text(
                       "닉네임 변경",
-                      style: TextStyle(color: Color(0xff000000), fontSize: 16.sp),
+                      style: TextStyle(color: const Color(0xff000000), fontSize: 16.sp),
                     ),
                   ),
                 ),
@@ -64,12 +64,12 @@ class _ChangedNameState extends State<ChangedName> {
                     textAlign: TextAlign.start,
                     textAlignVertical: TextAlignVertical.center,
                     decoration: InputDecoration(
-                      border: OutlineInputBorder(),
+                      border: const OutlineInputBorder(),
                       hintStyle: TextStyle(
                         height: 0.5,
                         //backgroundColor: Colors.green,
                         fontSize: 15.sp,
-                        color: Color(0xffc4c4c4),
+                        color: const Color(0xffc4c4c4),
                       ),
                       hintText: "변경할 닉네임을 입력하세요",
                     ),
@@ -83,11 +83,11 @@ class _ChangedNameState extends State<ChangedName> {
                 // 공백 채움
                 SizedBox(height: ScreenUtil().setHeight(100)),
                 // 닉네임 변경 버튼
-                Container(
+                SizedBox(
                   width: ScreenUtil().setWidth(360),
                   height: ScreenUtil().setHeight(40),
                   child: MaterialButton(
-                    color: Color(0xff74BABC),
+                    color: const Color(0xff74BABC),
                     onPressed: () {
                       showDialog(
                           context: context,
@@ -95,8 +95,8 @@ class _ChangedNameState extends State<ChangedName> {
                           // 바깥영역 터치시 닫힐지 여부
                           builder: (BuildContext context) {
                             return AlertDialog(
-                              title: Text("팝업 메세지"),
-                              content: Text('닉네임을 변경 하시겠습니까?'),
+                              title: const Text("팝업 메세지"),
+                              content: const Text('닉네임을 변경 하시겠습니까?'),
                               actions: [
                                 MaterialButton(
                                     onPressed: () {
@@ -111,8 +111,8 @@ class _ChangedNameState extends State<ChangedName> {
                                           builder: (BuildContext ctx) {
                                             return AlertDialog(
                                               content: Container(
-                                                padding: EdgeInsets.only(top: 30),
-                                                child: Text(
+                                                padding: const EdgeInsets.only(top: 30),
+                                                child: const Text(
                                                   "지원이 완료되었습니다!",
                                                   textAlign: TextAlign.center,
                                                 ),
@@ -126,20 +126,20 @@ class _ChangedNameState extends State<ChangedName> {
                                                             MaterialPageRoute(
                                                                 builder:
                                                                     (BuildContext context) =>
-                                                                    HomePage()),
+                                                                    const HomePage()),
                                                                 (route) => false);
                                                         Navigator.of(context,
                                                             rootNavigator: true)
                                                             .push(MaterialPageRoute(
-                                                            builder: (_) => Profile()));
+                                                            builder: (_) => const Profile()));
                                                       },
                                                       child: Container(
-                                                        decoration: BoxDecoration(
+                                                        decoration: const BoxDecoration(
                                                           color: Color(0xff74BABC),
                                                         ),
-                                                        child: Center(child: Text("확인")),
                                                         width: 60,
                                                         height: 30,
+                                                        child: const Center(child: Text("확인")),
                                                       )),
                                                 )
                                               ],
@@ -148,12 +148,12 @@ class _ChangedNameState extends State<ChangedName> {
 
 
                                     },
-                                    child: Text('Okay')),
+                                    child: const Text('Okay')),
                                 MaterialButton(
                                     onPressed: () {
                                       Navigator.of(context).pop(); // 팝업창 나가기
                                     },
-                                    child: Text('Cancel')),
+                                    child: const Text('Cancel')),
                               ],
                             );
                           });

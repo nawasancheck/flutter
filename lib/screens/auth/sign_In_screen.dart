@@ -102,7 +102,6 @@ class _SignInScreenState extends State<SignInScreen> {
                   onPressed: () async {
                     UserCredential userCredential = await AuthController.instance.signInWithFacebook();
                     await AuthController.instance.checkAuthDataInDB(userCredential);
-                    print(userCredential.user);
                   },
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                   color: const Color(0xff3B5999),
@@ -135,6 +134,7 @@ class _SignInScreenState extends State<SignInScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                // TODO : 웹페이지에서 WidgetScreen 연결하기
                 TextButton(
                   child: Text("이용약관", style: TextStyle(fontSize: 12.sp, color: const Color(0xff351313))),
                   onPressed: () async {
