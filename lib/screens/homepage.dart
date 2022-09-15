@@ -9,8 +9,10 @@ import 'manager/manager_list.dart';
 import 'my_profile/profile.dart';
 
 class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
+
   @override
-  _HomePageState createState() => _HomePageState();
+  State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
@@ -20,8 +22,8 @@ class _HomePageState extends State<HomePage> {
       // CupertinoTapScaffold : ios 디자인
       tabBar: CupertinoTabBar(
         // BottomNavigationBar
-        activeColor: Color(0xff93e3e6),
-        inactiveColor: Color(0xff909090),
+        activeColor: const Color(0xff74BABC),
+        inactiveColor: const Color(0xff909090),
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: "홈"),
           BottomNavigationBarItem(icon: Icon(EvaIcons.clipboardOutline), label: "게시판"),
@@ -34,29 +36,24 @@ class _HomePageState extends State<HomePage> {
         switch (index) {
           case 0:
             return CupertinoTabView(builder: (context) {
-              return CupertinoPageScaffold(child: ManagerListScreen());
+              return const CupertinoPageScaffold(child: ManagerListScreen());
             });
-            break;
           case 1:
             return CupertinoTabView(builder: (context) {
-              return CupertinoPageScaffold(child: FreeBoard());
+              return const CupertinoPageScaffold(child: FreeBoard());
             });
-            break;
           case 2:
             return CupertinoTabView(builder: (context) {
-              return CupertinoPageScaffold(child: ChatList());
+              return const CupertinoPageScaffold(child: ChatList());
             });
-            break;
           case 3:
             return CupertinoTabView(builder: (context) {
               return CupertinoPageScaffold(child: MyReservation());
             });
-            break;
           case 4:
             return CupertinoTabView(builder: (context) {
-              return CupertinoPageScaffold(child: Profile());
+              return const CupertinoPageScaffold(child: Profile());
             });
-            break;
           default:
             return const CupertinoTabView();
         }

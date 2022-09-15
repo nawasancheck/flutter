@@ -1,7 +1,4 @@
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/main.dart';
 import 'package:flutter_app/screens/homepage.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -17,14 +14,14 @@ class ReservationSummary extends StatelessWidget {
         centerTitle: true,
       )*/
       body: Container(
-        color: Color(0xffececec),
+        color: const Color(0xffececec),
         width: ScreenUtil().screenWidth,
         height: ScreenUtil().screenHeight,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              margin: EdgeInsets.only(top: 150),
+              margin: const EdgeInsets.only(top: 150),
               //color: Colors.yellow,
             ),
             Center(
@@ -35,7 +32,7 @@ class ReservationSummary extends StatelessWidget {
                   //color: Colors.blue,
                     borderRadius: BorderRadius.circular(15),
                     border: Border.all(color: Colors.white),
-                    color: Color(0xff93e3e6)
+                    color: const Color(0xff93e3e6)
                 ),
                 child: Center(
                   child: Text(
@@ -59,23 +56,23 @@ class ReservationSummary extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.only(bottom: 70),
-              child: Container(
+              child: SizedBox(
                 width: ScreenUtil().setWidth(200),
                 height: ScreenUtil().setHeight(50),
-                child: FlatButton(
-                    color: Color(0xff93e3e6),
+                child: MaterialButton(
+                    color: const Color(0xff93e3e6),
                     onPressed: () {
-                      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (BuildContext context) => HomePage()), (route) => false);
+                      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (BuildContext context) => const HomePage()), (route) => false);
                     },
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)),
                     child: Text(
                       "확인",
                       style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
                           fontSize: 17.sp),
-                    ),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10))),
+                    )),
               ),
             ),
           ],

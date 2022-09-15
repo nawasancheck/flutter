@@ -15,7 +15,7 @@ class NewMessage extends StatefulWidget {
   const NewMessage(this.opponentUID, this.opponentName, this.myRole, {Key? key}) : super(key: key);
 
   @override
-  _NewMessageState createState() => _NewMessageState(myRole);
+  State<NewMessage> createState() => _NewMessageState();
 }
 
 class _NewMessageState extends State<NewMessage> {
@@ -24,7 +24,6 @@ class _NewMessageState extends State<NewMessage> {
   var _userEnterMessage = '';
 
   // 첫 메시지에 넘겨준다.
-  final int myRole;
 
   // 내가 유저
   void userSend() async {
@@ -54,8 +53,7 @@ class _NewMessageState extends State<NewMessage> {
   }
 
   void managerSend() async {
-    DocumentReference<Map<String, dynamic>> docs1 =
-        await FirebaseFirestore.instance.collection("chat_manager").doc(currentUser.uid).collection(widget.opponentUID).add({
+    await FirebaseFirestore.instance.collection("chat_manager").doc(currentUser.uid).collection(widget.opponentUID).add({
       'text': _userEnterMessage,
       'fakeText': _userEnterMessage,
       'time': Timestamp.now().toDate(),
@@ -64,8 +62,7 @@ class _NewMessageState extends State<NewMessage> {
       'type': 'text'
     });
 
-    DocumentReference<Map<String, dynamic>> docs2 =
-        await FirebaseFirestore.instance.collection("chat_user").doc(widget.opponentUID).collection(currentUser.uid).add({
+    await FirebaseFirestore.instance.collection("chat_user").doc(widget.opponentUID).collection(currentUser.uid).add({
       'text': _userEnterMessage,
       'fakeText': _userEnterMessage,
       'time': Timestamp.now().toDate(),
@@ -141,9 +138,9 @@ class _NewMessageState extends State<NewMessage> {
   File? imageFile;
 
   Future getImage() async {
-    ImagePicker _picker = ImagePicker();
+    ImagePicker picker = ImagePicker();
 
-    await _picker.pickImage(source: ImageSource.gallery).then((xFile) {
+    await picker.pickImage(source: ImageSource.gallery).then((xFile) {
       if (xFile != null) {
         imageFile = File(xFile.path);
         uploadImage();
@@ -152,7 +149,7 @@ class _NewMessageState extends State<NewMessage> {
   }
 
   Future uploadImage() async {
-    String fileName = Uuid().v1();
+    String fileName = const Uuid().v1();
     var ref = FirebaseStorage.instance.ref().child('images').child("$fileName.jpg");
 
     var uploadTask = await ref.putFile(imageFile!);
@@ -185,19 +182,25 @@ class _NewMessageState extends State<NewMessage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 8),
-      padding: EdgeInsets.all(8),
+      color: Colors.white,
+      margin: const EdgeInsets.only(top: 8),
+      padding: const EdgeInsets.all(8),
       child: Row(
         children: [
           IconButton(
-            icon: Icon(Icons.image),
+            icon: const Icon(Icons.camera_alt_outlined),
             onPressed: () => getImage(),
           ),
           Expanded(
             child: TextField(
               maxLines: null,
               controller: _controller,
-              decoration: InputDecoration(labelText: 'Send a message...'),
+              decoration: const InputDecoration(
+                labelText: 'Send a message...',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                ),
+              ),
               onChanged: (value) {
                 // onChanged가 실행되면 값이 value에 들어온다.
                 setState(() {
@@ -210,7 +213,7 @@ class _NewMessageState extends State<NewMessage> {
             onPressed: () {
               if (_userEnterMessage.trim().isEmpty) {
               } else {
-                if (myRole == 1) {
+                if (widget.myRole == 1) {
                   _controller.clear();
                   userSend();
                 } else {
@@ -220,13 +223,11 @@ class _NewMessageState extends State<NewMessage> {
               }
             },
             // 좌우의 공백을 제거하고 비어있다면 null로 실행 X, 괄호가 있으면 값 리턴, 없으면 참조만
-            icon: Icon(Icons.send),
-            color: Colors.blue,
+            icon: const Icon(Icons.send),
+            color: const Color(0xff74c8cb),
           )
         ],
       ),
     );
   }
-
-  _NewMessageState(this.myRole);
 }

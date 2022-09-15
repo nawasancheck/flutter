@@ -10,22 +10,30 @@ class ChatScreenManager extends StatefulWidget {
   const ChatScreenManager(this.opponentUID, this.opponentName, this.myRole, {Key? key}) : super(key: key);
 
   @override
-  _ChatScreenManagerState createState() => _ChatScreenManagerState();
+  State<ChatScreenManager> createState() => _ChatScreenManagerState();
 }
 
 class _ChatScreenManagerState extends State<ChatScreenManager> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.opponentName),
-      ),
-      body: Container(
-        child: Column(
-          children: [
-            Expanded(child: MessagesManager(widget.opponentUID)),
-            NewMessage(widget.opponentUID, widget.opponentName, widget.myRole),
-          ],
+    return GestureDetector(
+      onTap: (){
+        FocusScope.of(context).unfocus();
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(widget.opponentName),
+          iconTheme: const IconThemeData(color: Colors.black),
+          backgroundColor: Colors.white,
+        ),
+        body: Container(
+            color: const Color(0xffececec),
+          child: Column(
+            children: [
+              Expanded(child: MessagesManager(widget.opponentUID)),
+              NewMessage(widget.opponentUID, widget.opponentName, widget.myRole),
+            ],
+          ),
         ),
       ),
     );

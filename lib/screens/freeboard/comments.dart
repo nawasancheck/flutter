@@ -13,7 +13,7 @@ class Comments extends StatelessWidget {
         stream: FirebaseFirestore.instance.collection("board_test").doc(boardNum).collection('comment').snapshots(),
         builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }

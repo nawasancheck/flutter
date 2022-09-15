@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/controller/auth/auth_controller.dart';
-import 'package:flutter_app/screens/reservation/do_reserve/reservation_summary.dart';
+import 'package:flutter_app/screens/homepage.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -63,37 +63,47 @@ class _ReserveScreenState extends State<ReserveScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xff93e3e6),
-        title: Text("산책 예약"),
+        backgroundColor: Colors.white,
+        title: Text("산책 예약", style: TextStyle(color: Color(0xff324755),
+          fontSize: 20.sp,
+          fontWeight: FontWeight.bold,),),
         centerTitle: true,
+        iconTheme: IconThemeData(color: Colors.black),
       ),
       body: GestureDetector(
         onTap: () {
           FocusScope.of(context).unfocus();
         },
         child: SingleChildScrollView(
-          child: Container(
-            padding: EdgeInsets.only(top: 10),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+          child: Center(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(0,20,0,10),
+              child: Container(
+                width: ScreenUtil().setWidth(360),
+                //color: Colors.yellow,
+                padding: EdgeInsets.only(top: 10),
+                child: Column(
                   children: [
-                    Icon(EvaIcons.clockOutline),
-                    Text(
-                      " 산책 시간",
-                      style: TextStyle(
-                        fontSize: 19.sp,
-                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(EvaIcons.clockOutline),
+                        Text(
+                          " 산책 시간",
+                          style: TextStyle(
+                            fontSize: 19.sp,
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-                Container(
-                  child: Column(
-                      children: checkList1
-                          .map<Widget>(
-                            (String v) => Container(
-                              margin: EdgeInsets.only(left: 80, right: 80),
+                    Container(
+                      //color: Colors.red,
+                      child: Column(
+                          children: checkList1
+                              .map<Widget>(
+                                (String v) => Container(
+                              //color: Colors.green,
+                              //margin: EdgeInsets.only(left: 80, right: 80),
                               padding: EdgeInsets.only(top: 5),
                               child: CheckboxListTile(
                                 onChanged: (bool? check) => setState(() => this.wantTime = v),
@@ -102,193 +112,262 @@ class _ReserveScreenState extends State<ReserveScreen> {
                               ),
                             ),
                           )
-                          .toList()),
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                Container(
-                  child: Column(
-                    children: [
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(EvaIcons.calendarOutline),
-                              Text(
-                                " 날짜 ",
-                                style: TextStyle(fontSize: 19.sp),
-                              ),
-                            ],
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(top: 20),
-                            padding: EdgeInsets.all(5),
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black45),
-                            ),
-                            child: InkWell(
-                              onTap: () => _pickDateDialog(context),
-                              child: Text(getText()),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 30,
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(EvaIcons.clockOutline),
-                              Text(
-                                " 시간 ",
-                                style: TextStyle(fontSize: 19.sp),
-                              ),
-                            ],
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(top: 20),
-                            padding: EdgeInsets.all(5),
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black45),
-                            ),
-                            child: InkWell(
-                                onTap: () {
-                                  Future<TimeOfDay?> selectedTime = showTimePicker(
-                                    context: context,
-                                    initialTime: TimeOfDay.now(),
-                                  );
+                              .toList()),
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
 
-                                  selectedTime.then((timeOfDay) {
-                                    setState(() {
-                                      _selectedTime = '${timeOfDay?.hour}시 ${timeOfDay?.minute}분';
-                                    });
-                                  });
-                                },
-                                child: Text(getText1())),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 30,
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                    Divider(
+                      thickness: 1,
+                    ),
+
+                    Row(
+                      children: [
+                        Container(// 날짜
+                          // color: Colors.green,
+                          width: ScreenUtil().setWidth(180),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              Icon(EvaIcons.pinOutline),
-                              Text(
-                                " 장소 ",
-                                style: TextStyle(fontSize: 19.sp),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(EvaIcons.calendarOutline),
+                                  Text(
+                                    " 날짜 ",
+                                    style: TextStyle(fontSize: 19.sp),
+                                  ),
+                                ],
+                              ),
+                              Container(
+                                margin: EdgeInsets.only(top: 20),
+                                padding: EdgeInsets.all(5),
+                                decoration: BoxDecoration(
+                                  border: Border.all(color: Colors.black45),
+                                ),
+                                child: InkWell(
+                                  onTap: () => _pickDateDialog(context),
+                                  child: Text(getText()),
+                                ),
+                              ),
+                              Container(),
+                            ],
+                          ),
+                        ),
+
+                        Container(
+                          width: ScreenUtil().setWidth(180),
+                          //color: Colors.orange,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(EvaIcons.clockOutline),
+                                  Text(
+                                    " 시간 ",
+                                    style: TextStyle(fontSize: 19.sp),
+                                  ),
+                                ],
+                              ),
+                              Container(
+                                margin: EdgeInsets.only(top: 20),
+                                padding: EdgeInsets.all(5),
+                                decoration: BoxDecoration(
+                                  border: Border.all(color: Colors.black45),
+                                ),
+                                child: InkWell(
+                                    onTap: () {
+                                      Future<TimeOfDay?> selectedTime = showTimePicker(
+                                        context: context,
+                                        initialTime: TimeOfDay.now(),
+                                      );
+
+                                      selectedTime.then((timeOfDay) {
+                                        setState(() {
+                                          _selectedTime = '${timeOfDay?.hour}시 ${timeOfDay?.minute}분';
+                                        });
+                                      });
+                                    },
+                                    child: Text(getText1())),
                               ),
                             ],
                           ),
-                          Container(
-                            margin: EdgeInsets.only(left: 20, right: 20, bottom: 17),
-                            child: TextField(
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(EvaIcons.pinOutline),
+                            Text(
+                              " 장소 ",
+                              style: TextStyle(fontSize: 19.sp),
+                            ),
+                          ],
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(left: 20, right: 20, bottom: 17),
+                          child: TextField(
+                              maxLines: 3,
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                                contentPadding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                                hintText: "만날 장소를 적어주세요!",
+                                hintMaxLines: 3,
+                              ),
+                              onChanged: (value) {
+                                setState(() {
+                                  place = value.trim();
+                                });
+                              }),
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+
+                    Divider(
+                      thickness: 1,
+                    ),
+
+                    Container(
+                        margin: EdgeInsets.only(left: 20, right: 20, bottom: 17),
+                        child: Column(
+                          children: [
+                            Text(
+                              "요청사항",
+                              style: TextStyle(fontSize: 19.sp),
+                            ),
+                            TextField(
                                 maxLines: 3,
                                 decoration: InputDecoration(
                                   border: OutlineInputBorder(),
                                   contentPadding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-                                  hintText: "만날 장소를 적어주세요!",
+                                  hintText: "그 밖에 요청사항을 적어주세요!",
                                   hintMaxLines: 3,
                                 ),
                                 onChanged: (value) {
                                   setState(() {
-                                    place = value.trim();
+                                    requests = value.trim();
                                   });
-                                }),
-                          )
-                        ],
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Container(
-                          margin: EdgeInsets.only(left: 20, right: 20, bottom: 17),
-                          child: Column(
-                            children: [
-                              Text(
-                                "요청사항",
-                                style: TextStyle(fontSize: 19.sp),
-                              ),
-                              TextField(
-                                  maxLines: 3,
-                                  decoration: InputDecoration(
-                                    border: OutlineInputBorder(),
-                                    contentPadding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-                                    hintText: "그 밖에 요청사항을 적어주세요!",
-                                    hintMaxLines: 3,
-                                  ),
-                                  onChanged: (value) {
-                                    setState(() {
-                                      requests = value.trim();
-                                    });
-                                  })
-                            ],
-                          )),
-                    ],
-                  ),
-                ),
-                FlatButton(
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                    color: Color(0xff93e3e6),
-                    onPressed: () async {
-                      late String? clientName;
-                      clientName = AuthController.instance.authentication.currentUser!.displayName;
-                      clientName ?? AuthController.instance.authentication.currentUser!.providerData.first.displayName;
+                                })
+                          ],
+                        )),
 
-                      DocumentReference<Map<String, dynamic>> docs1 = await FirebaseFirestore.instance
-                          .collection("client_reserve")
-                          .doc(AuthController.instance.authentication.currentUser!.uid)
-                          .collection('reserve')
-                          .add({
-                        'wantTime': wantTime,
-                        'selectDate': _selectedDate,
-                        'selectTime': _selectedTime,
-                        'place': place,
-                        'requests': requests,
-                        'reserveTime': Timestamp.now().toDate(),
-                        'managerUid': widget.managerUID,
-                        'status': '산책 예약',
-                        'managerImageUrl': widget.managerImageUrl,
-                        'managerTitle': widget.managerName,
-                      });
-                      DocumentReference<Map<String, dynamic>> docs2 =
-                          await FirebaseFirestore.instance.collection("reserve").doc(widget.managerUID).collection('reserve').add({
-                        'wantTime': wantTime,
-                        'selectDate': _selectedDate,
-                        'selectTime': _selectedTime,
-                        'place': place,
-                        'requests': requests,
-                        'reserveTime': Timestamp.now().toDate(),
-                        'client': clientName,
-                        'clientUid': AuthController.instance.authentication.currentUser!.uid,
-                        'status': '산책 예약',
-                        'managerUid': widget.managerUID,
-                        'managerImageUrl': widget.managerImageUrl,
-                        'managerTitle': widget.managerName,
-                        'clientReserveUid': docs1.id
-                      });
-                      docs1.update({
-                        'id': docs1.id,
-                        'managerReserveUid': docs2.id,
-                      });
-                      docs2.update({
-                        'id': docs2.id,
-                      });
-                      Get.to(() => ReservationSummary());
-                    },
-                    child: Text("산책 요청하기"))
-              ],
+
+                    InkWell(
+                      onTap: () async {
+                        late String? clientName;
+                        clientName = AuthController.instance.authentication.currentUser!.displayName;
+                        clientName ?? AuthController.instance.authentication.currentUser!.providerData.first.displayName;
+
+                        DocumentReference<Map<String, dynamic>> docs1 = await FirebaseFirestore.instance
+                            .collection("client_reserve")
+                            .doc(AuthController.instance.authentication.currentUser!.uid)
+                            .collection('reserve')
+                            .add({
+                          'wantTime': wantTime,
+                          'selectDate': _selectedDate,
+                          'selectTime': _selectedTime,
+                          'place': place,
+                          'requests': requests,
+                          'reserveTime': Timestamp.now().toDate(),
+                          'managerUid': widget.managerUID,
+                          'status': '산책 요청',
+                          'managerImageUrl': widget.managerImageUrl,
+                          'managerTitle': widget.managerName,
+                        });
+                        DocumentReference<Map<String, dynamic>> docs2 =
+                        await FirebaseFirestore.instance.collection("reserve").doc(widget.managerUID).collection('reserve').add({
+                          'wantTime': wantTime,
+                          'selectDate': _selectedDate,
+                          'selectTime': _selectedTime,
+                          'place': place,
+                          'requests': requests,
+                          'reserveTime': Timestamp.now().toDate(),
+                          'client': clientName,
+                          'clientUid': AuthController.instance.authentication.currentUser!.uid,
+                          'status': '산책 요청',
+                          'managerUid': widget.managerUID,
+                          'managerImageUrl': widget.managerImageUrl,
+                          'managerTitle': widget.managerName,
+                          'clientReserveUid': docs1.id
+                        });
+                        docs1.update({
+                          'id': docs1.id,
+                          'managerReserveUid': docs2.id,
+                        });
+                        docs2.update({
+                          'id': docs2.id,
+                        });
+                        showDialog(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (BuildContext ctx) {
+                              return AlertDialog(
+                                content: Container(
+                                  padding: EdgeInsets.only(top: 30),
+                                  child: Text(
+                                    "산책 요청이 완료되었습니다.\n"
+                                        "\n"
+                                        "리스너가 확인할 때까지\n"
+                                        "조금만 기다려주세요!",
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                                actions: [
+                                  Center(
+                                    child: MaterialButton(
+                                        onPressed: () {
+                                          Get.to(() => HomePage());
+                                        },
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            color: Color(0xff93e3e6),
+                                          ),
+                                          child: Center(child: Text("확인")),
+                                          width: 60,
+                                          height: 30,
+                                        )),
+                                  )
+                                ],
+                              );
+                            }
+                        );
+                      },
+                      child: Container(
+                        width: ScreenUtil().setWidth(360),
+                        height: ScreenUtil().setHeight(60),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(color: Color(0xff909090), width: 2),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(EvaIcons.messageSquareOutline,color: Colors.grey,),
+                            SizedBox(width: 8),
+                            Text('산책 요청하기',style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold),),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
           ),
         ),

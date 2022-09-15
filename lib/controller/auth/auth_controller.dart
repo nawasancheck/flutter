@@ -5,6 +5,7 @@ import 'package:flutter_app/controller/auth/kakao/kakao_login.dart';
 import 'package:flutter_app/controller/auth/kakao/login_view_model.dart';
 import 'package:flutter_app/screens/auth/sign_In_screen.dart';
 import 'package:flutter_app/screens/homepage.dart';
+import 'package:flutter_app/terms/terms_of_service.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -24,9 +25,9 @@ class AuthController extends GetxController {
 
   _moveToPage(User? user) {
     if (user == null) {
-      Get.offAll(() => SignInScreen());
+      Get.offAll(() => const SignInScreen());
     } else {
-      Get.offAll(() => HomePage());
+      Get.offAll(() => const HomePage());
     }
   }
 
@@ -61,9 +62,7 @@ class AuthController extends GetxController {
         'uid': userCredential!.user!.uid,
         'displayName': userCredential.user!.displayName,
         'email': userCredential.user!.email,
-        'photoURL': userCredential.user!.photoURL == null
-            ? "https://developers.kakao.com/docs/static/image/ko/m/kakaotalk-social.png"
-            : userCredential.user!.photoURL
+        'photoURL': userCredential.user!.photoURL ?? "https://developers.kakao.com/docs/static/image/ko/m/kakaotalk-social.png"
       },
     );
     return FirebaseAuth.instance.signInWithCustomToken(token);
@@ -72,20 +71,7 @@ class AuthController extends GetxController {
   Future<void> checkAuthDataInDB(UserCredential userCredential) async {
     var querySnapshot = await FirebaseFirestore.instance.collection("user").doc(userCredential.user?.uid).get();
     if (!querySnapshot.exists) {
-      await FirebaseFirestore.instance.collection('user').doc(userCredential.user!.uid).set(
-        {
-          'userName': userCredential.user!.displayName,
-          'email': userCredential.user!.providerData.first.email,
-          'role': 'client',
-          'userUID': userCredential.user!.uid,
-          'profile': {
-            'isPressList': [],
-            'title': userCredential.user!.displayName,
-            'imageUrl': 'https://firebasestorage.googleapis.com/v0/b/nawasancheck.appspot.com/o/images%2Flogo.png?alt=media&token=d310c32d-a9e6-4ff2-b3a6-516544e3cedf',
-          },
-          'wishList': []
-        },
-      );
+      Get.to(() => TermsOfService(userCredential));
     }
   }
 }
