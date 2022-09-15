@@ -16,6 +16,7 @@ class ReservationRequestInfo extends StatelessWidget {
     '산책 취소': '산책이 취소 되었습니다.',
     '산책 거절': '리스너가 고객님의 요청을 거절하였습니다.',
     '산책 예정': '산책이 예약되었습니다.',
+    '산책 완료': '산책이 종료되었습니다.',
   };
   ReservationRequestInfo(this.information, {Key? key}) : super(key: key);
 
@@ -92,7 +93,7 @@ class ReservationRequestInfo extends StatelessWidget {
                                       const Flexible( fit: FlexFit.tight,child: SizedBox(width: 1,)),
                                       Container(width: ScreenUtil().setWidth(130), height: ScreenUtil().setHeight(130),
                                           decoration: BoxDecoration(color: Colors.pink, borderRadius: BorderRadius.circular(20)
-                                              ,image: const DecorationImage(image: AssetImage('assets/jinkyo.png'), fit: BoxFit.cover),),
+                                              ,image: DecorationImage(image: NetworkImage(information['managerImageUrl']), fit: BoxFit.cover),),
                                       ),
                                     ],
                                   ),
