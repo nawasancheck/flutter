@@ -16,10 +16,10 @@ class _MyReservationState extends State<MyReservation> {
   //final List<int> numbers = <int>[1, 2, 3, 4, 5, 6, 7];
 
   // 고객용
-  final Map<String, Color> colorListCustomer = { "산책 요청": Color(0xffe1f3f3), '산책 예정': Color(0xff74BABC), '산책 완료': Colors.grey, "산책 취소": Color(0xffFF738C),  "산책 거절": Color(0xffFDFD96),};
+  final Map<String, Color> colorListCustomer = { "산책 요청": Color(0xffe1f3f3), '산책 예정': Color(0xff74BABC), '산책 완료': Color(0xffc4c4c4), "산책 취소": Color(0xffFF738C),  "산책 거절": Color(0xffFDFD96),};
 
   // 리스너용
-  final Map<String, Color> colorListManager = {'산책 요청': Color(0xffe1f3f3), "산책 예정": Color(0xff74BABC),  '산책 완료': Colors.grey, '산책 취소': Color(0xffFF738C), '산책 거절': Color(0xffFDFD96), };
+  final Map<String, Color> colorListManager = {'산책 요청': Color(0xffe1f3f3), "산책 예정": Color(0xff74BABC),  '산책 완료': Color(0xffc4c4c4), '산책 취소': Color(0xffFF738C), '산책 거절': Color(0xffFDFD96), };
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
