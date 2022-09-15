@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/screens/chatting/message_user.dart';
 import 'package:flutter_app/screens/chatting/new_message.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ChatScreenUser extends StatefulWidget {
   final String opponentUID;
@@ -22,7 +23,8 @@ class _ChatScreenUserState extends State<ChatScreenUser> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text(widget.opponentName, style: TextStyle(color: Colors.black),),
+          centerTitle: true,
+          title: Text(widget.opponentName, style: TextStyle(color: Color(0xff324755), fontSize: 20.sp, fontWeight: FontWeight.bold),),
           iconTheme: IconThemeData(color: Colors.black),
           backgroundColor: Colors.white,
         ),
