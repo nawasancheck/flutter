@@ -113,7 +113,7 @@ class _ChangedNameState extends State<ChangedName> {
                                               content: Container(
                                                 padding: const EdgeInsets.only(top: 30),
                                                 child: const Text(
-                                                  "지원이 완료되었습니다!",
+                                                  "닉네임이 변경되었습니다.",
                                                   textAlign: TextAlign.center,
                                                 ),
                                               ),
