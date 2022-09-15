@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/controller/auth/auth_controller.dart';
+import 'package:flutter_app/screens/my_profile/profile.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../homepage.dart';
 
 
 class ChangedName extends StatefulWidget {
@@ -98,6 +101,52 @@ class _ChangedNameState extends State<ChangedName> {
                                 MaterialButton(
                                     onPressed: () {
                                       AuthController.instance.authentication.currentUser!.updateDisplayName(name);
+
+
+
+
+                                      showDialog(
+                                          context: context,
+                                          barrierDismissible: false,
+                                          builder: (BuildContext ctx) {
+                                            return AlertDialog(
+                                              content: Container(
+                                                padding: EdgeInsets.only(top: 30),
+                                                child: Text(
+                                                  "지원이 완료되었습니다!",
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                              ),
+                                              actions: [
+                                                Center(
+                                                  child: MaterialButton(
+                                                      onPressed: () {
+                                                        Navigator.pushAndRemoveUntil(
+                                                            context,
+                                                            MaterialPageRoute(
+                                                                builder:
+                                                                    (BuildContext context) =>
+                                                                    HomePage()),
+                                                                (route) => false);
+                                                        Navigator.of(context,
+                                                            rootNavigator: true)
+                                                            .push(MaterialPageRoute(
+                                                            builder: (_) => Profile()));
+                                                      },
+                                                      child: Container(
+                                                        decoration: BoxDecoration(
+                                                          color: Color(0xff74BABC),
+                                                        ),
+                                                        child: Center(child: Text("확인")),
+                                                        width: 60,
+                                                        height: 30,
+                                                      )),
+                                                )
+                                              ],
+                                            );
+                                          });
+
+
                                     },
                                     child: Text('Okay')),
                                 MaterialButton(

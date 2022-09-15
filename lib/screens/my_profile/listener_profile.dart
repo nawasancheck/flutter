@@ -81,7 +81,7 @@ class _ListenerProfileState extends State<ListenerProfile> {
                                   ),
                                   actions: [
                                     Center(
-                                      child: FlatButton(
+                                      child: MaterialButton(
                                           onPressed: () {
                                             Navigator.of(context).pop();
                                           },
@@ -148,7 +148,7 @@ class _ListenerProfileState extends State<ListenerProfile> {
                                   ),
                                   actions: [
                                     Center(
-                                      child: FlatButton(
+                                      child: MaterialButton(
                                           onPressed: () {
                                             Navigator.of(context).pop();
                                           },
