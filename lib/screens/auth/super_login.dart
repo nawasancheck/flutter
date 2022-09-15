@@ -27,11 +27,11 @@ class _SuperLogInState extends State<SuperLogIn> {
           height: ScreenUtil().setHeight(48),
           child: TextField(
             decoration: InputDecoration(
-              border: OutlineInputBorder(),
+              border: const OutlineInputBorder(),
               labelText: '이메일을 입력해주세요',
               labelStyle: TextStyle(
                 fontSize: 14.sp,
-                color: Color(0xffc4c4c4),
+                color: const Color(0xffc4c4c4),
               ),
             ),
             onChanged: (value) {
@@ -48,10 +48,10 @@ class _SuperLogInState extends State<SuperLogIn> {
           child: TextField(
             obscureText: true,
             decoration: InputDecoration(
-              border: OutlineInputBorder(),
+              border: const OutlineInputBorder(),
               labelStyle: TextStyle(
                 fontSize: 14.sp,
-                color: Color(0xffc4c4c4),
+                color: const Color(0xffc4c4c4),
               ),
               labelText: '비밀번호 8~16자, 영문, 숫자, 특수문자',
             ),
@@ -64,7 +64,7 @@ class _SuperLogInState extends State<SuperLogIn> {
         ),
         Padding(
           padding: const EdgeInsets.fromLTRB(0, 20, 0, 3),
-          child: Container(
+          child: SizedBox(
             width: 327.w,
             height: 43.h,
             child: MaterialButton(
@@ -76,10 +76,10 @@ class _SuperLogInState extends State<SuperLogIn> {
                 }
               },
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-              color: Color(0xff74BABC),
+              color: const Color(0xff74BABC),
               child: Text(
                 "로그인",
-                style: TextStyle(fontSize: 16.sp, color: Color(0xffffffff), fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 16.sp, color: const Color(0xffffffff), fontWeight: FontWeight.bold),
               ),
             ),
           ),

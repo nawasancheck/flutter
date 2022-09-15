@@ -11,19 +11,21 @@ void main() async {
   kakao.KakaoSdk.init(nativeAppKey: "5f6b7a61977cc2db8ae81dce39f2c917");
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp().then((_) => Get.put(AuthController()));
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: Size(392.7, 781.1),
+      designSize: const Size(392.7, 781.1),
       minTextAdapt: true,
       builder: (context, child) => GetMaterialApp(
-        home: SignInScreen(),
+        home: const SignInScreen(),
         title: '나와산책',
-        theme: ThemeData(primaryColor: Color(0xffffffff)),
+        theme: ThemeData(primaryColor: const Color(0xffffffff)),
         debugShowCheckedModeBanner: false,
         // 폰트 사이즈 고정
         builder: (context, child) {

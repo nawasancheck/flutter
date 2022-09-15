@@ -35,11 +35,11 @@ class _WriteCommentState extends State<WriteComment> {
     }
 
     return Container(
-      margin: EdgeInsets.only(top: 8),
-      padding: EdgeInsets.all(8),
+      margin: const EdgeInsets.only(top: 8),
+      padding: const EdgeInsets.all(8),
       child: Row(
         children: [
-          Container(
+          SizedBox(
             width: ScreenUtil().setWidth(360), // 원래 Width : 360
             child: TextField(
               maxLines: null,
@@ -47,12 +47,12 @@ class _WriteCommentState extends State<WriteComment> {
               controller: _commentController,
               decoration: InputDecoration(
                 labelText: '댓글 쓰기',
-                border: OutlineInputBorder(
+                border: const OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(10)),
                 ),
                 suffixIcon: IconButton(
                   onPressed: _userEnterMessage.trim().isEmpty ? null : _writeComment,
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.send,
                     color: Color(0xffBF6F6F),
                   ),

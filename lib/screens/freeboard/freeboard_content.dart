@@ -25,24 +25,24 @@ class FreeBoardContentState extends State<FreeBoardContent> {
       child: Scaffold(
           resizeToAvoidBottomInset: true,
           appBar: AppBar(
-            iconTheme: IconThemeData(
+            iconTheme: const IconThemeData(
               color: Color(0xff324755),
             ),
             title: Text(
               "자유게시판",
               style: TextStyle(
-                color: Color(0xff324755),
+                color: const Color(0xff324755),
                 fontSize: 20.sp,
                 fontWeight: FontWeight.bold,
               ),
             ),
             centerTitle: true,
-            backgroundColor: Color(0xffffffff),
+            backgroundColor: const Color(0xffffffff),
             actions: [
               PopupMenuButton(
                 itemBuilder: (context) {
                   return [
-                    PopupMenuItem<int>(
+                    const PopupMenuItem<int>(
                       value: 0,
                       child: Text('글 삭제'), // 자신이 쓴 글이 맞은 경우 삭제
                     ),
@@ -55,25 +55,25 @@ class FreeBoardContentState extends State<FreeBoardContent> {
                         barrierDismissible: false, // 바깥영역 터치시 닫힐지 여부
                         builder: (BuildContext context) {
                           return AlertDialog(
-                            title: Text("팝업 메세지"),
-                            content: Text('해당 글을 삭제 하시겠습니까?'),
+                            title: const Text("팝업 메세지"),
+                            content: const Text('해당 글을 삭제 하시겠습니까?'),
                             actions: [
                               MaterialButton(
-                                  onPressed: () async {
+                                  onPressed: () {
                                     Navigator.of(context).pop(); // 팝업창 나가기
 
                                     print(widget.boardNum);
-                                    var freeboardData = await FirebaseFirestore.instance.collection("board_test").doc(widget.boardNum);
+                                    var freeboardData = FirebaseFirestore.instance.collection("board_test").doc(widget.boardNum);
 
                                     freeboardData.delete();
                                     Navigator.pop(context);
                                   },
-                                  child: Text('Okay')),
+                                  child: const Text('Okay')),
                               MaterialButton(
                                   onPressed: () {
                                     Navigator.of(context).pop(); // 팝업창 나가기
                                   },
-                                  child: Text('Cancel')),
+                                  child: const Text('Cancel')),
                             ],
                           );
                         });
@@ -95,12 +95,12 @@ class FreeBoardContentState extends State<FreeBoardContent> {
                     stream: FirebaseFirestore.instance.collection('board_test').doc(widget.boardNum).snapshots(),
                     builder: (context, AsyncSnapshot<DocumentSnapshot<Map<String, dynamic>>> snapshot) {
                       if (!snapshot.hasData) {
-                        return Center(child: CircularProgressIndicator());
+                        return const Center(child: CircularProgressIndicator());
                       }
 
                       var docs = snapshot.data!;
                       List isPressedList = docs['isPressedList'];
-                      bool isPressed = isPressedList.contains('${AuthController.instance.authentication.currentUser!.uid}');
+                      bool isPressed = isPressedList.contains(AuthController.instance.authentication.currentUser!.uid);
 
                       var time = docs['time'].toDate();
                       var ampm = '';
@@ -117,7 +117,7 @@ class FreeBoardContentState extends State<FreeBoardContent> {
                       return ListView(
                         // 글내용 + 댓글
                         children: [
-                          Container(
+                          SizedBox(
                             // 작성자 프로필 부분
                             //color: Color(0xffe1f3f3),
                             //         color: Colors.green,
@@ -127,7 +127,7 @@ class FreeBoardContentState extends State<FreeBoardContent> {
                               child: Padding(
                                 padding: const EdgeInsets.only(top: 10),
                                 // divider랑 대칭 맞추기 위해서
-                                child: Container(
+                                child: SizedBox(
                                   //  color: Colors.blue,
                                   width: ScreenUtil().setWidth(360),
                                   height: ScreenUtil().setHeight(80),
@@ -151,7 +151,7 @@ class FreeBoardContentState extends State<FreeBoardContent> {
                               ),
                             ),
                           ),
-                          Divider(
+                          const Divider(
                             indent: 16.35,
                             endIndent: 16.35,
                             thickness: 1,
@@ -160,7 +160,7 @@ class FreeBoardContentState extends State<FreeBoardContent> {
                             height: ScreenUtil().setHeight(5),
                           ),
                           Center(
-                            child: Container(
+                            child: SizedBox(
                               // 글 제목,
                               //       color: Colors.green,
                               width: ScreenUtil().setWidth(360),
@@ -175,7 +175,7 @@ class FreeBoardContentState extends State<FreeBoardContent> {
                             height: ScreenUtil().setHeight(10),
                           ),
                           Center(
-                            child: Container(
+                            child: SizedBox(
                               // 글 내용
                               //     color: Colors.red,
                               width: ScreenUtil().setWidth(360),
@@ -183,7 +183,7 @@ class FreeBoardContentState extends State<FreeBoardContent> {
                               child: Text(
                                 '${docs['content']}',
                                 style: TextStyle(
-                                  color: Color(0xff8e8594),
+                                  color: const Color(0xff8e8594),
                                   fontSize: 18.sp,
                                 ),
                               ),
@@ -198,7 +198,7 @@ class FreeBoardContentState extends State<FreeBoardContent> {
                                 .snapshots(),
                             builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot2) {
                               if (!snapshot2.hasData) {
-                                return Center(child: CircularProgressIndicator());
+                                return const Center(child: CircularProgressIndicator());
                               }
 
                               var docs2 = snapshot2.data!.docs;
@@ -223,12 +223,12 @@ class FreeBoardContentState extends State<FreeBoardContent> {
                                             child: isPressed
                                                 ? Icon(
                                                     EvaIcons.heart,
-                                                    color: Color(0xffDC143C),
+                                                    color: const Color(0xffDC143C),
                                                     size: 21.sp,
                                                   )
                                                 : Icon(
                                                     EvaIcons.heartOutline,
-                                                    color: Color(0xffDC143C),
+                                                    color: const Color(0xffDC143C),
                                                     size: 21.sp,
                                                   ),
                                             onTap: () {
@@ -245,27 +245,27 @@ class FreeBoardContentState extends State<FreeBoardContent> {
                                               });
                                             }),
                                         Transform.translate(
-                                          offset: Offset(-2,2),
+                                          offset: const Offset(-2,2),
                                           child: Text(
                                             " ${docs['isPressedList'].length}  ",
                                             style: TextStyle(
                                               fontSize: 15.sp,
-                                              color: Color(0xff0FF738C),
+                                              color: const Color(0xff0ff738c),
                                             ),
                                           ),
                                         ),
                                         Icon(
                                           EvaIcons.messageCircleOutline,
-                                          color: Color(0xff74BABC),
+                                          color: const Color(0xff74BABC),
                                           size: 21.sp,
                                         ),
                                         Transform.translate(
-                                          offset: Offset(-0.4,2),
+                                          offset: const Offset(-0.4,2),
                                           child: Text(
                                             " ${docs2.length}  ",
                                             style: TextStyle(
                                               fontSize: 15.sp,
-                                              color: Color(0xff74BABC),
+                                              color: const Color(0xff74BABC),
                                             ),
                                           ),
                                         ),
@@ -277,7 +277,7 @@ class FreeBoardContentState extends State<FreeBoardContent> {
                                   ),
                                   ListView.builder(
                                     // 댓글 부분
-                                    physics: NeverScrollableScrollPhysics(), // listview 안 listview 쓰는 경우 스크롤 자연스럽게
+                                    physics: const NeverScrollableScrollPhysics(), // listview 안 listview 쓰는 경우 스크롤 자연스럽게
                                     shrinkWrap: true,
                                     itemCount: docs2.length,
                                     itemBuilder: (context, index) {
@@ -301,7 +301,7 @@ class FreeBoardContentState extends State<FreeBoardContent> {
                                               children: [
                                                 Padding(
                                                   padding: const EdgeInsets.fromLTRB(0,10,0,0),
-                                                  child: Container(
+                                                  child: SizedBox(
                                                    // color:Colors.green,
                                                     height: ScreenUtil().setHeight(32),
                                                     child: Row(
@@ -319,13 +319,13 @@ class FreeBoardContentState extends State<FreeBoardContent> {
                                                             color: Colors.white,
                                                           ),
                                                         ),
-                                                        Text("   ${docs2[index]['userName']}",style: TextStyle(color: Color(0xff324755), fontSize: 14.sp),),
+                                                        Text("   ${docs2[index]['userName']}",style: TextStyle(color: const Color(0xff324755), fontSize: 14.sp),),
                                                         Transform.translate(
-                                                          offset: Offset(-10,-3),
+                                                          offset: const Offset(-10,-3),
                                                           child: PopupMenuButton(
                                                             itemBuilder: (context) {
                                                               return [
-                                                                PopupMenuItem<int>(
+                                                                const PopupMenuItem<int>(
                                                                   value: 0,
                                                                   child: Text('댓글 삭제'), // 자신이 쓴 글이 맞은 경우 삭제
                                                                 ),
@@ -339,19 +339,19 @@ class FreeBoardContentState extends State<FreeBoardContent> {
                                                                     // 바깥영역 터치시 닫힐지 여부
                                                                     builder: (BuildContext context) {
                                                                       return AlertDialog(
-                                                                        title: Text("팝업 메세지"),
-                                                                        content: Text('해당 댓글을 삭제 하시겠습니까?'),
+                                                                        title: const Text("팝업 메세지"),
+                                                                        content: const Text('해당 댓글을 삭제 하시겠습니까?'),
                                                                         actions: [
                                                                           MaterialButton(
                                                                               onPressed: () {
                                                                                 Navigator.of(context).pop(); // 팝업창 나가기
                                                                               },
-                                                                              child: Text('Okay')),
+                                                                              child: const Text('Okay')),
                                                                           MaterialButton(
                                                                               onPressed: () {
                                                                                 Navigator.of(context).pop(); // 팝업창 나가기
                                                                               },
-                                                                              child: Text('Cancel')),
+                                                                              child: const Text('Cancel')),
                                                                         ],
                                                                       );
                                                                     });
@@ -367,7 +367,7 @@ class FreeBoardContentState extends State<FreeBoardContent> {
                                                 docs2[index]['text'].length<50 ? Row(
                                                   mainAxisAlignment: MainAxisAlignment.start,
                                                   children: [
-                                                    Text(" ${docs2[index]['text']}",style: TextStyle(fontSize: 14.sp, color: Color(0xff737373)),),
+                                                    Text(" ${docs2[index]['text']}",style: TextStyle(fontSize: 14.sp, color: const Color(0xff737373)),),
                                                   ],
                                                 )
                                                 :
@@ -375,14 +375,14 @@ class FreeBoardContentState extends State<FreeBoardContent> {
                                                   mainAxisAlignment: MainAxisAlignment.start,
                                                   crossAxisAlignment: CrossAxisAlignment.start,
                                                   children: [
-                                                    Text(" ${docs2[index]['text']}",style: TextStyle(fontSize: 14.sp, color: Color(0xff737373),),)
+                                                    Text(" ${docs2[index]['text']}",style: TextStyle(fontSize: 14.sp, color: const Color(0xff737373),),)
                                                   ],
                                                 ),
                                                 Padding(
                                                   padding: const EdgeInsets.fromLTRB(0, 10, 0, 26),
                                                   child: Row(
                                                     children: [
-                                                      Text("$writeTime2"),
+                                                      Text(writeTime2),
                                                     ],
                                                   ),
                                                 ),

@@ -8,6 +8,8 @@ import 'package:get/get.dart';
 import 'customer/reservation_request_info.dart';
 
 class MyReservation extends StatefulWidget {
+  const MyReservation({Key? key}) : super(key: key);
+
   @override
   State<MyReservation> createState() => _MyReservationState();
 }
@@ -16,10 +18,10 @@ class _MyReservationState extends State<MyReservation> {
   //final List<int> numbers = <int>[1, 2, 3, 4, 5, 6, 7];
 
   // 고객용
-  final Map<String, Color> colorListCustomer = { "산책 요청": Color(0xffe1f3f3), '산책 예정': Color(0xff74BABC), '산책 완료': Colors.grey, "산책 취소": Color(0xffFF738C),  "산책 거절": Color(0xffFDFD96),};
+  final Map<String, Color> colorListCustomer = { "산책 요청": const Color(0xffe1f3f3), '산책 예정': const Color(0xff74BABC), '산책 완료': Colors.grey, "산책 취소": const Color(0xffFF738C),  "산책 거절": const Color(0xffFDFD96),};
 
   // 리스너용
-  final Map<String, Color> colorListManager = {'산책 요청': Color(0xffe1f3f3), "산책 예정": Color(0xff74BABC),  '산책 완료': Colors.grey, '산책 취소': Color(0xffFF738C), '산책 거절': Color(0xffFDFD96), };
+  final Map<String, Color> colorListManager = {'산책 요청': const Color(0xffe1f3f3), "산책 예정": const Color(0xff74BABC),  '산책 완료': Colors.grey, '산책 취소': const Color(0xffFF738C), '산책 거절': const Color(0xffFDFD96), };
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -32,19 +34,19 @@ class _MyReservationState extends State<MyReservation> {
             unselectedLabelColor: Colors.black,
             //indicatorColor: Colors.greenAccent,
             indicatorSize: TabBarIndicatorSize.label,
-            indicator: BoxDecoration(
+            indicator: const BoxDecoration(
               borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
               color: Color(0xffe1f3f3),
             ),
             tabs: [
-              Container(
+              SizedBox(
                   width: ScreenUtil().setWidth(180),
-                  child: Tab(
+                  child: const Tab(
                     text: "고객용",
                   )),
-              Container(
+              SizedBox(
                   width: ScreenUtil().setWidth(180),
-                  child: Tab(
+                  child: const Tab(
                     text: "리스너용",
                   )),
             ],
@@ -52,12 +54,12 @@ class _MyReservationState extends State<MyReservation> {
           backgroundColor: Colors.white,
           title: Text(
             "나의 예약",
-            style: TextStyle(color: Color(0xff324755), fontSize: 20.sp, fontWeight: FontWeight.bold),
+            style: TextStyle(color: const Color(0xff324755), fontSize: 20.sp, fontWeight: FontWeight.bold),
           ),
           //centerTitle: true,
           actions: [
             IconButton(
-              icon: Icon(
+              icon: const Icon(
                 EvaIcons.bellOutline,
                 color: Color(0xff525252),
               ),
@@ -67,11 +69,11 @@ class _MyReservationState extends State<MyReservation> {
         ),
         body: TabBarView(
           children: [
-            new Container(
+            Container(
               // 바탕화면 색
               width: ScreenUtil().screenWidth,
               height: ScreenUtil().screenHeight,
-              color: Color(0xffececec),
+              color: const Color(0xffececec),
               child: StreamBuilder(
                 stream: FirebaseFirestore.instance
                     .collection('client_reserve')
@@ -80,7 +82,7 @@ class _MyReservationState extends State<MyReservation> {
                     .orderBy('reserveTime', descending: true)
                     .snapshots(),
                 builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
-                  if (!snapshot.hasData) return Center(child: CircularProgressIndicator());
+                  if (!snapshot.hasData) return const Center(child: CircularProgressIndicator());
                   final docs = snapshot.data!.docs;
 
                   return Padding(
@@ -98,7 +100,7 @@ class _MyReservationState extends State<MyReservation> {
                           ),
                           child: Center(
                             //                                  예약리스트 컨텐츠 크기
-                            child: Container(
+                            child: SizedBox(
                               //color: Colors.white,
                               width: ScreenUtil().setWidth(360),
                               height: ScreenUtil().setHeight(130),
@@ -116,7 +118,7 @@ class _MyReservationState extends State<MyReservation> {
                                             borderRadius: BorderRadius.circular(10)),
                                         child: Center(
                                          //child: Text("${colorList[docs[index]['status']]}")
-                                           child: Text(docs[index]['status'], style: TextStyle(color: Colors.black))
+                                           child: Text(docs[index]['status'], style: const TextStyle(color: Colors.black))
                                           ,
                                         ),
                                       ),
@@ -141,7 +143,7 @@ class _MyReservationState extends State<MyReservation> {
                                                 // color: Colors.greenAccent,
                                                 border: Border.all(color: Colors.grey),
                                                 borderRadius: BorderRadius.circular(20)),
-                                            child: Center(child: Text("예약상세")),
+                                            child: const Center(child: Text("예약상세")),
                                           ),
                                         ),
                                       ),
@@ -151,7 +153,7 @@ class _MyReservationState extends State<MyReservation> {
                                             onTap: () {
                                               print('지우기 첵!!');
                                             },
-                                            child: Icon(
+                                            child: const Icon(
                                               Icons.delete_outline,
                                               color: Colors.grey,
                                             )),
@@ -178,7 +180,7 @@ class _MyReservationState extends State<MyReservation> {
                                         ),
                                         Padding(
                                           padding: const EdgeInsets.only(left: 10),
-                                          child: Container(
+                                          child: SizedBox(
                                             //== 닉네임, 시간 산책 Container ==
                                             //color: Colors.lightGreenAccent,
                                             width: 230.w,
@@ -191,8 +193,8 @@ class _MyReservationState extends State<MyReservation> {
                                                 ),
                                                 Row(
                                                   children: [
-                                                    Text("주문 시간: ",style: TextStyle(fontSize: 14.sp , color: Color(0xff737373),),),
-                                                    Text("${reserveTime.year}년/${reserveTime.month}월/${reserveTime.day}일",style: TextStyle(fontSize: 14.sp , color: Color(0xff737373)),),
+                                                    Text("주문 시간: ",style: TextStyle(fontSize: 14.sp , color: const Color(0xff737373),),),
+                                                    Text("${reserveTime.year}년/${reserveTime.month}월/${reserveTime.day}일",style: TextStyle(fontSize: 14.sp , color: const Color(0xff737373)),),
                                                   ],
                                                 ),
                                               ],
@@ -219,10 +221,10 @@ class _MyReservationState extends State<MyReservation> {
             //
             //
             //                                    @@@@@@@@@@@@@@@@@ 리스너용 리스트@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-            new Container(
+            Container(
               width: ScreenUtil().screenWidth,
               height: ScreenUtil().screenHeight,
-              color: Color(0xffececec),
+              color: const Color(0xffececec),
               child: StreamBuilder(
                 stream: FirebaseFirestore.instance
                     .collection('reserve')
@@ -231,7 +233,7 @@ class _MyReservationState extends State<MyReservation> {
                     .orderBy('reserveTime', descending: true)
                     .snapshots(),
                 builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
-                  if (!snapshot.hasData) return Center(child: CircularProgressIndicator());
+                  if (!snapshot.hasData) return const Center(child: CircularProgressIndicator());
                   final docs = snapshot.data!.docs;
 
                   return Padding(
@@ -247,7 +249,7 @@ class _MyReservationState extends State<MyReservation> {
                             border: Border.all(color: Colors.grey, width: 0.5),
                           ),
                           child: Center(
-                            child: Container(
+                            child: SizedBox(
                               //color: Colors.yellow,
                               width: ScreenUtil().setWidth(360),
                               height: ScreenUtil().setHeight(120),
@@ -266,7 +268,7 @@ class _MyReservationState extends State<MyReservation> {
                                             //Colors.lightBlueAccent,
                                             borderRadius: BorderRadius.circular(10)),
                                         child: Center(
-                                          child: Text(docs[index]['status'], style: TextStyle(color: Colors.black)),
+                                          child: Text(docs[index]['status'], style: const TextStyle(color: Colors.black)),
                                         ),
                                       ),
                                     ],
@@ -292,7 +294,7 @@ class _MyReservationState extends State<MyReservation> {
                                           children: [
                                             Padding(
                                               padding: const EdgeInsets.only(left: 10),
-                                              child: Container(
+                                              child: SizedBox(
                                                 //== 닉네임, 시간 산책 Container ==
                                                 //color: Colors.lightGreenAccent,
                                                 width: ScreenUtil().setWidth(150),
@@ -302,12 +304,12 @@ class _MyReservationState extends State<MyReservation> {
                                                     Text('요청자: ',
                                                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.sp, color: Colors.grey)),
                                                     Text(
-                                                      docs[index]['client'], style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp, color: Color(0xff324755),),),
+                                                      docs[index]['client'], style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp, color: const Color(0xff324755),),),
                                                   ],),
                                                   Row(children: [
                                                     Text('요청 시간: ',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.sp, color: Colors.grey),
                                                   ),
-                                                    Text(docs[index]['wantTime'] + '분', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp,color: Color(0xff324755),),
+                                                    Text(docs[index]['wantTime'] + '분', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp,color: const Color(0xff324755),),
                                                     ),
                                                   ],),
                                                 ],)
@@ -315,7 +317,7 @@ class _MyReservationState extends State<MyReservation> {
                                             ),
                                             Padding(
                                               padding: const EdgeInsets.only(left: 10),
-                                              child: Container(
+                                              child: SizedBox(
                                                 width: ScreenUtil().setWidth(100),
                                                 height: ScreenUtil().setHeight(60),
                                                 child: GestureDetector(
@@ -331,7 +333,7 @@ class _MyReservationState extends State<MyReservation> {
                                                     child: Center(
                                                       child: Text(
                                                         '요청 확인',
-                                                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp,color: Color(0xff324755),),
+                                                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp,color: const Color(0xff324755),),
                                                       ),
                                                     ),
                                                   ),

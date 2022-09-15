@@ -10,7 +10,7 @@ class ChatScreenManager extends StatefulWidget {
   const ChatScreenManager(this.opponentUID, this.opponentName, this.myRole, {Key? key}) : super(key: key);
 
   @override
-  _ChatScreenManagerState createState() => _ChatScreenManagerState();
+  State<ChatScreenManager> createState() => _ChatScreenManagerState();
 }
 
 class _ChatScreenManagerState extends State<ChatScreenManager> {
@@ -23,11 +23,11 @@ class _ChatScreenManagerState extends State<ChatScreenManager> {
       child: Scaffold(
         appBar: AppBar(
           title: Text(widget.opponentName),
-          iconTheme: IconThemeData(color: Colors.black),
+          iconTheme: const IconThemeData(color: Colors.black),
           backgroundColor: Colors.white,
         ),
         body: Container(
-            color: Color(0xffececec),
+            color: const Color(0xffececec),
           child: Column(
             children: [
               Expanded(child: MessagesManager(widget.opponentUID)),

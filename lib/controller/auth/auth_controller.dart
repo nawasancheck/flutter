@@ -25,7 +25,7 @@ class AuthController extends GetxController {
 
   _moveToPage(User? user) {
     if (user == null) {
-      Get.offAll(() => SignInScreen());
+      Get.offAll(() => const SignInScreen());
     } else {
       Get.offAll(() => HomePage());
     }
@@ -62,9 +62,7 @@ class AuthController extends GetxController {
         'uid': userCredential!.user!.uid,
         'displayName': userCredential.user!.displayName,
         'email': userCredential.user!.email,
-        'photoURL': userCredential.user!.photoURL == null
-            ? "https://developers.kakao.com/docs/static/image/ko/m/kakaotalk-social.png"
-            : userCredential.user!.photoURL
+        'photoURL': userCredential.user!.photoURL ?? "https://developers.kakao.com/docs/static/image/ko/m/kakaotalk-social.png"
       },
     );
     return FirebaseAuth.instance.signInWithCustomToken(token);

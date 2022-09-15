@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'manager_list_detail.dart';
 
 class ManagerSearchPage extends StatefulWidget {
-  ManagerSearchPage({Key? key}) : super(key: key);
+  const ManagerSearchPage({Key? key}) : super(key: key);
 
   @override
   State<ManagerSearchPage> createState() => _ManagerSearchPageState();

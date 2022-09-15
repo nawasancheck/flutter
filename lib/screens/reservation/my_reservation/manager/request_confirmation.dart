@@ -25,19 +25,19 @@ class RequestConfirm extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: Text('예약 요청 확인',style: TextStyle( color: Color(0xff324755),
+        title: Text('예약 요청 확인',style: TextStyle( color: const Color(0xff324755),
           fontSize: 20.sp,
           fontWeight: FontWeight.bold,),),
         centerTitle: true,
-        iconTheme: IconThemeData(color: Color(0xff324755), ),
+        iconTheme: const IconThemeData(color: Color(0xff324755), ),
         actions: [
-          IconButton(onPressed: (){}, icon: Icon(EvaIcons.bellOffOutline))
+          IconButton(onPressed: (){}, icon: const Icon(EvaIcons.bellOffOutline))
         ],
       ),
       body: Container(
         height: ScreenUtil().screenHeight,
         width: ScreenUtil().screenWidth,
-        color: Color(0xffececec),
+        color: const Color(0xffececec),
         child: ListView(
           children: [
             Material(
@@ -49,7 +49,7 @@ class RequestConfirm extends StatelessWidget {
                 child: Column(children: [
                   Padding(
                     padding: const EdgeInsets.fromLTRB(0, 20, 0, 10),
-                    child: Container(
+                    child: SizedBox(
                         height: ScreenUtil().setHeight(150),
                         width: ScreenUtil().setWidth(360),
                         //color: Colors.greenAccent,
@@ -59,25 +59,25 @@ class RequestConfirm extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Text('예약상태: ',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15.sp, color: Colors.grey),),
-                                Text('산책요청',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15.sp, color: Color(0xff324755),),),
+                                Text('산책요청',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15.sp, color: const Color(0xff324755),),),
                               ],
                             ),
-                            SizedBox(height: 5,),
+                            const SizedBox(height: 5,),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Text('요청자: ',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15.sp, color: Colors.grey),),
-                                Text('${information['client']}',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15.sp, color: Color(0xff324755),),),
+                                Text('${information['client']}',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15.sp, color: const Color(0xff324755),),),
                               ],
                             ),
-                            SizedBox(height: 5,),
+                            const SizedBox(height: 5,),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Text('고객이 요청한 날짜, 시간, 장소를 확인해주세요.',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15.sp, color: Colors.grey),),
                               ],
                             ),
-                            SizedBox(height: 20,),
+                            const SizedBox(height: 20,),
                             InkWell(                            // 메세지 보내기 버튼
                               onTap: (){
                                 Get.to(() => ChatScreenManager(information['clientUid'], information['client'], 2));
@@ -87,11 +87,11 @@ class RequestConfirm extends StatelessWidget {
                                 height: ScreenUtil().setHeight(50),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(20),
-                                  border: Border.all(color: Color(0xff909090), width: 2),
+                                  border: Border.all(color: const Color(0xff909090), width: 2),
                                 ),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
+                                  children: const [
                                     Icon(EvaIcons.messageSquareOutline,color: Colors.grey,),
                                     SizedBox(width: 8),
                                     Text('메세지 보내기',style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold),),
@@ -114,22 +114,22 @@ class RequestConfirm extends StatelessWidget {
                       ),
                       child: Column(
                         children: [
-                          Container(               // only 요청내용 Container
+                          SizedBox(               // only 요청내용 Container
                             height: ScreenUtil().setHeight(50),
                             width: ScreenUtil().setWidth(360),
-                            child: Center(child: Padding(
-                              padding: const EdgeInsets.only(top: 6.0),
+                            child: const Center(child: Padding(
+                              padding: EdgeInsets.only(top: 6.0),
                               child: Text('요청내용',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold ,color: Color(0xff324755),),),
                             )),
                           ),
-                          Divider(color: Colors.grey, thickness: 1,),
-                          Text('고객 요청내용: ${information['requests']}',style: TextStyle(fontSize: 15),),
-                          Text('날짜: ${time.year}년 ${time.month}월 ${time.day}일',style: TextStyle(fontSize: 15),),
-                          Text('시간:${information['selectTime']}',style: TextStyle(fontSize: 15),),
-                          Text('장소: ${information['place']}',style: TextStyle(fontSize: 15),),
+                          const Divider(color: Colors.grey, thickness: 1,),
+                          Text('고객 요청내용: ${information['requests']}',style: const TextStyle(fontSize: 15),),
+                          Text('날짜: ${time.year}년 ${time.month}월 ${time.day}일',style: const TextStyle(fontSize: 15),),
+                          Text('시간:${information['selectTime']}',style: const TextStyle(fontSize: 15),),
+                          Text('장소: ${information['place']}',style: const TextStyle(fontSize: 15),),
                           Padding(
                             padding: const EdgeInsets.all(10.0),
-                            child: Text(information['requests'],style: TextStyle(fontSize: 15),),
+                            child: Text(information['requests'],style: const TextStyle(fontSize: 15),),
                           ),
                         ],
                       ),
@@ -148,8 +148,8 @@ class RequestConfirm extends StatelessWidget {
                         // 바깥영역 터치시 닫힐지 여부
                         builder: (BuildContext context) {
                           return AlertDialog(
-                            title: Text("팝업 메세지"),
-                            content: Text('해당 산책 요청을 수락하시겠습니까?'),
+                            title: const Text("팝업 메세지"),
+                            content: const Text('해당 산책 요청을 수락하시겠습니까?'),
                             actions: [
                               MaterialButton(
                                   onPressed: () { FirebaseFirestore.instance
@@ -164,15 +164,15 @@ class RequestConfirm extends StatelessWidget {
                                       .collection('reserve')
                                       .doc(information['id'])
                                       .update({'status': '산책 예정'});
-                                    Get.offAll(() => HomePage());
+                                    Get.offAll(() => const HomePage());
                                     //Navigator.of(context).pop(); // 팝업창 나가기
                                   },
-                                  child: Text('Okay')),
+                                  child: const Text('Okay')),
                               MaterialButton(
                                   onPressed: () {
                                     Navigator.of(context).pop(); // 팝업창 나가기
                                   },
-                                  child: Text('Cancel')),
+                                  child: const Text('Cancel')),
                             ],
                           );
                         });
@@ -185,7 +185,7 @@ class RequestConfirm extends StatelessWidget {
                         height: ScreenUtil().setHeight(60),
                         width: ScreenUtil().setWidth(196.35),
                         color: Colors.white,
-                        child: Center(child: Text('수락하기',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 21, color: Color(0xff324755),),)),
+                        child: const Center(child: Text('수락하기',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 21, color: Color(0xff324755),),)),
                       ),
                     ),
                   ),
@@ -198,8 +198,8 @@ class RequestConfirm extends StatelessWidget {
                         // 바깥영역 터치시 닫힐지 여부
                         builder: (BuildContext context) {
                           return AlertDialog(
-                            title: Text("팝업 메세지"),
-                            content: Text('해당 산책 요청을 거절하시겠습니까?'),
+                            title: const Text("팝업 메세지"),
+                            content: const Text('해당 산책 요청을 거절하시겠습니까?'),
                             actions: [
                               MaterialButton(
                                   onPressed: () { FirebaseFirestore.instance
@@ -214,15 +214,15 @@ class RequestConfirm extends StatelessWidget {
                                       .collection('reserve')
                                       .doc(information['id'])
                                       .update({'status': '산책 거절'});
-                                    Get.offAll(() => HomePage());
+                                    Get.offAll(() => const HomePage());
                                     //Navigator.of(context).pop(); // 팝업창 나가기
                                   },
-                                  child: Text('Okay')),
+                                  child: const Text('Okay')),
                               MaterialButton(
                                   onPressed: () {
                                     Navigator.of(context).pop(); // 팝업창 나가기
                                   },
-                                  child: Text('Cancel')),
+                                  child: const Text('Cancel')),
                             ],
                           );
                         });
@@ -235,7 +235,7 @@ class RequestConfirm extends StatelessWidget {
                         height: ScreenUtil().setHeight(60),
                         width: ScreenUtil().setWidth(196.35),
                         color: Colors.white,
-                        child: Center(child: Text('거절하기',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 21, color: Color(0xff324755),),)),
+                        child: const Center(child: Text('거절하기',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 21, color: Color(0xff324755),),)),
                       ),
                     ),
                   ),

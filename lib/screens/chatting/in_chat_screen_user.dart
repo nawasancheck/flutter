@@ -10,7 +10,7 @@ class ChatScreenUser extends StatefulWidget {
   const ChatScreenUser(this.opponentUID, this.opponentName, this.myRole, {Key? key}) : super(key: key);
 
   @override
-  _ChatScreenUserState createState() => _ChatScreenUserState();
+  State<ChatScreenUser> createState() => _ChatScreenUserState();
 }
 
 class _ChatScreenUserState extends State<ChatScreenUser> {
@@ -22,12 +22,12 @@ class _ChatScreenUserState extends State<ChatScreenUser> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text(widget.opponentName, style: TextStyle(color: Colors.black),),
-          iconTheme: IconThemeData(color: Colors.black),
+          title: Text(widget.opponentName, style: const TextStyle(color: Colors.black),),
+          iconTheme: const IconThemeData(color: Colors.black),
           backgroundColor: Colors.white,
         ),
         body: Container(
-            color: Color(0xffececec),
+            color: const Color(0xffececec),
           child: Column(
             children: [
               Expanded(child: MessagesUser(widget.opponentUID)),
