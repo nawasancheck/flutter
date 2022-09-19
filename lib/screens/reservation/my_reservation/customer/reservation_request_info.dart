@@ -91,8 +91,9 @@ class ReservationRequestInfo extends StatelessWidget {
                                     children: [
                                       const Flexible( fit: FlexFit.tight,child: SizedBox(width: 1,)),
                                       Container(width: ScreenUtil().setWidth(130), height: ScreenUtil().setHeight(130),
-                                          decoration: BoxDecoration(color: Colors.pink, borderRadius: BorderRadius.circular(20)
-                                              ,image: const DecorationImage(image: AssetImage('assets/jinkyo.png'), fit: BoxFit.cover),),
+                                          decoration: BoxDecoration(color: Colors.grey[350]!, borderRadius: BorderRadius.circular(20)
+                                             // ,image: const DecorationImage(image: AssetImage('assets/jinkyo.png'), fit: BoxFit.cover),
+                                          ),
                                       ),
                                     ],
                                   ),
