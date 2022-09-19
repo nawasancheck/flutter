@@ -53,7 +53,7 @@ class ReservationRequestInfo extends StatelessWidget {
                     child: SizedBox(   // 예약상태, 리스너 사진, 예약 취소 Container
                       height: ScreenUtil().setHeight(170),
                       width: ScreenUtil().setWidth(360),
-                     //color: Colors.greenAccent,
+                      //color: Colors.greenAccent,
                       child: Column(
                         children: [
                           Row(children: [
@@ -92,8 +92,8 @@ class ReservationRequestInfo extends StatelessWidget {
                                     children: [
                                       const Flexible( fit: FlexFit.tight,child: SizedBox(width: 1,)),
                                       Container(width: ScreenUtil().setWidth(130), height: ScreenUtil().setHeight(130),
-                                          decoration: BoxDecoration(color: Colors.pink, borderRadius: BorderRadius.circular(20)
-                                              ,image: DecorationImage(image: NetworkImage(information['managerImageUrl']), fit: BoxFit.cover),),
+                                        decoration: BoxDecoration(color: Colors.pink, borderRadius: BorderRadius.circular(20)
+                                          ,image: DecorationImage(image: NetworkImage(information['managerImageUrl']), fit: BoxFit.cover),),
                                       ),
                                     ],
                                   ),
@@ -158,7 +158,7 @@ class ReservationRequestInfo extends StatelessWidget {
                               ),
                             ),
                           ),
-                        const SizedBox(width: 20,),
+                          const SizedBox(width: 20,),
                           InkWell(                              // 프로필 보기 버튼
                             onTap: (){
                               Get.to(() => ManagerDetailPage(information['managerUid']));
@@ -189,8 +189,8 @@ class ReservationRequestInfo extends StatelessWidget {
                           height: ScreenUtil().setHeight(270),
                           width: ScreenUtil().setWidth(360),
                           decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey),
-                            borderRadius: BorderRadius.circular(10)
+                              border: Border.all(color: Colors.grey),
+                              borderRadius: BorderRadius.circular(10)
                           ),
                           child: Column(
                             children: [
