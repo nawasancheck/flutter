@@ -143,7 +143,7 @@ class _ManagerSearchPageState extends State<ManagerSearchPage> {
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.only(left: 8.0),
-                                      child: SizedBox(
+                                      child: Container(
                                         width: ScreenUtil().setWidth(280),
                                         //color: Colors.green,
                                         child: Column(
@@ -161,12 +161,12 @@ class _ManagerSearchPageState extends State<ManagerSearchPage> {
                                             Row(
                                               mainAxisAlignment: MainAxisAlignment.start,
                                               children: [
-                                                likelength > 16 == true
-                                                    ? // like 글자수 제한 16
-                                                Text(" " + " 관심분야 - ${allDataTitle[index]['profile']['like'].substring(0, 16)}",
-                                                    style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold, color: const Color(0xff737373)))
-                                                    : Text(" " + " 관심분야 - ${allDataTitle[index]['profile']['like']}",
-                                                    style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold, color: const Color(0xff737373))),
+                                                Container(
+                                                  width: ScreenUtil().setWidth(280),
+                                                  child: Text(" " + " 관심분야 - ${allDataTitle[index]['profile']['like']}",
+                                                      style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold, color: const Color(0xff737373))
+                                                  ,overflow: TextOverflow.ellipsis),
+                                                )
                                               ],
                                             ),
                                           ],
@@ -256,13 +256,13 @@ class _ManagerSearchPageState extends State<ManagerSearchPage> {
                                             Row(
                                               mainAxisAlignment: MainAxisAlignment.start,
                                               children: [
-                                                likelength > 16 == true
-                                                    ? // like 글자수 제한 16
-                                                Text(" " + " 관심분야 - ${allDataLike[index]['profile']['like'].substring(0, 16)}",
-                                                    style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold, color: const Color(0xff737373)))
-                                                    : Text(" " + " 관심분야 - ${allDataLike[index]['profile']['like']}",
-                                                    style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold, color: const Color(0xff737373))),
-                                              ],
+                                                Container(
+                                                  width: ScreenUtil().setWidth(280),
+                                                  child: Text(" " + " 관심분야 - ${allDataLike[index]['profile']['like']}",
+                                                      style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold, color: const Color(0xff737373))
+                                                    ,overflow: TextOverflow.ellipsis,),
+                                                )
+                                                    ],
                                             ),
                                           ],
                                         ),

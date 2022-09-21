@@ -123,37 +123,33 @@ class FreeBoardContentState extends State<FreeBoardContent> {
                             width: ScreenUtil().screenWidth,
                             height: ScreenUtil().setHeight(80),
                             child: Center(
-                              child: Padding(
-                                padding: const EdgeInsets.only(top: 10),
-                                // divider랑 대칭 맞추기 위해서
-                                child: SizedBox(
-                                  //  color: Colors.blue,
-                                  width: ScreenUtil().setWidth(360),
-                                  height: ScreenUtil().setHeight(80),
-                                  child: Row(children: [
-                                    Container(
-                                      width: ScreenUtil().setWidth(50),
-                                      height: ScreenUtil().setHeight(50),
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: Colors.grey[400],
-                                      ),
-                                      child: Icon(
-                                        EvaIcons.personOutline,
-                                        size: 30.sp,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                    Text("   ${docs['userName']}\n   $writeTime"),
-                                  ]),
+                              child: Container(
+                                width: ScreenUtil().setWidth(360),
+                                height: ScreenUtil().setHeight(80),
+                                decoration: BoxDecoration(
+                                    color: Colors.blue,
+                                    border: Border(
+                                    bottom: BorderSide(width: 1, color: Colors.grey[400]!)
+                                  )
                                 ),
+                                child: Row(children: [
+                                  Container(
+                                    width: ScreenUtil().setWidth(50),
+                                    height: ScreenUtil().setHeight(50),
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: Colors.grey[400],
+                                    ),
+                                    child: Icon(
+                                      EvaIcons.personOutline,
+                                      size: 30.sp,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  Text("   ${docs['userName']}\n   $writeTime"),
+                                ]),
                               ),
                             ),
-                          ),
-                          const Divider(
-                            indent: 16.35,
-                            endIndent: 16.35,
-                            thickness: 1,
                           ),
                           SizedBox(
                             height: ScreenUtil().setHeight(5),
@@ -271,127 +267,115 @@ class FreeBoardContentState extends State<FreeBoardContent> {
                                       ],
                                     ),
                                   ),
-                                  SizedBox(
-                                    height: ScreenUtil().setHeight(10),
-                                  ),
-                                  ListView.builder(
-                                    // 댓글 부분
-                                    physics: const NeverScrollableScrollPhysics(), // listview 안 listview 쓰는 경우 스크롤 자연스럽게
-                                    shrinkWrap: true,
-                                    itemCount: docs2.length,
-                                    itemBuilder: (context, index) {
-                                      var time = docs2[index]['time'].toDate();
-                                      var writeTime2 = '';
-
-                                      writeTime2 = ' ${time.month}/${time.day} ${time.hour}:${time.minute}';
-
-                                      return Center(
-                                        child: Expanded(
-                                          child: Container(
-                                            width: ScreenUtil().setWidth(360),
-                                            //height: ScreenUtil().setHeight(100),
-                                            decoration: BoxDecoration(
-                                                //color: Colors.purple,
-                                              border: Border(
-                                                bottom : BorderSide(width: 1, color: Colors.grey[400]!)
-                                              )
-                                            ),
-                                            child: Column(
-                                              children: [
-                                                Padding(
-                                                  padding: const EdgeInsets.fromLTRB(0,10,0,0),
-                                                  child: SizedBox(
-                                                   // color:Colors.green,
-                                                    height: ScreenUtil().setHeight(32),
-                                                    child: Row(
-                                                      children: [
-                                                        Container(
-                                                          width: ScreenUtil().setWidth(30),
-                                                          height: ScreenUtil().setHeight(30),
-                                                          decoration: BoxDecoration(
-                                                            shape: BoxShape.circle,
-                                                            color: Colors.grey[400],
-                                                          ),
-                                                          child: Icon(
-                                                            EvaIcons.personOutline,
-                                                            size: 20.sp,
-                                                            color: Colors.white,
-                                                          ),
-                                                        ),
-                                                        Text("   ${docs2[index]['userName']}",style: TextStyle(color: const Color(0xff324755), fontSize: 14.sp),),
-                                                        Transform.translate(
-                                                          offset: const Offset(-10,-3),
-                                                          child: PopupMenuButton(
-                                                            itemBuilder: (context) {
-                                                              return [
-                                                                const PopupMenuItem<int>(
-                                                                  value: 0,
-                                                                  child: Text('댓글 삭제'), // 자신이 쓴 글이 맞은 경우 삭제
-                                                                ),
-                                                              ];
-                                                            },
-                                                            onSelected: (value) {
-                                                              if (value == 0) {
-                                                                showDialog(
-                                                                    context: context,
-                                                                    barrierDismissible: false,
-                                                                    // 바깥영역 터치시 닫힐지 여부
-                                                                    builder: (BuildContext context) {
-                                                                      return AlertDialog(
-                                                                        title: const Text("팝업 메세지"),
-                                                                        content: const Text('해당 댓글을 삭제 하시겠습니까?'),
-                                                                        actions: [
-                                                                          MaterialButton(
-                                                                              onPressed: () {
-                                                                                Navigator.of(context).pop(); // 팝업창 나가기
-                                                                              },
-                                                                              child: const Text('Okay')),
-                                                                          MaterialButton(
-                                                                              onPressed: () {
-                                                                                Navigator.of(context).pop(); // 팝업창 나가기
-                                                                              },
-                                                                              child: const Text('Cancel')),
-                                                                        ],
-                                                                      );
-                                                                    });
-                                                              }
-                                                            },
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ),
-                                                // todo 댓글 길이 조정 나중에 할 예정 (임시)
-                                                docs2[index]['text'].length<50 ? Row(
-                                                  mainAxisAlignment: MainAxisAlignment.start,
-                                                  children: [
-                                                    Text(" ${docs2[index]['text']}",style: TextStyle(fontSize: 14.sp, color: const Color(0xff737373)),),
-                                                  ],
-                                                )
-                                                :
-                                                Column(
-                                                  mainAxisAlignment: MainAxisAlignment.start,
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(" ${docs2[index]['text']}",style: TextStyle(fontSize: 14.sp, color: const Color(0xff737373),),)
-                                                  ],
-                                                ),
-                                                Padding(
-                                                  padding: const EdgeInsets.fromLTRB(0, 10, 0, 26),
-                                                  child: Row(
-                                                    children: [
-                                                      Text(writeTime2),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                  ),
+                                  // ListView.builder(
+                                  //   // 댓글 부분
+                                  //   physics: const NeverScrollableScrollPhysics(), // listview 안 listview 쓰는 경우 스크롤 자연스럽게
+                                  //   shrinkWrap: true,
+                                  //   itemCount: docs2.length,
+                                  //   itemBuilder: (context, index) {
+                                  //     var time = docs2[index]['time'].toDate();
+                                  //     var writeTime2 = '';
+                                  //
+                                  //     writeTime2 = ' ${time.month}/${time.day} ${time.hour}:${time.minute}';
+                                  //
+                                  //     return Center(
+                                  //       child: Expanded(
+                                  //         child: Container(
+                                  //           width: ScreenUtil().setWidth(360),
+                                  //           decoration: BoxDecoration(
+                                  //               color: Colors.purple,
+                                  //             border: Border(
+                                  //               bottom : BorderSide(width: 1, color: Colors.grey[400]!)
+                                  //             )
+                                  //           ),
+                                  //           // 내용물 패딩 Container
+                                  //           child: Container(
+                                  //             width: ScreenUtil().setWidth(360),
+                                  //            // color: Colors.orange,
+                                  //             margin: EdgeInsets.symmetric(vertical: 10),
+                                  //             child: Column(
+                                  //               mainAxisAlignment: MainAxisAlignment.center,
+                                  //               crossAxisAlignment: CrossAxisAlignment.start,
+                                  //               children: [
+                                  //                 Container(
+                                  //                   //color:Colors.green,
+                                  //                   height: ScreenUtil().setHeight(32),
+                                  //                   width: ScreenUtil().setWidth(360),
+                                  //                   child: Row(
+                                  //                     children: [
+                                  //                       Container(
+                                  //                         width: ScreenUtil().setWidth(30),
+                                  //                         height: ScreenUtil().setHeight(30),
+                                  //                         decoration: BoxDecoration(
+                                  //                           shape: BoxShape.circle,
+                                  //                           color: Colors.grey[400],
+                                  //                         ),
+                                  //                         child: Icon(
+                                  //                           EvaIcons.personOutline,
+                                  //                           size: 20.sp,
+                                  //                           color: Colors.white,
+                                  //                         ),
+                                  //                       ),
+                                  //                       Text("   ${docs2[index]['userName']}",style: TextStyle(color: const Color(0xff324755), fontSize: 14.sp),),
+                                  //                       Transform.translate(
+                                  //                         offset: const Offset(-10,-3),
+                                  //                         child: PopupMenuButton(
+                                  //                           itemBuilder: (context) {
+                                  //                             return [
+                                  //                               const PopupMenuItem<int>(
+                                  //                                 value: 0,
+                                  //                                 child: Text('댓글 삭제'), // 자신이 쓴 글이 맞은 경우 삭제
+                                  //                               ),
+                                  //                             ];
+                                  //                           },
+                                  //                           onSelected: (value) {
+                                  //                             if (value == 0) {
+                                  //                               showDialog(
+                                  //                                   context: context,
+                                  //                                   barrierDismissible: false,
+                                  //                                   // 바깥영역 터치시 닫힐지 여부
+                                  //                                   builder: (BuildContext context) {
+                                  //                                     return AlertDialog(
+                                  //                                       title: const Text("팝업 메세지"),
+                                  //                                       content: const Text('해당 댓글을 삭제 하시겠습니까?'),
+                                  //                                       actions: [
+                                  //                                         MaterialButton(
+                                  //                                             onPressed: () {
+                                  //                                               Navigator.of(context).pop(); // 팝업창 나가기
+                                  //                                             },
+                                  //                                             child: const Text('Okay')),
+                                  //                                         MaterialButton(
+                                  //                                             onPressed: () {
+                                  //                                               Navigator.of(context).pop(); // 팝업창 나가기
+                                  //                                             },
+                                  //                                             child: const Text('Cancel')),
+                                  //                                       ],
+                                  //                                     );
+                                  //                                   });
+                                  //                             }
+                                  //                           },
+                                  //                         ),
+                                  //                       ),
+                                  //                     ],
+                                  //                   ),
+                                  //                 ),
+                                  //                 Text(" ${docs2[index]['text']}",style: TextStyle(fontSize: 14.sp, color: const Color(0xff737373)),),
+                                  //                 Padding(
+                                  //                   padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                                  //                   child: Row(
+                                  //                     children: [
+                                  //                       Text(writeTime2),
+                                  //                     ],
+                                  //                   ),
+                                  //                 ),
+                                  //               ],
+                                  //             ),
+                                  //           ),
+                                  //         ),
+                                  //       ),
+                                  //     );
+                                  //   },
+                                  // ),
                                 ],
                               );
                             },
