@@ -238,6 +238,9 @@ class _ChatState extends State<ChatList> {
                         });
                   }),
             ),
+
+            // @@@@@@@@@@@@@@@@@@@@@@@@@ 리스너용 채팅 리스트 @@@@@@@@@@@@@@@@@@@@@
+            // todo 채팅리스트에 고객 닉네임이 아니라 이름이 뜨는듯?
             Container(
               width: ScreenUtil().screenWidth,
               height: ScreenUtil().screenHeight,
@@ -293,121 +296,113 @@ class _ChatState extends State<ChatList> {
                                       .doc(snapshot5.data?.docs[index]['userUID'])
                                       .delete();
                                 },
-                                child: Padding(
-                                  padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                                  child: StreamBuilder(
-                                      stream: FirebaseFirestore.instance.collection("user").doc(snapshot5.data?.docs[index]['userUID']).snapshots(),
-                                      builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot<Map<String, dynamic>>> snapshot6) {
-                                        if (snapshot6.connectionState == ConnectionState.waiting) {
-                                          return const Center(
-                                            child: CircularProgressIndicator(),
-                                          );
-                                        }
-                                        var docs = snapshot6.data!.data();
-                                        return Row(
-                                          children: [
-                                            Container(
-                                                height: 58.h,
-                                                width: 57.w,
-                                                decoration: BoxDecoration(
-                                                    image: DecorationImage(
-                                                        image: NetworkImage(docs?['profile']['imageUrl']), fit: BoxFit.cover, scale: 57),
-                                                    shape: BoxShape.circle)),
-                                            Container(
-                                              //                 color: Colors.purple,
-                                              width: ScreenUtil().setWidth(15),
-                                            ),
-                                            SizedBox(
-                                              //               color: Colors.blue,
-                                              height: ScreenUtil().setHeight(100),
-                                              width: ScreenUtil().setWidth(240),
-                                              child: Column(
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                children: [
-                                                  Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                                child: Center(
+                                  child: Container(
+                                    width: ScreenUtil().setWidth(342),
+                                    child: StreamBuilder(
+                                        stream: FirebaseFirestore.instance.collection("user").doc(snapshot5.data?.docs[index]['userUID']).snapshots(),
+                                        builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot<Map<String, dynamic>>> snapshot6) {
+                                          if (snapshot6.connectionState == ConnectionState.waiting) {
+                                            return const Center(
+                                              child: CircularProgressIndicator(),
+                                            );
+                                          }
+                                          var docs = snapshot6.data!.data();
+                                          return Row(
+                                            mainAxisAlignment: MainAxisAlignment.start,
+                                            children: [
+                                              // Container(
+                                              //     height: 58.h,
+                                              //     width: 57.w,
+                                              //     decoration: BoxDecoration(
+                                              //         image: DecorationImage(
+                                              //             image: NetworkImage(docs?['profile']['imageUrl']), fit: BoxFit.cover, scale: 57),
+                                              //         shape: BoxShape.circle)),
+                                              Container(
+                                                //               color: Colors.blue,
+                                                height: ScreenUtil().setHeight(70),
+                                                width: ScreenUtil().setWidth(240),
+                                                child: Column(
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
                                                     Text(docs?['profile']['title'],
-                                                        style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold, color: const Color(0xff222b31))),
-                                                    Text("  ${docs?['profile']['area']}" ,
-                                                        style: TextStyle(fontSize: 10.sp, fontWeight: FontWeight.bold, color: const Color(0xff8fa2ae)))
-                                                  ]),
-                                                  Row(
-                                                    mainAxisAlignment: MainAxisAlignment.start,
-                                                    children: [
-                                                      StreamBuilder(
-                                                        stream: FirebaseFirestore.instance
-                                                            .collection("chat_manager")
-                                                            .doc(_user!.uid)
-                                                            .collection(snapshot5.data?.docs[index]['userUID'])
-                                                            .orderBy('time', descending: true)
-                                                            .snapshots(),
-                                                        builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot7) {
-                                                          if (snapshot7.connectionState == ConnectionState.waiting) {
-                                                            return const Center(
-                                                              child: CircularProgressIndicator(),
-                                                            );
-                                                          }
-                                                          if (snapshot7.data?.docs[0]['fakeText'].length <= 15) {
-                                                            return Text(
-                                                              '${snapshot7.data?.docs[0]['fakeText']}',
-                                                              style: TextStyle(color: const Color(0xffa090c4), fontSize: 14.sp),
-                                                            );
-                                                          }
+                                                        style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold, color: const Color(0xff324755),)),
+                                                    StreamBuilder(
+                                                      stream: FirebaseFirestore.instance
+                                                          .collection("chat_manager")
+                                                          .doc(_user!.uid)
+                                                          .collection(snapshot5.data?.docs[index]['userUID'])
+                                                          .orderBy('time', descending: true)
+                                                          .snapshots(),
+                                                      builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot7) {
+                                                        if (snapshot7.connectionState == ConnectionState.waiting) {
+                                                          return const Center(
+                                                            child: CircularProgressIndicator(),
+                                                          );
+                                                        }
+                                                        if (snapshot7.data?.docs[0]['fakeText'].length <= 15) {
                                                           return Text(
-                                                            '${snapshot7.data?.docs[0]['fakeText'].substring(0, 15)}...',
+                                                            '${snapshot7.data?.docs[0]['fakeText']}',
                                                             style: TextStyle(color: const Color(0xffa090c4), fontSize: 14.sp),
                                                           );
-                                                        },
-                                                      ),
-                                                    ],
-                                                  )
-                                                ],
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-                                              child: SizedBox(
-                                                //           color: Colors.yellow,
-                                                height: ScreenUtil().setHeight(100),
-                                                width: ScreenUtil().setWidth(38),
-                                                child: StreamBuilder(
-                                                    stream: FirebaseFirestore.instance
-                                                        .collection("chat_manager")
-                                                        .doc(_user!.uid)
-                                                        .collection(snapshot5.data?.docs[index]['userUID'])
-                                                        .orderBy('time', descending: true)
-                                                        .snapshots(),
-                                                    builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot8) {
-                                                      if (snapshot8.connectionState == ConnectionState.waiting) {
-                                                        return const Center(
-                                                          child: CircularProgressIndicator(),
+                                                        }
+                                                        return Text(
+                                                          '${snapshot7.data?.docs[0]['fakeText'].substring(0, 15)}...',
+                                                          style: TextStyle(color: const Color(0xffa090c4), fontSize: 14.sp),
                                                         );
-                                                      }
-                                                      var time = snapshot8.data?.docs[0]['time'].toDate();
-                                                      var ampm = '';
-
-                                                      if (time.hour <= 12) {
-                                                        ampm = '오전';
-                                                      } else {
-                                                        ampm = '오후';
-                                                      }
-
-                                                      if (time.year == DateTime.now().year &&
-                                                          time.month == DateTime.now().month &&
-                                                          time.day == DateTime.now().day) {
-                                                        return Text('$ampm ${time.hour}:${time.minute}',
-                                                            style: TextStyle(fontSize: 13.sp, color: const Color(0xff7898186)));
-                                                      } else if (DateTime.now().day - time.day == 1) {
-                                                        return Text('어제', style: TextStyle(fontSize: 13.sp, color: const Color(0xff7898186)));
-                                                      } else {
-                                                        return Text('${time.year}-${time.month}-${time.day}',
-                                                            style: TextStyle(fontSize: 13.sp, color: const Color(0xff7898186)));
-                                                      }
-                                                    }),
+                                                      },
+                                                    )
+                                                  ],
+                                                ),
                                               ),
-                                            )
-                                          ],
-                                        );
-                                      }),
+                                              Expanded(child: Container()),
+                                              Transform.translate(
+                                                offset: Offset(0,8),
+                                                child: Container(
+                                                      //       color: Colors.yellow,
+                                                  height: ScreenUtil().setHeight(60),
+                                                  width: ScreenUtil().setWidth(60),
+                                                  child: StreamBuilder(
+                                                      stream: FirebaseFirestore.instance
+                                                          .collection("chat_manager")
+                                                          .doc(_user!.uid)
+                                                          .collection(snapshot5.data?.docs[index]['userUID'])
+                                                          .orderBy('time', descending: true)
+                                                          .snapshots(),
+                                                      builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot8) {
+                                                        if (snapshot8.connectionState == ConnectionState.waiting) {
+                                                          return const Center(
+                                                            child: CircularProgressIndicator(),
+                                                          );
+                                                        }
+                                                        var time = snapshot8.data?.docs[0]['time'].toDate();
+                                                        var ampm = '';
+
+                                                        if (time.hour <= 12) {
+                                                          ampm = '오전';
+                                                        } else {
+                                                          ampm = '오후';
+                                                        }
+
+                                                        if (time.year == DateTime.now().year &&
+                                                            time.month == DateTime.now().month &&
+                                                            time.day == DateTime.now().day) {
+                                                          return Text('$ampm ${time.hour}:${time.minute}',
+                                                              style: TextStyle(fontSize: 13.sp, color: const Color(0xff7898186)));
+                                                        } else if (DateTime.now().day - time.day == 1) {
+                                                          return Text('어제', style: TextStyle(fontSize: 13.sp, color: const Color(0xff7898186)));
+                                                        } else {
+                                                          return Text('${time.year}-${time.month}-${time.day}',
+                                                              style: TextStyle(fontSize: 13.sp, color: const Color(0xff7898186)));
+                                                        }
+                                                      }),
+                                                ),
+                                              )
+                                            ],
+                                          );
+                                        }),
+                                  ),
                                 ),
                               ),
                             ),
