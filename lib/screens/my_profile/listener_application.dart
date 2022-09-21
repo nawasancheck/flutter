@@ -526,7 +526,7 @@ class _ListenerApplicationState extends State<ListenerApplication> {
                                                 ),
                                                 width: 60,
                                                 height: 30,
-                                                child: const Center(child: Text("확인")),
+                                                child: const Center(child: Text("확인", style: TextStyle(color: Colors.white),)),
                                               )),
                                         )
                                       ],

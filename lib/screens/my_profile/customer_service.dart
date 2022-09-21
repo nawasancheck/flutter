@@ -1,5 +1,7 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/screens/my_profile/p_terms1.dart';
+import 'package:flutter_app/screens/my_profile/p_terms2.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -23,7 +25,8 @@ class _CustomerServiceState extends State<CustomerService> {
           title: Text(
             "고객센터",
             style: TextStyle(
-                color: Color(0xff324755), fontWeight: FontWeight.bold),
+                color: Color(0xff324755),  fontSize: 20.sp,
+              fontWeight: FontWeight.bold,),
           ),
           backgroundColor: Color(0xffffffff),
           iconTheme: IconThemeData(
@@ -88,7 +91,6 @@ class _CustomerServiceState extends State<CustomerService> {
                               fontSize: 16.sp,
                               color: Color(0xff909090),
                             ),),
-                          // todo 버전 입력 하드코딩으로 되어있음
                           Text(
                             "나와산책 Ver 1.0",
                             style: TextStyle(
@@ -240,9 +242,10 @@ class _CustomerServiceState extends State<CustomerService> {
                   ),
                 ),
 
-                // todo 이용약관 버튼 활성화
                 InkWell(
-                  onTap: (){},
+                  onTap: (){
+                    Get.to(()=>ProfileTerms1());
+                  },
                   child: Container(
                     width: ScreenUtil().screenWidth,
                     height: ScreenUtil().setHeight(40),
@@ -278,9 +281,10 @@ class _CustomerServiceState extends State<CustomerService> {
                   ),
                 ),
 
-                // todo 개인정보취급방침 버튼 활성화
                 InkWell(
-                  onTap: (){},
+                  onTap: (){
+                    Get.to(()=>ProfileTerms2());
+                  },
                   child: Container(
                     width: ScreenUtil().screenWidth,
                     height: ScreenUtil().setHeight(40),
