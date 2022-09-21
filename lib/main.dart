@@ -1,7 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/controller/auth/auth_controller.dart';
+import 'package:flutter_app/controller/bottom_navigation/bottom_navi_controller.dart';
 import 'package:flutter_app/screens/auth/sign_In_screen.dart';
+import 'package:flutter_app/screens/reservation/my_reservation/my_reservation_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart' as kakao;
@@ -26,6 +28,9 @@ class MyApp extends StatelessWidget {
       builder: (context, child) => GetMaterialApp(
         home: const SignInScreen(),
         title: '나와산책',
+        initialBinding: BindingsBuilder((){
+          Get.put(RootController());
+        }),
         theme: ThemeData(primaryColor: const Color(0xffffffff)),
         debugShowCheckedModeBanner: false,
         // 폰트 사이즈 고정
