@@ -23,13 +23,13 @@ class _ListenerProfileState extends State<ListenerProfile> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           "리스너 프로필관리",
           style:
               TextStyle(color: Color(0xff324755), fontWeight: FontWeight.bold),
         ),
-        backgroundColor: Color(0xffffffff),
-        iconTheme: IconThemeData(
+        backgroundColor: const Color(0xffffffff),
+        iconTheme: const IconThemeData(
           color: Color(0xff324755),
         ),
         centerTitle: true,
@@ -43,7 +43,7 @@ class _ListenerProfileState extends State<ListenerProfile> {
                 children: [
                   Container(
                     child: ListTile(
-                      leading: Icon(
+                      leading: const Icon(
                         EvaIcons.emailOutline,
                         size: 30,
                         color: Color(0xff878787),
@@ -52,10 +52,10 @@ class _ListenerProfileState extends State<ListenerProfile> {
                         "리스너 지원하기",
                         style: TextStyle(
                             fontSize: 18.sp,
-                            color: Color(0xff909090),
+                            color: const Color(0xff909090),
                             fontWeight: FontWeight.bold),
                       ),
-                      trailing: Icon(
+                      trailing: const Icon(
                         EvaIcons.arrowIosForward,
                         size: 25,
                         color: Color(0xff878787),
@@ -65,14 +65,14 @@ class _ListenerProfileState extends State<ListenerProfile> {
                             .collection("support_manager")
                             .doc(currentUser.uid)
                             .get()
-                            .then((value) => value.exists) == false) {
+                            .then((value) => value.exists) == true) {
                           showDialog(
                               context: context,
                               barrierDismissible: false,
                               builder: (BuildContext ctx) {
                                 return AlertDialog(
                                   content: Container(
-                                    padding: EdgeInsets.only(top: 30),
+                                    padding: const EdgeInsets.only(top: 30),
                                     child: Text(
                                       "이미 지원하였습니다.",
                                       textAlign: TextAlign.center,
@@ -86,12 +86,12 @@ class _ListenerProfileState extends State<ListenerProfile> {
                                             Navigator.of(context).pop();
                                           },
                                           child: Container(
-                                            decoration: BoxDecoration(
+                                            decoration: const BoxDecoration(
                                               color: Color(0xff74BABC),
                                             ),
-                                            child: Center(child: Text("확인", style: TextStyle(color: Colors.white),)),
                                             width: 60,
                                             height: 30,
+                                            child: const Center(child: Text("확인", style: TextStyle(color: Colors.white),)),
                                           )),
                                     )
                                   ],
@@ -100,77 +100,84 @@ class _ListenerProfileState extends State<ListenerProfile> {
                         } else {
                           Navigator.of(context, rootNavigator: true).push(
                               MaterialPageRoute(
-                                  builder: (_) => ListenerApplication()));
+                                  builder: (_) => const ListenerApplication()));
                         }
                       },
-                      visualDensity: VisualDensity(vertical: -3),
+                      visualDensity: const VisualDensity(vertical: -3),
                     ),
                   ),
                   SizedBox(height: ScreenUtil().setHeight(20)),
-                  Container(
-                    child: ListTile(
-                      leading: Icon(
-                        EvaIcons.personOutline,
-                        size: 30,
-                        color: Color(0xff878787),
-                      ),
-                      title: Text(
-                        "리스너 프로필관리",
-                        style: TextStyle(
-                            fontSize: 18.sp,
-                            color: Color(0xff909090),
-                            fontWeight: FontWeight.bold),
-                      ),
-                      trailing: Icon(
-                        EvaIcons.arrowIosForward,
-                        size: 25,
-                        color: Color(0xff909090),
-                      ),
-                      onTap: () async {
-                        if (await FirebaseFirestore.instance
-                            .collection("support_manager")
-                            .doc(currentUser.uid)
-                            .get()
-                            .then((value) => value.exists == false)) {
-                          showDialog(
-                              context: context,
-                              barrierDismissible: false,
-                              builder: (BuildContext ctx) {
-                                return AlertDialog(
-                                  content: Container(
-                                    padding: EdgeInsets.only(top: 30),
-                                    child: Text(
-                                      "지원하기를 먼저\n"
-                                      "클릭해주세요!",
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(fontSize: 16.sp),
-                                    ),
-                                  ),
-                                  actions: [
-                                    Center(
-                                      child: MaterialButton(
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                          },
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              color: Color(0xff74BABC),
-                                            ),
-                                            child: Center(child: Text("확인",style: TextStyle(color: Colors.white),)),
-                                            width: 60,
-                                            height: 30,
-                                          )),
-                                    )
-                                  ],
-                                );
-                              });
-                        } else {
-                          Navigator.of(context, rootNavigator: true).push(
-                              MaterialPageRoute(
-                                  builder: (_) => ListenerMyProfile()));
-                        }
-                      },
+                  ListTile(
+                    leading: const Icon(
+                      EvaIcons.personOutline,
+                      size: 30,
+                      color: Color(0xff878787),
                     ),
+                    title: Text(
+                      "리스너 프로필관리",
+                      style: TextStyle(
+                          fontSize: 18.sp,
+                          color: const Color(0xff909090),
+                          fontWeight: FontWeight.bold),
+                    ),
+                    trailing: const Icon(
+                      EvaIcons.arrowIosForward,
+                      size: 25,
+                      color: Color(0xff909090),
+                    ),
+                    onTap: () async {
+                      if (await FirebaseFirestore.instance
+                          .collection("support_manager")
+                          .doc(currentUser.uid)
+                          .get()
+                          .then((value) => value.exists == false)) {
+                        showDialog(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (BuildContext ctx) {
+                              return AlertDialog(
+                                content: Container(
+                                  padding: const EdgeInsets.only(top: 30),
+                                  child: Text(
+                                    "지원하기를 먼저\n"
+                                    "클릭해주세요!",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(fontSize: 16.sp),
+                                  ),
+                                ),
+                                actions: [
+                                  Center(
+                                    child: MaterialButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: Container(
+                                          decoration: const BoxDecoration(
+                                            color: Color(0xff74BABC),
+                                          ),
+                                          width: 60,
+                                          height: 30,
+                                          child: const Center(child: Text("확인",style: TextStyle(color: Colors.white),)),
+                                        )),
+                                  )
+                                ],
+                              );
+                            });
+                      }
+                      else if (await FirebaseFirestore.instance
+                          .collection("user")
+                          .doc(currentUser.uid)
+                          .get()
+                          .then((value) => value['role']) == 'client') {
+                        // TODO : 창 띄우기
+                        print('승인되지 않았습니다.');
+                      }
+                      else {
+                        Navigator.of(context, rootNavigator: true).push(
+                            MaterialPageRoute(
+                                builder: (_) => const ListenerMyProfile()));
+                      }
+                    },
                   ),
                 ],
               ),
