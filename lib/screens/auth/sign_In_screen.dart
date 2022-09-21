@@ -2,9 +2,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/controller/auth/auth_controller.dart';
 import 'package:flutter_app/screens/auth/super_login.dart';
+import 'package:flutter_app/screens/my_profile/p_terms2.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../my_profile/p_terms1.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({Key? key}) : super(key: key);
@@ -134,19 +137,16 @@ class _SignInScreenState extends State<SignInScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // TODO : 웹페이지에서 WidgetScreen 연결하기
                 TextButton(
                   child: Text("이용약관", style: TextStyle(fontSize: 12.sp, color: const Color(0xff351313))),
                   onPressed: () async {
-                    final Uri url = Uri.parse('https://google.com');
-                    await launchUrl(url);
+                    Get.to(()=> ProfileTerms1());
                   },
                 ),
                 TextButton(
                   child: Text("개인정보처리방침", style: TextStyle(fontSize: 12.sp, color: const Color(0xff351313))),
                   onPressed: () async {
-                    final Uri url = Uri.parse('https://nawasancheck.web.app');
-                    await launchUrl(url);
+                    Get.to(()=> ProfileTerms2());
                   },
                 ),
               ],
