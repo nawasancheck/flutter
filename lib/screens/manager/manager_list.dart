@@ -158,7 +158,7 @@ class _ManagerListScreenState extends State<ManagerListScreen> {
                                           mainAxisAlignment: MainAxisAlignment.start,
                                           children: [
                                             Text(
-                                              " ${docs[index]['profile']['title']}",
+                                              " ${docs[index]['profile']['nickname']}",
                                               style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold, color: const Color(0xff241332)),
                                             ),
                                             const Flexible(
@@ -250,22 +250,22 @@ class _ManagerListScreenState extends State<ManagerListScreen> {
                                           children: [
                                             Text("  ${docs[index]['profile']['area']} - ",
                                                 style: TextStyle(fontSize: 15.sp, color: const Color(0xff6b6b6b))),
-                                            Text(" ${docs[index]['profile']['year']}대", style: TextStyle(fontSize: 15.sp, color: const Color(0xff6b6b6b))),
+                                            Text(" ${docs[index]['profile']['age']}대", style: TextStyle(fontSize: 15.sp, color: const Color(0xff6b6b6b))),
                                           ],
                                         ),
                                       ),
                                       Row(
                                         children: [
-                                          Text("  관심분야 - ${docs[index]['profile']['like'].substring(0, 6) + "..."}",
-                                              style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold, color: const Color(0xff737373))),
+                                          Text("  관심분야 - ${docs[index]['profile']['like'].substring(0, 3) + "..."}",
+                                              style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold, color: const Color(0xff737373)),overflow: TextOverflow.ellipsis),
                                         ],
                                       ),
                                       Padding(
                                         padding: const EdgeInsets.only(bottom: 0),
                                         child: Row(
                                           children: [
-                                            Text("  ${docs[index]['profile']['description'].substring(0, 15)}...",
-                                                style: TextStyle(fontSize: 15.sp, color: const Color(0xff878787))),
+                                            Text("  ${docs[index]['profile']['description'].substring(0, 7)}...",
+                                                style: TextStyle(fontSize: 15.sp, color: const Color(0xff878787)), overflow: TextOverflow.ellipsis,),
                                           ],
                                         ),
                                       ),

@@ -3,9 +3,11 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/controller/auth/auth_controller.dart';
+import 'package:flutter_app/screens/homepage.dart';
 import 'package:flutter_app/screens/my_profile/listener_profile.dart';
 import 'package:flutter_app/screens/my_profile/profile.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:uuid/uuid.dart';
@@ -28,6 +30,8 @@ class _ListenerMyProfileState extends State<ListenerMyProfile> {
   String description = '';
   String title = '';
   String phoneNumber = '';
+  String age = '20';
+  String gender = '성별';
 
   Future<String> getImage() async {
     ImagePicker picker = ImagePicker();
@@ -200,8 +204,8 @@ class _ListenerMyProfileState extends State<ListenerMyProfile> {
                                   ),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    children: const [
-                                      Gender(),
+                                    children: [
+                                      Gender()
                                     ],
                                   ),
                                 ),
@@ -218,7 +222,7 @@ class _ListenerMyProfileState extends State<ListenerMyProfile> {
                                   ),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    children: const [
+                                    children: [
                                       Age(),
                                     ],
                                   ),
@@ -263,7 +267,7 @@ class _ListenerMyProfileState extends State<ListenerMyProfile> {
                                   ),
                                   contentPadding: const EdgeInsets.only(left: 10)),
                               onChanged: (value) {
-                                // area = value.trim();
+                                area = value.trim();
                               },
                             ),
                           ),
@@ -303,7 +307,7 @@ class _ListenerMyProfileState extends State<ListenerMyProfile> {
                                   ),
                                   contentPadding: const EdgeInsets.only(left: 10)),
                               onChanged: (value) {
-                                // interests = value.trim();
+                                like = value.trim();
                               },
                             ),
                           ),
@@ -344,7 +348,7 @@ class _ListenerMyProfileState extends State<ListenerMyProfile> {
                               maxLines: 3,
                               minLines: 1,
                               onChanged: (value) {
-                                // content = value.trim();
+                                description = value.trim();
                               },
                             ),
                           ),
@@ -359,14 +363,52 @@ class _ListenerMyProfileState extends State<ListenerMyProfile> {
                               await FirebaseFirestore.instance.collection('user').doc(currentUser.uid).update({
                                 'profile.area': area,
                                 'profile.description': description,
-                                'profile.title': title,
+                                'profile.nickname': nickname,
                                 'profile.like': like,
                                 'profile.heart': 0,
                                 'profile.imageUrl': imageUrl,
                                 'profile.isPressedList': [],
                                 'profile.managerUid': currentUser.uid,
+                                'profile.age': age,
+                                'profile.gender': gender,
                                 // 'profile.year': year
                               });
+                              showDialog(
+                                  context: context,
+                                  barrierDismissible: false,
+                                  builder: (BuildContext ctx) {
+                                    return AlertDialog(
+                                      content: Container(
+                                        padding: const EdgeInsets.only(top: 30),
+                                        child: const Text(
+                                          "수정이 완료되었습니다!",
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                      actions: [
+                                        Center(
+                                          child: MaterialButton(
+                                              onPressed: () {
+                                                Navigator.pushAndRemoveUntil(context,
+                                                    MaterialPageRoute(builder: (BuildContext context) => const HomePage()), (route) => false);
+                                                Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => const Profile()));
+                                              },
+                                              child: Container(
+                                                decoration: const BoxDecoration(
+                                                  color: Color(0xff74BABC),
+                                                ),
+                                                width: 60,
+                                                height: 30,
+                                                child: const Center(
+                                                    child: Text(
+                                                      "확인",
+                                                      style: TextStyle(color: Colors.white),
+                                                    )),
+                                              )),
+                                        )
+                                      ],
+                                    );
+                                  });
                             },
                             splashColor: Colors.grey,
                             child: Center(
@@ -385,7 +427,8 @@ class _ListenerMyProfileState extends State<ListenerMyProfile> {
                                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13.sp, color: Colors.white),
                                 )),
                               ),
-                            )),
+                            )
+                        ),
                         SizedBox(height: ScreenUtil().setHeight(10)),
                       ],
                     )),
@@ -396,23 +439,11 @@ class _ListenerMyProfileState extends State<ListenerMyProfile> {
       ),
     );
   }
-}
+  DropdownButton<String> Gender(){
 
-class Gender extends StatefulWidget {
-  const Gender({Key? key}) : super(key: key);
-
-  @override
-  _GenderState createState() => _GenderState();
-}
-
-class _GenderState extends State<Gender> {
-  String dropdownValueGender = '성별';
-
-  @override
-  Widget build(BuildContext context) {
     return DropdownButton<String>(
       isDense: true,
-      value: dropdownValueGender,
+      value: gender,
       elevation: 16,
       style: const TextStyle(
         color: Color(0xff324755),
@@ -420,7 +451,7 @@ class _GenderState extends State<Gender> {
       underline: DropdownButtonHideUnderline(child: Container()),
       onChanged: (String? newValue) {
         setState(() {
-          dropdownValueGender = newValue!;
+          gender = newValue!;
         });
       },
       items: <String>['성별', '남자', '여자'].map<DropdownMenuItem<String>>((String value) {
@@ -431,23 +462,11 @@ class _GenderState extends State<Gender> {
       }).toList(),
     );
   }
-}
 
-class Age extends StatefulWidget {
-  const Age({Key? key}) : super(key: key);
-
-  @override
-  _AgeState createState() => _AgeState();
-}
-
-class _AgeState extends State<Age> {
-  String dropdownValueAge = '20';
-
-  @override
-  Widget build(BuildContext context) {
+  DropdownButton<String> Age(){
     return DropdownButton<String>(
       isDense: true,
-      value: dropdownValueAge,
+      value: age,
       elevation: 16,
       style: const TextStyle(
         color: Color(0xff324755),
@@ -455,7 +474,7 @@ class _AgeState extends State<Age> {
       underline: DropdownButtonHideUnderline(child: Container()),
       onChanged: (String? newValue) {
         setState(() {
-          dropdownValueAge = newValue!;
+          age = newValue!;
         });
       },
       items: <String>['20', '30', '40', '50', '60'].map<DropdownMenuItem<String>>((String value) {
@@ -467,3 +486,78 @@ class _AgeState extends State<Age> {
     );
   }
 }
+
+// class Gender extends StatefulWidget {
+//
+//   const Gender({Key? key}) : super(key: key);
+//
+//
+//   @override
+//   _GenderState createState() => _GenderState();
+// }
+//
+// class _GenderState extends State<Gender> {
+//   String dropdownValueGender = '성별';
+//
+//   @override
+//   Widget build(BuildContext context) {
+//
+//
+//     return DropdownButton<String>(
+//       isDense: true,
+//       value: dropdownValueGender,
+//       elevation: 16,
+//       style: const TextStyle(
+//         color: Color(0xff324755),
+//       ),
+//       underline: DropdownButtonHideUnderline(child: Container()),
+//       onChanged: (String? newValue) {
+//         setState(() {
+//           dropdownValueGender = newValue!;
+//         });
+//       },
+//       items: <String>['성별', '남자', '여자'].map<DropdownMenuItem<String>>((String value) {
+//         return DropdownMenuItem<String>(
+//           value: value,
+//           child: Text(value),
+//         );
+//       }).toList(),
+//     );
+//   }
+// }
+
+// class Age extends StatefulWidget {
+//   const Age({Key? key}) : super(key: key);
+//
+//   @override
+//   _AgeState createState() => _AgeState();
+// }
+//
+// class _AgeState extends State<Age> {
+//   String dropdownValueAge = '20';
+//
+//   @override
+//   Widget build(BuildContext context) {
+//
+//     return DropdownButton<String>(
+//       isDense: true,
+//       value: dropdownValueAge,
+//       elevation: 16,
+//       style: const TextStyle(
+//         color: Color(0xff324755),
+//       ),
+//       underline: DropdownButtonHideUnderline(child: Container()),
+//       onChanged: (String? newValue) {
+//         setState(() {
+//           dropdownValueAge = newValue!;
+//         });
+//       },
+//       items: <String>['20', '30', '40', '50', '60'].map<DropdownMenuItem<String>>((String value) {
+//         return DropdownMenuItem<String>(
+//           value: value,
+//           child: Text(value),
+//         );
+//       }).toList(),
+//     );
+//   }
+// }

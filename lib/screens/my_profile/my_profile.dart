@@ -140,7 +140,6 @@ class _MyProfileState extends State<MyProfile> {
                         barrierDismissible: false, // 바깥영역 터치시 닫힐지 여부
                         builder: (BuildContext context) {
                           return AlertDialog(
-                            title: Text("팝업 메세지"),
                             content: Text('로그아웃 하시겠습니까?'),
                             actions: [
                               MaterialButton(
@@ -149,12 +148,12 @@ class _MyProfileState extends State<MyProfile> {
                                     Navigator.of(context, rootNavigator: true).pop(MaterialPageRoute(builder: (_) => SignInScreen()));
                                   //  Navigator.of(context).pop(); // 팝업창 나가기
                                   },
-                                  child: Text('Okay')),
+                                  child: Text('확인')),
                               MaterialButton(
                                   onPressed: () {
                                     Navigator.of(context).pop(); // 팝업창 나가기
                                   },
-                                  child: Text('Cancel')),
+                                  child: Text('취소')),
                             ],
                           );
                         });

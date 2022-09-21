@@ -28,6 +28,8 @@ class _ListenerApplicationState extends State<ListenerApplication> {
   String title = '';
   String phoneNumber = '';
   String imageUrl = '';
+  String age = '20';
+  String gender = '성별';
 
   Future<String> getImage() async {
     ImagePicker picker = ImagePicker();
@@ -197,7 +199,7 @@ class _ListenerApplicationState extends State<ListenerApplication> {
                                   ),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    children: const [
+                                    children: [
                                       Gender(),
                                     ],
                                   ),
@@ -215,7 +217,7 @@ class _ListenerApplicationState extends State<ListenerApplication> {
                                   ),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    children: const [
+                                    children: [
                                       Age(),
                                     ],
                                   ),
@@ -432,17 +434,22 @@ class _ListenerApplicationState extends State<ListenerApplication> {
                                 'interests': like,
                                 'content': description,
                                 'listenerName': title,
-                                'phoneNumber': phoneNumber
+                                'phoneNumber': phoneNumber,
+                                'age': age,
+                                'gender': gender,
                               });
                               await FirebaseFirestore.instance.collection('user').doc(currentUser.uid).update({
                                 'profile.area': area,
                                 'profile.description': description,
                                 'profile.title': title,
+                                'profile.nickname': nickname,
                                 'profile.like': like,
                                 'profile.heart': 0,
                                 'profile.imageUrl': imageUrl,
                                 'profile.isPressedList': [],
                                 'profile.managerUid': currentUser.uid,
+                                'profile.age': age,
+                                'profile.gender': gender,
                                 // 'profile.year': year
                               });
                               showDialog(
@@ -510,23 +517,11 @@ class _ListenerApplicationState extends State<ListenerApplication> {
       ),
     );
   }
-}
+  DropdownButton<String> Gender(){
 
-class Gender extends StatefulWidget {
-  const Gender({Key? key}) : super(key: key);
-
-  @override
-  State<Gender> createState() => _GenderState();
-}
-
-class _GenderState extends State<Gender> {
-  String dropdownValueGender = '성별';
-
-  @override
-  Widget build(BuildContext context) {
     return DropdownButton<String>(
       isDense: true,
-      value: dropdownValueGender,
+      value: gender,
       elevation: 16,
       style: const TextStyle(
         color: Color(0xff324755),
@@ -534,7 +529,7 @@ class _GenderState extends State<Gender> {
       underline: DropdownButtonHideUnderline(child: Container()),
       onChanged: (String? newValue) {
         setState(() {
-          dropdownValueGender = newValue!;
+          gender = newValue!;
         });
       },
       items: <String>['성별', '남자', '여자'].map<DropdownMenuItem<String>>((String value) {
@@ -545,23 +540,11 @@ class _GenderState extends State<Gender> {
       }).toList(),
     );
   }
-}
 
-class Age extends StatefulWidget {
-  const Age({Key? key}) : super(key: key);
-
-  @override
-  _AgeState createState() => _AgeState();
-}
-
-class _AgeState extends State<Age> {
-  String dropdownValueAge = '20';
-
-  @override
-  Widget build(BuildContext context) {
+  DropdownButton<String> Age(){
     return DropdownButton<String>(
       isDense: true,
-      value: dropdownValueAge,
+      value: age,
       elevation: 16,
       style: const TextStyle(
         color: Color(0xff324755),
@@ -569,7 +552,7 @@ class _AgeState extends State<Age> {
       underline: DropdownButtonHideUnderline(child: Container()),
       onChanged: (String? newValue) {
         setState(() {
-          dropdownValueAge = newValue!;
+          age = newValue!;
         });
       },
       items: <String>['20', '30', '40', '50', '60'].map<DropdownMenuItem<String>>((String value) {
@@ -581,3 +564,73 @@ class _AgeState extends State<Age> {
     );
   }
 }
+
+// class Gender extends StatefulWidget {
+//   const Gender({Key? key}) : super(key: key);
+//
+//   @override
+//   State<Gender> createState() => _GenderState();
+// }
+//
+// class _GenderState extends State<Gender> {
+//   String dropdownValueGender = '성별';
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return DropdownButton<String>(
+//       isDense: true,
+//       value: dropdownValueGender,
+//       elevation: 16,
+//       style: const TextStyle(
+//         color: Color(0xff324755),
+//       ),
+//       underline: DropdownButtonHideUnderline(child: Container()),
+//       onChanged: (String? newValue) {
+//         setState(() {
+//           dropdownValueGender = newValue!;
+//         });
+//       },
+//       items: <String>['성별', '남자', '여자'].map<DropdownMenuItem<String>>((String value) {
+//         return DropdownMenuItem<String>(
+//           value: value,
+//           child: Text(value),
+//         );
+//       }).toList(),
+//     );
+//   }
+// }
+//
+// class Age extends StatefulWidget {
+//   const Age({Key? key}) : super(key: key);
+//
+//   @override
+//   _AgeState createState() => _AgeState();
+// }
+//
+// class _AgeState extends State<Age> {
+//   String dropdownValueAge = '20';
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return DropdownButton<String>(
+//       isDense: true,
+//       value: dropdownValueAge,
+//       elevation: 16,
+//       style: const TextStyle(
+//         color: Color(0xff324755),
+//       ),
+//       underline: DropdownButtonHideUnderline(child: Container()),
+//       onChanged: (String? newValue) {
+//         setState(() {
+//           dropdownValueAge = newValue!;
+//         });
+//       },
+//       items: <String>['20', '30', '40', '50', '60'].map<DropdownMenuItem<String>>((String value) {
+//         return DropdownMenuItem<String>(
+//           value: value,
+//           child: Text(value),
+//         );
+//       }).toList(),
+//     );
+//   }
+// }
