@@ -38,19 +38,93 @@ class _WritePostState extends State<WritePost> {
             InkWell(
               onTap: () async {
                 if (title.trim().isEmpty || content.trim().isEmpty) {
-                  Get.snackbar(
-                    "Error message",
-                    "User message",
-                    backgroundColor: Colors.red,
-                    titleText: const Text("게시판 작성"),
-                    messageText: const Text(
-                      "제목 혹은 내용에 값이 없습니다.",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  );
+                  showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (BuildContext ctx) {
+                        return AlertDialog(
+                          content: Container(
+                            padding: const EdgeInsets.only(top: 30),
+                            child: const Text(
+                              "제목과 내용을 입력해주세요.", style: TextStyle(fontSize: 16),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          actions: [
+                            Center(
+                              child: MaterialButton(
+                                  onPressed: () {
+                                    Navigator.pop(Get.context!);
+                                  },
+                                  child: Container(
+                                    decoration: const BoxDecoration(
+                                      color: Color(0xff74BABC),
+                                    ),
+                                    width: 60,
+                                    height: 30,
+                                    child: const Center(child: Text("확인", style: TextStyle(color: Colors.white, fontSize: 16),)),
+                                  )),
+                            )
+                          ],
+                        );
+                      });
+                  // Get.snackbar(
+                  //   "Error message",
+                  //   "User message",
+                  //   backgroundColor: Colors.red,
+                  //   titleText: const Text("게시판 작성"),
+                  //   messageText: const Text(
+                  //     "제목 혹은 내용에 값이 없습니다.",
+                  //     style: TextStyle(color: Colors.white),
+                  //   ),
+                  // );
                 } else {
-                  Navigator.pop(context);
-                  await writePost();
+                  showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (BuildContext ctx) {
+                        return AlertDialog(
+                          content: Container(
+                            padding: const EdgeInsets.only(top: 30),
+                            child: const Text(
+                              "글을 등록하시겠습니까?", style: TextStyle(fontSize: 16),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          actions: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center ,
+                              children: [
+                                MaterialButton(
+                                    onPressed: () async{
+                                      Navigator.pop(Get.context!);
+                                      Navigator.pop(context);
+                                      await writePost();
+                                    },
+                                    child: Container(
+                                      decoration: const BoxDecoration(
+                                        color: Color(0xff74BABC),
+                                      ),
+                                      width: 60,
+                                      height: 30,
+                                      child: const Center(child: Text("확인", style: TextStyle(color: Colors.white, fontSize: 16),)),
+                                    )),
+                                MaterialButton(
+                                    onPressed: () {
+                                      Navigator.pop(Get.context!);
+                                    },
+                                    child: Container(
+                                      decoration: const BoxDecoration(
+                                        color: Color(0xff74BABC),
+                                      ),
+                                      width: 60,
+                                      height: 30,
+                                      child: const Center(child: Text("취소", style: TextStyle(color: Colors.white, fontSize: 16),)),
+                                    ))
+                              ],)
+                          ],
+                        );
+                      });
                 }
               },
               child: Padding(

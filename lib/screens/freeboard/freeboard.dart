@@ -11,8 +11,6 @@ class FreeBoard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final List<int> numbers = <int>[1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -89,8 +87,6 @@ class FreeBoard extends StatelessWidget {
                         color: Colors.white,
                         child: InkWell(
                           onTap: () {
-                            // 바텀네비게이션 없애기
-                            //
                             Get.to(() => FreeBoardContent(docs[index].id));
                           },
                           child: Center(
@@ -105,7 +101,7 @@ class FreeBoard extends StatelessWidget {
                               child: Center(
                                 child: SizedBox(
                                   // 리스트 안 내용 크기 컨테이너
-                                  height: ScreenUtil().setHeight(75), // 변경 history 1. 90 , 2. 60
+                                  height: ScreenUtil().setHeight(71), // 변경 history 1. 90 , 2. 60
                                   width: ScreenUtil().setWidth(342),
                                   //color: Colors.green,
                                   child: ListView(
