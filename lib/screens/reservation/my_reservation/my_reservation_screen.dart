@@ -18,11 +18,9 @@ class _MyReservationState extends State<MyReservation> {
   //final List<int> numbers = <int>[1, 2, 3, 4, 5, 6, 7];
 
   // 고객용
-  // TODO : 산책 완료 색깔 넣기
   final Map<String, Color> colorListCustomer = { "산책 요청": Color(0xffe1f3f3), '산책 예정': Color(0xff74BABC), '산책 완료': Color(0xffc4c4c4), "산책 취소": Color(0xffFF738C),  "산책 거절": Color(0xffFDFD96),};
 
   // 리스너용
-  // TODO : 산책 완료 색깔 넣기
   final Map<String, Color> colorListManager = {'산책 요청': Color(0xffe1f3f3), "산책 예정": Color(0xff74BABC),  '산책 완료': Color(0xffc4c4c4), '산책 취소': Color(0xffFF738C), '산책 거절': Color(0xffFDFD96), };
 
   @override
@@ -59,16 +57,6 @@ class _MyReservationState extends State<MyReservation> {
             "나의 예약",
             style: TextStyle(color: const Color(0xff324755), fontSize: 20.sp, fontWeight: FontWeight.bold),
           ),
-          //centerTitle: true,
-          actions: [
-            IconButton(
-              icon: const Icon(
-                EvaIcons.bellOutline,
-                color: Color(0xff525252),
-              ),
-              onPressed: () {},
-            )
-          ],
         ),
         body: TabBarView(
           children: [
@@ -153,15 +141,95 @@ class _MyReservationState extends State<MyReservation> {
                                       Padding(
                                         padding: const EdgeInsets.fromLTRB(10, 10, 0, 0),
                                         child: InkWell(
-                                          // TODO : 지우지 못한다고 알려주기
-                                            onTap:(docs[index]['status'] == "산책 요청" || docs[index]['status'] == '산책 예정') ? null : () async {
-                                              await FirebaseFirestore.instance
-                                                  .collection("client_reserve")
-                                                  .doc(AuthController.instance.authentication.currentUser!.uid)
-                                                  .collection('reserve')
-                                                  .doc(docs[index]['id'])
-                                                  .delete();
-                                              print('지우기 첵!!');
+                                            onTap:(docs[index]['status'] == "산책 요청" || docs[index]['status'] == '산책 예정') ?
+                                                (){
+                                                  showDialog(
+                                                      context: context,
+                                                      barrierDismissible: false,
+                                                      builder: (BuildContext ctx) {
+                                                        return AlertDialog(
+                                                          content: Container(
+                                                            padding: const EdgeInsets.only(top: 30),
+                                                            child: const Text(
+                                                              "현재 상태에서\n리스트를 지울수 없습니다.", style: TextStyle(fontSize: 16),
+                                                              textAlign: TextAlign.center,
+                                                            ),
+                                                          ),
+                                                          actions: [
+                                                            Center(
+                                                              child: MaterialButton(
+                                                                  onPressed: () {
+                                                                    Navigator.pop(Get.context!);
+                                                                  },
+                                                                  child: Container(
+                                                                    decoration: const BoxDecoration(
+                                                                      color: Color(0xff74BABC),
+                                                                    ),
+                                                                    width: 60,
+                                                                    height: 30,
+                                                                    child: const Center(child: Text("확인", style: TextStyle(color: Colors.white, fontSize: 16),)),
+                                                                  )),
+                                                            )
+                                                          ],
+                                                        );
+                                                      });
+
+                                                }
+                                              : (){
+                                              showDialog(
+                                                  context: context,
+                                                  barrierDismissible: false,
+                                                  builder: (BuildContext ctx) {
+                                                    return AlertDialog(
+                                                      content: Container(
+                                                        padding: const EdgeInsets.only(top: 30),
+                                                        child: const Text(
+                                                          "산책 기록을 리스트에서\n삭제하시겠습니까?", style: TextStyle(fontSize: 16),
+                                                          textAlign: TextAlign.center,
+                                                        ),
+                                                      ),
+                                                      actions: [
+                                                        Row(
+                                                          mainAxisAlignment: MainAxisAlignment.center ,
+                                                          children: [
+                                                          MaterialButton(
+                                                              onPressed:     () async {
+                                                                await FirebaseFirestore.instance
+                                                                    .collection("client_reserve")
+                                                                    .doc(AuthController.instance.authentication.currentUser!.uid)
+                                                                    .collection('reserve')
+                                                                    .doc(docs[index]['id'])
+                                                                    .delete();
+                                                                Navigator.pop(Get.context!);
+                                                                print('지우기 첵!!');
+                                                              },
+                                                              child: Container(
+                                                                decoration: const BoxDecoration(
+                                                                  color: Color(0xff74BABC),
+                                                                ),
+                                                                width: 60,
+                                                                height: 30,
+                                                                child: const Center(child: Text("확인", style: TextStyle(color: Colors.white, fontSize: 16),)),
+                                                              )),
+                                                          MaterialButton(
+                                                              onPressed: () {
+                                                                Navigator.pop(Get.context!);
+                                                              },
+                                                              child: Container(
+                                                                decoration: const BoxDecoration(
+                                                                  color: Color(0xff74BABC),
+                                                                ),
+                                                                width: 60,
+                                                                height: 30,
+                                                                child: const Center(child: Text("취소", style: TextStyle(color: Colors.white, fontSize: 16),)),
+                                                              ))
+                                                        ],)
+                                                      ],
+                                                    );
+                                                  });
+
+
+
                                             },
                                             child: const Icon(
                                               Icons.delete_outline,
@@ -259,7 +327,7 @@ class _MyReservationState extends State<MyReservation> {
                             border: Border.all(color: Colors.grey, width: 0.5),
                           ),
                           child: Center(
-                            child: SizedBox(
+                            child: Container(
                               //color: Colors.yellow,
                               width: ScreenUtil().setWidth(360),
                               height: ScreenUtil().setHeight(120),
@@ -281,78 +349,83 @@ class _MyReservationState extends State<MyReservation> {
                                           child: Text(docs[index]['status'], style: const TextStyle(color: Colors.black)),
                                         ),
                                       ),
+                                      Expanded(child: SizedBox()),
+                                      // todo 리스너 나의예약 리스트 삭제기능
+                                      InkWell(
+                                        onTap: (){
+                                          print('삭제 첵');
+                                        },
+                                        child: Icon(Icons.delete_outline,),
+                                      )
                                     ],
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.only(top: 8),
-                                    child: Row(
-                                      children: [
-                                        Container(
-                                          width: ScreenUtil().setWidth(76),
-                                          height: ScreenUtil().setHeight(76),
-                                          decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            color: Colors.grey[400],
-                                          ),
-                                          child: Icon(
-                                            EvaIcons.personOutline,
-                                            size: 60.sp,
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                        Row(
-                                          children: [
-                                            Padding(
-                                              padding: const EdgeInsets.only(left: 10),
-                                              child: SizedBox(
-                                                //== 닉네임, 시간 산책 Container ==
-                                                //color: Colors.lightGreenAccent,
-                                                width: ScreenUtil().setWidth(150),
-                                                height: ScreenUtil().setHeight(60),
-                                                child: Column(children: [
-                                                  Row(children: [
-                                                    Text('요청자: ',
-                                                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.sp, color: Colors.grey)),
-                                                    Text(
-                                                      docs[index]['client'], style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp, color: const Color(0xff324755),),),
-                                                  ],),
-                                                  Row(children: [
-                                                    Text('요청 시간: ',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.sp, color: Colors.grey),
-                                                  ),
-                                                    Text(docs[index]['wantTime'] + '분', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp,color: const Color(0xff324755),),
-                                                    ),
-                                                  ],),
-                                                ],)
-                                              ),
+                                    child: Container(
+                                      //color: Colors.orange,
+                                      width: ScreenUtil().setWidth(360),
+                                      child: Row(
+                                        children: [
+                                          Container(
+                                            width: ScreenUtil().setWidth(76),
+                                            height: ScreenUtil().setHeight(76),
+                                            decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              color: Colors.grey[400],
                                             ),
-                                            Padding(
-                                              padding: const EdgeInsets.only(left: 10),
-                                              child: SizedBox(
-                                                width: ScreenUtil().setWidth(100),
-                                                height: ScreenUtil().setHeight(60),
-                                                child: GestureDetector(
-                                                  onTap: () {
-                                                    Get.to(() => RequestConfirm(docs[index]));
-                                                  },
-                                                  child: Container(
-                                                   // color: Color(0xffe1f3f3),
-                                                    decoration: BoxDecoration(
-                                                      borderRadius: BorderRadius.circular(10),
-                                                      border: Border.all(width: 1.5, color: Colors.grey)
-                                                    ),
-                                                    child: Center(
-                                                      child: Text(
-                                                        '요청 확인',
-                                                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp,color: const Color(0xff324755),),
-                                                      ),
-                                                    ),
+                                            child: Icon(
+                                              EvaIcons.personOutline,
+                                              size: 60.sp,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(left: 10),
+                                            child: Container(
+                                              //== 닉네임, 시간 산책 Container ==
+                                              //color: Colors.lightGreenAccent,
+                                              width: ScreenUtil().setWidth(150),
+                                              height: ScreenUtil().setHeight(60),
+                                              child: Column(children: [
+                                                Row(children: [
+                                                  Text('요청자: ',
+                                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.sp, color: Colors.grey)),
+                                                  Text(
+                                                    docs[index]['client'], style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp, color: const Color(0xff324755),),),
+                                                ],),
+                                                Row(children: [
+                                                  Text('요청 시간: ',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.sp, color: Colors.grey),
+                                                ),
+                                                  Text(docs[index]['wantTime'] + '분', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp,color: const Color(0xff324755),),
+                                                  ),
+                                                ],),
+                                              ],)
+                                            ),
+                                          ),
+                                          Expanded(child: Container(color: Colors.black,width:1)),
+                                          SizedBox(
+                                            width: ScreenUtil().setWidth(100),
+                                            height: ScreenUtil().setHeight(60),
+                                            child: GestureDetector(
+                                              onTap: () {
+                                                Get.to(() => RequestConfirm(docs[index]));
+                                              },
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                  borderRadius: BorderRadius.circular(10),
+                                                  border: Border.all(width: 1.5, color: Colors.grey)
+                                                ),
+                                                child: Center(
+                                                  child: Text(
+                                                    '요청 확인',
+                                                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp,color: const Color(0xff324755),),
                                                   ),
                                                 ),
                                               ),
                                             ),
-                                          ],
-                                        ),
-                                      ],
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   )
                                 ],

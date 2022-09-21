@@ -29,10 +29,7 @@ class RequestConfirm extends StatelessWidget {
           fontSize: 20.sp,
           fontWeight: FontWeight.bold,),),
         centerTitle: true,
-        iconTheme: const IconThemeData(color: Color(0xff324755), ),
-        actions: [
-          IconButton(onPressed: (){}, icon: const Icon(EvaIcons.bellOffOutline))
-        ],
+        iconTheme: const IconThemeData(color: Color(0xff324755),),
       ),
       body: Container(
         height: ScreenUtil().screenHeight,
@@ -59,6 +56,7 @@ class RequestConfirm extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Text('예약상태: ',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15.sp, color: Colors.grey),),
+                                // todo 산책 상태 연결 안됨
                                 Text('산책요청',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15.sp, color: const Color(0xff324755),),),
                               ],
                             ),
@@ -138,6 +136,8 @@ class RequestConfirm extends StatelessWidget {
                 ],),
               ),
             ),
+            // todo 산책 수락/ 거절 한가지 활성화 되면 번복 불가능하게
+
             Row(
               children: [
                 InkWell(                                              // 산책완료 버튼

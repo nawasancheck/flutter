@@ -219,7 +219,7 @@ class ReservationRequestInfo extends StatelessWidget {
                 ],),
               ),
             ),
-            // todo 산책완료 버튼 활성화, 산책 예약된 상태 이후에 활성화
+            // todo 산책완료 버튼 활성화, 산책 예정 상태 이후에 활성화
             InkWell(                                              // 산책완료 버튼
               onTap: (){
                 showDialog(
