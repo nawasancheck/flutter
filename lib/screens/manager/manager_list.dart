@@ -272,6 +272,7 @@ class _ManagerListScreenState extends State<ManagerListScreen> {
                                         padding: const EdgeInsets.only(bottom: 0),
                                         child: Row(
                                           children: [
+
                                             Container(
                                               width: ScreenUtil().setWidth(220),
                                               child: Text("${docs[index]['profile']['description']}",
