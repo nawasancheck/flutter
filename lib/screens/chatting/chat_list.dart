@@ -57,15 +57,6 @@ class _ChatState extends State<ChatList> {
               fontWeight: FontWeight.bold,
             ),
           ),
-          actions: [
-            IconButton(
-              icon: const Icon(
-                EvaIcons.bellOutline,
-                color: Colors.black,
-              ),
-              onPressed: () {},
-            )
-          ],
         ),
         body: TabBarView(
           children: [

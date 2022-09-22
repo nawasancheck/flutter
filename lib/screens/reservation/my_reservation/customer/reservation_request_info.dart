@@ -31,9 +31,6 @@ class ReservationRequestInfo extends StatelessWidget {
           fontWeight: FontWeight.bold,),),
         centerTitle: true,
         iconTheme: const IconThemeData(color: Color(0xff324755), ),
-        actions: [
-          IconButton(onPressed: (){}, icon: const Icon(EvaIcons.bellOffOutline))
-        ],
       ),
       body: Container(                                  // body Container 회색배경
         height: ScreenUtil().screenHeight,
@@ -225,34 +222,56 @@ class ReservationRequestInfo extends StatelessWidget {
                 showDialog(
                     context: context,
                     barrierDismissible: false,
-                    // 바깥영역 터치시 닫힐지 여부
-                    builder: (BuildContext context) {
+                    builder: (BuildContext ctx) {
                       return AlertDialog(
-                        title: const Text("팝업 메세지"),
-                        content: const Text('산책을 완료하시겠습니까?\n산책을 완료하고 Okay 버튼을 눌러주세요.'),
+                        content: Container(
+                          padding: const EdgeInsets.only(top: 30),
+                          child: const Text(
+                            "산책을 완료하시겠습니까?", style: TextStyle(fontSize: 16),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
                         actions: [
-                          MaterialButton(
-                              onPressed: () {
-                                FirebaseFirestore.instance
-                                    .collection('client_reserve')
-                                    .doc(AuthController.instance.authentication.currentUser!.uid)
-                                    .collection('reserve')
-                                    .doc(information['id'])
-                                    .update({'status': '산책 완료'});
-                                FirebaseFirestore.instance
-                                    .collection('reserve')
-                                    .doc(information['managerUid'])
-                                    .collection('reserve')
-                                    .doc(information['managerReserveUid'])
-                                    .update({'status': '산책 완료'});
-                                Get.offAll(() => HomePage()); // 팝업창 나가기
-                              },
-                              child: const Text('Okay')),
-                          MaterialButton(
-                              onPressed: () {
-                                Navigator.of(context).pop(); // 팝업창 나가기
-                              },
-                              child: const Text('Cancel')),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center ,
+                            children: [
+                              MaterialButton(
+                                  onPressed:    ()  {
+                                    FirebaseFirestore.instance
+                                        .collection('client_reserve')
+                                        .doc(AuthController.instance.authentication.currentUser!.uid)
+                                        .collection('reserve')
+                                        .doc(information['id'])
+                                        .update({'status': '산책 완료'});
+                                    FirebaseFirestore.instance
+                                        .collection('reserve')
+                                        .doc(information['managerUid'])
+                                        .collection('reserve')
+                                        .doc(information['managerReserveUid'])
+                                        .update({'status': '산책 완료'});
+                                    Get.offAll(() => HomePage()); // 팝
+                                  },
+                                  child: Container(
+                                    decoration: const BoxDecoration(
+                                      color: Color(0xff74BABC),
+                                    ),
+                                    width: 60,
+                                    height: 30,
+                                    child: const Center(child: Text("확인", style: TextStyle(color: Colors.white, fontSize: 16),)),
+                                  )),
+                              MaterialButton(
+                                  onPressed: () {
+                                    Navigator.pop(Get.context!);
+                                  },
+                                  child: Container(
+                                    decoration: const BoxDecoration(
+                                      color: Color(0xff74BABC),
+                                    ),
+                                    width: 60,
+                                    height: 30,
+                                    child: const Center(child: Text("취소", style: TextStyle(color: Colors.white, fontSize: 16),)),
+                                  ))
+                            ],)
                         ],
                       );
                     });
