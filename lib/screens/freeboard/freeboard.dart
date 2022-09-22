@@ -114,12 +114,12 @@ class FreeBoard extends StatelessWidget {
                                         child: Row(
                                           children: [
                                             //  게시판 제목 표시 제한 25자
-                                            Container(
-                                              child: Text("${docs[index]['title']}",
-                                                style: TextStyle(fontSize: 17.sp, fontWeight: FontWeight.bold,color: const Color(0xff324755),),
-                                              overflow: TextOverflow.ellipsis,),
-                                            )
-
+                                            docs[index]['title'].length < 25 == true ?  Text(docs[index]['title'],
+                                              style: TextStyle(fontSize: 17.sp, fontWeight: FontWeight.bold,color: const Color(0xff324755),),)
+                                                : Text(
+                                              docs[index]['title'].substring(0, 25) + "...",
+                                              style: TextStyle(fontSize: 17.sp, fontWeight: FontWeight.bold,color: const Color(0xff324755)),
+                                            ),
                                           ],
                                         ),
                                       ),
@@ -139,14 +139,10 @@ class FreeBoard extends StatelessWidget {
                                               ),
                                             )
                                                 :
-                                            Container(
-                                              width: ScreenUtil().setWidth(340),
-                                              child: Text(
-                                                docs[index]['content'],
-                                                style: TextStyle(
-                                                  fontSize: 14.sp,color: Color(0xff737373),
-                                                  overflow: TextOverflow.ellipsis,
-                                                ),
+                                            Text(
+                                              docs[index]['content'].substring(0, 28) + "...",
+                                              style: TextStyle(
+                                                fontSize: 14.sp,color: Color(0xff737373),
                                               ),
                                             ),
                                           ],

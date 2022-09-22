@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/controller/auth/auth_controller.dart';
-import 'package:flutter_app/screens/my_profile/profile.dart';
+import 'package:flutter_app/screens/view_more/view_more_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../homepage.dart';
+import '../../homepage.dart';
 
 
 class ChangedName extends StatefulWidget {
@@ -95,16 +95,11 @@ class _ChangedNameState extends State<ChangedName> {
                           // 바깥영역 터치시 닫힐지 여부
                           builder: (BuildContext context) {
                             return AlertDialog(
-                              title: const Text("팝업 메세지"),
                               content: const Text('닉네임을 변경 하시겠습니까?'),
                               actions: [
                                 MaterialButton(
                                     onPressed: () {
                                       AuthController.instance.authentication.currentUser!.updateDisplayName(name);
-
-
-
-
                                       showDialog(
                                           context: context,
                                           barrierDismissible: false,
@@ -131,7 +126,7 @@ class _ChangedNameState extends State<ChangedName> {
                                                         Navigator.of(context,
                                                             rootNavigator: true)
                                                             .push(MaterialPageRoute(
-                                                            builder: (_) => const Profile()));
+                                                            builder: (_) => const ViewMoreScreen()));
                                                       },
                                                       child: Container(
                                                         decoration: const BoxDecoration(
@@ -145,15 +140,13 @@ class _ChangedNameState extends State<ChangedName> {
                                               ],
                                             );
                                           });
-
-
                                     },
-                                    child: const Text('Okay')),
+                                    child: const Text('확인')),
                                 MaterialButton(
                                     onPressed: () {
                                       Navigator.of(context).pop(); // 팝업창 나가기
                                     },
-                                    child: const Text('Cancel')),
+                                    child: const Text('취소')),
                               ],
                             );
                           });

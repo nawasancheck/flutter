@@ -57,6 +57,15 @@ class _ChatState extends State<ChatList> {
               fontWeight: FontWeight.bold,
             ),
           ),
+          actions: [
+            IconButton(
+              icon: const Icon(
+                EvaIcons.bellOutline,
+                color: Colors.black,
+              ),
+              onPressed: () {},
+            )
+          ],
         ),
         body: TabBarView(
           children: [
@@ -90,6 +99,7 @@ class _ChatState extends State<ChatList> {
                         itemBuilder: (context, index) {
                           return SizedBox(
                             //padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                            height: 200.h,
                             child: Card(
                               child: InkWell(
                                 splashColor: Colors.yellow,
@@ -138,8 +148,8 @@ class _ChatState extends State<ChatList> {
                                               //                 color: Colors.purple,
                                               width: ScreenUtil().setWidth(15),
                                             ),
-                                            Container(
-                                                  //             color: Colors.blue,
+                                            SizedBox(
+                                                //               color: Colors.blue,
                                                 height: ScreenUtil().setHeight(100),
                                                 width: ScreenUtil().setWidth(240),
                                                 child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
@@ -163,16 +173,16 @@ class _ChatState extends State<ChatList> {
                                                               child: CircularProgressIndicator(),
                                                             );
                                                           }
-
-                                                            return Container(
-                                                              width: ScreenUtil().setWidth(230),
-                                                              child: Text(
-                                                                '${snapshot3.data?.docs[0]['fakeText']}',
-                                                                style: TextStyle(color: const Color(0xffa090c4), fontSize: 14.sp),
-                                                                overflow: TextOverflow.ellipsis,
-                                                              ),
+                                                          if (snapshot3.data?.docs[0]['fakeText'].length <= 15) {
+                                                            return Text(
+                                                              '${snapshot3.data?.docs[0]['fakeText']}',
+                                                              style: TextStyle(color: const Color(0xffa090c4), fontSize: 14.sp),
                                                             );
-
+                                                          }
+                                                          return Text(
+                                                            '${snapshot3.data?.docs[0]['fakeText'].substring(0, 15)}...',
+                                                            style: TextStyle(color: const Color(0xffa090c4), fontSize: 14.sp),
+                                                          );
                                                         }),
                                                   ])
                                                 ])),
@@ -317,7 +327,7 @@ class _ChatState extends State<ChatList> {
                                                   crossAxisAlignment: CrossAxisAlignment.start,
                                                   children: [
                                                     Text(docs?['profile']['title'],
-                                                        style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold, color: const Color(0xff324755),)),
+                                                        style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold, color: const Color(0xff324755),)),
                                                     StreamBuilder(
                                                       stream: FirebaseFirestore.instance
                                                           .collection("chat_manager")
@@ -331,14 +341,15 @@ class _ChatState extends State<ChatList> {
                                                             child: CircularProgressIndicator(),
                                                           );
                                                         }
-
-                                                        return Container(
-                                                          width: ScreenUtil().setWidth(230),
-                                                          child: Text(
+                                                        if (snapshot7.data?.docs[0]['fakeText'].length <= 15) {
+                                                          return Text(
                                                             '${snapshot7.data?.docs[0]['fakeText']}',
                                                             style: TextStyle(color: const Color(0xffa090c4), fontSize: 14.sp),
-                                                            overflow: TextOverflow.ellipsis,
-                                                          ),
+                                                          );
+                                                        }
+                                                        return Text(
+                                                          '${snapshot7.data?.docs[0]['fakeText'].substring(0, 15)}...',
+                                                          style: TextStyle(color: const Color(0xffa090c4), fontSize: 14.sp),
                                                         );
                                                       },
                                                     )

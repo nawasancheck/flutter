@@ -3,52 +3,54 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/screens/homepage.dart';
-import 'package:flutter_app/screens/my_profile/profile.dart';
+import 'package:flutter_app/screens/view_more/view_more_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:uuid/uuid.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
-class ListenerApplication extends StatefulWidget {
-  const ListenerApplication({Key? key}) : super(key: key);
+class SupportListener extends StatefulWidget {
+  const SupportListener({Key? key}) : super(key: key);
 
   @override
-  State<ListenerApplication> createState() => _ListenerApplicationState();
+  State<SupportListener> createState() => _SupportListenerState();
 }
 
-class _ListenerApplicationState extends State<ListenerApplication> {
+class _SupportListenerState extends State<SupportListener> {
   final currentUser = FirebaseAuth.instance.currentUser!;
   File? imageFile;
 
-  String nickname = '';
   String area = '';
-  String interests = '';
-  String content = '';
-  String listenerMame = '';
+  String like = '';
+  String description = '';
+  String title = '';
   String phoneNumber = '';
+  String imageUrl = '';
+  String age = '20';
+  String gender = '성별';
 
-  Future getImage() async {
-    ImagePicker _picker = ImagePicker();
+  Future<String> getImage() async {
+    ImagePicker picker = ImagePicker();
 
-    await _picker.pickImage(source: ImageSource.gallery).then((xFile) {
+    await picker.pickImage(source: ImageSource.gallery).then((xFile) async {
       if (xFile != null) {
         imageFile = File(xFile.path);
-        uploadImage();
+        imageUrl = await uploadImage();
       }
     });
+    return imageUrl;
   }
 
-  Future uploadImage() async {
+  Future<String> uploadImage() async {
     String fileName = const Uuid().v1();
-    var ref =
-        FirebaseStorage.instance.ref().child('images').child("$fileName.jpg");
+    var ref = FirebaseStorage.instance.ref().child('images').child("$fileName.jpg");
 
     var uploadTask = await ref.putFile(imageFile!);
 
-    //String imageUrl = await uploadTask.ref.getDownloadURL();
+    String imageUrl = await uploadTask.ref.getDownloadURL();
 
-    // _sendImage(imageUrl, 'image');
+    return imageUrl;
   }
 
   @override
@@ -62,8 +64,7 @@ class _ListenerApplicationState extends State<ListenerApplication> {
         appBar: AppBar(
           title: const Text(
             "리스너 지원 1차",
-            style:
-                TextStyle(color: Color(0xff324755), fontWeight: FontWeight.bold),
+            style: TextStyle(color: Color(0xff324755), fontWeight: FontWeight.bold),
           ),
           backgroundColor: Colors.white,
           iconTheme: const IconThemeData(
@@ -78,69 +79,65 @@ class _ListenerApplicationState extends State<ListenerApplication> {
               width: ScreenUtil().screenWidth,
               child: Center(
                 child: SizedBox(
-                  //color: Colors.yellow,
+                    //color: Colors.yellow,
                     width: ScreenUtil().setWidth(360),
                     height: ScreenUtil().screenHeight,
                     child: Column(
                       children: [
                         SizedBox(height: ScreenUtil().setHeight(10)),
                         Center(
-                          child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Container(
-                                  width: ScreenUtil().setWidth(100),
-                                  height: ScreenUtil().setHeight(100),
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: Colors.grey[400],
+                          child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                            Container(
+                              width: ScreenUtil().setWidth(100),
+                              height: ScreenUtil().setHeight(100),
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.grey[400],
+                              ),
+                              child: Stack(
+                                children: [
+                                  Container(
+                                    margin: const EdgeInsets.only(left: 19, top: 5),
+                                    child: Icon(
+                                      EvaIcons.personOutline,
+                                      size: 60.sp,
+                                      color: Colors.white,
+                                    ),
                                   ),
-                                  child: Stack(
-                                    children: [
-                                      Container(
-                                        margin: const EdgeInsets.only(left: 19, top: 5),
-                                        child: Icon(
-                                          EvaIcons.personOutline,
-                                          size: 60.sp,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                      Positioned(
-                                        top: 75,
-                                        child: Container(
-                                          child: InkWell(
-                                            onTap: () => getImage(),
-                                            child: Column(
-                                              children: [
-                                                Container(
-                                                  height: ScreenUtil().setHeight(25),
-                                                  width: ScreenUtil().setWidth(100),
-                                                  decoration: BoxDecoration(
-                                                    shape: BoxShape.rectangle,
-                                                    borderRadius:
-                                                        BorderRadius.circular(15),
-                                                    border: Border.all(color: const Color(0xffD3D3D3)),
-                                                    color: const Color(0xff74BABC),
-                                                  ),
-                                                  child: const Center(
-                                                    child: Text(
-                                                      "등록하기",
-                                                      style: TextStyle(
-                                                          color: Colors.white),
-                                                      softWrap: true,
-                                                      overflow: TextOverflow.fade,
-                                                    ),
-                                                  ),
-                                                )
-                                              ],
+                                  Positioned(
+                                    top: 75,
+                                    child: InkWell(
+                                      onTap: () async {
+                                        imageUrl = await getImage();
+                                      },
+                                      child: Column(
+                                        children: [
+                                          Container(
+                                            height: ScreenUtil().setHeight(25),
+                                            width: ScreenUtil().setWidth(100),
+                                            decoration: BoxDecoration(
+                                              shape: BoxShape.rectangle,
+                                              borderRadius: BorderRadius.circular(15),
+                                              border: Border.all(color: const Color(0xffD3D3D3)),
+                                              color: const Color(0xff74BABC),
                                             ),
-                                          ),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ]),
+                                            child: const Center(
+                                              child: Text(
+                                                "등록하기",
+                                                style: TextStyle(color: Colors.white),
+                                                softWrap: true,
+                                                overflow: TextOverflow.fade,
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ]),
                         ),
                         const SizedBox(height: 30),
                         Padding(
@@ -152,10 +149,7 @@ class _ListenerApplicationState extends State<ListenerApplication> {
                               height: ScreenUtil().setHeight(25),
                               child: Text(
                                 "닉네임",
-                                style: TextStyle(
-                                    color: const Color(0xff324755),
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.bold),
+                                style: TextStyle(color: const Color(0xff324755), fontSize: 16.sp, fontWeight: FontWeight.bold),
                               ),
                             ),
                           ),
@@ -169,10 +163,7 @@ class _ListenerApplicationState extends State<ListenerApplication> {
                               decoration: InputDecoration(
                                   enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(5),
-                                    borderSide: const BorderSide(
-                                        color: Color(0xff737373),
-                                        style: BorderStyle.solid,
-                                        width: 1),
+                                    borderSide: const BorderSide(color: Color(0xff737373), style: BorderStyle.solid, width: 1),
                                   ),
                                   border: const OutlineInputBorder(),
                                   hintText: '닉네임을 입력해주세요 / 글자 제한수 정하기',
@@ -182,7 +173,7 @@ class _ListenerApplicationState extends State<ListenerApplication> {
                                   ),
                                   contentPadding: const EdgeInsets.only(left: 10)),
                               onChanged: (value) {
-                                nickname = value.trim();
+                                title = value.trim();
                               },
                             ),
                           ),
@@ -196,48 +187,36 @@ class _ListenerApplicationState extends State<ListenerApplication> {
                               children: [
                                 Text(
                                   "성별: ",
-                                  style: TextStyle(
-                                      color: const Color(0xff324755),
-                                      fontSize: 16.sp,
-                                      fontWeight: FontWeight.bold),
+                                  style: TextStyle(color: const Color(0xff324755), fontSize: 16.sp, fontWeight: FontWeight.bold),
                                 ),
                                 Container(
                                   width: 70,
                                   decoration: BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.circular(5),
-                                    border: Border.all(
-                                        color: const Color(0xff737373),
-                                        style: BorderStyle.solid,
-                                        width: 1.sp),
+                                    border: Border.all(color: const Color(0xff737373), style: BorderStyle.solid, width: 1.sp),
                                   ),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    children: const [
+                                    children: [
                                       Gender(),
                                     ],
                                   ),
                                 ),
                                 Text(
                                   "나이: ",
-                                  style: TextStyle(
-                                      color: const Color(0xff324755),
-                                      fontSize: 16.sp,
-                                      fontWeight: FontWeight.bold),
+                                  style: TextStyle(color: const Color(0xff324755), fontSize: 16.sp, fontWeight: FontWeight.bold),
                                 ),
                                 Container(
                                   width: 70,
                                   decoration: BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.circular(5),
-                                    border: Border.all(
-                                        color: const Color(0xff737373),
-                                        style: BorderStyle.solid,
-                                        width: 1),
+                                    border: Border.all(color: const Color(0xff737373), style: BorderStyle.solid, width: 1),
                                   ),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    children: const [
+                                    children: [
                                       Age(),
                                     ],
                                   ),
@@ -246,9 +225,7 @@ class _ListenerApplicationState extends State<ListenerApplication> {
                             ),
                           ),
                         ),
-
                         SizedBox(height: ScreenUtil().setHeight(20)),
-
                         Padding(
                           padding: const EdgeInsets.fromLTRB(0, 0, 0, 3),
                           child: Center(
@@ -258,10 +235,7 @@ class _ListenerApplicationState extends State<ListenerApplication> {
                               height: ScreenUtil().setHeight(25),
                               child: Text(
                                 "지역",
-                                style: TextStyle(
-                                    color: const Color(0xff324755),
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.bold),
+                                style: TextStyle(color: const Color(0xff324755), fontSize: 16.sp, fontWeight: FontWeight.bold),
                               ),
                             ),
                           ),
@@ -275,10 +249,7 @@ class _ListenerApplicationState extends State<ListenerApplication> {
                               decoration: InputDecoration(
                                   enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(5),
-                                    borderSide: const BorderSide(
-                                        color: Color(0xff737373),
-                                        style: BorderStyle.solid,
-                                        width: 1),
+                                    borderSide: const BorderSide(color: Color(0xff737373), style: BorderStyle.solid, width: 1),
                                   ),
                                   border: const OutlineInputBorder(),
                                   hintText: '00시 00구 / EX 서울시 은평구',
@@ -294,7 +265,6 @@ class _ListenerApplicationState extends State<ListenerApplication> {
                           ),
                         ),
                         SizedBox(height: ScreenUtil().setHeight(10)),
-
                         Padding(
                           padding: const EdgeInsets.fromLTRB(0, 0, 0, 3),
                           child: Center(
@@ -304,10 +274,7 @@ class _ListenerApplicationState extends State<ListenerApplication> {
                               height: ScreenUtil().setHeight(25),
                               child: Text(
                                 "관심분야",
-                                style: TextStyle(
-                                    color: const Color(0xff324755),
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.bold),
+                                style: TextStyle(color: const Color(0xff324755), fontSize: 16.sp, fontWeight: FontWeight.bold),
                               ),
                             ),
                           ),
@@ -321,10 +288,7 @@ class _ListenerApplicationState extends State<ListenerApplication> {
                               decoration: InputDecoration(
                                   enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(5),
-                                    borderSide: BorderSide(
-                                        color: const Color(0xff737373),
-                                        style: BorderStyle.solid,
-                                        width: 1.sp),
+                                    borderSide: BorderSide(color: const Color(0xff737373), style: BorderStyle.solid, width: 1.sp),
                                   ),
                                   border: const OutlineInputBorder(),
                                   hintText: 'EX 운동, 독서, 음악',
@@ -334,7 +298,7 @@ class _ListenerApplicationState extends State<ListenerApplication> {
                                   ),
                                   contentPadding: const EdgeInsets.only(left: 10)),
                               onChanged: (value) {
-                                interests = value.trim();
+                                like = value.trim();
                               },
                             ),
                           ),
@@ -349,10 +313,7 @@ class _ListenerApplicationState extends State<ListenerApplication> {
                               height: ScreenUtil().setHeight(25),
                               child: Text(
                                 "간단소개",
-                                style: TextStyle(
-                                    color: const Color(0xff324755),
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.bold),
+                                style: TextStyle(color: const Color(0xff324755), fontSize: 16.sp, fontWeight: FontWeight.bold),
                               ),
                             ),
                           ),
@@ -366,10 +327,7 @@ class _ListenerApplicationState extends State<ListenerApplication> {
                               decoration: InputDecoration(
                                   enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(5),
-                                    borderSide: const BorderSide(
-                                        color: Color(0xff737373),
-                                        style: BorderStyle.solid,
-                                        width: 1),
+                                    borderSide: const BorderSide(color: Color(0xff737373), style: BorderStyle.solid, width: 1),
                                   ),
                                   border: const OutlineInputBorder(),
                                   hintText: '고객들에게 소개될 수 있도록 자신을 소개해주세요',
@@ -381,7 +339,7 @@ class _ListenerApplicationState extends State<ListenerApplication> {
                               maxLines: 3,
                               minLines: 1,
                               onChanged: (value) {
-                                content = value.trim();
+                                description = value.trim();
                               },
                             ),
                           ),
@@ -396,10 +354,7 @@ class _ListenerApplicationState extends State<ListenerApplication> {
                               height: ScreenUtil().setHeight(25),
                               child: Text(
                                 "성함",
-                                style: TextStyle(
-                                    color: const Color(0xff324755),
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.bold),
+                                style: TextStyle(color: const Color(0xff324755), fontSize: 16.sp, fontWeight: FontWeight.bold),
                               ),
                             ),
                           ),
@@ -413,10 +368,7 @@ class _ListenerApplicationState extends State<ListenerApplication> {
                               decoration: InputDecoration(
                                   enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(5),
-                                    borderSide: const BorderSide(
-                                        color: Color(0xff737373),
-                                        style: BorderStyle.solid,
-                                        width: 1),
+                                    borderSide: const BorderSide(color: Color(0xff737373), style: BorderStyle.solid, width: 1),
                                   ),
                                   border: const OutlineInputBorder(),
                                   hintText: '홍길동',
@@ -426,7 +378,6 @@ class _ListenerApplicationState extends State<ListenerApplication> {
                                   ),
                                   contentPadding: const EdgeInsets.only(left: 10)),
                               onChanged: (value) {
-                                listenerMame = value.trim();
                               },
                             ),
                           ),
@@ -441,10 +392,7 @@ class _ListenerApplicationState extends State<ListenerApplication> {
                               height: ScreenUtil().setHeight(25),
                               child: Text(
                                 "연락처",
-                                style: TextStyle(
-                                    color: const Color(0xff324755),
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.bold),
+                                style: TextStyle(color: const Color(0xff324755), fontSize: 16.sp, fontWeight: FontWeight.bold),
                               ),
                             ),
                           ),
@@ -458,10 +406,7 @@ class _ListenerApplicationState extends State<ListenerApplication> {
                               decoration: InputDecoration(
                                   enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(5),
-                                    borderSide: const BorderSide(
-                                        color: Color(0xff737373),
-                                        style: BorderStyle.solid,
-                                        width: 1),
+                                    borderSide: const BorderSide(color: Color(0xff737373), style: BorderStyle.solid, width: 1),
                                   ),
                                   border: const OutlineInputBorder(),
                                   hintText: '010-1234-5678',
@@ -476,21 +421,30 @@ class _ListenerApplicationState extends State<ListenerApplication> {
                             ),
                           ),
                         ),
-
-                        const SizedBox(height: 25,),
-
+                        const SizedBox(
+                          height: 25,
+                        ),
                         InkWell(
                             onTap: () async {
-                              await FirebaseFirestore.instance
-                                  .collection("support_manager")
-                                  .doc(currentUser.uid)
-                                  .set({
-                                'nickname': nickname,
+                              await FirebaseFirestore.instance.collection("support_manager").doc(currentUser.uid).set({
                                 'area': area,
-                                'interests': interests,
-                                'content': content,
-                                'listenerName': listenerMame,
-                                'phoneNumber': phoneNumber
+                                'interests': like,
+                                'content': description,
+                                'listenerName': title,
+                                'phoneNumber': phoneNumber,
+                                'age': age,
+                                'gender': gender,
+                              });
+                              await FirebaseFirestore.instance.collection('user').doc(currentUser.uid).update({
+                                'profile.area': area,
+                                'profile.description': description,
+                                'profile.title': title,
+                                'profile.like': like,
+                                'profile.heart': 0,
+                                'profile.imageUrl': imageUrl,
+                                'profile.isPressedList': [],
+                                'profile.managerUid': currentUser.uid,
+                                'profile.year': age,
                               });
                               showDialog(
                                   context: context,
@@ -508,17 +462,9 @@ class _ListenerApplicationState extends State<ListenerApplication> {
                                         Center(
                                           child: MaterialButton(
                                               onPressed: () {
-                                                Navigator.pushAndRemoveUntil(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder:
-                                                            (BuildContext context) =>
-                                                                const HomePage()),
-                                                    (route) => false);
-                                                Navigator.of(context,
-                                                        rootNavigator: true)
-                                                    .push(MaterialPageRoute(
-                                                        builder: (_) => const Profile()));
+                                                Navigator.pushAndRemoveUntil(context,
+                                                    MaterialPageRoute(builder: (BuildContext context) => const HomePage()), (route) => false);
+                                                Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => const ViewMoreScreen()));
                                               },
                                               child: Container(
                                                 decoration: const BoxDecoration(
@@ -526,7 +472,11 @@ class _ListenerApplicationState extends State<ListenerApplication> {
                                                 ),
                                                 width: 60,
                                                 height: 30,
-                                                child: const Center(child: Text("확인", style: TextStyle(color: Colors.white),)),
+                                                child: const Center(
+                                                    child: Text(
+                                                  "확인",
+                                                  style: TextStyle(color: Colors.white),
+                                                )),
                                               )),
                                         )
                                       ],
@@ -540,16 +490,14 @@ class _ListenerApplicationState extends State<ListenerApplication> {
                                 height: 40.sp,
                                 decoration: BoxDecoration(
                                   color: const Color(0xff74BABC),
-                                    borderRadius: BorderRadius.circular(5),
-                                   // border: Border.all(color: Colors.grey, width: 1)
+                                  borderRadius: BorderRadius.circular(5),
+                                  // border: Border.all(color: Colors.grey, width: 1)
                                 ),
                                 padding: const EdgeInsets.all(8.0),
                                 child: Center(
                                     child: Text(
                                   "제출하기",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold, fontSize: 13.sp,
-                                   color: Colors.white),
+                                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13.sp, color: Colors.white),
                                 )),
                               ),
                             )),
@@ -563,33 +511,22 @@ class _ListenerApplicationState extends State<ListenerApplication> {
       ),
     );
   }
-}
+  DropdownButton<String> Gender(){
 
-class Gender extends StatefulWidget {
-  const Gender({Key? key}) : super(key: key);
-
-  @override
-  State<Gender> createState() => _GenderState();
-}
-
-class _GenderState extends State<Gender> {
-  String dropdownValueGender = '성별';
-
-  @override
-  Widget build(BuildContext context) {
     return DropdownButton<String>(
       isDense: true,
-      value: dropdownValueGender,
+      value: gender,
       elevation: 16,
-      style: const TextStyle(color: Color(0xff324755),),
+      style: const TextStyle(
+        color: Color(0xff324755),
+      ),
       underline: DropdownButtonHideUnderline(child: Container()),
       onChanged: (String? newValue) {
         setState(() {
-          dropdownValueGender = newValue!;
+          gender = newValue!;
         });
       },
-      items: <String>['성별', '남자', '여자']
-          .map<DropdownMenuItem<String>>((String value) {
+      items: <String>['성별', '남자', '여자'].map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
           value: value,
           child: Text(value),
@@ -597,33 +534,22 @@ class _GenderState extends State<Gender> {
       }).toList(),
     );
   }
-}
 
-class Age extends StatefulWidget {
-  const Age({Key? key}) : super(key: key);
-
-  @override
-  _AgeState createState() => _AgeState();
-}
-
-class _AgeState extends State<Age> {
-  String dropdownValueAge = '20';
-
-  @override
-  Widget build(BuildContext context) {
+  DropdownButton<String> Age(){
     return DropdownButton<String>(
       isDense: true,
-      value: dropdownValueAge,
+      value: age,
       elevation: 16,
-      style: const TextStyle(color: Color(0xff324755),),
+      style: const TextStyle(
+        color: Color(0xff324755),
+      ),
       underline: DropdownButtonHideUnderline(child: Container()),
       onChanged: (String? newValue) {
         setState(() {
-          dropdownValueAge = newValue!;
+          age = newValue!;
         });
       },
-      items: <String>['20', '30', '40', '50', '60']
-          .map<DropdownMenuItem<String>>((String value) {
+      items: <String>['20', '30', '40', '50', '60'].map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
           value: value,
           child: Text(value),
