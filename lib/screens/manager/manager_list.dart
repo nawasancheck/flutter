@@ -143,7 +143,7 @@ class _ManagerListScreenState extends State<ManagerListScreen> {
                             Flexible(
                               fit: FlexFit.tight,
                               child: Center(
-                                child: Container(
+                                child: SizedBox(
                                   height: ScreenUtil().setHeight(
                                     120, /*126.h //148.h*/
                                   ),
@@ -158,9 +158,8 @@ class _ManagerListScreenState extends State<ManagerListScreen> {
                                           mainAxisAlignment: MainAxisAlignment.start,
                                           children: [
                                             Text(
-                                              "${docs[index]['profile']['title']}",
-                                              style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold, color: const Color(0xff241332)),
-                                             overflow: TextOverflow.ellipsis,
+                                              " ${docs[index]['profile']['title']}",
+                                              style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold, color: const Color(0xff241332)),
                                             ),
                                             const Flexible(
                                               fit: FlexFit.tight,
@@ -179,12 +178,9 @@ class _ManagerListScreenState extends State<ManagerListScreen> {
                                                   Row(
                                                     mainAxisAlignment: MainAxisAlignment.end,
                                                     children: [
-                                                      Transform.translate(
-                                                        offset: Offset(0,1),
-                                                        child: Text(
-                                                          '${docs[index]['profile']['heart']}',
-                                                          style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold, color: const Color(0xffa7a7a7)),
-                                                        ),
+                                                      Text(
+                                                        '${docs[index]['profile']['heart']}',
+                                                        style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold, color: const Color(0xffa7a7a7)),
                                                       ),
                                                       Padding(
                                                         padding: const EdgeInsets.all(3.0),
@@ -252,7 +248,7 @@ class _ManagerListScreenState extends State<ManagerListScreen> {
                                         padding: const EdgeInsets.only(bottom: 10),
                                         child: Row(
                                           children: [
-                                            Text("${docs[index]['profile']['area']} - ",
+                                            Text("  ${docs[index]['profile']['area']} - ",
                                                 style: TextStyle(fontSize: 15.sp, color: const Color(0xff6b6b6b))),
                                             Text(" ${docs[index]['profile']['year']}대", style: TextStyle(fontSize: 15.sp, color: const Color(0xff6b6b6b))),
                                           ],
@@ -260,19 +256,14 @@ class _ManagerListScreenState extends State<ManagerListScreen> {
                                       ),
                                       Row(
                                         children: [
-                                          Container(
-                                            width: ScreenUtil().setWidth(220),
-                                            child: Text("관심분야 - ${docs[index]['profile']['like']}",
-                                                style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold, color: const Color(0xff737373))
-                                            ,overflow: TextOverflow.ellipsis,),
-                                          ),
+                                          Text("  관심분야 - ${docs[index]['profile']['like'].substring(0, 6) + "..."}",
+                                              style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold, color: const Color(0xff737373))),
                                         ],
                                       ),
                                       Padding(
                                         padding: const EdgeInsets.only(bottom: 0),
                                         child: Row(
                                           children: [
-
                                             Container(
                                               width: ScreenUtil().setWidth(220),
                                               child: Text("${docs[index]['profile']['description']}",
