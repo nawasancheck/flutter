@@ -1,14 +1,13 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/controller/bottom_navigation/bottom_navi_controller.dart';
 import 'package:flutter_app/screens/reservation/my_reservation/my_reservation_screen.dart';
+import 'package:flutter_app/screens/view_more/view_more_screen.dart';
 import 'package:get/get.dart';
 
 import 'chatting/chat_list.dart';
 import 'freeboard/freeboard.dart';
 import 'manager/manager_list.dart';
-import 'my_profile/profile.dart';
 
 class HomePage extends GetView<RootController> {
   const HomePage({Key? key}) : super(key: key);
@@ -18,7 +17,7 @@ class HomePage extends GetView<RootController> {
     return Obx(
             () => Scaffold(
             appBar: PreferredSize(
-              preferredSize: Size.fromHeight(0),
+              preferredSize: const Size.fromHeight(0),
               child: AppBar(
                 backgroundColor: Colors.transparent,
               ),
@@ -26,9 +25,9 @@ class HomePage extends GetView<RootController> {
             body: IndexedStack(
               index: controller.rootPageIndex.value,
               children: [
-                ManagerListScreen(),
-                FreeBoard(),
-                ChatList(),
+                const ManagerListScreen(),
+                const FreeBoard(),
+                const ChatList(),
                 Navigator(
                     onGenerateRoute: (routeSettings){
                       return MaterialPageRoute(
@@ -36,14 +35,14 @@ class HomePage extends GetView<RootController> {
                       );
                     }
                 ),
-                Profile(),
+                const ViewMoreScreen(),
               ],
             ),
             bottomNavigationBar: BottomNavigationBar(
               currentIndex: controller.rootPageIndex.value,
               showSelectedLabels: true,
               showUnselectedLabels: true,
-              selectedItemColor: Color(0xff74BABC),
+              selectedItemColor: const Color(0xff74BABC),
               unselectedItemColor: Colors.grey,
               onTap: controller.changeRootPageIndex,
               items: const [

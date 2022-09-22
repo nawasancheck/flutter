@@ -158,7 +158,7 @@ class _ManagerListScreenState extends State<ManagerListScreen> {
                                           mainAxisAlignment: MainAxisAlignment.start,
                                           children: [
                                             Text(
-                                              " ${docs[index]['profile']['nickname']}",
+                                              " ${docs[index]['profile']['title']}",
                                               style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold, color: const Color(0xff241332)),
                                             ),
                                             const Flexible(
@@ -250,7 +250,7 @@ class _ManagerListScreenState extends State<ManagerListScreen> {
                                           children: [
                                             Text("  ${docs[index]['profile']['area']} - ",
                                                 style: TextStyle(fontSize: 15.sp, color: const Color(0xff6b6b6b))),
-                                            Text(" ${docs[index]['profile']['age']}대", style: TextStyle(fontSize: 15.sp, color: const Color(0xff6b6b6b))),
+                                            Text(" ${docs[index]['profile']['year']}대", style: TextStyle(fontSize: 15.sp, color: const Color(0xff6b6b6b))),
                                           ],
                                         ),
                                       ),

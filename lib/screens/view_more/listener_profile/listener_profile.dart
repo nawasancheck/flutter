@@ -2,25 +2,22 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/controller/auth/auth_controller.dart';
 import 'package:flutter_app/screens/homepage.dart';
-import 'package:flutter_app/screens/my_profile/listener_profile.dart';
-import 'package:flutter_app/screens/my_profile/profile.dart';
+import 'package:flutter_app/screens/view_more/view_more_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:uuid/uuid.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
-class ListenerMyProfile extends StatefulWidget {
-  const ListenerMyProfile({Key? key}) : super(key: key);
+class ListenerProfile extends StatefulWidget {
+  const ListenerProfile({Key? key}) : super(key: key);
 
   @override
-  _ListenerMyProfileState createState() => _ListenerMyProfileState();
+  _ListenerProfileState createState() => _ListenerProfileState();
 }
 
-class _ListenerMyProfileState extends State<ListenerMyProfile> {
+class _ListenerProfileState extends State<ListenerProfile> {
   final currentUser = FirebaseAuth.instance.currentUser!;
   File? imageFile;
   String imageUrl = '';
@@ -67,7 +64,7 @@ class _ListenerMyProfileState extends State<ListenerMyProfile> {
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
           title: const Text(
-            "리스너 프로필 관리",
+            "리스너 프로필",
             style: TextStyle(color: Color(0xff324755), fontWeight: FontWeight.bold),
           ),
           backgroundColor: Colors.white,
@@ -391,7 +388,7 @@ class _ListenerMyProfileState extends State<ListenerMyProfile> {
                                               onPressed: () {
                                                 Navigator.pushAndRemoveUntil(context,
                                                     MaterialPageRoute(builder: (BuildContext context) => const HomePage()), (route) => false);
-                                                Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => const Profile()));
+                                                Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => const ViewMoreScreen()));
                                               },
                                               child: Container(
                                                 decoration: const BoxDecoration(
@@ -486,78 +483,3 @@ class _ListenerMyProfileState extends State<ListenerMyProfile> {
     );
   }
 }
-
-// class Gender extends StatefulWidget {
-//
-//   const Gender({Key? key}) : super(key: key);
-//
-//
-//   @override
-//   _GenderState createState() => _GenderState();
-// }
-//
-// class _GenderState extends State<Gender> {
-//   String dropdownValueGender = '성별';
-//
-//   @override
-//   Widget build(BuildContext context) {
-//
-//
-//     return DropdownButton<String>(
-//       isDense: true,
-//       value: dropdownValueGender,
-//       elevation: 16,
-//       style: const TextStyle(
-//         color: Color(0xff324755),
-//       ),
-//       underline: DropdownButtonHideUnderline(child: Container()),
-//       onChanged: (String? newValue) {
-//         setState(() {
-//           dropdownValueGender = newValue!;
-//         });
-//       },
-//       items: <String>['성별', '남자', '여자'].map<DropdownMenuItem<String>>((String value) {
-//         return DropdownMenuItem<String>(
-//           value: value,
-//           child: Text(value),
-//         );
-//       }).toList(),
-//     );
-//   }
-// }
-
-// class Age extends StatefulWidget {
-//   const Age({Key? key}) : super(key: key);
-//
-//   @override
-//   _AgeState createState() => _AgeState();
-// }
-//
-// class _AgeState extends State<Age> {
-//   String dropdownValueAge = '20';
-//
-//   @override
-//   Widget build(BuildContext context) {
-//
-//     return DropdownButton<String>(
-//       isDense: true,
-//       value: dropdownValueAge,
-//       elevation: 16,
-//       style: const TextStyle(
-//         color: Color(0xff324755),
-//       ),
-//       underline: DropdownButtonHideUnderline(child: Container()),
-//       onChanged: (String? newValue) {
-//         setState(() {
-//           dropdownValueAge = newValue!;
-//         });
-//       },
-//       items: <String>['20', '30', '40', '50', '60'].map<DropdownMenuItem<String>>((String value) {
-//         return DropdownMenuItem<String>(
-//           value: value,
-//           child: Text(value),
-//         );
-//       }).toList(),
-//     );
-//   }
-// }

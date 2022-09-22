@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/controller/auth/auth_controller.dart';
-import 'package:flutter_app/screens/my_profile/profile.dart';
+import 'package:flutter_app/screens/view_more/view_more_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../homepage.dart';
+import '../../homepage.dart';
 
 
 class ChangedName extends StatefulWidget {
@@ -126,7 +126,7 @@ class _ChangedNameState extends State<ChangedName> {
                                                         Navigator.of(context,
                                                             rootNavigator: true)
                                                             .push(MaterialPageRoute(
-                                                            builder: (_) => const Profile()));
+                                                            builder: (_) => const ViewMoreScreen()));
                                                       },
                                                       child: Container(
                                                         decoration: const BoxDecoration(

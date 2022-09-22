@@ -3,25 +3,24 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/screens/homepage.dart';
-import 'package:flutter_app/screens/my_profile/profile.dart';
+import 'package:flutter_app/screens/view_more/view_more_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:uuid/uuid.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
-class ListenerApplication extends StatefulWidget {
-  const ListenerApplication({Key? key}) : super(key: key);
+class SupportListener extends StatefulWidget {
+  const SupportListener({Key? key}) : super(key: key);
 
   @override
-  State<ListenerApplication> createState() => _ListenerApplicationState();
+  State<SupportListener> createState() => _SupportListenerState();
 }
 
-class _ListenerApplicationState extends State<ListenerApplication> {
+class _SupportListenerState extends State<SupportListener> {
   final currentUser = FirebaseAuth.instance.currentUser!;
   File? imageFile;
 
-  String nickname = '';
   String area = '';
   String like = '';
   String description = '';
@@ -174,7 +173,7 @@ class _ListenerApplicationState extends State<ListenerApplication> {
                                   ),
                                   contentPadding: const EdgeInsets.only(left: 10)),
                               onChanged: (value) {
-                                nickname = value.trim();
+                                title = value.trim();
                               },
                             ),
                           ),
@@ -379,7 +378,6 @@ class _ListenerApplicationState extends State<ListenerApplication> {
                                   ),
                                   contentPadding: const EdgeInsets.only(left: 10)),
                               onChanged: (value) {
-                                title = value.trim();
                               },
                             ),
                           ),
@@ -429,7 +427,6 @@ class _ListenerApplicationState extends State<ListenerApplication> {
                         InkWell(
                             onTap: () async {
                               await FirebaseFirestore.instance.collection("support_manager").doc(currentUser.uid).set({
-                                'nickname': nickname,
                                 'area': area,
                                 'interests': like,
                                 'content': description,
@@ -442,15 +439,12 @@ class _ListenerApplicationState extends State<ListenerApplication> {
                                 'profile.area': area,
                                 'profile.description': description,
                                 'profile.title': title,
-                                'profile.nickname': nickname,
                                 'profile.like': like,
                                 'profile.heart': 0,
                                 'profile.imageUrl': imageUrl,
                                 'profile.isPressedList': [],
                                 'profile.managerUid': currentUser.uid,
-                                'profile.age': age,
-                                'profile.gender': gender,
-                                // 'profile.year': year
+                                'profile.year': age,
                               });
                               showDialog(
                                   context: context,
@@ -470,7 +464,7 @@ class _ListenerApplicationState extends State<ListenerApplication> {
                                               onPressed: () {
                                                 Navigator.pushAndRemoveUntil(context,
                                                     MaterialPageRoute(builder: (BuildContext context) => const HomePage()), (route) => false);
-                                                Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => const Profile()));
+                                                Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => const ViewMoreScreen()));
                                               },
                                               child: Container(
                                                 decoration: const BoxDecoration(
@@ -564,73 +558,3 @@ class _ListenerApplicationState extends State<ListenerApplication> {
     );
   }
 }
-
-// class Gender extends StatefulWidget {
-//   const Gender({Key? key}) : super(key: key);
-//
-//   @override
-//   State<Gender> createState() => _GenderState();
-// }
-//
-// class _GenderState extends State<Gender> {
-//   String dropdownValueGender = '성별';
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return DropdownButton<String>(
-//       isDense: true,
-//       value: dropdownValueGender,
-//       elevation: 16,
-//       style: const TextStyle(
-//         color: Color(0xff324755),
-//       ),
-//       underline: DropdownButtonHideUnderline(child: Container()),
-//       onChanged: (String? newValue) {
-//         setState(() {
-//           dropdownValueGender = newValue!;
-//         });
-//       },
-//       items: <String>['성별', '남자', '여자'].map<DropdownMenuItem<String>>((String value) {
-//         return DropdownMenuItem<String>(
-//           value: value,
-//           child: Text(value),
-//         );
-//       }).toList(),
-//     );
-//   }
-// }
-//
-// class Age extends StatefulWidget {
-//   const Age({Key? key}) : super(key: key);
-//
-//   @override
-//   _AgeState createState() => _AgeState();
-// }
-//
-// class _AgeState extends State<Age> {
-//   String dropdownValueAge = '20';
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return DropdownButton<String>(
-//       isDense: true,
-//       value: dropdownValueAge,
-//       elevation: 16,
-//       style: const TextStyle(
-//         color: Color(0xff324755),
-//       ),
-//       underline: DropdownButtonHideUnderline(child: Container()),
-//       onChanged: (String? newValue) {
-//         setState(() {
-//           dropdownValueAge = newValue!;
-//         });
-//       },
-//       items: <String>['20', '30', '40', '50', '60'].map<DropdownMenuItem<String>>((String value) {
-//         return DropdownMenuItem<String>(
-//           value: value,
-//           child: Text(value),
-//         );
-//       }).toList(),
-//     );
-//   }
-// }
