@@ -58,6 +58,7 @@ class FreeBoardContentState extends State<FreeBoardContent> {
                             title: const Text("팝업 메세지"),
                             content: const Text('해당 글을 삭제 하시겠습니까?'),
                             actions: [
+                              // todo  글 삭제 본인 확인 필요
                               MaterialButton(
                                   onPressed: () {
                                     Navigator.of(context).pop(); // 팝업창 나가기
@@ -319,6 +320,7 @@ class FreeBoardContentState extends State<FreeBoardContent> {
                                                           ),
                                                         ),
                                                         Text("   ${docs2[index]['userName']}",style: TextStyle(color: const Color(0xff324755), fontSize: 14.sp),),
+                                                        // todo 댓글 삭제 ( 본인 확인 )
                                                         Transform.translate(
                                                           offset: const Offset(-10,-3),
                                                           child: PopupMenuButton(
