@@ -76,6 +76,8 @@ class RequestConfirm extends StatelessWidget {
                               ],
                             ),
                             const SizedBox(height: 20,),
+
+
                             InkWell(                            // 메세지 보내기 버튼
                               onTap: (){
                                 Get.to(() => ChatScreenManager(information['clientUid'], information['client'], 2));
@@ -84,19 +86,23 @@ class RequestConfirm extends StatelessWidget {
                                 width: ScreenUtil().setWidth(358),
                                 height: ScreenUtil().setHeight(50),
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  border: Border.all(color: const Color(0xff909090), width: 2),
+                                  color: Color(0xff74BABC),
+                                  borderRadius: BorderRadius.circular(10),
                                 ),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: const [
-                                    Icon(EvaIcons.messageSquareOutline,color: Colors.grey,),
+                                    Icon(EvaIcons.messageSquareOutline,color: Colors.white,),
                                     SizedBox(width: 8),
-                                    Text('메세지 보내기',style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold),),
+                                    Text('메세지 보내기',style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
                                   ],
                                 ),
                               ),
                             ),
+
+
+
+
                           ],
                         )),
                   ),
