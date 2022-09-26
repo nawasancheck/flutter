@@ -58,7 +58,10 @@ class ReservationRequestInfo extends StatelessWidget {
                               height: ScreenUtil().setHeight(130),
                               width: ScreenUtil().setWidth(230),
                               //color: Colors.yellow,
-                              child: Column(children: [
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
                                 Row(
                                   children: [
                                     Text('예약상태: ',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15.sp, color: Colors.grey),),
@@ -113,10 +116,11 @@ class ReservationRequestInfo extends StatelessWidget {
                                     width: ScreenUtil().setWidth(70),
                                     height: ScreenUtil().setHeight(30),
                                     decoration: BoxDecoration(
+                                      color: const Color(0xffBF6F6F),
                                       borderRadius: BorderRadius.circular(20),
-                                      border: Border.all(color: const Color(0xff909090), width: 1.5),
+                                     // border: Border.all(color: const Color(0xff909090), width: 1.5),
                                     ),
-                                    child: const Center(child: Text('예약 취소',style: TextStyle(fontSize:13, color: Color(0xfff05d60), fontWeight: FontWeight.bold),)),
+                                    child: const Center(child: Text('예약 취소',style: TextStyle(fontSize:13, color: Colors.white, fontWeight: FontWeight.bold),)),
                                   ),
                                 ),
                               ),

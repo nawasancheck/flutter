@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/screens/auth/sign_In_screen.dart';
 import 'package:flutter_app/screens/view_more/profile/changed_name.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 class MyProfile extends StatefulWidget {
   const MyProfile({Key? key}) : super(key: key);
@@ -77,7 +79,9 @@ class _MyProfileState extends State<MyProfile> {
                                 fontSize: 18.sp,
                                 color: Colors.white,
                               )),
-                            const Icon(EvaIcons.arrowIosForward, color: Colors.white,),
+                              Transform.translate(
+                                offset: Offset(0, 2.5),
+                                  child: Icon(EvaIcons.arrowIosForward, color: Colors.white,)),
                           ]
                         ),
                       ),
@@ -134,23 +138,46 @@ class _MyProfileState extends State<MyProfile> {
                 onPressed: () {
                   showDialog(
                       context: context,
-                      barrierDismissible: false, // 바깥영역 터치시 닫힐지 여부
-                      builder: (BuildContext context) {
+                      barrierDismissible: false,
+                      builder: (BuildContext ctx) {
                         return AlertDialog(
-                          content: const Text('로그아웃 하시겠습니까?'),
+                          content: Container(
+                            padding: const EdgeInsets.only(top: 30),
+                            child: const Text(
+                              "로그아웃 하시겠습니까?", style: TextStyle(fontSize: 16),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
                           actions: [
-                            MaterialButton(
-                                onPressed: () {
-                                  signOut();
-                                  Navigator.of(context, rootNavigator: true).pop(MaterialPageRoute(builder: (_) => const SignInScreen()));
-                                //  Navigator.of(context).pop(); // 팝업창 나가기
-                                },
-                                child: const Text('확인')),
-                            MaterialButton(
-                                onPressed: () {
-                                  Navigator.of(context).pop(); // 팝업창 나가기
-                                },
-                                child: const Text('취소')),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center ,
+                              children: [
+                                MaterialButton(
+                                    onPressed:    ()  {
+                                      signOut();
+                                      Navigator.of(context, rootNavigator: true).pop(MaterialPageRoute(builder: (_) => const SignInScreen()));
+                                    },
+                                    child: Container(
+                                      decoration: const BoxDecoration(
+                                        color: Color(0xff74BABC),
+                                      ),
+                                      width: 60,
+                                      height: 30,
+                                      child: const Center(child: Text("확인", style: TextStyle(color: Colors.white, fontSize: 16),)),
+                                    )),
+                                MaterialButton(
+                                    onPressed: () {
+                                      Navigator.pop(Get.context!);
+                                    },
+                                    child: Container(
+                                      decoration: const BoxDecoration(
+                                        color: Color(0xff74BABC),
+                                      ),
+                                      width: 60,
+                                      height: 30,
+                                      child: const Center(child: Text("취소", style: TextStyle(color: Colors.white, fontSize: 16),)),
+                                    ))
+                              ],)
                           ],
                         );
                       });

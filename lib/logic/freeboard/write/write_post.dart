@@ -68,16 +68,6 @@ class _WritePostState extends State<WritePost> {
                           ],
                         );
                       });
-                  // Get.snackbar(
-                  //   "Error message",
-                  //   "User message",
-                  //   backgroundColor: Colors.red,
-                  //   titleText: const Text("게시판 작성"),
-                  //   messageText: const Text(
-                  //     "제목 혹은 내용에 값이 없습니다.",
-                  //     style: TextStyle(color: Colors.white),
-                  //   ),
-                  // );
                 } else {
                   showDialog(
                       context: context,

@@ -1,9 +1,14 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_app/controller/auth/auth_controller.dart';
+import 'package:flutter_app/controller/bottom_navigation/bottom_navi_controller.dart';
 import 'package:flutter_app/screens/view_more/view_more_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
-import '../../homepage.dart';
+
 
 
 class ChangedName extends StatefulWidget {
@@ -59,10 +64,12 @@ class _ChangedNameState extends State<ChangedName> {
                 Container(
                   color: Colors.white,
                   width: ScreenUtil().setWidth(360),
-                  height: ScreenUtil().setHeight(40),
+                  height: ScreenUtil().setHeight(60),
                   child: TextField(
                     textAlign: TextAlign.start,
                     textAlignVertical: TextAlignVertical.center,
+                    // todo 닉네임 글자 제한? 일단 8로 했음
+                    maxLength: 8,
                     decoration: InputDecoration(
                       border: const OutlineInputBorder(),
                       hintStyle: TextStyle(
@@ -81,7 +88,7 @@ class _ChangedNameState extends State<ChangedName> {
                   ),
                 ),
                 // 공백 채움
-                SizedBox(height: ScreenUtil().setHeight(100)),
+                SizedBox(height: ScreenUtil().setHeight(20)),
                 // 닉네임 변경 버튼
                 SizedBox(
                   width: ScreenUtil().setWidth(360),
@@ -92,61 +99,52 @@ class _ChangedNameState extends State<ChangedName> {
                       showDialog(
                           context: context,
                           barrierDismissible: false,
-                          // 바깥영역 터치시 닫힐지 여부
-                          builder: (BuildContext context) {
+                          builder: (BuildContext ctx) {
                             return AlertDialog(
-                              content: const Text('닉네임을 변경 하시겠습니까?'),
+                              content: Container(
+                                padding: const EdgeInsets.only(top: 30),
+                                child: const Text(
+                                  "닉네임을 변경 하시겠습니까?", style: TextStyle(fontSize: 16),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
                               actions: [
-                                MaterialButton(
-                                    onPressed: () {
-                                      AuthController.instance.authentication.currentUser!.updateDisplayName(name);
-                                      showDialog(
-                                          context: context,
-                                          barrierDismissible: false,
-                                          builder: (BuildContext ctx) {
-                                            return AlertDialog(
-                                              content: Container(
-                                                padding: const EdgeInsets.only(top: 30),
-                                                child: const Text(
-                                                  "닉네임이 변경되었습니다.",
-                                                  textAlign: TextAlign.center,
-                                                ),
-                                              ),
-                                              actions: [
-                                                Center(
-                                                  child: MaterialButton(
-                                                      onPressed: () {
-                                                        Navigator.pushAndRemoveUntil(
-                                                            context,
-                                                            MaterialPageRoute(
-                                                                builder:
-                                                                    (BuildContext context) =>
-                                                                    const HomePage()),
-                                                                (route) => false);
-                                                        Navigator.of(context,
-                                                            rootNavigator: true)
-                                                            .push(MaterialPageRoute(
-                                                            builder: (_) => const ViewMoreScreen()));
-                                                      },
-                                                      child: Container(
-                                                        decoration: const BoxDecoration(
-                                                          color: Color(0xff74BABC),
-                                                        ),
-                                                        width: 60,
-                                                        height: 30,
-                                                        child: const Center(child: Text("확인")),
-                                                      )),
-                                                )
-                                              ],
-                                            );
-                                          });
-                                    },
-                                    child: const Text('확인')),
-                                MaterialButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop(); // 팝업창 나가기
-                                    },
-                                    child: const Text('취소')),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center ,
+                                  children: [
+                                    MaterialButton(
+                                        onPressed:    ()  {
+                                          AuthController.instance.authentication.currentUser!.updateDisplayName(name);
+                                          Future.delayed(const Duration(milliseconds: 1200), () {
+                                            ScaffoldMessenger.of(context).showSnackBar(
+                                              SnackBar(
+                                                duration: Duration(seconds: 2),
+                                                content: Text("닉네임이 변경되었습니다.", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
+                                                backgroundColor: Color(0xff74BABC),
+                                              )
+                                          ); 	});
+                                          },
+                                        child: Container(
+                                          decoration: const BoxDecoration(
+                                            color: Color(0xff74BABC),
+                                          ),
+                                          width: 60,
+                                          height: 30,
+                                          child: const Center(child: Text("확인", style: TextStyle(color: Colors.white, fontSize: 16),)),
+                                        )),
+                                    MaterialButton(
+                                        onPressed: () {
+                                          Navigator.pop(Get.context!);
+                                        },
+                                        child: Container(
+                                          decoration: const BoxDecoration(
+                                            color: Color(0xff74BABC),
+                                          ),
+                                          width: 60,
+                                          height: 30,
+                                          child: const Center(child: Text("취소", style: TextStyle(color: Colors.white, fontSize: 16),)),
+                                        ))
+                                  ],)
                               ],
                             );
                           });

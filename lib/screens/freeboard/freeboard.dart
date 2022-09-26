@@ -115,10 +115,10 @@ class FreeBoard extends StatelessWidget {
                                           children: [
                                             //  게시판 제목 표시 제한 25자
                                             docs[index]['title'].length < 25 == true ?  Text(docs[index]['title'],
-                                              style: TextStyle(fontSize: 17.sp, fontWeight: FontWeight.bold,color: const Color(0xff324755),),)
+                                              style: TextStyle(fontSize: 17.sp, fontWeight: FontWeight.bold,color: const Color(0xff222b31)),)
                                                 : Text(
                                               docs[index]['title'].substring(0, 25) + "...",
-                                              style: TextStyle(fontSize: 17.sp, fontWeight: FontWeight.bold,color: const Color(0xff324755)),
+                                              style: TextStyle(fontSize: 17.sp, fontWeight: FontWeight.bold,color: const Color(0xff222b31)),
                                             ),
                                           ],
                                         ),
@@ -135,14 +135,14 @@ class FreeBoard extends StatelessWidget {
                                             docs[index]['content'].length < 28 == true ? Text(
                                               docs[index]['content'],
                                               style: TextStyle(
-                                                fontSize: 14.sp,color: Color(0xff737373),
+                                                fontSize: 14.sp,color: const Color(0xff737373), fontWeight: FontWeight.w400
                                               ),
                                             )
                                                 :
                                             Text(
                                               docs[index]['content'].substring(0, 28) + "...",
                                               style: TextStyle(
-                                                fontSize: 14.sp,color: Color(0xff737373),
+                                                fontSize: 14.sp, color: const Color(0xff737373), fontWeight: FontWeight.w400
                                               ),
                                             ),
                                           ],
