@@ -35,39 +35,62 @@ class _WriteCommentState extends State<WriteComment> {
     }
 
     return Container(
-      margin: const EdgeInsets.only(top: 8),
-      padding: const EdgeInsets.all(8),
-      child: Row(
-        children: [
-          SizedBox(
-            width: ScreenUtil().setWidth(360), // 원래 Width : 360
-            child: TextField(
-              maxLines: null,
-              maxLength: 200,
-              controller: _commentController,
-              decoration: InputDecoration(
-                labelText: '댓글 쓰기',
-                border: const OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                ),
-                suffixIcon: IconButton(
-                  onPressed: _userEnterMessage.trim().isEmpty ? null : _writeComment,
-                  icon: const Icon(
-                    Icons.send,
-                    color: Color(0xffBF6F6F),
+      padding: EdgeInsets.symmetric(vertical: 10),
+      width: ScreenUtil().screenWidth,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey,//withOpacity(0.5),
+            spreadRadius: 2,
+            blurRadius: 3,
+            ),
+        ],
+      ),
+      child: Center(
+        child: Column(
+          children: [
+            ConstrainedBox(
+              constraints: BoxConstraints(
+                maxHeight: 100
+              ),
+              child: Container(
+                width: ScreenUtil().setWidth(360), // 원래 Width : 360
+                //color: Colors.orangeAccent,
+                child: TextField(
+                  maxLines: null,
+                  maxLength: 200,
+                  controller: _commentController,
+                  decoration: InputDecoration(
+                    contentPadding: EdgeInsets.symmetric(horizontal: 10),
+                    hintText: '댓글을 작성해보세요.',
+                    hintStyle: TextStyle(
+                      fontSize: 15.sp,
+                      color: const Color(0xffc4c4c4),
+                    ),
+                    border: const OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                    ),
+                    suffixIcon: IconButton(
+                      onPressed: _userEnterMessage.trim().isEmpty ? null : _writeComment,
+                      icon: const Icon(
+                        Icons.send,
+                        color: Color(0xffBF6F6F),
+                      ),
+                    ),
                   ),
+                  onChanged: (value) {
+                    // onChanged가 실행되면 값이 value에 들어온다.
+                    setState(() {
+                      _userEnterMessage = value; // 서로 같을 때, 값이 있을 때 value값을 가져오도록 설계
+                    });
+                  },
+                  // 텍스트필드에 값이 입력되면 Send a message가 활성화
                 ),
               ),
-              onChanged: (value) {
-                // onChanged가 실행되면 값이 value에 들어온다.
-                setState(() {
-                  _userEnterMessage = value; // 서로 같을 때, 값이 있을 때 value값을 가져오도록 설계
-                });
-              },
-              // 텍스트필드에 값이 입력되면 Send a message가 활성화
             ),
-          ), //
-        ],
+          ],
+        ),
       ),
     );
   }

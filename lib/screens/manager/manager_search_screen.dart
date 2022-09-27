@@ -36,15 +36,26 @@ class _ManagerSearchPageState extends State<ManagerSearchPage> {
             backgroundColor: Colors.white,
             iconTheme: const IconThemeData(color: Colors.grey),
             title: SizedBox(
+              height: ScreenUtil().setHeight(40),
               width: ScreenUtil().setWidth(360),
               child: Center(
                 child: TextField(
                   maxLines: 1,
                   controller: _controller,
                   decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        width: 1.5,
+                        color: Color(0xff74BABC),),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
                     hintText: '관심 있는 리스너를 찾아보세요.',
+                    hintStyle: TextStyle(
+                        height: 3,
+                        fontSize: 15.sp,
+                        color: Colors.grey,),
                     suffixIcon: InkWell(
-                        child: const Icon(Icons.clear),
+                        child: const Icon(Icons.clear, color: Colors.grey,),
                         onTap: () {
                           _controller.clear();
                           setState(() {});
@@ -154,7 +165,7 @@ class _ManagerSearchPageState extends State<ManagerSearchPage> {
                                               children: [
                                                 Text(
                                                   " ${allDataTitle[index]['profile']['title']}",
-                                                  style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold, color: const Color(0xff241332)),
+                                                  style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold, color: const Color(0xff241332)),
                                                 ),
                                               ],
                                             ),
@@ -249,7 +260,7 @@ class _ManagerSearchPageState extends State<ManagerSearchPage> {
                                               children: [
                                                 Text(
                                                   " " + allDataLike[index]['profile']['title'],
-                                                  style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold, color: const Color(0xff241332)),
+                                                  style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold, color: const Color(0xff241332)),
                                                 ),
                                               ],
                                             ),

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_app/controller/auth/auth_controller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -117,57 +118,68 @@ class FreeBoardContentState extends State<FreeBoardContent> {
                       return ListView(
                         // 글내용 + 댓글
                         children: [
-                          SizedBox(
+                          Container(
                             // 작성자 프로필 부분
                             //color: Color(0xffe1f3f3),
-                            //         color: Colors.green,
                             width: ScreenUtil().screenWidth,
                             height: ScreenUtil().setHeight(80),
+                            decoration: BoxDecoration(
+                                //color: Colors.green,
+                                border: Border(
+                                    bottom: BorderSide(width: 1, color: Colors.grey[400]!)
+                                )
+                            ),
                             child: Center(
-                              child: Padding(
-                                padding: const EdgeInsets.only(top: 10),
-                                // divider랑 대칭 맞추기 위해서
-                                child: SizedBox(
-                                  //  color: Colors.blue,
-                                  width: ScreenUtil().setWidth(360),
-                                  height: ScreenUtil().setHeight(80),
-                                  child: Row(children: [
-                                    Container(
-                                      width: ScreenUtil().setWidth(50),
+                              child: Container(
+                                  //color: Colors.blue,
+                                width: ScreenUtil().setWidth(360),
+                                height: ScreenUtil().setHeight(80),
+                                child: Row(children: [
+                                  Container(
+                                    width: ScreenUtil().setWidth(50),
+                                    height: ScreenUtil().setHeight(50),
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: Colors.grey[400],
+                                    ),
+                                    child: Icon(
+                                      EvaIcons.personOutline,
+                                      size: 30.sp,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left:10.0),
+                                    child: Container(
                                       height: ScreenUtil().setHeight(50),
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: Colors.grey[400],
-                                      ),
-                                      child: Icon(
-                                        EvaIcons.personOutline,
-                                        size: 30.sp,
-                                        color: Colors.white,
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text("${docs['userName']}",
+                                          style: TextStyle(fontSize: 17.sp, fontWeight: FontWeight.bold,
+                                            color: Color(0xff324755),),),
+                                          Text("$writeTime",
+                                            style: TextStyle(fontSize: 14.sp, color: Color(0xff737373)),),
+                                        ],
                                       ),
                                     ),
-                                    Text("   ${docs['userName']}\n   $writeTime"),
-                                  ]),
-                                ),
+                                  ),
+                                ]),
                               ),
                             ),
-                          ),
-                          const Divider(
-                            indent: 16.35,
-                            endIndent: 16.35,
-                            thickness: 1,
                           ),
                           SizedBox(
                             height: ScreenUtil().setHeight(5),
                           ),
                           Center(
-                            child: SizedBox(
+                            child: Container(
                               // 글 제목,
-                              //       color: Colors.green,
+                               //      color: Colors.yellow,
                               width: ScreenUtil().setWidth(360),
                               //height: ScreenUtil().setHeight(50),
                               child: Text(
                                 "${docs['title']}",
-                                style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
+                                style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
                               ),
                             ),
                           ),
@@ -175,7 +187,7 @@ class FreeBoardContentState extends State<FreeBoardContent> {
                             height: ScreenUtil().setHeight(10),
                           ),
                           Center(
-                            child: SizedBox(
+                            child: Container(
                               // 글 내용
                               //     color: Colors.red,
                               width: ScreenUtil().setWidth(360),
@@ -184,7 +196,7 @@ class FreeBoardContentState extends State<FreeBoardContent> {
                                 '${docs['content']}',
                                 style: TextStyle(
                                   color: const Color(0xff8e8594),
-                                  fontSize: 18.sp,
+                                  fontSize: 15.sp,
                                 ),
                               ),
                             ),
@@ -209,8 +221,9 @@ class FreeBoardContentState extends State<FreeBoardContent> {
                                     height: ScreenUtil().setHeight(5),
                                   ),
                                   Container(
+                                    padding: EdgeInsets.only(bottom: 3),
                                     width: ScreenUtil().setWidth(360),
-                                    height: ScreenUtil().setHeight(30),
+                                    height: ScreenUtil().setHeight(40),
                                     decoration: BoxDecoration(
                                     //color: Color(0xffe1f3f3),
                                       border: Border(
@@ -272,9 +285,6 @@ class FreeBoardContentState extends State<FreeBoardContent> {
                                       ],
                                     ),
                                   ),
-                                  SizedBox(
-                                    height: ScreenUtil().setHeight(10),
-                                  ),
                                   ListView.builder(
                                     // 댓글 부분
                                     physics: const NeverScrollableScrollPhysics(), // listview 안 listview 쓰는 경우 스크롤 자연스럽게
@@ -287,107 +297,115 @@ class FreeBoardContentState extends State<FreeBoardContent> {
                                       writeTime2 = ' ${time.month}/${time.day} ${time.hour}:${time.minute}';
 
                                       return Center(
-                                        child: Expanded(
-                                          child: Container(
-                                            width: ScreenUtil().setWidth(360),
-                                            //height: ScreenUtil().setHeight(100),
-                                            decoration: BoxDecoration(
-                                                //color: Colors.purple,
-                                              border: Border(
-                                                bottom : BorderSide(width: 1, color: Colors.grey[400]!)
-                                              )
-                                            ),
-                                            child: Column(
-                                              children: [
-                                                Padding(
-                                                  padding: const EdgeInsets.fromLTRB(0,10,0,0),
-                                                  child: SizedBox(
-                                                   // color:Colors.green,
-                                                    height: ScreenUtil().setHeight(32),
-                                                    child: Row(
-                                                      children: [
-                                                        Container(
-                                                          width: ScreenUtil().setWidth(30),
-                                                          height: ScreenUtil().setHeight(30),
-                                                          decoration: BoxDecoration(
-                                                            shape: BoxShape.circle,
-                                                            color: Colors.grey[400],
-                                                          ),
-                                                          child: Icon(
-                                                            EvaIcons.personOutline,
-                                                            size: 20.sp,
-                                                            color: Colors.white,
-                                                          ),
-                                                        ),
-                                                        Text("   ${docs2[index]['userName']}",style: TextStyle(color: const Color(0xff324755), fontSize: 14.sp),),
-                                                        // todo 댓글 삭제 ( 본인 확인 )
-                                                        Transform.translate(
-                                                          offset: const Offset(-10,-3),
-                                                          child: PopupMenuButton(
-                                                            itemBuilder: (context) {
-                                                              return [
-                                                                const PopupMenuItem<int>(
-                                                                  value: 0,
-                                                                  child: Text('댓글 삭제'), // 자신이 쓴 글이 맞은 경우 삭제
-                                                                ),
-                                                              ];
-                                                            },
-                                                            onSelected: (value) {
-                                                              if (value == 0) {
-                                                                showDialog(
-                                                                    context: context,
-                                                                    barrierDismissible: false,
-                                                                    // 바깥영역 터치시 닫힐지 여부
-                                                                    builder: (BuildContext context) {
-                                                                      return AlertDialog(
-                                                                        title: const Text("팝업 메세지"),
-                                                                        content: const Text('해당 댓글을 삭제 하시겠습니까?'),
-                                                                        actions: [
-                                                                          MaterialButton(
-                                                                              onPressed: () {
-                                                                                Navigator.of(context).pop(); // 팝업창 나가기
-                                                                              },
-                                                                              child: const Text('Okay')),
-                                                                          MaterialButton(
-                                                                              onPressed: () {
-                                                                                Navigator.of(context).pop(); // 팝업창 나가기
-                                                                              },
-                                                                              child: const Text('Cancel')),
-                                                                        ],
-                                                                      );
-                                                                    });
-                                                              }
-                                                            },
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ),
-                                                // todo 댓글 길이 조정 나중에 할 예정 (임시)
-                                                docs2[index]['text'].length<50 ? Row(
-                                                  mainAxisAlignment: MainAxisAlignment.start,
-                                                  children: [
-                                                    Text(" ${docs2[index]['text']}",style: TextStyle(fontSize: 14.sp, color: const Color(0xff737373)),),
-                                                  ],
-                                                )
-                                                :
-                                                Column(
+                                        child: Container(
+                                          width: ScreenUtil().setWidth(360),
+                                          decoration: BoxDecoration(
+                                             // color: Colors.purple,
+                                            border: Border(
+                                              bottom : BorderSide(width: 1, color: Colors.grey[400]!)
+                                            )
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(vertical: 7),
+                                            child: Center(
+                                              child: Container(
+                                                width: ScreenUtil().setWidth(360),
+                                               // color: Colors.yellow,
+                                                child: Column(
                                                   mainAxisAlignment: MainAxisAlignment.start,
                                                   crossAxisAlignment: CrossAxisAlignment.start,
                                                   children: [
-                                                    Text(" ${docs2[index]['text']}",style: TextStyle(fontSize: 14.sp, color: const Color(0xff737373),),)
+                                                    Container(
+                                                     // color:Colors.green,
+                                                      height: ScreenUtil().setHeight(32),
+                                                      child: Row(
+                                                        children: [
+                                                          Container(
+                                                            width: ScreenUtil().setWidth(30),
+                                                            height: ScreenUtil().setHeight(30),
+                                                            decoration: BoxDecoration(
+                                                              shape: BoxShape.circle,
+                                                              color: Colors.grey[400],
+                                                            ),
+                                                            child: Icon(
+                                                              EvaIcons.personOutline,
+                                                              size: 20.sp,
+                                                              color: Colors.white,
+                                                            ),
+                                                          ),
+                                                          Padding(
+                                                            padding: const EdgeInsets.only(left: 5.0),
+                                                            child: Text("${docs2[index]['userName']}",style: TextStyle(color: const Color(0xff324755), fontSize: 15.sp,
+                                                            fontWeight: FontWeight.bold),),
+                                                          ),
+                                                          Expanded(child: SizedBox()),
+                                                          // todo 댓글 삭제 ( 본인 확인 )
+                                                          Container(
+                                                            width: 25,
+                                                            height: 25,
+                                                            decoration: BoxDecoration(
+                                                                color: Color(0xff74BABC),
+                                                              borderRadius: BorderRadius.circular(5)
+                                                            ),
+                                                            child: Transform.translate(
+                                                              offset: Offset( -5.4 , -5.3),
+                                                              child: PopupMenuButton(
+                                                                iconSize: 20.sp,
+                                                                icon: Icon(Icons.more_vert, color: Colors.white,),
+                                                                itemBuilder: (context) {
+                                                                  return [
+                                                                    const PopupMenuItem<int>(
+                                                                      value: 0,
+                                                                      child: Text('댓글 삭제'), // 자신이 쓴 글이 맞은 경우 삭제
+                                                                    ),
+                                                                  ];
+                                                                },
+                                                                onSelected: (value) {
+                                                                  if (value == 0) {
+                                                                    showDialog(
+                                                                        context: context,
+                                                                        barrierDismissible: false,
+                                                                        // 바깥영역 터치시 닫힐지 여부
+                                                                        builder: (BuildContext context) {
+                                                                          return AlertDialog(
+                                                                            title: const Text("팝업 메세지"),
+                                                                            content: const Text('해당 댓글을 삭제 하시겠습니까?'),
+                                                                            actions: [
+                                                                              MaterialButton(
+                                                                                  onPressed: () {
+                                                                                    Navigator.of(context).pop(); // 팝업창 나가기
+                                                                                  },
+                                                                                  child: const Text('Okay')),
+                                                                              MaterialButton(
+                                                                                  onPressed: () {
+                                                                                    Navigator.of(context).pop(); // 팝업창 나가기
+                                                                                  },
+                                                                                  child: const Text('Cancel')),
+                                                                            ],
+                                                                          );
+                                                                        });
+                                                                  }
+                                                                },
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    // todo 댓글 길이 조정 나중에 할 예정 (임시)
+                                                    Padding(
+                                                      padding: const EdgeInsets.symmetric(vertical:5),
+                                                      child: Text(" ${docs2[index]['text']}",
+                                                        style: TextStyle(fontSize: 15.sp, color: Colors.black,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Text(writeTime2,
+                                                      style: TextStyle(color: Color(0xff737373),
+                                                       fontSize: 14.sp),),
                                                   ],
                                                 ),
-                                                Padding(
-                                                  padding: const EdgeInsets.fromLTRB(0, 10, 0, 26),
-                                                  child: Row(
-                                                    children: [
-                                                      Text(writeTime2),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ],
+                                              ),
                                             ),
                                           ),
                                         ),
@@ -409,9 +427,6 @@ class FreeBoardContentState extends State<FreeBoardContent> {
                     WriteComment(widget.boardNum),
                   ],
                 ),
-                SizedBox(
-                  height: ScreenUtil().setHeight(10),
-                )
               ],
             ),
           )),
