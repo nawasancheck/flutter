@@ -27,9 +27,10 @@ class _SignInScreenState extends State<SignInScreen> {
           elevation: 0,
         ),
       ),
-      body: SizedBox(
+      body: Container(
         width: ScreenUtil().screenWidth,
         height: ScreenUtil().screenHeight,
+        color:Colors.white,
         child: Column(
           children: [
 
@@ -40,7 +41,29 @@ class _SignInScreenState extends State<SignInScreen> {
                   onDoubleTap: (){
                     Get.to(()=>const SuperLogIn());
                   },
-                    child: Text("나와산책", style: TextStyle( color: const Color(0xff324755), fontSize: 32.sp, fontWeight: FontWeight.bold))),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("나와산책", style: TextStyle( color: Color(0xff74BABC), fontSize: 40.sp, fontWeight: FontWeight.bold)),
+                        SizedBox(height: 10,),
+                        Text("다양한 매력을 가진 리스너와", style: TextStyle( color: Color(0x99000000), fontSize: 18.sp, fontWeight: FontWeight.bold)),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text("산책", style: TextStyle( color: Color(0xff74BABC), fontSize: 18.sp, fontWeight: FontWeight.bold)),
+                            Text("을 시작해 보세요!", style: TextStyle( color: Color(0x99000000), fontSize: 18.sp, fontWeight: FontWeight.bold)),
+
+                          ],
+                        ),
+                        SizedBox(height: 70,),
+                        Container(
+                          child: Image.asset(
+                            'assets/background.png',
+                            fit: BoxFit.fill,
+                          )
+                        )
+                      ],
+                    )),
               ),
             ),
             const Flexible(
