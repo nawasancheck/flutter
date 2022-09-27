@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/screens/chatting/in_chat_screen_user.dart';
@@ -307,98 +308,115 @@ class _ChatState extends State<ChatList> {
                                             );
                                           }
                                           var docs = snapshot6.data!.data();
-                                          return Row(
-                                            mainAxisAlignment: MainAxisAlignment.start,
-                                            children: [
-                                              // Container(
-                                              //     height: 58.h,
-                                              //     width: 57.w,
-                                              //     decoration: BoxDecoration(
-                                              //         image: DecorationImage(
-                                              //             image: NetworkImage(docs?['profile']['imageUrl']), fit: BoxFit.cover, scale: 57),
-                                              //         shape: BoxShape.circle)),
-                                              Container(
-                                                 //              color: Colors.blue,
-                                                height: ScreenUtil().setHeight(70),
-                                                width: ScreenUtil().setWidth(240),
-                                                child: Column(
-                                                  mainAxisAlignment: MainAxisAlignment.center,
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  children: [
-                                                     Text(docs?['profile']['title'],
-                                                        style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold, color: const Color(0xff324755),)),
-                                                    StreamBuilder(
-                                                      stream: FirebaseFirestore.instance
-                                                          .collection("chat_manager")
-                                                          .doc(_user!.uid)
-                                                          .collection(snapshot5.data?.docs[index]['userUID'])
-                                                          .orderBy('time', descending: true)
-                                                          .snapshots(),
-                                                      builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot7) {
-                                                        if (snapshot7.connectionState == ConnectionState.waiting) {
-                                                          return const Center(
-                                                            child: CircularProgressIndicator(),
-                                                          );
-                                                        }
-                                                        if (snapshot7.data?.docs[0]['fakeText'].length <= 15) {
-                                                          return Text(
-                                                            '${snapshot7.data?.docs[0]['fakeText']}',
-                                                            style: TextStyle(color: const Color(0xffa090c4), fontSize: 14.sp),
-                                                          );
-                                                        }
-                                                        return Text(
-                                                          '${snapshot7.data?.docs[0]['fakeText'].substring(0, 15)}...',
-                                                          style: TextStyle(color: const Color(0xffa090c4), fontSize: 14.sp),
-                                                        );
-                                                      },
-                                                    )
-                                                  ],
-                                                ),
-                                              ),
-                                              Expanded(child: Container()),
-                                              Transform.translate(
-                                                offset: Offset(0,8),
-                                                child: Container(
-                                                      //       color: Colors.yellow,
-                                                  height: ScreenUtil().setHeight(60),
+                                          return Center(
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.start,
+                                              children: [
+                                                Container(                                // 프로필 익명 아이콘
                                                   width: ScreenUtil().setWidth(60),
-                                                  child: StreamBuilder(
-                                                      stream: FirebaseFirestore.instance
-                                                          .collection("chat_manager")
-                                                          .doc(_user!.uid)
-                                                          .collection(snapshot5.data?.docs[index]['userUID'])
-                                                          .orderBy('time', descending: true)
-                                                          .snapshots(),
-                                                      builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot8) {
-                                                        if (snapshot8.connectionState == ConnectionState.waiting) {
-                                                          return const Center(
-                                                            child: CircularProgressIndicator(),
-                                                          );
-                                                        }
-                                                        var time = snapshot8.data?.docs[0]['time'].toDate();
-                                                        var ampm = '';
-
-                                                        if (time.hour <= 12) {
-                                                          ampm = '오전';
-                                                        } else {
-                                                          ampm = '오후';
-                                                        }
-
-                                                        if (time.year == DateTime.now().year &&
-                                                            time.month == DateTime.now().month &&
-                                                            time.day == DateTime.now().day) {
-                                                          return Text('$ampm ${time.hour}:${time.minute}',
-                                                              style: TextStyle(fontSize: 13.sp, color: const Color(0xff7898186)));
-                                                        } else if (DateTime.now().day - time.day == 1) {
-                                                          return Text('어제', style: TextStyle(fontSize: 13.sp, color: const Color(0xff7898186)));
-                                                        } else {
-                                                          return Text('${time.year}-${time.month}-${time.day}',
-                                                              style: TextStyle(fontSize: 13.sp, color: const Color(0xff7898186)));
-                                                        }
-                                                      }),
+                                                  height: ScreenUtil().setHeight(60),
+                                                  decoration: BoxDecoration(
+                                                      shape: BoxShape.circle,
+                                                      color: Colors.white,
+                                                      border: Border.all(width: 5, color: Colors.grey[350]!)
+                                                  ),
+                                                  child: Icon(
+                                                    EvaIcons.personOutline,
+                                                    size: 50.sp,
+                                                    color: const Color(0xff324755),
+                                                  ),
                                                 ),
-                                              )
-                                            ],
+                                                SizedBox(width: 15,),
+                                                Expanded(
+                                                  child: Container(
+                                                     //              color: Colors.blue,
+                                                    height: ScreenUtil().setHeight(70),
+                                                    width: ScreenUtil().setWidth(240),
+                                                    child: Column(
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+                                                         Transform.translate(
+                                                           offset: Offset(0,4),
+                                                           child: Padding(
+                                                             padding: const EdgeInsets.only(bottom: 5.0),
+                                                             child: Text(docs?['profile']['title'],
+                                                                style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold, color: const Color(0xff324755),)),
+                                                           ),
+                                                         ),
+                                                        StreamBuilder(
+                                                          stream: FirebaseFirestore.instance
+                                                              .collection("chat_manager")
+                                                              .doc(_user!.uid)
+                                                              .collection(snapshot5.data?.docs[index]['userUID'])
+                                                              .orderBy('time', descending: true)
+                                                              .snapshots(),
+                                                          builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot7) {
+                                                            if (snapshot7.connectionState == ConnectionState.waiting) {
+                                                              return const Center(
+                                                                child: CircularProgressIndicator(),
+                                                              );
+                                                            }
+                                                            if (snapshot7.data?.docs[0]['fakeText'].length <= 15) {
+                                                              return Text(
+                                                                '${snapshot7.data?.docs[0]['fakeText']}',
+                                                                style: TextStyle(color: const Color(0xff737373), fontSize: 14.sp),
+                                                              );
+                                                            }
+                                                            return Text(
+                                                              '${snapshot7.data?.docs[0]['fakeText'].substring(0, 15)}...',
+                                                              style: TextStyle(color: const Color(0xff737373), fontSize: 14.sp),
+                                                            );
+                                                          },
+                                                        )
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                                Transform.translate(
+                                                  offset: Offset(0,6),
+                                                  child: Container(
+                                                       //        color: Colors.yellow,
+                                                    height: ScreenUtil().setHeight(70),
+                                                    width: ScreenUtil().setWidth(38),
+                                                    child: StreamBuilder(
+                                                        stream: FirebaseFirestore.instance
+                                                            .collection("chat_manager")
+                                                            .doc(_user!.uid)
+                                                            .collection(snapshot5.data?.docs[index]['userUID'])
+                                                            .orderBy('time', descending: true)
+                                                            .snapshots(),
+                                                        builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot8) {
+                                                          if (snapshot8.connectionState == ConnectionState.waiting) {
+                                                            return const Center(
+                                                              child: CircularProgressIndicator(),
+                                                            );
+                                                          }
+                                                          var time = snapshot8.data?.docs[0]['time'].toDate();
+                                                          var ampm = '';
+
+                                                          if (time.hour <= 12) {
+                                                            ampm = '오전';
+                                                          } else {
+                                                            ampm = '오후';
+                                                          }
+
+                                                          if (time.year == DateTime.now().year &&
+                                                              time.month == DateTime.now().month &&
+                                                              time.day == DateTime.now().day) {
+                                                            return Text('$ampm ${time.hour}:${time.minute}',
+                                                                style: TextStyle(fontSize: 13.sp, color: const Color(0xff7898186)));
+                                                          } else if (DateTime.now().day - time.day == 1) {
+                                                            return Text('어제', style: TextStyle(fontSize: 13.sp, color: const Color(0xff7898186)));
+                                                          } else {
+                                                            return Text('${time.year}-${time.month}-${time.day}',
+                                                                style: TextStyle(fontSize: 13.sp, color: const Color(0xff7898186)));
+                                                          }
+                                                        }),
+                                                  ),
+                                                )
+                                              ],
+                                            ),
                                           );
                                         }),
                                   ),
