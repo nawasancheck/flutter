@@ -52,7 +52,6 @@ class _SignInScreenState extends State<SignInScreen> {
                           children: [
                             Text("산책", style: TextStyle( color: Color(0xff74BABC), fontSize: 18.sp, fontWeight: FontWeight.bold)),
                             Text("을 시작해 보세요!", style: TextStyle( color: Color(0x99000000), fontSize: 18.sp, fontWeight: FontWeight.bold)),
-
                           ],
                         ),
                         SizedBox(height: 70,),
