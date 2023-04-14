@@ -338,7 +338,8 @@ class _ReserveScreenState extends State<ReserveScreen> {
                                 Center(
                                   child: MaterialButton(
                                       onPressed: () {
-                                        Get.to(() => HomePage());
+                                        Get.offAll(() => HomePage());
+                                        // ;
                                       },
                                       child: Container(
                                         decoration: BoxDecoration(

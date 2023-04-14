@@ -52,22 +52,13 @@ class ManagerDetailPage extends StatelessWidget {
                         width: ScreenUtil().screenWidth,
                         height: ScreenUtil().setHeight(408.h),
                         decoration: BoxDecoration(border: Border.all(color: Colors.white)),
-                        child: ShaderMask(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image: NetworkImage(docs['profile']['imageUrl']),
-                              ),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              fit: BoxFit.cover,
+                              image: NetworkImage(docs['profile']['imageUrl']),
                             ),
                           ),
-                          shaderCallback: (Rect bounds) {
-                            return const LinearGradient(
-                                colors: [Colors.white, Colors.transparent],
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter,
-                                stops: [0.7, 1]).createShader(bounds);
-                          },
                         )),
                     Padding(
                         padding: const EdgeInsets.only(left: 20),
